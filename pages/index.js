@@ -801,15 +801,10 @@ export async function getServerSideProps(context) {
     const imageData = [{
       statusCode: response.status,
       headers: headers,
-      cookieHeaders: [], // Could be populated if needed
-      data: `IMTBuffer(${buffer.length}, binary, ${buffer.toString('hex').substring(0, 32)}...): ${base64Data.substring(0, 100)}...`, // Truncated for display
+      cookieHeaders: [],
+      data: `IMTBuffer(${buffer.length}, binary, ${buffer.toString('hex').substring(0, 32)}): ${buffer.toString('hex').substring(0, 100)}`,
       fileSize: buffer.length,
-      fileName: `file.${fileExtension}`,
-      // Additional metadata
-      contentType: contentType,
-      url: image,
-      title: title ? decodeURIComponent(title) : "",
-      timestamp: new Date().toISOString()
+      fileName: `file.${fileExtension}`
     }];
 
     // If preview mode, also include base64 data for direct display
