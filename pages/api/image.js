@@ -2,6 +2,17 @@ import { fetchImageWithBuiltins } from "../../lib/fetchUtils";
 
 // API route for pure JSON response
 export default async function handler(req, res) {
+  // Force JSON response and set CORS headers immediately
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept');
+  
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   const { image, title } = req.query;
 
   // Validate image parameter
@@ -71,12 +82,6 @@ export default async function handler(req, res) {
       fileSize: buffer.length,
       fileName: `file.${fileExtension}`
     }];
-
-    // Set proper headers
-    res.setHeader('Content-Type', 'application/json');
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
     return res.status(200).json(responseData);
 
