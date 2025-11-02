@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { fetchImageWithBuiltins } from "../lib/fetchUtils";
 
-export default function Home({ imageData, error, image, title, preview, imageBase64, website }) {
+export default function Home({ imageData, error, image, title, preview, imageBase64, website, showDocs }) {
   // If preview mode is enabled, show the actual image with overlay
   if (preview && imageBase64) {
     return (
@@ -394,7 +394,202 @@ export default function Home({ imageData, error, image, title, preview, imageBas
     );
   }
 
-  // Default UI when no image parameter is provided
+  // Show documentation only if admin parameter is provided
+  if (showDocs) {
+    const containerStyle = {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      minHeight: "100vh",
+      backgroundColor: "#0a0a0a",
+      fontFamily: "'Inter', 'Helvetica Neue', sans-serif",
+      padding: "20px"
+    };
+
+    const apiDocStyle = {
+      maxWidth: "800px",
+      backgroundColor: "#1a1a1a",
+      borderRadius: "20px",
+      padding: "40px",
+      color: "white",
+      border: "2px solid rgba(255, 255, 255, 0.1)"
+    };
+
+    const codeStyle = {
+      backgroundColor: "#2a2a2a",
+      padding: "15px",
+      borderRadius: "8px",
+      fontFamily: "monospace",
+      fontSize: "14px",
+      margin: "10px 0",
+      border: "1px solid #444"
+    };
+
+    return (
+      <>
+        <Head>
+          <title>Image Data API - Technical Documentation</title>
+          <link 
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" 
+            rel="stylesheet" 
+          />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <meta name="description" content="API to fetch image data with headers and binary content" />
+          <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖼️</text></svg>" />
+        </Head>
+
+        <div style={containerStyle} className="banner-container">
+          <div style={apiDocStyle}>
+            <h1 style={{ marginBottom: "20px", color: "#4CAF50" }}>
+              📡 Image Data API - Technical Documentation
+            </h1>
+            
+            <p style={{ lineHeight: "1.6", marginBottom: "30px", opacity: "0.9" }}>
+              This API fetches images and returns detailed metadata including headers, binary data, and file information in JSON format.
+            </p>
+
+            <h3 style={{ color: "#2196F3", marginBottom: "15px" }}>Usage:</h3>
+            <div style={codeStyle}>
+              ?image=IMAGE_URL&title=TITLE_TEXT
+            </div>
+            <div style={codeStyle}>
+              ?image=IMAGE_URL&title=TITLE_TEXT&website=WEBSITE_NAME&preview=true  {/* Preview Mode */}
+            </div>
+
+            <h3 style={{ color: "#2196F3", marginBottom: "15px", marginTop: "25px" }}>Examples:</h3>
+            
+            <h4 style={{ color: "#FF9800", marginBottom: "10px", marginTop: "20px" }}>📊 JSON Data Mode:</h4>
+            <div style={codeStyle}>
+              ?image=https://picsum.photos/800/600&title=Test%20Image
+            </div>
+            <div style={codeStyle}>
+              ?image=https://httpbin.org/image/jpeg&title=Simple%20Test
+            </div>
+            
+            <h4 style={{ color: "#FF9800", marginBottom: "10px", marginTop: "20px" }}>🖼️ Preview Mode:</h4>
+            <div style={codeStyle}>
+              ?image=https://picsum.photos/800/600&title=Test%20Image&website=MyBrand.com&preview=true
+            </div>
+            <div style={codeStyle}>
+              ?image=https://images.unsplash.com/photo-1506905925346-21bda4d32df4&title=Adventure%20Awaits&website=TravelCorp.com&preview=true
+            </div>
+
+            <h4 style={{ color: "#E91E63", marginBottom: "10px", marginTop: "20px" }}>🔗 Direct Image URL (like wsrv.nl):</h4>
+            <div style={codeStyle}>
+              /api/direct-image?image=https://picsum.photos/800/600&title=Breaking%20News&website=YourSite.com
+            </div>
+            <div style={codeStyle}>
+              /api/direct-image?image=https://images.unsplash.com/photo-1506905925346-21bda4d32df4&title=Adventure%20Awaits&website=TravelCorp.com&format=png
+            </div>
+            
+            <h4 style={{ color: "#FF9800", marginBottom: "10px", marginTop: "20px" }}>🎨 Design Variants:</h4>
+            <div style={codeStyle}>
+              /api/direct-image?image=https://picsum.photos/800/600&title=BREAKING%20NEWS&website=CNN.com&design=design1
+            </div>
+            <div style={codeStyle}>
+              /api/direct-image?image=https://picsum.photos/800/600&title=TECH%20UPDATE&website=TechCrunch.com&design=design2
+            </div>
+            <div style={codeStyle}>
+              /api/direct-image?image=https://picsum.photos/800/600&title=VIRAL%20NOW&website=BuzzFeed.com&design=design3
+            </div>
+            <div style={codeStyle}>
+              /api/direct-image?image=https://picsum.photos/800/600&title=HOT%20TOPIC&website=YouTube.com&design=design4
+            </div>
+            <div style={codeStyle}>
+              /api/direct-image?image=https://picsum.photos/800/600&title=OFFICIAL%20STATEMENT&website=Reuters.com&design=design5
+            </div>
+            <div style={codeStyle}>
+              /api/direct-image?image=https://picsum.photos/800/600&title=CYBER%20ALERT&website=Wired.com&design=design6
+            </div>
+            
+            <h4 style={{ color: "#9C27B0", marginBottom: "10px", marginTop: "20px" }}>🆕 New Design Variants (7-12):</h4>
+            <div style={codeStyle}>
+              /api/direct-image?image=https://picsum.photos/800/600&title=FLASH%20UPDATE&website=NewsAlert.com&design=design7
+            </div>
+            <div style={codeStyle}>
+              /api/direct-image?image=https://picsum.photos/800/600&title=FUTURE%20TECH&website=CyberNews.com&design=design8
+            </div>
+            <div style={codeStyle}>
+              /api/direct-image?image=https://picsum.photos/800/600&title=ENERGY%20PULSE&website=PowerNews.com&design=design9
+            </div>
+            <div style={codeStyle}>
+              /api/direct-image?image=https://picsum.photos/800/600&title=AMBER%20WARNING&website=AlertSystem.com&design=design10
+            </div>
+            <div style={codeStyle}>
+              /api/direct-image?image=https://picsum.photos/800/600&title=CORPORATE%20NEWS&website=BusinessDaily.com&design=design11
+            </div>
+            <div style={codeStyle}>
+              /api/direct-image?image=https://picsum.photos/800/600&title=METALLIC%20SIGNAL&website=ModernNews.com&design=design12
+            </div>
+
+            <h3 style={{ color: "#FF5722", marginBottom: "15px", marginTop: "25px" }}>🎨 All Design Variants (1-12):</h3>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "10px", fontSize: "12px", lineHeight: "1.6", opacity: "0.9" }}>
+              <div>
+                <strong>Original Designs (1-6):</strong>
+                <ul style={{ marginTop: "5px", paddingLeft: "15px" }}>
+                  <li><strong>default</strong> - Modern gradient with clean typography</li>
+                  <li><strong>design1</strong> - 🚨 Classic Red Alert (Breaking news with red gradient)</li>
+                  <li><strong>design2</strong> - ⚡ Blue Pulse (Modern tech-news with electric blue)</li>
+                  <li><strong>design3</strong> - 🟡 Yellow Flash (Social-media viral with yellow stripe)</li>
+                  <li><strong>design4</strong> - 🟥 Gradient Burst (Red-orange YouTube-style)</li>
+                  <li><strong>design5</strong> - 📰 White Noise (Professional newsroom look)</li>
+                  <li><strong>design6</strong> - 🧨 Cyber Alert (Futuristic neon & glitch effects)</li>
+                </ul>
+              </div>
+              <div>
+                <strong>New Designs (7-12):</strong>
+                <ul style={{ marginTop: "5px", paddingLeft: "15px" }}>
+                  <li><strong>design7</strong> - 🔥 Red Flash Impact (Urgent viral alert with Impact font)</li>
+                  <li><strong>design8</strong> - ⚡ Electric Cyan Pop (Fresh futuristic tech vibe)</li>
+                  <li><strong>design9</strong> - 🖤 Black + Red Pulse (Energetic attention-grabber)</li>
+                  <li><strong>design10</strong> - 🟠 Amber Alert (Authoritative newsroom alert)</li>
+                  <li><strong>design11</strong> - 🔵 Blue Ribbon News (Reliable corporate news)</li>
+                  <li><strong>design12</strong> - 🔴 Metallic Red Signal (Modern polished update)</li>
+                </ul>
+              </div>
+            </div>
+
+            <h3 style={{ color: "#2196F3", marginBottom: "15px", marginTop: "25px" }}>Parameters:</h3>
+            <ul style={{ lineHeight: "2", opacity: "0.9" }}>
+              <li><code>image</code> - Image URL to fetch (required)</li>
+              <li><code>title</code> - Text overlay for preview mode</li>
+              <li><code>website</code> - Website name for branding (optional)</li>
+              <li><code>preview</code> - Set to 'true' to see image output instead of JSON</li>
+              <li><code>design</code> - Design variant: 'default', 'design1-12' (various styles: red alert, blue pulse, yellow flash, red burst, professional, cyber, red impact, cyan pop, black+red, amber alert, blue ribbon, metallic red)</li>
+              <li><code>format</code> - Output format: 'jpeg' or 'png' (for direct image API)</li>
+              <li><code>w</code> - Width in pixels (for direct image API, default: 1080)</li>
+              <li><code>h</code> - Height in pixels (for direct image API, default: 1350)</li>
+            </ul>
+
+            <h3 style={{ color: "#2196F3", marginBottom: "15px", marginTop: "25px" }}>Response includes:</h3>
+            <ul style={{ lineHeight: "2", opacity: "0.9" }}>
+              <li>✅ HTTP Status Code</li>
+              <li>✅ Response Headers</li>
+              <li>✅ Binary Image Data (Base64)</li>
+              <li>✅ File Size Information</li>
+              <li>✅ Content Type Detection</li>
+              <li>✅ 🖼️ Preview Mode Available</li>
+              <li>✅ 🔗 Direct Image URLs (like wsrv.nl)</li>
+            </ul>
+
+            <div style={{ 
+              marginTop: "30px", 
+              padding: "20px", 
+              backgroundColor: "#2a2a2a", 
+              borderRadius: "10px",
+              border: "1px solid #4CAF50"
+            }}>
+              <p style={{ margin: "0", color: "#4CAF50" }}>
+                💡 <strong>Tip:</strong> Add image and title parameters to get started!
+              </p>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  // Default public homepage
   const containerStyle = {
     display: "flex",
     justifyContent: "center",
@@ -405,181 +600,132 @@ export default function Home({ imageData, error, image, title, preview, imageBas
     padding: "20px"
   };
 
-  const apiDocStyle = {
-    maxWidth: "800px",
-    backgroundColor: "#1a1a1a",
-    borderRadius: "20px",
-    padding: "40px",
-    color: "white",
-    border: "2px solid rgba(255, 255, 255, 0.1)"
-  };
-
-  const codeStyle = {
-    backgroundColor: "#2a2a2a",
-    padding: "15px",
-    borderRadius: "8px",
-    fontFamily: "monospace",
-    fontSize: "14px",
-    margin: "10px 0",
-    border: "1px solid #444"
+  const heroStyle = {
+    maxWidth: "900px",
+    textAlign: "center",
+    color: "white"
   };
 
   return (
     <>
       <Head>
-        <title>Image Data API - Overlay Banner Generator</title>
+        <title>Banner Generator - Create Professional Image Overlays</title>
         <link 
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" 
           rel="stylesheet" 
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="API to fetch image data with headers and binary content" />
+        <meta name="description" content="Professional banner generator service - Add custom text overlays to images instantly" />
         <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖼️</text></svg>" />
       </Head>
 
-      <div style={containerStyle} className="banner-container">
-        <div style={apiDocStyle}>
-          <h1 style={{ marginBottom: "20px", color: "#4CAF50" }}>
-            📡 Image Data API
+      <div style={containerStyle}>
+        <div style={heroStyle}>
+          <h1 style={{
+            fontSize: "clamp(2.5rem, 5vw, 4rem)",
+            fontWeight: "900",
+            marginBottom: "20px",
+            background: "linear-gradient(135deg, #4CAF50, #2196F3, #9C27B0)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text"
+          }}>
+            🖼️ Banner Generator
           </h1>
-          
-          <p style={{ lineHeight: "1.6", marginBottom: "30px", opacity: "0.9" }}>
-            This API fetches images and returns detailed metadata including headers, binary data, and file information in JSON format.
+
+          <p style={{
+            fontSize: "clamp(1.1rem, 2.5vw, 1.4rem)",
+            lineHeight: "1.6",
+            marginBottom: "40px",
+            opacity: "0.9",
+            maxWidth: "600px",
+            margin: "0 auto 40px"
+          }}>
+            Create professional image banners with custom text overlays. 
+            Perfect for social media, news articles, and marketing content.
           </p>
 
-          <h3 style={{ color: "#2196F3", marginBottom: "15px" }}>Usage:</h3>
-          <div style={codeStyle}>
-            ?image=IMAGE_URL&title=TITLE_TEXT
-          </div>
-          <div style={codeStyle}>
-            ?image=IMAGE_URL&title=TITLE_TEXT&website=WEBSITE_NAME&preview=true  {/* Preview Mode */}
-          </div>
-
-          <h3 style={{ color: "#2196F3", marginBottom: "15px", marginTop: "25px" }}>Examples:</h3>
-          
-          <h4 style={{ color: "#FF9800", marginBottom: "10px", marginTop: "20px" }}>📊 JSON Data Mode:</h4>
-          <div style={codeStyle}>
-            ?image=https://picsum.photos/800/600&title=Test%20Image
-          </div>
-          <div style={codeStyle}>
-            ?image=https://httpbin.org/image/jpeg&title=Simple%20Test
-          </div>
-          
-          <h4 style={{ color: "#FF9800", marginBottom: "10px", marginTop: "20px" }}>🖼️ Preview Mode:</h4>
-          <div style={codeStyle}>
-            ?image=https://picsum.photos/800/600&title=Test%20Image&website=MyBrand.com&preview=true
-          </div>
-          <div style={codeStyle}>
-            ?image=https://images.unsplash.com/photo-1506905925346-21bda4d32df4&title=Adventure%20Awaits&website=TravelCorp.com&preview=true
-          </div>
-
-          <h4 style={{ color: "#E91E63", marginBottom: "10px", marginTop: "20px" }}>🔗 Direct Image URL (like wsrv.nl):</h4>
-          <div style={codeStyle}>
-            /api/direct-image?image=https://picsum.photos/800/600&title=Breaking%20News&website=YourSite.com
-          </div>
-          <div style={codeStyle}>
-            /api/direct-image?image=https://images.unsplash.com/photo-1506905925346-21bda4d32df4&title=Adventure%20Awaits&website=TravelCorp.com&format=png
-          </div>
-          
-          <h4 style={{ color: "#FF9800", marginBottom: "10px", marginTop: "20px" }}>🎨 Design Variants:</h4>
-          <div style={codeStyle}>
-            /api/direct-image?image=https://picsum.photos/800/600&title=BREAKING%20NEWS&website=CNN.com&design=design1
-          </div>
-          <div style={codeStyle}>
-            /api/direct-image?image=https://picsum.photos/800/600&title=TECH%20UPDATE&website=TechCrunch.com&design=design2
-          </div>
-          <div style={codeStyle}>
-            /api/direct-image?image=https://picsum.photos/800/600&title=VIRAL%20NOW&website=BuzzFeed.com&design=design3
-          </div>
-          <div style={codeStyle}>
-            /api/direct-image?image=https://picsum.photos/800/600&title=HOT%20TOPIC&website=YouTube.com&design=design4
-          </div>
-          <div style={codeStyle}>
-            /api/direct-image?image=https://picsum.photos/800/600&title=OFFICIAL%20STATEMENT&website=Reuters.com&design=design5
-          </div>
-          <div style={codeStyle}>
-            /api/direct-image?image=https://picsum.photos/800/600&title=CYBER%20ALERT&website=Wired.com&design=design6
-          </div>
-          
-          <h4 style={{ color: "#9C27B0", marginBottom: "10px", marginTop: "20px" }}>🆕 New Design Variants (7-12):</h4>
-          <div style={codeStyle}>
-            /api/direct-image?image=https://picsum.photos/800/600&title=FLASH%20UPDATE&website=NewsAlert.com&design=design7
-          </div>
-          <div style={codeStyle}>
-            /api/direct-image?image=https://picsum.photos/800/600&title=FUTURE%20TECH&website=CyberNews.com&design=design8
-          </div>
-          <div style={codeStyle}>
-            /api/direct-image?image=https://picsum.photos/800/600&title=ENERGY%20PULSE&website=PowerNews.com&design=design9
-          </div>
-          <div style={codeStyle}>
-            /api/direct-image?image=https://picsum.photos/800/600&title=AMBER%20WARNING&website=AlertSystem.com&design=design10
-          </div>
-          <div style={codeStyle}>
-            /api/direct-image?image=https://picsum.photos/800/600&title=CORPORATE%20NEWS&website=BusinessDaily.com&design=design11
-          </div>
-          <div style={codeStyle}>
-            /api/direct-image?image=https://picsum.photos/800/600&title=METALLIC%20SIGNAL&website=ModernNews.com&design=design12
-          </div>
-
-          <h3 style={{ color: "#FF5722", marginBottom: "15px", marginTop: "25px" }}>🎨 All Design Variants (1-12):</h3>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "10px", fontSize: "12px", lineHeight: "1.6", opacity: "0.9" }}>
-            <div>
-              <strong>Original Designs (1-6):</strong>
-              <ul style={{ marginTop: "5px", paddingLeft: "15px" }}>
-                <li><strong>default</strong> - Modern gradient with clean typography</li>
-                <li><strong>design1</strong> - 🚨 Classic Red Alert (Breaking news with red gradient)</li>
-                <li><strong>design2</strong> - ⚡ Blue Pulse (Modern tech-news with electric blue)</li>
-                <li><strong>design3</strong> - 🟡 Yellow Flash (Social-media viral with yellow stripe)</li>
-                <li><strong>design4</strong> - 🟥 Gradient Burst (Red-orange YouTube-style)</li>
-                <li><strong>design5</strong> - 📰 White Noise (Professional newsroom look)</li>
-                <li><strong>design6</strong> - 🧨 Cyber Alert (Futuristic neon & glitch effects)</li>
-              </ul>
-            </div>
-            <div>
-              <strong>New Designs (7-12):</strong>
-              <ul style={{ marginTop: "5px", paddingLeft: "15px" }}>
-                <li><strong>design7</strong> - 🔥 Red Flash Impact (Urgent viral alert with Impact font)</li>
-                <li><strong>design8</strong> - ⚡ Electric Cyan Pop (Fresh futuristic tech vibe)</li>
-                <li><strong>design9</strong> - 🖤 Black + Red Pulse (Energetic attention-grabber)</li>
-                <li><strong>design10</strong> - 🟠 Amber Alert (Authoritative newsroom alert)</li>
-                <li><strong>design11</strong> - 🔵 Blue Ribbon News (Reliable corporate news)</li>
-                <li><strong>design12</strong> - 🔴 Metallic Red Signal (Modern polished update)</li>
-              </ul>
-            </div>
-          </div>
-
-          <h3 style={{ color: "#2196F3", marginBottom: "15px", marginTop: "25px" }}>Parameters:</h3>
-          <ul style={{ lineHeight: "2", opacity: "0.9" }}>
-            <li><code>image</code> - Image URL to fetch (required)</li>
-            <li><code>title</code> - Text overlay for preview mode</li>
-            <li><code>website</code> - Website name for branding (optional)</li>
-            <li><code>preview</code> - Set to 'true' to see image output instead of JSON</li>
-            <li><code>design</code> - Design variant: 'default', 'design1-12' (various styles: red alert, blue pulse, yellow flash, red burst, professional, cyber, red impact, cyan pop, black+red, amber alert, blue ribbon, metallic red)</li>
-            <li><code>format</code> - Output format: 'jpeg' or 'png' (for direct image API)</li>
-            <li><code>w</code> - Width in pixels (for direct image API, default: 1080)</li>
-            <li><code>h</code> - Height in pixels (for direct image API, default: 1350)</li>
-          </ul>
-
-          <h3 style={{ color: "#2196F3", marginBottom: "15px", marginTop: "25px" }}>Response includes:</h3>
-          <ul style={{ lineHeight: "2", opacity: "0.9" }}>
-            <li>✅ HTTP Status Code</li>
-            <li>✅ Response Headers</li>
-            <li>✅ Binary Image Data (Base64)</li>
-            <li>✅ File Size Information</li>
-            <li>✅ Content Type Detection</li>
-            <li>✅ 🖼️ Preview Mode Available</li>
-            <li>✅ 🔗 Direct Image URLs (like wsrv.nl)</li>
-          </ul>
-
-          <div style={{ 
-            marginTop: "30px", 
-            padding: "20px", 
-            backgroundColor: "#2a2a2a", 
-            borderRadius: "10px",
-            border: "1px solid #4CAF50"
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gap: "30px",
+            marginBottom: "50px"
           }}>
-            <p style={{ margin: "0", color: "#4CAF50" }}>
-              💡 <strong>Tip:</strong> Add image and title parameters to get started!
+            <div style={{
+              backgroundColor: "#1a1a1a",
+              padding: "30px",
+              borderRadius: "15px",
+              border: "2px solid rgba(76, 175, 80, 0.3)"
+            }}>
+              <div style={{ fontSize: "2.5rem", marginBottom: "15px" }}>⚡</div>
+              <h3 style={{ color: "#4CAF50", marginBottom: "10px" }}>Fast & Simple</h3>
+              <p style={{ opacity: "0.8", lineHeight: "1.5" }}>
+                Generate professional banners instantly. Just provide an image URL and your text.
+              </p>
+            </div>
+
+            <div style={{
+              backgroundColor: "#1a1a1a",
+              padding: "30px",
+              borderRadius: "15px",
+              border: "2px solid rgba(33, 150, 243, 0.3)"
+            }}>
+              <div style={{ fontSize: "2.5rem", marginBottom: "15px" }}>🎨</div>
+              <h3 style={{ color: "#2196F3", marginBottom: "10px" }}>12 Design Styles</h3>
+              <p style={{ opacity: "0.8", lineHeight: "1.5" }}>
+                Choose from professional designs including news alerts, tech themes, and corporate styles.
+              </p>
+            </div>
+
+            <div style={{
+              backgroundColor: "#1a1a1a",
+              padding: "30px",
+              borderRadius: "15px",
+              border: "2px solid rgba(156, 39, 176, 0.3)"
+            }}>
+              <div style={{ fontSize: "2.5rem", marginBottom: "15px" }}>🔗</div>
+              <h3 style={{ color: "#9C27B0", marginBottom: "10px" }}>Direct URLs</h3>
+              <p style={{ opacity: "0.8", lineHeight: "1.5" }}>
+                Get direct image URLs that work anywhere - perfect for embedding and sharing.
+              </p>
+            </div>
+          </div>
+
+          <div style={{
+            display: "flex",
+            gap: "20px",
+            justifyContent: "center",
+            flexWrap: "wrap"
+          }}>
+            <a
+              href="mailto:contact@yourdomain.com"
+              style={{
+                backgroundColor: "#4CAF50",
+                color: "white",
+                padding: "15px 30px",
+                borderRadius: "10px",
+                textDecoration: "none",
+                fontWeight: "600",
+                display: "flex",
+                alignItems: "center",
+                gap: "10px"
+              }}
+            >
+              📧 Contact Us
+            </a>
+          </div>
+
+          <div style={{
+            marginTop: "50px",
+            padding: "20px",
+            backgroundColor: "rgba(76, 175, 80, 0.1)",
+            borderRadius: "10px",
+            border: "1px solid rgba(76, 175, 80, 0.3)"
+          }}>
+            <p style={{ margin: "0", fontSize: "14px", opacity: "0.8" }}>
+              Professional image processing service for businesses and developers.
+              <br />
+              High-quality outputs with customizable designs and branding options.
             </p>
           </div>
         </div>
@@ -590,11 +736,19 @@ export default function Home({ imageData, error, image, title, preview, imageBas
 
 // Server-side rendering to fetch image data
 export async function getServerSideProps(context) {
-  const { image = "", title = "", preview = "", website = "" } = context.query;
+  const { image = "", title = "", preview = "", website = "", admin = "" } = context.query;
   
-  // If no image parameter, show the API documentation
+  // If no image parameter, show the appropriate homepage
   if (!image) {
-    return { props: { image: "", title: "", preview: "", website: "" } };
+    return { 
+      props: { 
+        image: "", 
+        title: "", 
+        preview: "", 
+        website: "",
+        showDocs: admin === "true" || admin === "docs" || admin === "1"
+      } 
+    };
   }
 
   try {
@@ -673,7 +827,8 @@ export async function getServerSideProps(context) {
         title,
         preview: shouldPreview,
         imageBase64,
-        website
+        website,
+        showDocs: false
       }
     };
 
@@ -708,7 +863,8 @@ export async function getServerSideProps(context) {
         image,
         title,
         preview: preview === 'true' || preview === '1',
-        website
+        website,
+        showDocs: false
       }
     };
   }
