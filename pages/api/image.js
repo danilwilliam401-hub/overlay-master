@@ -20,7 +20,9 @@ export default async function handler(req, res) {
     return res.status(400).json({
       error: "Missing 'image' parameter",
       usage: "?image=IMAGE_URL&title=TITLE_TEXT",
-      example: "?image=https://images.unsplash.com/photo-1506905925346-21bda4d32df4&title=Adventure%20Awaits"
+      example: "?image=https://images.unsplash.com/photo-1506905925346-21bda4d32df4&title=Adventure%20Awaits",
+      apiEndpoint: "/api/image",
+      timestamp: new Date().toISOString()
     });
   }
 
@@ -82,6 +84,10 @@ export default async function handler(req, res) {
       fileSize: buffer.length,
       fileName: `file.${fileExtension}`
     }];
+
+    // Add a marker to confirm this is the API endpoint
+    responseData[0].apiEndpoint = "/api/image";
+    responseData[0].timestamp = new Date().toISOString();
 
     return res.status(200).json(responseData);
 
