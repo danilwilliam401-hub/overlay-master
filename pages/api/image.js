@@ -66,18 +66,10 @@ export default async function handler(req, res) {
     const responseData = [{
       statusCode: response.status,
       headers: headers,
-      cookieHeaders: [], // Empty array as in your example
+      cookieHeaders: [],
       data: `IMTBuffer(${buffer.length}, binary, ${hexPreview.substring(0, 32)}): ${hexPreview}`,
       fileSize: buffer.length,
-      fileName: `file.${fileExtension}`,
-      // Additional metadata (optional)
-      metadata: {
-        contentType: contentType,
-        originalUrl: image,
-        title: title ? decodeURIComponent(title) : "",
-        timestamp: new Date().toISOString(),
-        base64Data: base64Data // Full base64 data for actual use
-      }
+      fileName: `file.${fileExtension}`
     }];
 
     // Set proper headers

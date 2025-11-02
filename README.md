@@ -35,9 +35,9 @@ https://your-domain.com/api/direct-image?image=IMAGE_URL&title=TITLE&design=DESI
 https://your-domain.com/?image=IMAGE_URL&title=TITLE&preview=true
 ```
 
-### 3. JSON Metadata
+### 3. JSON Metadata (API Endpoint)
 ```
-https://your-domain.com/?image=IMAGE_URL&title=TITLE
+https://your-domain.com/api/image?image=IMAGE_URL&title=TITLE
 ```
 
 ## 📝 Complete Fetch Examples
@@ -129,8 +129,8 @@ window.open('https://your-domain.com/?image=https://picsum.photos/800/600&title=
 
 ### 📊 JSON Metadata Response
 ```javascript
-// Get image metadata without rendering
-fetch('https://your-domain.com/?image=https://picsum.photos/800/600&title=Metadata%20Only')
+// Get pure JSON metadata (no HTML wrapper)
+fetch('https://your-domain.com/api/image?image=https://picsum.photos/800/600&title=Metadata%20Only')
   .then(response => response.json())
   .then(data => console.log(data));
 ```
@@ -240,8 +240,8 @@ npm run dev
 # Test direct image generation
 curl "http://localhost:3001/api/direct-image?image=https://picsum.photos/800/600&title=Test%20Banner&design=design1" --output test-banner.jpg
 
-# Test JSON metadata
-curl "http://localhost:3001/?image=https://picsum.photos/800/600&title=Test%20Metadata"
+# Test JSON metadata (pure JSON API)
+curl "http://localhost:3001/api/image?image=https://picsum.photos/800/600&title=Test%20Metadata"
 
 # Test preview mode
 open "http://localhost:3001/?image=https://picsum.photos/800/600&title=Test%20Preview&preview=true&design=design2"
