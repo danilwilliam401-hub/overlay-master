@@ -1,5 +1,12 @@
 import sharp from 'sharp';
 
+// Configure Sharp for serverless environments to minimize fontconfig warnings
+if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+  // Suppress verbose logging in serverless
+  sharp.cache(false);
+  sharp.simd(false);
+}
+
 // Function to detect and fix encoding issues that cause square characters
 function detectAndFixEncoding(text) {
   if (!text) return text;
@@ -719,6 +726,12 @@ function generateDesignVariant(design, params) {
 }
 
 export default async function handler(req, res) {
+  // Suppress fontconfig warnings in serverless environments
+  if (!process.env.FONTCONFIG_PATH && process.env.VERCEL) {
+    process.env.FONTCONFIG_PATH = '/dev/null';
+    process.env.FC_DEBUG = '0';
+  }
+  
   console.log('=== VERCEL REQUEST DEBUG ===');
   console.log('Method:', req.method);
   console.log('URL:', req.url);
