@@ -2,6 +2,9 @@
   "functions": {
     "pages/api/direct-image.js": {
       "maxDuration": 30
+    },
+    "pages/api/bundled-font-overlay.js": {
+      "maxDuration": 30
     }
   }
 }
