@@ -1526,32 +1526,91 @@ export default async function handler(req, res) {
         const isVercel = process.env.VERCEL === '1' || process.env.VERCEL_ENV;
         
         if (isVercel) {
-          console.log('🎯 VERCEL DETECTED: Using ultra-simple watermark text rendering');
+          console.log('🎯 VERCEL DETECTED: Using Sharp built-in watermark (no SVG)');
           
-          // ULTRA-SIMPLE watermark approach - just basic text that should work anywhere
-          const simpleWatermarkSvg = `
-            <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
-              <!-- Basic dark overlay for text readability -->
-              <rect x="0" y="${height - 120}" width="${width}" height="120" fill="black" opacity="0.7"/>
+          try {
+            // Method 1: Create simple colored rectangles as watermark blocks
+            const titleText = decodedTitle ? decodedTitle.toUpperCase() : 'NO TITLE';
+            const websiteText = decodedWebsite ? decodedWebsite.toUpperCase() : '';
+            
+            // Create a simple dark overlay first
+            const darkOverlay = await sharp({
+              create: {
+                width: width,
+                height: 120,
+                channels: 4,
+                background: { r: 0, g: 0, b: 0, alpha: 0.8 }
+              }
+            }).png().toBuffer();
+            
+            processedImage = processedImage.composite([{
+              input: darkOverlay,
+              left: 0,
+              top: height - 120,
+              blend: 'over'
+            }]);
+            
+            // Add simple white rectangle as title indicator
+            const titleBar = await sharp({
+              create: {
+                width: Math.min(titleText.length * 20, width - 40),
+                height: 8,
+                channels: 3,
+                background: { r: 255, g: 255, b: 255 }
+              }
+            }).png().toBuffer();
+            
+            processedImage = processedImage.composite([{
+              input: titleBar,
+              left: 20,
+              top: height - 100,
+              blend: 'over'
+            }]);
+            
+            // Add yellow rectangle as website indicator
+            if (websiteText) {
+              const websiteBar = await sharp({
+                create: {
+                  width: Math.min(websiteText.length * 15, width - 40),
+                  height: 6,
+                  channels: 3,
+                  background: { r: 255, g: 215, b: 0 }
+                }
+              }).png().toBuffer();
               
-              <!-- Ultra-simple title text - no styling, just basic white text -->
-              <text x="20" y="${height - 80}" 
-                    font-size="36" 
-                    fill="white">${decodedTitle ? decodedTitle.toUpperCase() : 'NO TITLE'}</text>
-              
-              <!-- Ultra-simple website text -->
-              ${decodedWebsite ? `<text x="20" y="${height - 30}" 
-                    font-size="18" 
-                    fill="yellow">${decodedWebsite.toUpperCase()}</text>` : ''}
-            </svg>
-          `;
-          
-          processedImage = processedImage.composite([{
-            input: Buffer.from(simpleWatermarkSvg, 'utf8'),
-            blend: 'over'
-          }]);
-          
-          console.log('✅ Ultra-simple watermark overlay applied successfully');
+              processedImage = processedImage.composite([{
+                input: websiteBar,
+                left: 20,
+                top: height - 40,
+                blend: 'over'
+              }]);
+            }
+            
+            console.log('✅ Sharp built-in watermark applied successfully');
+            
+          } catch (sharpError) {
+            console.error('Sharp watermark failed:', sharpError.message);
+            console.log('🔄 Fallback: Just black overlay without text');
+            
+            // Ultimate fallback - just a black rectangle
+            const fallbackOverlay = await sharp({
+              create: {
+                width: width,
+                height: 60,
+                channels: 4,
+                background: { r: 0, g: 0, b: 0, alpha: 0.9 }
+              }
+            }).png().toBuffer();
+            
+            processedImage = processedImage.composite([{
+              input: fallbackOverlay,
+              left: 0,
+              top: height - 60,
+              blend: 'over'
+            }]);
+            
+            console.log('✅ Fallback overlay applied');
+          }
           
         } else {
           console.log('🖥️ LOCAL DEVELOPMENT: Using full SVG with fonts');
