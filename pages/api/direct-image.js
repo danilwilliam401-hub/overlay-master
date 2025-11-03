@@ -719,6 +719,15 @@ function generateDesignVariant(design, params) {
 }
 
 export default async function handler(req, res) {
+  console.log('=== VERCEL REQUEST DEBUG ===');
+  console.log('Method:', req.method);
+  console.log('URL:', req.url);
+  console.log('Query Object:', req.query);
+  console.log('Raw Query Keys:', Object.keys(req.query));
+  console.log('Raw Query Values:', Object.values(req.query));
+  console.log('Headers Host:', req.headers.host);
+  console.log('============================');
+  
   // Enhanced parameter extraction with multiple parsing methods
   let { image, title = "", website = "", format = "jpeg", w = "1080", h = "1350", design = "default", textCase = "upper" } = req.query;
   
@@ -1436,7 +1445,17 @@ export default async function handler(req, res) {
     // Set appropriate headers
     res.setHeader('Content-Type', `image/${outputFormat}`);
     res.setHeader('Content-Length', outputBuffer.length);
-    res.setHeader('Cache-Control', 'public, max-age=3600'); // Cache for 1 hour
+    
+    // Create ETag based on actual text content to ensure proper cache invalidation
+    const contentHash = require('crypto').createHash('md5')
+      .update(`${decodedTitle}-${decodedWebsite}-${imageUrl}-${design}`)
+      .digest('hex').substring(0, 8);
+    res.setHeader('ETag', `"${contentHash}"`);
+    
+    // Disable caching temporarily for debugging encoding issues
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
     res.setHeader('Access-Control-Allow-Origin', '*'); // Allow cross-origin requests
     
     // Send the image directly
