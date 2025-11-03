@@ -1528,34 +1528,43 @@ export default async function handler(req, res) {
         if (isVercel) {
           console.log('🎯 VERCEL DETECTED: Using fontconfig-free SVG rendering directly');
           
-          // Use simplified SVG without font dependencies for Vercel
+          // Use simplified SVG without font dependencies for Vercel - match original layout
+          const gradientHeight = height * 0.5; // Same as original
+          const startY = height - gradientHeight + (gradientHeight * 0.1); // Position text properly
+          const titleSize = Math.min(width * 0.04, 44); // Match original sizing
+          const websiteSize = Math.min(width * 0.02, 22); // Match original sizing
+          
           const vercelSafeSvg = `
             <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
-              <!-- Background gradient -->
+              <!-- Background gradient matching original -->
               <defs>
-                <linearGradient id="vercelGrad" x1="0%" y1="70%" x2="0%" y2="100%">
-                  <stop offset="0%" style="stop-color:#000000;stop-opacity:0"/>
-                  <stop offset="40%" style="stop-color:#000000;stop-opacity:0.6"/>
-                  <stop offset="100%" style="stop-color:#000000;stop-opacity:0.9"/>
+                <linearGradient id="vercelGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" style="stop-color:rgb(0,0,0);stop-opacity:0"/>
+                  <stop offset="15%" style="stop-color:rgb(0,0,0);stop-opacity:0.1"/>
+                  <stop offset="40%" style="stop-color:rgb(0,0,0);stop-opacity:0.4"/>
+                  <stop offset="70%" style="stop-color:rgb(0,0,0);stop-opacity:0.7"/>
+                  <stop offset="100%" style="stop-color:rgb(0,0,0);stop-opacity:0.95"/>
                 </linearGradient>
               </defs>
-              <rect x="0" y="${height * 0.7}" width="${width}" height="${height * 0.3}" fill="url(#vercelGrad)"/>
+              <rect x="0" y="${height - gradientHeight}" width="${width}" height="${gradientHeight}" fill="url(#vercelGradient)"/>
               
-              <!-- Title text without font-family to avoid fontconfig issues -->
-              <text x="${width/2}" y="${height - 80}" 
+              <!-- Title text without font-family to avoid fontconfig -->
+              <text x="${width/2}" y="${startY + titleSize}" 
                     text-anchor="middle" 
-                    font-size="${Math.min(width * 0.05, 48)}" 
+                    dominant-baseline="middle"
+                    font-size="${titleSize}" 
                     fill="white" 
-                    stroke="#000000" 
-                    stroke-width="2">${processedTitle}</text>
+                    stroke="rgba(0,0,0,0.9)" 
+                    stroke-width="1.5">${decodedTitle ? decodedTitle.toUpperCase() : 'NO TITLE'}</text>
               
               <!-- Website text without font-family -->
-              <text x="${width/2}" y="${height - 30}" 
+              ${decodedWebsite ? `<text x="${width/2}" y="${startY + titleSize + 60}" 
                     text-anchor="middle" 
-                    font-size="${Math.min(width * 0.025, 24)}" 
+                    dominant-baseline="middle"
+                    font-size="${websiteSize}" 
                     fill="#FFD700" 
-                    stroke="#000000" 
-                    stroke-width="1">${processedWebsite}</text>
+                    stroke="rgba(0,0,0,0.7)" 
+                    stroke-width="0.8">${decodedWebsite.toUpperCase()}</text>` : ''}
             </svg>
           `;
           
