@@ -262,8 +262,10 @@ export default async function handler(req, res) {
       
     console.log('✅ Final image generated:', finalImage.length, 'bytes');
     
-    // Set response headers
+    // Set response headers with proper filename and content length
     res.setHeader('Content-Type', 'image/jpeg');
+    res.setHeader('Content-Disposition', 'inline; filename="overlay.jpg"');
+    res.setHeader('Content-Length', String(finalImage.length));
     res.setHeader('Cache-Control', 'public, max-age=300');
     res.setHeader('X-Font-System', 'bundled-inter');
     

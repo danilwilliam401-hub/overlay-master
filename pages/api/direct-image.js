@@ -1772,8 +1772,9 @@ export default async function handler(req, res) {
 
     console.log('Output buffer size:', outputBuffer.length, 'bytes');
 
-    // Set appropriate headers
+    // Set appropriate headers with proper filename
     res.setHeader('Content-Type', `image/${outputFormat}`);
+    res.setHeader('Content-Disposition', `inline; filename="banner.${outputFormat}"`);
     res.setHeader('Content-Length', outputBuffer.length);
     
     // Create ETag based on actual text content to ensure proper cache invalidation
