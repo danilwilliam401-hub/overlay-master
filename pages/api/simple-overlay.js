@@ -2,7 +2,7 @@ import sharp from 'sharp';
 
 export default async function handler(req, res) {
   try {
-    console.log('🚀 SIMPLE OVERLAY API - No text rendering issues');
+    console.log('🚀 SIMPLE OVERLAY API - Testing Sharp text rendering with fallback');
     
     const { image, title, website } = req.query;
     
@@ -42,7 +42,7 @@ export default async function handler(req, res) {
         position: 'center' 
       });
     
-    // 🔥 VERCEL-SAFE APPROACH: Use only colored rectangles (no text at all)
+    // 🎯 SHARP TEXT RENDERING: Try built-in text capabilities
     const overlayElements = [];
     
     // Dark background overlay
@@ -62,44 +62,113 @@ export default async function handler(req, res) {
       blend: 'over'
     });
     
-    // Title indicator - white rectangle
+    // 🎯 ENHANCED: Create SVG text that Sharp can render
     if (title) {
-      const titleLength = title.length;
-      const titleBar = await sharp({
-        create: {
-          width: Math.min(titleLength * 25, targetWidth - 60),
-          height: 12,
-          channels: 3,
-          background: { r: 255, g: 255, b: 255 }
-        }
-      }).png().toBuffer();
-      
-      overlayElements.push({
-        input: titleBar,
-        left: 30,
-        top: targetHeight - 120,
-        blend: 'over'
-      });
+      try {
+        console.log('🔤 Creating SVG text for title...');
+        
+        // Create simple SVG with text
+        const titleSvg = `
+          <svg width="800" height="60" xmlns="http://www.w3.org/2000/svg">
+            <text x="10" y="40" 
+                  font-family="Arial, sans-serif" 
+                  font-size="48" 
+                  font-weight="bold"
+                  fill="white" 
+                  stroke="black" 
+                  stroke-width="2">
+              ${title.toUpperCase()}
+            </text>
+          </svg>
+        `;
+        
+        const titleBuffer = await sharp(Buffer.from(titleSvg))
+          .png()
+          .toBuffer();
+        
+        overlayElements.push({
+          input: titleBuffer,
+          left: 30,
+          top: targetHeight - 130,
+          blend: 'over'
+        });
+        
+        console.log('✅ SVG text rendering successful for title');
+        
+      } catch (textError) {
+        console.log('❌ SVG text failed, using rectangle:', textError.message);
+        
+        // Fallback to rectangle
+        const titleBar = await sharp({
+          create: {
+            width: Math.min(title.length * 25, targetWidth - 60),
+            height: 12,
+            channels: 3,
+            background: { r: 255, g: 255, b: 255 }
+          }
+        }).png().toBuffer();
+        
+        overlayElements.push({
+          input: titleBar,
+          left: 30,
+          top: targetHeight - 120,
+          blend: 'over'
+        });
+      }
     }
     
-    // Website indicator - yellow rectangle  
+    // 🎯 ENHANCED: Create SVG text for website
     if (website) {
-      const websiteLength = website.length;
-      const websiteBar = await sharp({
-        create: {
-          width: Math.min(websiteLength * 20, targetWidth - 60),
-          height: 8,
-          channels: 3,
-          background: { r: 255, g: 215, b: 0 }
-        }
-      }).png().toBuffer();
-      
-      overlayElements.push({
-        input: websiteBar,
-        left: 30,
-        top: targetHeight - 50,
-        blend: 'over'
-      });
+      try {
+        console.log('🔤 Creating SVG text for website...');
+        
+        const websiteSvg = `
+          <svg width="600" height="40" xmlns="http://www.w3.org/2000/svg">
+            <text x="10" y="28" 
+                  font-family="Arial, sans-serif" 
+                  font-size="24" 
+                  font-weight="normal"
+                  fill="#FFD700" 
+                  stroke="black" 
+                  stroke-width="1">
+              ${website.toUpperCase()}
+            </text>
+          </svg>
+        `;
+        
+        const websiteBuffer = await sharp(Buffer.from(websiteSvg))
+          .png()
+          .toBuffer();
+        
+        overlayElements.push({
+          input: websiteBuffer,
+          left: 30,
+          top: targetHeight - 70,
+          blend: 'over'
+        });
+        
+        console.log('✅ SVG text rendering successful for website');
+        
+      } catch (textError) {
+        console.log('❌ SVG text failed, using rectangle:', textError.message);
+        
+        // Fallback to rectangle
+        const websiteBar = await sharp({
+          create: {
+            width: Math.min(website.length * 20, targetWidth - 60),
+            height: 8,
+            channels: 3,
+            background: { r: 255, g: 215, b: 0 }
+          }
+        }).png().toBuffer();
+        
+        overlayElements.push({
+          input: websiteBar,
+          left: 30,
+          top: targetHeight - 50,
+          blend: 'over'
+        });
+      }
     }
     
     // Apply all overlays
