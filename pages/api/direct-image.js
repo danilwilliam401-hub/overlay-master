@@ -1,5 +1,8 @@
 import sharp from 'sharp';
 
+// 🚀 FORCE NODE.JS RUNTIME (Sharp not supported on Edge)
+export const runtime = 'nodejs';
+
 // Function to detect and fix encoding issues that cause square characters
 function detectAndFixEncoding(text) {
   if (!text) return text;

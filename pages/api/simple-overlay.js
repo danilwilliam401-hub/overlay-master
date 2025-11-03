@@ -1,8 +1,11 @@
 import sharp from 'sharp';
 
+// 🚀 FORCE NODE.JS RUNTIME (Sharp not supported on Edge)
+export const runtime = 'nodejs';
+
 export default async function handler(req, res) {
   try {
-    console.log('🚀 SIMPLE OVERLAY API - Testing Sharp text rendering with fallback');
+    console.log('🚀 SIMPLE OVERLAY API - Bitmap text rendering (no font dependencies)');
     
     const { image, title, website } = req.query;
     
@@ -62,27 +65,55 @@ export default async function handler(req, res) {
       blend: 'over'
     });
     
-    // 🎯 ENHANCED: Create SVG text that Sharp can render
+    // 🎯 BITMAP TEXT: Create text using pattern-based approach
     if (title) {
       try {
-        console.log('🔤 Creating SVG text for title...');
+        console.log('🔤 Creating bitmap-style text for title...');
         
-        // Create simple SVG with text
-        const titleSvg = `
-          <svg width="800" height="60" xmlns="http://www.w3.org/2000/svg">
-            <text x="10" y="40" 
-                  font-family="Arial, sans-serif" 
-                  font-size="48" 
-                  font-weight="bold"
-                  fill="white" 
-                  stroke="black" 
-                  stroke-width="2">
-              ${title.toUpperCase()}
-            </text>
-          </svg>
-        `;
+        // Create text using a simple pattern approach
+        const chars = title.toUpperCase().split('');
+        const charWidth = 24;
+        const charHeight = 40;
+        const textWidth = chars.length * charWidth;
         
-        const titleBuffer = await sharp(Buffer.from(titleSvg))
+        // Create base canvas for text
+        const textCanvas = await sharp({
+          create: {
+            width: textWidth + 20,
+            height: charHeight + 10,
+            channels: 4,
+            background: { r: 0, g: 0, b: 0, alpha: 0 }
+          }
+        });
+        
+        // Create simple character blocks
+        const charElements = [];
+        
+        for (let i = 0; i < chars.length; i++) {
+          const char = chars[i];
+          
+          // Create a simple block pattern for each character
+          const charBlock = await sharp({
+            create: {
+              width: charWidth - 2,
+              height: charHeight - 2,
+              channels: 4,
+              background: char === ' ' ? 
+                { r: 0, g: 0, b: 0, alpha: 0 } : 
+                { r: 255, g: 255, b: 255, alpha: 0.9 }
+            }
+          }).png().toBuffer();
+          
+          charElements.push({
+            input: charBlock,
+            left: i * charWidth + 10,
+            top: 5,
+            blend: 'over'
+          });
+        }
+        
+        const titleBuffer = await textCanvas
+          .composite(charElements)
           .png()
           .toBuffer();
         
@@ -93,10 +124,10 @@ export default async function handler(req, res) {
           blend: 'over'
         });
         
-        console.log('✅ SVG text rendering successful for title');
+        console.log('✅ Bitmap text rendering successful for title');
         
       } catch (textError) {
-        console.log('❌ SVG text failed, using rectangle:', textError.message);
+        console.log('❌ Bitmap text failed, using rectangle:', textError.message);
         
         // Fallback to rectangle
         const titleBar = await sharp({
@@ -117,26 +148,54 @@ export default async function handler(req, res) {
       }
     }
     
-    // 🎯 ENHANCED: Create SVG text for website
+    // 🎯 BITMAP TEXT: Create website text using patterns
     if (website) {
       try {
-        console.log('🔤 Creating SVG text for website...');
+        console.log('🔤 Creating bitmap-style text for website...');
         
-        const websiteSvg = `
-          <svg width="600" height="40" xmlns="http://www.w3.org/2000/svg">
-            <text x="10" y="28" 
-                  font-family="Arial, sans-serif" 
-                  font-size="24" 
-                  font-weight="normal"
-                  fill="#FFD700" 
-                  stroke="black" 
-                  stroke-width="1">
-              ${website.toUpperCase()}
-            </text>
-          </svg>
-        `;
+        const chars = website.toUpperCase().split('');
+        const charWidth = 16;
+        const charHeight = 24;
+        const textWidth = chars.length * charWidth;
         
-        const websiteBuffer = await sharp(Buffer.from(websiteSvg))
+        // Create base canvas for website text
+        const textCanvas = await sharp({
+          create: {
+            width: textWidth + 20,
+            height: charHeight + 10,
+            channels: 4,
+            background: { r: 0, g: 0, b: 0, alpha: 0 }
+          }
+        });
+        
+        // Create character blocks for website
+        const charElements = [];
+        
+        for (let i = 0; i < chars.length; i++) {
+          const char = chars[i];
+          
+          // Create colored block for each character
+          const charBlock = await sharp({
+            create: {
+              width: charWidth - 2,
+              height: charHeight - 2,
+              channels: 4,
+              background: char === ' ' ? 
+                { r: 0, g: 0, b: 0, alpha: 0 } : 
+                { r: 255, g: 215, b: 0, alpha: 0.9 } // Gold color
+            }
+          }).png().toBuffer();
+          
+          charElements.push({
+            input: charBlock,
+            left: i * charWidth + 10,
+            top: 5,
+            blend: 'over'
+          });
+        }
+        
+        const websiteBuffer = await textCanvas
+          .composite(charElements)
           .png()
           .toBuffer();
         
@@ -147,10 +206,10 @@ export default async function handler(req, res) {
           blend: 'over'
         });
         
-        console.log('✅ SVG text rendering successful for website');
+        console.log('✅ Bitmap text rendering successful for website');
         
       } catch (textError) {
-        console.log('❌ SVG text failed, using rectangle:', textError.message);
+        console.log('❌ Bitmap text failed, using rectangle:', textError.message);
         
         // Fallback to rectangle
         const websiteBar = await sharp({
