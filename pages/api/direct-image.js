@@ -1,7 +1,26 @@
 import sharp from 'sharp';
+import path from 'path';
+import fs from 'fs';
 
 // 🚀 FORCE NODE.JS RUNTIME (Sharp not supported on Edge)
 export const runtime = 'nodejs';
+
+// 🔤 CONFIGURE FONTCONFIG FOR PROPER TEXT RENDERING
+const fontConfigPath = path.join(process.cwd(), 'fontconfig');
+const fontConfigFile = path.join(fontConfigPath, 'fonts.conf');
+const fontsDir = path.join(process.cwd(), 'fonts');
+
+// Set up fontconfig environment (CRITICAL for text rendering)
+process.env.FONTCONFIG_PATH = fontConfigPath;
+process.env.FONTCONFIG_FILE = fontConfigFile;
+process.env.FONTCONFIG_CACHE = '/tmp/fontconfig-cache';
+
+console.log('🔤 Fontconfig initialized for direct-image:', {
+  FONTCONFIG_PATH: process.env.FONTCONFIG_PATH,
+  FONTCONFIG_FILE: process.env.FONTCONFIG_FILE,
+  fontConfigExists: fs.existsSync(fontConfigFile),
+  fontsExist: fs.existsSync(fontsDir)
+});
 
 // Function to detect and fix encoding issues that cause square characters
 function detectAndFixEncoding(text) {
@@ -121,8 +140,8 @@ function generateDesignVariant(design, params) {
           <rect x="0" y="${height - gradientHeight}" width="${width}" height="${gradientHeight}" fill="url(#redGradient)"/>
           <!-- White motion stripe -->
           <rect x="0" y="${startY - 20}" width="${width}" height="4" fill="white" opacity="0.9"/>
-          ${titleLines.map((line, index) => `<text x="${width/2}" y="${startY + (index * lineHeight) + fontSize}" text-anchor="middle" dominant-baseline="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="${fontSize}" fill="white" stroke="rgba(0,0,0,0.8)" stroke-width="2" paint-order="stroke fill" style="letter-spacing: -1px; text-transform: uppercase;">${line}</text>`).join('')}
-          ${decodedWebsite ? `<rect x="0" y="${startY + totalTextHeight + titleWebsiteGap}" width="${width}" height="30" fill="#FFD700" opacity="0.9"/><text x="${width/2}" y="${startY + totalTextHeight + titleWebsiteGap + 20}" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-weight="700" font-size="${Math.min(width * 0.018, 20)}" fill="#B00000" style="letter-spacing: 2px;">${decodedWebsite.toUpperCase()}</text>` : ''}
+          ${titleLines.map((line, index) => `<text x="${width/2}" y="${startY + (index * lineHeight) + fontSize}" text-anchor="middle" dominant-baseline="middle" font-family="Noto Sans, Inter, sans-serif" font-weight="700" font-size="${fontSize}" fill="white" stroke="rgba(0,0,0,0.8)" stroke-width="2" paint-order="stroke fill" style="letter-spacing: -1px; text-transform: uppercase;">${line}</text>`).join('')}
+          ${decodedWebsite ? `<rect x="0" y="${startY + totalTextHeight + titleWebsiteGap}" width="${width}" height="30" fill="#FFD700" opacity="0.9"/><text x="${width/2}" y="${startY + totalTextHeight + titleWebsiteGap + 20}" text-anchor="middle" dominant-baseline="middle" font-family="Noto Sans, Inter, sans-serif" font-weight="400" font-size="${Math.min(width * 0.018, 20)}" fill="#B00000" style="letter-spacing: 2px;">${decodedWebsite.toUpperCase()}</text>` : ''}
         </svg>
       `;
 
@@ -142,8 +161,8 @@ function generateDesignVariant(design, params) {
             <text x="${width/2}" y="${startY + (index * lineHeight) + fontSize}" 
                   text-anchor="middle" 
                   dominant-baseline="middle"
-                  font-family="Arial, sans-serif" 
-                  font-weight="800" 
+                  font-family="Noto Sans, Inter, sans-serif" 
+                  font-weight="700" 
                   font-size="${fontSize}" 
                   fill="white" 
                   stroke="rgba(0,123,255,0.7)" 
@@ -157,8 +176,8 @@ function generateDesignVariant(design, params) {
             <text x="${width/2}" y="${startY + totalTextHeight + titleWebsiteGap + 20}" 
                   text-anchor="middle" 
                   dominant-baseline="middle"
-                  font-family="Arial, sans-serif" 
-                  font-weight="500" 
+                  font-family="Noto Sans, Inter, sans-serif" 
+                  font-weight="400" 
                   font-size="${Math.min(width * 0.02, 22)}" 
                   fill="#FFE347" 
                   stroke="rgba(0,0,0,0.8)" 
@@ -188,8 +207,8 @@ function generateDesignVariant(design, params) {
             <text x="${width/2}" y="${startY + (index * lineHeight) + fontSize}" 
                   text-anchor="middle" 
                   dominant-baseline="middle"
-                  font-family="Arial Black, Arial, sans-serif" 
-                  font-weight="900" 
+                  font-family="Noto Sans, Inter, sans-serif" 
+                  font-weight="700" 
                   font-size="${fontSize}" 
                   fill="#000000" 
                   stroke="rgba(255,255,255,0.8)" 
@@ -203,8 +222,8 @@ function generateDesignVariant(design, params) {
             <text x="${width/2}" y="${startY + totalTextHeight + titleWebsiteGap + 20}" 
                   text-anchor="middle" 
                   dominant-baseline="middle"
-                  font-family="Arial, sans-serif" 
-                  font-weight="700" 
+                  font-family="Noto Sans, Inter, sans-serif" 
+                  font-weight="400" 
                   font-size="${Math.min(width * 0.02, 22)}" 
                   fill="#EAEAEA" 
                   stroke="rgba(0,0,0,0.9)" 
@@ -234,8 +253,8 @@ function generateDesignVariant(design, params) {
           <text x="${width * 0.1 + 90}" y="${startY - 35}" 
                 text-anchor="middle" 
                 dominant-baseline="middle"
-                font-family="Arial Black, Arial, sans-serif" 
-                font-weight="900" 
+                font-family="Noto Sans, Inter, sans-serif" 
+                font-weight="700" 
                 font-size="16" 
                 fill="#8B0000">
             BREAKING 🔥
@@ -244,8 +263,8 @@ function generateDesignVariant(design, params) {
             <text x="${width/2}" y="${startY + (index * lineHeight) + fontSize}" 
                   text-anchor="middle" 
                   dominant-baseline="middle"
-                  font-family="Arial Black, Arial, sans-serif" 
-                  font-weight="900" 
+                  font-family="Noto Sans, Inter, sans-serif" 
+                  font-weight="700" 
                   font-size="${fontSize}" 
                   fill="white" 
                   stroke="rgba(0,0,0,1)" 
@@ -259,8 +278,8 @@ function generateDesignVariant(design, params) {
             <text x="${width/2}" y="${startY + totalTextHeight + titleWebsiteGap + 20}" 
                   text-anchor="middle" 
                   dominant-baseline="middle"
-                  font-family="Arial, sans-serif" 
-                  font-weight="600" 
+                  font-family="Noto Sans, Inter, sans-serif" 
+                  font-weight="400" 
                   font-size="${Math.min(width * 0.02, 22)}" 
                   fill="#FFD54F" 
                   stroke="rgba(139,0,0,0.8)" 
@@ -294,8 +313,8 @@ function generateDesignVariant(design, params) {
             <text x="${width/2}" y="${startY + (index * lineHeight) + fontSize}" 
                   text-anchor="middle" 
                   dominant-baseline="middle"
-                  font-family="Arial, Helvetica, sans-serif" 
-                  font-weight="900" 
+                  font-family="Noto Sans, Inter, sans-serif" 
+                  font-weight="700" 
                   font-size="${fontSize}" 
                   fill="white" 
                   style="font-stretch: condensed; text-transform: uppercase;">
@@ -310,8 +329,8 @@ function generateDesignVariant(design, params) {
             <text x="${width/2}" y="${startY + totalTextHeight + titleWebsiteGap + 18}" 
                   text-anchor="middle" 
                   dominant-baseline="middle"
-                  font-family="Arial, sans-serif" 
-                  font-weight="600" 
+                  font-family="Noto Sans, Inter, sans-serif" 
+                  font-weight="400" 
                   font-size="${Math.min(width * 0.018, 20)}" 
                   fill="white" 
                   style="letter-spacing: 2px;">
@@ -394,7 +413,7 @@ function generateDesignVariant(design, params) {
                   text-anchor="middle" 
                   dominant-baseline="middle"
                   font-family="Impact, Arial Black, sans-serif" 
-                  font-weight="900" 
+                  font-weight="700" 
                   font-size="${fontSize}" 
                   fill="white" 
                   stroke="rgba(0,0,0,1)" 
@@ -408,7 +427,7 @@ function generateDesignVariant(design, params) {
             <text x="${width/2}" y="${startY + totalTextHeight + titleWebsiteGap + 20}" 
                   text-anchor="middle" 
                   dominant-baseline="middle"
-                  font-family="Arial, sans-serif" 
+                  font-family="Noto Sans, Inter, sans-serif" 
                   font-weight="700" 
                   font-size="${Math.min(width * 0.02, 22)}" 
                   fill="#FFD700" 
@@ -438,8 +457,8 @@ function generateDesignVariant(design, params) {
             <text x="${width/2}" y="${startY + (index * lineHeight) + fontSize}" 
                   text-anchor="middle" 
                   dominant-baseline="middle"
-                  font-family="Arial Black, sans-serif" 
-                  font-weight="900" 
+                  font-family="Noto Sans, Inter, sans-serif" 
+                  font-weight="700" 
                   font-size="${fontSize}" 
                   fill="white" 
                   stroke="rgba(0,31,63,0.8)" 
@@ -453,8 +472,8 @@ function generateDesignVariant(design, params) {
             <text x="${width/2}" y="${startY + totalTextHeight + titleWebsiteGap + 20}" 
                   text-anchor="middle" 
                   dominant-baseline="middle"
-                  font-family="Arial, sans-serif" 
-                  font-weight="600" 
+                  font-family="Noto Sans, Inter, sans-serif" 
+                  font-weight="400" 
                   font-size="${Math.min(width * 0.02, 22)}" 
                   fill="#0FFFC6" 
                   stroke="rgba(0,31,63,0.7)" 
@@ -483,7 +502,7 @@ function generateDesignVariant(design, params) {
             <text x="${width/2}" y="${startY + (index * lineHeight) + fontSize}" 
                   text-anchor="middle" 
                   dominant-baseline="middle"
-                  font-family="Arial, sans-serif" 
+                  font-family="Noto Sans, Inter, sans-serif" 
                   font-weight="700" 
                   font-size="${fontSize}" 
                   fill="white" 
@@ -498,7 +517,7 @@ function generateDesignVariant(design, params) {
             <text x="${width/2}" y="${startY + totalTextHeight + titleWebsiteGap + 20}" 
                   text-anchor="middle" 
                   dominant-baseline="middle"
-                  font-family="Arial, sans-serif" 
+                  font-family="Noto Sans, Inter, sans-serif" 
                   font-weight="400" 
                   font-size="${Math.min(width * 0.02, 22)}" 
                   fill="#FFB703" 
@@ -528,8 +547,8 @@ function generateDesignVariant(design, params) {
             <text x="${width/2}" y="${startY + (index * lineHeight) + fontSize}" 
                   text-anchor="middle" 
                   dominant-baseline="middle"
-                  font-family="Arial Black, sans-serif" 
-                  font-weight="900" 
+                  font-family="Noto Sans, Inter, sans-serif" 
+                  font-weight="700" 
                   font-size="${fontSize}" 
                   fill="white" 
                   stroke="rgba(128,0,0,0.9)" 
@@ -543,7 +562,7 @@ function generateDesignVariant(design, params) {
             <text x="${width/2}" y="${startY + totalTextHeight + titleWebsiteGap + 20}" 
                   text-anchor="middle" 
                   dominant-baseline="middle"
-                  font-family="Arial, sans-serif" 
+                  font-family="Noto Sans, Inter, sans-serif" 
                   font-weight="700" 
                   font-size="${Math.min(width * 0.02, 22)}" 
                   fill="#FFD54F" 
@@ -573,8 +592,8 @@ function generateDesignVariant(design, params) {
             <text x="${width/2}" y="${startY + (index * lineHeight) + fontSize}" 
                   text-anchor="middle" 
                   dominant-baseline="middle"
-                  font-family="Arial, sans-serif" 
-                  font-weight="900" 
+                  font-family="Noto Sans, Inter, sans-serif" 
+                  font-weight="700" 
                   font-size="${fontSize}" 
                   fill="white" 
                   stroke="rgba(0,12,102,0.8)" 
@@ -588,7 +607,7 @@ function generateDesignVariant(design, params) {
             <text x="${width/2}" y="${startY + totalTextHeight + titleWebsiteGap + 20}" 
                   text-anchor="middle" 
                   dominant-baseline="middle"
-                  font-family="Arial, sans-serif" 
+                  font-family="Noto Sans, Inter, sans-serif" 
                   font-weight="700" 
                   font-size="${Math.min(width * 0.02, 22)}" 
                   fill="#9DC9FF" 
@@ -621,8 +640,8 @@ function generateDesignVariant(design, params) {
             <text x="${width/2}" y="${startY + (index * lineHeight) + fontSize}" 
                   text-anchor="middle" 
                   dominant-baseline="middle"
-                  font-family="Arial Black, sans-serif" 
-                  font-weight="900" 
+                  font-family="Noto Sans, Inter, sans-serif" 
+                  font-weight="700" 
                   font-size="${fontSize}" 
                   fill="white" 
                   filter="url(#softShadow)"
@@ -634,8 +653,8 @@ function generateDesignVariant(design, params) {
             <text x="${width/2}" y="${startY + totalTextHeight + titleWebsiteGap + 20}" 
                   text-anchor="middle" 
                   dominant-baseline="middle"
-                  font-family="Arial, sans-serif" 
-                  font-weight="500" 
+                  font-family="Noto Sans, Inter, sans-serif" 
+                  font-weight="400" 
                   font-size="${Math.min(width * 0.02, 22)}" 
                   fill="#CCCCCC" 
                   stroke="rgba(44,44,44,0.6)" 
@@ -661,24 +680,22 @@ function generateDesignVariant(design, params) {
             </linearGradient>
           </defs>
           <rect x="0" y="${height - gradientHeight}" width="${width}" height="${gradientHeight}" fill="url(#gradient)"/>
-          ${titleLines.map((line, index) => `<text x="${width/2}" y="${startY + (index * lineHeight) + fontSize}" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-weight="900" font-size="${fontSize}" fill="white" stroke="rgba(0,0,0,0.9)" stroke-width="1.5" paint-order="stroke fill">${line}</text>`).join('')}
-          ${decodedWebsite ? `<text x="${width/2}" y="${startY + totalTextHeight + titleWebsiteGap + 20}" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-weight="700" font-size="${Math.min(width * 0.02, 22)}" fill="#FFD700" stroke="rgba(0,0,0,0.7)" stroke-width="0.8" paint-order="stroke fill" style="letter-spacing: 1.5px;">${decodedWebsite.toUpperCase()}</text>` : ''}
+          ${titleLines.map((line, index) => `<text x="${width/2}" y="${startY + (index * lineHeight) + fontSize}" text-anchor="middle" dominant-baseline="middle" font-family="Noto Sans, Inter, sans-serif" font-weight="700" font-size="${fontSize}" fill="white" stroke="rgba(0,0,0,0.9)" stroke-width="1.5" paint-order="stroke fill">${line}</text>`).join('')}
+          ${decodedWebsite ? `<text x="${width/2}" y="${startY + totalTextHeight + titleWebsiteGap + 20}" text-anchor="middle" dominant-baseline="middle" font-family="Noto Sans, Inter, sans-serif" font-weight="400" font-size="${Math.min(width * 0.02, 22)}" fill="#FFD700" stroke="rgba(0,0,0,0.7)" stroke-width="0.8" paint-order="stroke fill" style="letter-spacing: 1.5px;">${decodedWebsite.toUpperCase()}</text>` : ''}
         </svg>
       `;
   }
 }
 
 export default async function handler(req, res) {
-  // Configure Sharp and suppress fontconfig warnings in serverless environments
+  // Configure Sharp for serverless environments (but keep fontconfig enabled)
   if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
     try {
       // Configure Sharp for serverless environments
       sharp.cache(false);
       sharp.simd(false);
       
-      // Suppress fontconfig warnings
-      process.env.FONTCONFIG_PATH = '/dev/null';
-      process.env.FC_DEBUG = '0';
+      console.log('✅ Running on serverless with fontconfig enabled');
     } catch (sharpConfigError) {
       console.log('Sharp configuration warning:', sharpConfigError.message);
     }
@@ -1702,7 +1719,7 @@ export default async function handler(req, res) {
                 ${fallbackLines.map((line, index) => `
                   <text x="${width/2}" y="${fallbackStartY + (index * fallbackLineHeight)}" 
                         text-anchor="middle" 
-                        font-family="Arial, sans-serif" 
+                        font-family="Noto Sans, Inter, sans-serif" 
                         font-weight="700" 
                         font-size="32" 
                         fill="white">
@@ -1712,8 +1729,8 @@ export default async function handler(req, res) {
                 ${decodedWebsite ? `
                   <text x="${width/2}" y="${fallbackStartY + (fallbackLines.length * fallbackLineHeight) + 25}" 
                         text-anchor="middle" 
-                        font-family="Arial, sans-serif" 
-                        font-weight="500" 
+                        font-family="Noto Sans, Inter, sans-serif" 
+                        font-weight="400" 
                         font-size="18" 
                         fill="#FFD700">
                     ${decodedWebsite.replace(/[<>&"']/g, '').substring(0, 30)}
