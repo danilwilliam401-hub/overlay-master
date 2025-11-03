@@ -782,6 +782,98 @@ export default async function handler(req, res) {
       console.warn('URL parsing failed:', urlParseError.message);
     }
   }
+
+  // === VERCEL ENVIRONMENT DEBUGGING ===
+  console.log('🔍 VERCEL ENVIRONMENT ANALYSIS:');
+  console.log('Environment Variables:', {
+    VERCEL: process.env.VERCEL,
+    VERCEL_ENV: process.env.VERCEL_ENV,
+    NODE_ENV: process.env.NODE_ENV,
+    LANG: process.env.LANG,
+    LC_ALL: process.env.LC_ALL,
+    encoding: process.stdout.encoding || 'unknown'
+  });
+  
+  console.log('📋 PARAMETER ENCODING ANALYSIS:');
+  console.log('Title Analysis:', {
+    raw: title,
+    length: title ? title.length : 0,
+    bytes: title ? Buffer.byteLength(title, 'utf8') : 0,
+    charCodes: title ? Array.from(title.slice(0, 20)).map(c => ({ 
+      char: c, 
+      code: c.charCodeAt(0), 
+      hex: '0x' + c.charCodeAt(0).toString(16).toUpperCase(),
+      isReplacement: c === '\uFFFD'
+    })) : [],
+    hasReplacementChars: title ? title.includes('\uFFFD') : false,
+    encodedLength: title ? encodeURIComponent(title).length : 0,
+    firstTenChars: title ? title.substring(0, 10) : 'empty'
+  });
+  
+  console.log('Website Analysis:', {
+    raw: website,
+    length: website ? website.length : 0,
+    bytes: website ? Buffer.byteLength(website, 'utf8') : 0,
+    charCodes: website ? Array.from(website.slice(0, 10)).map(c => ({ 
+      char: c, 
+      code: c.charCodeAt(0), 
+      hex: '0x' + c.charCodeAt(0).toString(16).toUpperCase(),
+      isReplacement: c === '\uFFFD'
+    })) : [],
+    hasReplacementChars: website ? website.includes('\uFFFD') : false,
+    encodedLength: website ? encodeURIComponent(website).length : 0
+  });
+  
+  // Test different encoding attempts
+  if (title && title.includes('\uFFFD')) {
+    console.log('🚨 CORRUPTION DETECTED IN TITLE - Testing recovery methods:');
+    
+    try {
+      // Method 1: Try treating as Latin1
+      const titleBuffer = Buffer.from(title, 'utf8');
+      const latin1Recovery = titleBuffer.toString('latin1');
+      console.log('Latin1 Recovery Attempt:', latin1Recovery);
+      
+      // Method 2: Try manual byte analysis
+      const bytes = [];
+      for (let i = 0; i < title.length; i++) {
+        bytes.push(title.charCodeAt(i));
+      }
+      console.log('Raw byte sequence:', bytes);
+      
+      // Method 3: Try URL decode on raw string
+      if (title.includes('%')) {
+        try {
+          const urlDecoded = decodeURIComponent(title);
+          console.log('URL decode attempt:', urlDecoded);
+        } catch (e) {
+          console.log('URL decode failed:', e.message);
+        }
+      }
+    } catch (recoveryError) {
+      console.log('Recovery attempts failed:', recoveryError.message);
+    }
+  }
+  
+  if (website && website.includes('\uFFFD')) {
+    console.log('🚨 CORRUPTION DETECTED IN WEBSITE - Testing recovery methods:');
+    
+    try {
+      const websiteBuffer = Buffer.from(website, 'utf8');
+      const latin1Recovery = websiteBuffer.toString('latin1');
+      console.log('Website Latin1 Recovery:', latin1Recovery);
+      
+      const bytes = [];
+      for (let i = 0; i < website.length; i++) {
+        bytes.push(website.charCodeAt(i));
+      }
+      console.log('Website raw bytes:', bytes);
+    } catch (recoveryError) {
+      console.log('Website recovery failed:', recoveryError.message);
+    }
+  }
+  
+  console.log('=== END VERCEL DEBUGGING ===');
   
   // Additional parameter extraction for edge cases and Vercel compatibility
   if (!title && req.url) {
@@ -1189,19 +1281,51 @@ export default async function handler(req, res) {
             break;
         }
 
-        console.log('Final decoded values:', { 
-          originalTitle: title,
-          decodedTitle, 
-          originalWebsite: website,
-          decodedWebsite, 
-          processedTitle: processedTitle !== decodedTitle ? processedTitle : 'same as original',
-          textCase,
-          titleLength: decodedTitle.length,
-          websiteLength: decodedWebsite.length,
-          hasUnicodeIssues: decodedTitle.includes('\uFFFD') || decodedWebsite.includes('\uFFFD'),
-          titleCharCodes: Array.from(decodedTitle.slice(0, 20)).map(c => c.charCodeAt(0)),
-          websiteCharCodes: decodedWebsite ? Array.from(decodedWebsite.slice(0, 20)).map(c => c.charCodeAt(0)) : []
+        console.log('🎯 FINAL DECODED VALUES FOR SVG GENERATION:');
+        console.log('Title Processing Chain:', {
+          step1_original: title,
+          step2_afterDetection: decodedTitle,
+          step3_afterCaseProcessing: processedTitle !== decodedTitle ? processedTitle : 'same as decoded',
+          titleStillCorrupted: decodedTitle.includes('\uFFFD'),
+          titlePreview: decodedTitle.substring(0, 50) + (decodedTitle.length > 50 ? '...' : ''),
+          titleByteAnalysis: {
+            length: decodedTitle.length,
+            bytes: Buffer.byteLength(decodedTitle, 'utf8'),
+            firstFiveChars: Array.from(decodedTitle.slice(0, 5)).map(c => ({
+              char: c,
+              code: c.charCodeAt(0),
+              hex: '0x' + c.charCodeAt(0).toString(16).toUpperCase(),
+              isSquare: c === '\uFFFD'
+            }))
+          }
         });
+        
+        console.log('Website Processing Chain:', {
+          step1_original: website,
+          step2_afterDetection: decodedWebsite,
+          websiteStillCorrupted: decodedWebsite ? decodedWebsite.includes('\uFFFD') : false,
+          websiteByteAnalysis: decodedWebsite ? {
+            length: decodedWebsite.length,
+            bytes: Buffer.byteLength(decodedWebsite, 'utf8'),
+            allChars: Array.from(decodedWebsite).map(c => ({
+              char: c,
+              code: c.charCodeAt(0),
+              hex: '0x' + c.charCodeAt(0).toString(16).toUpperCase(),
+              isSquare: c === '\uFFFD'
+            }))
+          } : 'empty'
+        });
+        
+        // Alert if corruption still exists after all processing
+        if (decodedTitle.includes('\uFFFD')) {
+          console.log('🚨 CRITICAL: Title still contains replacement characters after all recovery attempts!');
+          console.log('SVG will render Unicode squares for corrupted characters');
+        }
+        
+        if (decodedWebsite && decodedWebsite.includes('\uFFFD')) {
+          console.log('🚨 CRITICAL: Website still contains replacement characters after all recovery attempts!');
+          console.log('SVG will render Unicode squares for corrupted characters');
+        }
         
         // Create a gradient overlay using Sharp - make it higher for default design
         const gradientHeight = Math.floor(height * (design === 'default' ? 0.55 : 0.35)); // Higher coverage for default design
@@ -1335,8 +1459,36 @@ export default async function handler(req, res) {
           requiredHeight: totalTextHeight + titleWebsiteGap + (decodedWebsite ? 30 : 0)
         });
 
-        console.log('Adding text overlay with title:', decodedTitle.substring(0, 20) + '...');
+        console.log('🎨 SVG GENERATION ANALYSIS:');
+        console.log('Title being rendered:', decodedTitle);
+        console.log('Website being rendered:', decodedWebsite);
         console.log('Text wrapped into', titleLines.length, 'lines:', titleLines);
+        console.log('Line-by-line analysis:');
+        titleLines.forEach((line, index) => {
+          console.log(`  Line ${index + 1}:`, {
+            text: line,
+            length: line.length,
+            hasSquares: line.includes('\uFFFD'),
+            charAnalysis: Array.from(line.slice(0, 10)).map(c => ({
+              char: c,
+              code: c.charCodeAt(0),
+              isSquare: c === '\uFFFD'
+            }))
+          });
+        });
+        
+        if (decodedWebsite) {
+          console.log('Website line analysis:', {
+            text: decodedWebsite,
+            hasSquares: decodedWebsite.includes('\uFFFD'),
+            charAnalysis: Array.from(decodedWebsite).map(c => ({
+              char: c,
+              code: c.charCodeAt(0),
+              isSquare: c === '\uFFFD'
+            }))
+          });
+        }
+        
         console.log('SVG overlay length:', svgOverlay.length, 'characters');
         
         // Validate SVG before using it
