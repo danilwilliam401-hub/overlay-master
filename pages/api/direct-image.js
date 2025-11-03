@@ -1450,7 +1450,7 @@ export default async function handler(req, res) {
     
     // Create ETag based on actual text content to ensure proper cache invalidation
     const contentHash = require('crypto').createHash('md5')
-      .update(`${title}-${website}-${imageUrl}-${design}`)
+      .update(`${title}-${website}-${image}-${design}`)
       .digest('hex').substring(0, 8);
     res.setHeader('ETag', `"${contentHash}"`);
     
