@@ -118,34 +118,8 @@ function generateDesignVariant(design, params) {
           <rect x="0" y="${height - gradientHeight}" width="${width}" height="${gradientHeight}" fill="url(#redGradient)"/>
           <!-- White motion stripe -->
           <rect x="0" y="${startY - 20}" width="${width}" height="4" fill="white" opacity="0.9"/>
-          ${titleLines.map((line, index) => `
-            <text x="${width/2}" y="${startY + (index * lineHeight) + fontSize}" 
-                  text-anchor="middle" 
-                  dominant-baseline="middle"
-                  font-family="Arial Black, Arial, sans-serif" 
-                  font-weight="900" 
-                  font-size="${fontSize}" 
-                  fill="white" 
-                  stroke="rgba(0,0,0,0.8)" 
-                  stroke-width="2"
-                  paint-order="stroke fill"
-                  style="letter-spacing: -1px; text-transform: uppercase;">
-              ${line}
-            </text>
-          `).join('')}
-          ${decodedWebsite ? `
-            <rect x="0" y="${startY + totalTextHeight + titleWebsiteGap}" width="${width}" height="30" fill="#FFD700" opacity="0.9"/>
-            <text x="${width/2}" y="${startY + totalTextHeight + titleWebsiteGap + 20}" 
-                  text-anchor="middle" 
-                  dominant-baseline="middle"
-                  font-family="Arial, sans-serif" 
-                  font-weight="700" 
-                  font-size="${Math.min(width * 0.018, 20)}" 
-                  fill="#B00000" 
-                  style="letter-spacing: 2px;">
-              ${decodedWebsite.toUpperCase()}
-            </text>
-          ` : ''}
+          ${titleLines.map((line, index) => `<text x="${width/2}" y="${startY + (index * lineHeight) + fontSize}" text-anchor="middle" dominant-baseline="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="${fontSize}" fill="white" stroke="rgba(0,0,0,0.8)" stroke-width="2" paint-order="stroke fill" style="letter-spacing: -1px; text-transform: uppercase;">${line}</text>`).join('')}
+          ${decodedWebsite ? `<rect x="0" y="${startY + totalTextHeight + titleWebsiteGap}" width="${width}" height="30" fill="#FFD700" opacity="0.9"/><text x="${width/2}" y="${startY + totalTextHeight + titleWebsiteGap + 20}" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-weight="700" font-size="${Math.min(width * 0.018, 20)}" fill="#B00000" style="letter-spacing: 2px;">${decodedWebsite.toUpperCase()}</text>` : ''}
         </svg>
       `;
 
@@ -684,35 +658,8 @@ function generateDesignVariant(design, params) {
             </linearGradient>
           </defs>
           <rect x="0" y="${height - gradientHeight}" width="${width}" height="${gradientHeight}" fill="url(#gradient)"/>
-          ${titleLines.map((line, index) => `
-            <text x="${width/2}" y="${startY + (index * lineHeight) + fontSize}" 
-                  text-anchor="middle" 
-                  dominant-baseline="middle"
-                  font-family="Arial, sans-serif" 
-                  font-weight="900" 
-                  font-size="${fontSize}" 
-                  fill="white" 
-                  stroke="rgba(0,0,0,0.9)" 
-                  stroke-width="1.5"
-                  paint-order="stroke fill">
-              ${line}
-            </text>
-          `).join('')}
-          ${decodedWebsite ? `
-            <text x="${width/2}" y="${startY + totalTextHeight + titleWebsiteGap + 20}" 
-                  text-anchor="middle" 
-                  dominant-baseline="middle"
-                  font-family="Arial, sans-serif" 
-                  font-weight="700" 
-                  font-size="${Math.min(width * 0.02, 22)}" 
-                  fill="#FFD700" 
-                  stroke="rgba(0,0,0,0.7)" 
-                  stroke-width="0.8"
-                  paint-order="stroke fill"
-                  style="letter-spacing: 1.5px;">
-              ${decodedWebsite.toUpperCase()}
-            </text>
-          ` : ''}
+          ${titleLines.map((line, index) => `<text x="${width/2}" y="${startY + (index * lineHeight) + fontSize}" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-weight="900" font-size="${fontSize}" fill="white" stroke="rgba(0,0,0,0.9)" stroke-width="1.5" paint-order="stroke fill">${line}</text>`).join('')}
+          ${decodedWebsite ? `<text x="${width/2}" y="${startY + totalTextHeight + titleWebsiteGap + 20}" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-weight="700" font-size="${Math.min(width * 0.02, 22)}" fill="#FFD700" stroke="rgba(0,0,0,0.7)" stroke-width="0.8" paint-order="stroke fill" style="letter-spacing: 1.5px;">${decodedWebsite.toUpperCase()}</text>` : ''}
         </svg>
       `;
   }
