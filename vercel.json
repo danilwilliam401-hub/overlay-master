@@ -1,12 +1,7 @@
 {
-  "builds": [{ "src": "package.json", "use": "@vercel/next" }],
   "functions": {
     "pages/api/direct-image.js": {
       "maxDuration": 30
     }
-  },
-  "env": {
-    "FONTCONFIG_PATH": "/dev/null",
-    "FC_DEBUG": "0"
   }
 }
