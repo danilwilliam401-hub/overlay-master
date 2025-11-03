@@ -1493,6 +1493,32 @@ export default async function handler(req, res) {
         
         console.log('SVG overlay length:', svgOverlay.length, 'characters');
         
+        // 🔍 LOG THE ACTUAL SVG CONTENT FOR DEBUGGING
+        console.log('📄 ACTUAL SVG CONTENT BEING RENDERED:');
+        console.log('SVG Preview (first 500 chars):', svgOverlay.substring(0, 500));
+        console.log('SVG Text Elements:');
+        
+        // Extract and log all text elements from the SVG
+        const textMatches = svgOverlay.match(/<text[^>]*>([^<]*)<\/text>/g);
+        if (textMatches) {
+          textMatches.forEach((match, index) => {
+            const textContent = match.match(/>([^<]*)</)?.[1] || '';
+            console.log(`  Text Element ${index + 1}:`, {
+              fullElement: match.substring(0, 200),
+              textContent: textContent,
+              length: textContent.length,
+              charCodes: Array.from(textContent).map(c => ({
+                char: c,
+                code: c.charCodeAt(0),
+                hex: '0x' + c.charCodeAt(0).toString(16).toUpperCase(),
+                isSquare: c === '\uFFFD'
+              }))
+            });
+          });
+        } else {
+          console.log('  No text elements found in SVG!');
+        }
+        
         // Validate SVG before using it
         if (!svgOverlay || svgOverlay.length === 0) {
           throw new Error('Generated SVG is empty');
@@ -1513,12 +1539,41 @@ export default async function handler(req, res) {
         const svgBuffer = Buffer.from(svgWithEncoding, 'utf8');
         console.log('SVG buffer size:', svgBuffer.length, 'bytes');
         
+        // 🔍 SHARP CONVERSION ANALYSIS
+        console.log('🖼️ SHARP SVG PROCESSING ANALYSIS:');
+        console.log('SVG Buffer Analysis:', {
+          bufferLength: svgBuffer.length,
+          bufferPreview: svgBuffer.toString('utf8').substring(0, 200),
+          hasReplacementChars: svgBuffer.toString('utf8').includes('\uFFFD'),
+          encoding: 'utf8'
+        });
+        
+        // Test if Sharp can handle the SVG properly
+        try {
+          console.log('Testing Sharp SVG compatibility...');
+          const testSharp = sharp(svgBuffer);
+          const svgMetadata = await testSharp.metadata();
+          console.log('Sharp SVG metadata:', {
+            format: svgMetadata.format,
+            width: svgMetadata.width,
+            height: svgMetadata.height,
+            channels: svgMetadata.channels,
+            density: svgMetadata.density
+          });
+        } catch (sharpTestError) {
+          console.error('Sharp SVG test failed:', sharpTestError.message);
+        }
+        
         // Validate buffer content
         const bufferString = svgBuffer.toString('utf8');
         if (bufferString.includes('\uFFFD')) {
-          console.warn('SVG buffer contains replacement characters, may indicate encoding issues');
+          console.warn('🚨 SVG buffer contains replacement characters!');
+          console.warn('This indicates encoding corruption in the SVG generation phase');
+        } else {
+          console.log('✅ SVG buffer appears clean - no replacement characters detected');
         }
         
+        console.log('Compositing SVG overlay onto image...');
         processedImage = processedImage.composite([{
           input: svgBuffer,
           blend: 'over'
