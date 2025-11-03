@@ -681,12 +681,36 @@ export default async function handler(req, res) {
   // Handle both query parameters and URL-encoded parameters
   let { image, title = "", website = "", format = "jpeg", w = "1080", h = "1350", design = "default", textCase = "upper" } = req.query;
   
-  // Additional parameter extraction for edge cases
+  // Additional parameter extraction for edge cases and Vercel compatibility
   if (!title && req.url) {
-    const urlParams = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
-    title = urlParams.searchParams.get('title') || '';
-    website = urlParams.searchParams.get('website') || '';
+    try {
+      const urlParams = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+      title = urlParams.searchParams.get('title') || '';
+      website = urlParams.searchParams.get('website') || '';
+      
+      console.log('URL parsing fallback used:', { 
+        originalTitle: req.query.title, 
+        urlTitle: title,
+        originalWebsite: req.query.website,
+        urlWebsite: website
+      });
+    } catch (urlError) {
+      console.warn('URL parsing error:', urlError.message);
+    }
   }
+
+  // Raw parameter inspection for debugging
+  console.log('Raw parameter types and values:', {
+    titleType: typeof title,
+    titleLength: title ? title.length : 0,
+    titleBytes: title ? Buffer.from(title, 'utf8').length : 0,
+    websiteType: typeof website,
+    websiteLength: website ? website.length : 0,
+    websiteBytes: website ? Buffer.from(website, 'utf8').length : 0,
+    titleFirstChars: title ? Array.from(title.slice(0, 10)).map(c => ({ char: c, code: c.charCodeAt(0) })) : [],
+    requestMethod: req.method,
+    userAgent: req.headers['user-agent']
+  });
 
   // Debug logging for Vercel
   console.log('Query parameters received:', { 
@@ -778,13 +802,32 @@ export default async function handler(req, res) {
         let decodedTitle;
         let decodedWebsite = '';
         
-        // Enhanced decoding with better Unicode and special character handling
+        // Enhanced decoding with multiple strategies for different environments
         try {
-          // Pre-clean the title before decoding to handle common issues
-          let cleanTitle = cleanUnicodeText(title);
-          
-          // First attempt: standard decoding
-          decodedTitle = decodeURIComponent(cleanTitle);
+          // Strategy 1: Try direct usage if it looks clean
+          if (title && /^[a-zA-Z0-9\s\-_.,!?]+$/.test(title)) {
+            decodedTitle = title;
+            console.log('Using title directly (clean ASCII):', decodedTitle);
+          } else {
+            // Strategy 2: Pre-clean the title before decoding
+            let cleanTitle = cleanUnicodeText(title);
+            
+            // Strategy 3: Try multiple decoding approaches
+            try {
+              decodedTitle = decodeURIComponent(cleanTitle);
+            } catch (firstDecodeError) {
+              console.warn('First decode failed, trying alternative methods');
+              
+              // Strategy 4: Try without cleaning
+              try {
+                decodedTitle = decodeURIComponent(title);
+              } catch (secondDecodeError) {
+                // Strategy 5: Use raw title if all else fails
+                console.warn('All decode attempts failed, using raw title');
+                decodedTitle = title;
+              }
+            }
+          }
           
           // Second attempt: handle double encoding (common on Vercel)
           if (decodedTitle.includes('%')) {
@@ -844,19 +887,52 @@ export default async function handler(req, res) {
         // Additional cleanup for encoding artifacts
         decodedTitle = decodedTitle.replace(/\s+/g, ' ').trim(); // Normalize whitespace
         
-        // Validate that we have actual text content
+        // Final validation and cleanup
         if (!decodedTitle || decodedTitle === '' || decodedTitle === 'undefined' || decodedTitle === 'null') {
           console.warn('Title appears empty after decoding, using fallback');
           decodedTitle = 'Breaking News';
+        } else {
+          // Ensure we don't have any remaining Unicode issues
+          const finalCleanTitle = decodedTitle
+            .replace(/\uFFFD/g, '') // Remove replacement characters
+            .replace(/[^\x20-\x7E\u00A0-\u024F]/g, '') // Keep only printable ASCII + Latin Extended
+            .trim();
+          
+          if (finalCleanTitle !== decodedTitle) {
+            console.log('Applied final Unicode cleanup to title');
+            decodedTitle = finalCleanTitle;
+          }
+          
+          // If title became empty after cleaning, use fallback
+          if (!decodedTitle.trim()) {
+            console.warn('Title became empty after Unicode cleanup, using fallback');
+            decodedTitle = 'Breaking News';
+          }
         }
         
         if (website) {
           try {
-            // Pre-clean the website before decoding
-            let cleanWebsite = cleanUnicodeText(website);
-            
-            // Enhanced decoding for website with same Unicode handling
-            decodedWebsite = decodeURIComponent(cleanWebsite);
+            // Strategy 1: Try direct usage if it looks clean
+            if (/^[a-zA-Z0-9\s\-_.,!?]+$/.test(website)) {
+              decodedWebsite = website;
+              console.log('Using website directly (clean ASCII):', decodedWebsite);
+            } else {
+              // Strategy 2: Pre-clean the website before decoding
+              let cleanWebsite = cleanUnicodeText(website);
+              
+              // Strategy 3: Try decoding
+              try {
+                decodedWebsite = decodeURIComponent(cleanWebsite);
+              } catch (firstDecodeError) {
+                console.warn('Website decode failed, trying alternative');
+                try {
+                  decodedWebsite = decodeURIComponent(website);
+                } catch (secondDecodeError) {
+                  console.warn('All website decode attempts failed, using raw');
+                  decodedWebsite = website;
+                }
+              }
+            }
             
             if (decodedWebsite.includes('%')) {
               try {
@@ -914,6 +990,17 @@ export default async function handler(req, res) {
           
           if (decodedWebsite === '' || decodedWebsite === 'undefined' || decodedWebsite === 'null') {
             decodedWebsite = '';
+          } else {
+            // Apply same final cleanup to website
+            const finalCleanWebsite = decodedWebsite
+              .replace(/\uFFFD/g, '') // Remove replacement characters
+              .replace(/[^\x20-\x7E\u00A0-\u024F]/g, '') // Keep only printable ASCII + Latin Extended
+              .trim();
+            
+            if (finalCleanWebsite !== decodedWebsite) {
+              console.log('Applied final Unicode cleanup to website');
+              decodedWebsite = finalCleanWebsite;
+            }
           }
         }
         
@@ -948,14 +1035,18 @@ export default async function handler(req, res) {
             break;
         }
 
-        console.log('Decoded values:', { 
+        console.log('Final decoded values:', { 
+          originalTitle: title,
           decodedTitle, 
+          originalWebsite: website,
           decodedWebsite, 
           processedTitle: processedTitle !== decodedTitle ? processedTitle : 'same as original',
           textCase,
           titleLength: decodedTitle.length,
           websiteLength: decodedWebsite.length,
-          hasUnicodeIssues: decodedTitle.includes('\uFFFD') || decodedWebsite.includes('\uFFFD')
+          hasUnicodeIssues: decodedTitle.includes('\uFFFD') || decodedWebsite.includes('\uFFFD'),
+          titleCharCodes: Array.from(decodedTitle.slice(0, 20)).map(c => c.charCodeAt(0)),
+          websiteCharCodes: decodedWebsite ? Array.from(decodedWebsite.slice(0, 20)).map(c => c.charCodeAt(0)) : []
         });
         
         // Create a gradient overlay using Sharp - make it higher for default design
