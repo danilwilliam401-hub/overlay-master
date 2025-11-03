@@ -196,7 +196,7 @@ export default async function handler(req, res) {
     const svgHeight = Math.max(200, websiteY + bottomMargin + 10); // Minimum 200px, or calculated height
     
     const svg = `<?xml version="1.0" encoding="UTF-8"?>
-      <svg width="${targetWidth}" height="${svgHeight}" xmlns="http://www.w3.org/2000/svg">`
+      <svg width="${targetWidth}" height="${svgHeight}" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="strongBlackGradient" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" style="stop-color:rgb(0,0,0);stop-opacity:0.2"/>
