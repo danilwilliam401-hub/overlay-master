@@ -136,12 +136,73 @@ export default async function handler(req, res) {
     console.log('  Processed website:', websiteText);
     
     // Create SVG with proper UTF-8 encoding and font references
+    const padding = 80; // Increased left and right padding to prevent edge contact
+    const contentWidth = targetWidth - (padding * 2); // Available width for text
+    
+    // Function to wrap text into multiple lines - NO ELLIPSIS, accept all text
+    function wrapText(text, maxWidth, fontSize) {
+      const words = text.split(' ');
+      const lines = [];
+      let currentLine = '';
+      
+      // More accurate character width estimation for Noto Sans
+      const avgCharWidth = fontSize * 0.55;
+      const maxCharsPerLine = Math.floor(maxWidth / avgCharWidth);
+      
+      // NO maximum lines limit - accept all text
+      for (const word of words) {
+        const testLine = currentLine ? `${currentLine} ${word}` : word;
+        
+        if (testLine.length <= maxCharsPerLine) {
+          currentLine = testLine;
+        } else {
+          if (currentLine) {
+            lines.push(currentLine);
+            currentLine = word;
+          } else {
+            // Word is too long, add it anyway
+            lines.push(word);
+            currentLine = '';
+          }
+        }
+      }
+      
+      if (currentLine) {
+        lines.push(currentLine);
+      }
+      
+      return lines;
+    }
+    
+    // Wrap the title text
+    const titleLines = wrapText(titleText, contentWidth, 48);
+    const lineHeight = 50; // Line spacing between title lines
+    const totalTitleHeight = titleLines.length * lineHeight;
+    
+    // Dynamic positioning to prevent overlap
+    const topMargin = 20; // Top margin
+    const gapBetweenTitleAndWebsite = 25; // Minimum gap between title and website
+    const websiteTextSize = 24; // Website text font size
+    
+    // Calculate title start position
+    const titleStartY = topMargin + (lineHeight * 0.8); // Start from top with margin
+    
+    // Calculate website position based on where title ends
+    const titleEndY = titleStartY + totalTitleHeight;
+    const websiteY = titleEndY + gapBetweenTitleAndWebsite;
+    
+    // Calculate dynamic SVG height to fit all content
+    const bottomMargin = 20;
+    const svgHeight = Math.max(200, websiteY + bottomMargin + 10); // Minimum 200px, or calculated height
+    
     const svg = `<?xml version="1.0" encoding="UTF-8"?>
-      <svg width="${targetWidth}" height="200" xmlns="http://www.w3.org/2000/svg">
+      <svg width="${targetWidth}" height="${svgHeight}" xmlns="http://www.w3.org/2000/svg">`
         <defs>
-          <linearGradient id="bgGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" style="stop-color:rgb(0,0,0);stop-opacity:0.3"/>
-            <stop offset="100%" style="stop-color:rgb(0,0,0);stop-opacity:0.9"/>
+          <linearGradient id="strongBlackGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:rgb(0,0,0);stop-opacity:0.2"/>
+            <stop offset="30%" style="stop-color:rgb(0,0,0);stop-opacity:0.6"/>
+            <stop offset="60%" style="stop-color:rgb(0,0,0);stop-opacity:0.85"/>
+            <stop offset="100%" style="stop-color:rgb(0,0,0);stop-opacity:0.95"/>
           </linearGradient>
         </defs>
         
@@ -151,27 +212,32 @@ export default async function handler(req, res) {
             font-size: 48px; 
             font-weight: 700;
             fill: white; 
-            text-anchor: start;
+            text-anchor: middle;
             dominant-baseline: middle;
+            word-spacing: normal;
+            letter-spacing: 1px;
           }
           .website-text { 
             font-family: "Noto Sans", "Inter", sans-serif; 
             font-size: 24px; 
             font-weight: 400;
             fill: #FFD700; 
-            text-anchor: start;
+            text-anchor: middle;
             dominant-baseline: middle;
+            letter-spacing: 2px;
           }
         </style>
         
-        <!-- Background -->
-        <rect width="100%" height="100%" fill="url(#bgGradient)"/>
+        <!-- Strong Black Gradient Background -->
+        <rect width="100%" height="100%" fill="url(#strongBlackGradient)"/>
         
-        <!-- Title Text -->
-        <text x="40" y="80" class="title-text">${titleText}</text>
+        <!-- Title Text Lines - Center aligned with proper wrapping and padding -->
+        ${titleLines.map((line, index) => 
+          `<text x="${targetWidth / 2}" y="${titleStartY + (index * lineHeight)}" class="title-text">${line}</text>`
+        ).join('')}
         
-        <!-- Website Text -->
-        <text x="40" y="140" class="website-text">${websiteText}</text>
+        <!-- Website Text - Dynamically positioned to avoid overlap -->
+        <text x="${targetWidth / 2}" y="${websiteY}" class="website-text">${websiteText}</text>
       </svg>
     `;
     
@@ -188,7 +254,7 @@ export default async function handler(req, res) {
       .composite([{
         input: svgBuffer,
         left: 0,
-        top: targetHeight - 200,
+        top: targetHeight - svgHeight,
         blend: 'over'
       }])
       .jpeg({ quality: 90 })
