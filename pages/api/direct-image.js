@@ -914,12 +914,14 @@ export default async function handler(req, res) {
         position: 'center' 
       });
 
+    // Initialize decoded variables for scope accessibility
+    let decodedTitle = title || '';
+    let decodedWebsite = website || '';
+
     // Add text overlay if title is provided
     if (title && title.trim()) {
       try {
         // Handle potential double encoding issues on Vercel
-        let decodedTitle;
-        let decodedWebsite = '';
         
         // Enhanced decoding with encoding issue detection and recovery
         try {
@@ -1448,7 +1450,7 @@ export default async function handler(req, res) {
     
     // Create ETag based on actual text content to ensure proper cache invalidation
     const contentHash = require('crypto').createHash('md5')
-      .update(`${decodedTitle}-${decodedWebsite}-${imageUrl}-${design}`)
+      .update(`${title}-${website}-${imageUrl}-${design}`)
       .digest('hex').substring(0, 8);
     res.setHeader('ETag', `"${contentHash}"`);
     
