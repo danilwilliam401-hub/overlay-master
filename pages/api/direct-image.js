@@ -1522,16 +1522,63 @@ export default async function handler(req, res) {
         
         console.log('Compositing SVG overlay onto image...');
         
-        // CRITICAL FIX: Try font-free overlay approach for Vercel compatibility
-        try {
+        // CRITICAL FIX: Use fontconfig-free approach directly in Vercel production
+        const isVercel = process.env.VERCEL === '1' || process.env.VERCEL_ENV;
+        
+        if (isVercel) {
+          console.log('🎯 VERCEL DETECTED: Using fontconfig-free SVG rendering directly');
+          
+          // Use simplified SVG without font dependencies for Vercel
+          const vercelSafeSvg = `
+            <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
+              <!-- Background gradient -->
+              <defs>
+                <linearGradient id="vercelGrad" x1="0%" y1="70%" x2="0%" y2="100%">
+                  <stop offset="0%" style="stop-color:#000000;stop-opacity:0"/>
+                  <stop offset="40%" style="stop-color:#000000;stop-opacity:0.6"/>
+                  <stop offset="100%" style="stop-color:#000000;stop-opacity:0.9"/>
+                </linearGradient>
+              </defs>
+              <rect x="0" y="${height * 0.7}" width="${width}" height="${height * 0.3}" fill="url(#vercelGrad)"/>
+              
+              <!-- Title text without font-family to avoid fontconfig issues -->
+              <text x="${width/2}" y="${height - 80}" 
+                    text-anchor="middle" 
+                    font-size="${Math.min(width * 0.05, 48)}" 
+                    fill="white" 
+                    stroke="#000000" 
+                    stroke-width="2">${processedTitle}</text>
+              
+              <!-- Website text without font-family -->
+              <text x="${width/2}" y="${height - 30}" 
+                    text-anchor="middle" 
+                    font-size="${Math.min(width * 0.025, 24)}" 
+                    fill="#FFD700" 
+                    stroke="#000000" 
+                    stroke-width="1">${processedWebsite}</text>
+            </svg>
+          `;
+          
           processedImage = processedImage.composite([{
-            input: svgBuffer,
+            input: Buffer.from(vercelSafeSvg, 'utf8'),
             blend: 'over'
           }]);
-          console.log('✅ SVG overlay successful');
-        } catch (fontError) {
-          console.error('❌ SVG font rendering failed (fontconfig issue in Vercel):', fontError.message);
-          console.log('🔄 Using simplified SVG without font dependencies...');
+          
+          console.log('✅ Vercel-safe SVG overlay applied successfully');
+          
+        } else {
+          console.log('🖥️ LOCAL DEVELOPMENT: Using full SVG with fonts');
+          
+          // Use original SVG with fonts for local development
+          try {
+            processedImage = processedImage.composite([{
+              input: svgBuffer,
+              blend: 'over'
+            }]);
+            console.log('✅ Full SVG overlay successful');
+          } catch (fontError) {
+            console.error('❌ SVG font rendering failed in local development:', fontError.message);
+            console.log('🔄 Using simplified SVG fallback...');
           
           // ULTIMATE FIX: Create SVG that doesn't rely on fontconfig
           // Use system fonts that are guaranteed to exist and avoid font-family specifications
@@ -1570,10 +1617,9 @@ export default async function handler(req, res) {
             blend: 'over'
           }]);
           
-          console.log('✅ Fontconfig-free SVG overlay applied successfully');
-        }
-        
-      } catch (overlayError) {
+            console.log('✅ Fontconfig-free SVG overlay applied successfully');
+          }
+        }      } catch (overlayError) {
         console.error('Error creating text overlay:', overlayError.message);
         console.error('Overlay error details:', overlayError);
         
