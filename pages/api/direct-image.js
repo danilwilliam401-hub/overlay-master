@@ -1526,54 +1526,32 @@ export default async function handler(req, res) {
         const isVercel = process.env.VERCEL === '1' || process.env.VERCEL_ENV;
         
         if (isVercel) {
-          console.log('🎯 VERCEL DETECTED: Using fontconfig-free SVG rendering directly');
+          console.log('🎯 VERCEL DETECTED: Using ultra-simple watermark text rendering');
           
-          // Use simplified SVG without font dependencies for Vercel - match original layout
-          const gradientHeight = height * 0.5; // Same as original
-          const startY = height - gradientHeight + (gradientHeight * 0.1); // Position text properly
-          const titleSize = Math.min(width * 0.04, 44); // Match original sizing
-          const websiteSize = Math.min(width * 0.02, 22); // Match original sizing
-          
-          const vercelSafeSvg = `
+          // ULTRA-SIMPLE watermark approach - just basic text that should work anywhere
+          const simpleWatermarkSvg = `
             <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
-              <!-- Background gradient matching original -->
-              <defs>
-                <linearGradient id="vercelGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" style="stop-color:rgb(0,0,0);stop-opacity:0"/>
-                  <stop offset="15%" style="stop-color:rgb(0,0,0);stop-opacity:0.1"/>
-                  <stop offset="40%" style="stop-color:rgb(0,0,0);stop-opacity:0.4"/>
-                  <stop offset="70%" style="stop-color:rgb(0,0,0);stop-opacity:0.7"/>
-                  <stop offset="100%" style="stop-color:rgb(0,0,0);stop-opacity:0.95"/>
-                </linearGradient>
-              </defs>
-              <rect x="0" y="${height - gradientHeight}" width="${width}" height="${gradientHeight}" fill="url(#vercelGradient)"/>
+              <!-- Basic dark overlay for text readability -->
+              <rect x="0" y="${height - 120}" width="${width}" height="120" fill="black" opacity="0.7"/>
               
-              <!-- Title text without font-family to avoid fontconfig -->
-              <text x="${width/2}" y="${startY + titleSize}" 
-                    text-anchor="middle" 
-                    dominant-baseline="middle"
-                    font-size="${titleSize}" 
-                    fill="white" 
-                    stroke="rgba(0,0,0,0.9)" 
-                    stroke-width="1.5">${decodedTitle ? decodedTitle.toUpperCase() : 'NO TITLE'}</text>
+              <!-- Ultra-simple title text - no styling, just basic white text -->
+              <text x="20" y="${height - 80}" 
+                    font-size="36" 
+                    fill="white">${decodedTitle ? decodedTitle.toUpperCase() : 'NO TITLE'}</text>
               
-              <!-- Website text without font-family -->
-              ${decodedWebsite ? `<text x="${width/2}" y="${startY + titleSize + 60}" 
-                    text-anchor="middle" 
-                    dominant-baseline="middle"
-                    font-size="${websiteSize}" 
-                    fill="#FFD700" 
-                    stroke="rgba(0,0,0,0.7)" 
-                    stroke-width="0.8">${decodedWebsite.toUpperCase()}</text>` : ''}
+              <!-- Ultra-simple website text -->
+              ${decodedWebsite ? `<text x="20" y="${height - 30}" 
+                    font-size="18" 
+                    fill="yellow">${decodedWebsite.toUpperCase()}</text>` : ''}
             </svg>
           `;
           
           processedImage = processedImage.composite([{
-            input: Buffer.from(vercelSafeSvg, 'utf8'),
+            input: Buffer.from(simpleWatermarkSvg, 'utf8'),
             blend: 'over'
           }]);
           
-          console.log('✅ Vercel-safe SVG overlay applied successfully');
+          console.log('✅ Ultra-simple watermark overlay applied successfully');
           
         } else {
           console.log('🖥️ LOCAL DEVELOPMENT: Using full SVG with fonts');
