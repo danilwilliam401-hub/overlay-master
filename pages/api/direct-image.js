@@ -1,5 +1,32 @@
 import sharp from 'sharp';
 
+// Function to clean problematic Unicode characters commonly found in URLs
+function cleanUnicodeText(text) {
+  if (!text) return text;
+  
+  return text
+    // Handle encoded smart quotes and special characters
+    .replace(/%E2%80%9C/g, '"')  // Left double quotation mark
+    .replace(/%E2%80%9D/g, '"')  // Right double quotation mark
+    .replace(/%E2%80%98/g, "'")  // Left single quotation mark
+    .replace(/%E2%80%99/g, "'")  // Right single quotation mark
+    .replace(/%E2%80%93/g, '-')  // En dash
+    .replace(/%E2%80%94/g, '-')  // Em dash
+    .replace(/%C2%A0/g, ' ')     // Non-breaking space
+    // Handle already decoded versions
+    .replace(/[\u201C\u201D]/g, '"')  // Smart double quotes
+    .replace(/[\u2018\u2019]/g, "'")  // Smart single quotes
+    .replace(/[\u2013\u2014]/g, '-')  // En/em dashes
+    .replace(/\u00A0/g, ' ')          // Non-breaking space
+    .replace(/\u2026/g, '...')        // Ellipsis
+    // Remove or replace problematic characters
+    .replace(/\uFFFD/g, '')           // Remove replacement characters
+    .replace(/[\u0000-\u001F\u007F-\u009F]/g, '') // Remove control characters
+    // Normalize whitespace
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 // Robust image fetching for Vercel compatibility
 async function fetchImageWithBuiltins(url) {
   try {
@@ -751,10 +778,13 @@ export default async function handler(req, res) {
         let decodedTitle;
         let decodedWebsite = '';
         
-        // Multiple decoding attempts for different environments
+        // Enhanced decoding with better Unicode and special character handling
         try {
+          // Pre-clean the title before decoding to handle common issues
+          let cleanTitle = cleanUnicodeText(title);
+          
           // First attempt: standard decoding
-          decodedTitle = decodeURIComponent(title);
+          decodedTitle = decodeURIComponent(cleanTitle);
           
           // Second attempt: handle double encoding (common on Vercel)
           if (decodedTitle.includes('%')) {
@@ -765,20 +795,54 @@ export default async function handler(req, res) {
             }
           }
           
-          // Third attempt: handle specific encoding issues
+          // Third attempt: handle HTML entities
           if (decodedTitle.includes('&#x')) {
             decodedTitle = decodedTitle.replace(/&#x([0-9A-F]+);/gi, (match, hex) => 
               String.fromCharCode(parseInt(hex, 16))
             );
           }
           
+          // Fourth attempt: handle common HTML entities
+          decodedTitle = decodedTitle
+            .replace(/&quot;/g, '"')
+            .replace(/&#8220;/g, '"')
+            .replace(/&#8221;/g, '"')
+            .replace(/&#8216;/g, "'")
+            .replace(/&#8217;/g, "'")
+            .replace(/&#8211;/g, '–')
+            .replace(/&#8212;/g, '—')
+            .replace(/&amp;/g, '&')
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>');
+            
+          // Handle Unicode replacement characters (the squares you're seeing)
+          decodedTitle = decodedTitle.replace(/\uFFFD/g, '?'); // Replace Unicode replacement character
+          
+          // Convert problematic Unicode characters to safe alternatives
+          decodedTitle = decodedTitle
+            .replace(/[""]/g, '"')  // Smart quotes to regular quotes
+            .replace(/['']/g, "'")  // Smart apostrophes to regular apostrophe
+            .replace(/[—–]/g, '-')  // Em/en dashes to regular dash
+            .replace(/…/g, '...')   // Ellipsis to three dots
+            .replace(/[^\x00-\x7F]/g, (char) => {
+              // Replace non-ASCII characters with closest ASCII equivalent
+              const code = char.charCodeAt(0);
+              if (code === 0x2013 || code === 0x2014) return '-'; // En/em dash
+              if (code === 0x2018 || code === 0x2019) return "'"; // Smart quotes
+              if (code === 0x201C || code === 0x201D) return '"'; // Smart double quotes
+              return char; // Keep other characters as-is
+            });
+          
         } catch (decodeError) {
           console.warn('Title decode error, using raw value:', decodeError.message);
           decodedTitle = title;
         }
         
-        // Clean up potential quote wrapping and extra characters (common in different environments)
+        // Clean up potential quote wrapping and extra characters
         decodedTitle = decodedTitle.replace(/^["']|["']$/g, '').trim();
+        
+        // Additional cleanup for encoding artifacts
+        decodedTitle = decodedTitle.replace(/\s+/g, ' ').trim(); // Normalize whitespace
         
         // Validate that we have actual text content
         if (!decodedTitle || decodedTitle === '' || decodedTitle === 'undefined' || decodedTitle === 'null') {
@@ -788,8 +852,11 @@ export default async function handler(req, res) {
         
         if (website) {
           try {
-            // Similar multi-step decoding for website
-            decodedWebsite = decodeURIComponent(website);
+            // Pre-clean the website before decoding
+            let cleanWebsite = cleanUnicodeText(website);
+            
+            // Enhanced decoding for website with same Unicode handling
+            decodedWebsite = decodeURIComponent(cleanWebsite);
             
             if (decodedWebsite.includes('%')) {
               try {
@@ -806,6 +873,36 @@ export default async function handler(req, res) {
               );
             }
             
+            // Apply same cleaning as title
+            decodedWebsite = decodedWebsite
+              .replace(/&quot;/g, '"')
+              .replace(/&#8220;/g, '"')
+              .replace(/&#8221;/g, '"')
+              .replace(/&#8216;/g, "'")
+              .replace(/&#8217;/g, "'")
+              .replace(/&#8211;/g, '–')
+              .replace(/&#8212;/g, '—')
+              .replace(/&amp;/g, '&')
+              .replace(/&lt;/g, '<')
+              .replace(/&gt;/g, '>');
+              
+            // Handle Unicode replacement characters
+            decodedWebsite = decodedWebsite.replace(/\uFFFD/g, '?');
+            
+            // Convert problematic Unicode characters
+            decodedWebsite = decodedWebsite
+              .replace(/[""]/g, '"')
+              .replace(/['']/g, "'")
+              .replace(/[—–]/g, '-')
+              .replace(/…/g, '...')
+              .replace(/[^\x00-\x7F]/g, (char) => {
+                const code = char.charCodeAt(0);
+                if (code === 0x2013 || code === 0x2014) return '-';
+                if (code === 0x2018 || code === 0x2019) return "'";
+                if (code === 0x201C || code === 0x201D) return '"';
+                return char;
+              });
+            
           } catch (decodeError) {
             console.warn('Website decode error, using raw value:', decodeError.message);
             decodedWebsite = website;
@@ -813,6 +910,7 @@ export default async function handler(req, res) {
           
           // Clean up potential quote wrapping and validate
           decodedWebsite = decodedWebsite.replace(/^["']|["']$/g, '').trim();
+          decodedWebsite = decodedWebsite.replace(/\s+/g, ' ').trim(); // Normalize whitespace
           
           if (decodedWebsite === '' || decodedWebsite === 'undefined' || decodedWebsite === 'null') {
             decodedWebsite = '';
@@ -854,7 +952,10 @@ export default async function handler(req, res) {
           decodedTitle, 
           decodedWebsite, 
           processedTitle: processedTitle !== decodedTitle ? processedTitle : 'same as original',
-          textCase 
+          textCase,
+          titleLength: decodedTitle.length,
+          websiteLength: decodedWebsite.length,
+          hasUnicodeIssues: decodedTitle.includes('\uFFFD') || decodedWebsite.includes('\uFFFD')
         });
         
         // Create a gradient overlay using Sharp - make it higher for default design
@@ -940,18 +1041,29 @@ export default async function handler(req, res) {
           startY = height - baseBottomMargin - (totalTextHeight / 2) - titleWebsiteGap;
         }
         
-        // Sanitize text content for SVG
-        const sanitizedTitleLines = titleLines.map(line => 
-          line.replace(/[<>&"']/g, (match) => {
+        // Enhanced sanitization for SVG with better Unicode handling
+        const sanitizedTitleLines = titleLines.map(line => {
+          // First, ensure we have clean text
+          let cleanLine = line.replace(/\uFFFD/g, '?'); // Remove replacement characters
+          
+          // Convert to safe characters and then XML escape
+          cleanLine = cleanLine.replace(/[<>&"']/g, (match) => {
             const entities = { '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&#39;' };
             return entities[match];
-          })
-        );
+          });
+          
+          // Ensure no problematic Unicode sequences remain
+          cleanLine = cleanLine.replace(/[\u0000-\u001F\u007F-\u009F]/g, ''); // Remove control characters
+          
+          return cleanLine;
+        });
         
-        const sanitizedWebsite = decodedWebsite.replace(/[<>&"']/g, (match) => {
+        let sanitizedWebsite = decodedWebsite.replace(/\uFFFD/g, '?'); // Remove replacement characters
+        sanitizedWebsite = sanitizedWebsite.replace(/[<>&"']/g, (match) => {
           const entities = { '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&#39;' };
           return entities[match];
         });
+        sanitizedWebsite = sanitizedWebsite.replace(/[\u0000-\u001F\u007F-\u009F]/g, ''); // Remove control characters
 
         // Create SVG with design-specific styling
         const svgOverlay = generateDesignVariant(design, {
@@ -987,9 +1099,26 @@ export default async function handler(req, res) {
           throw new Error('Generated SVG is empty');
         }
         
-        // Composite the SVG overlay
-        const svgBuffer = Buffer.from(svgOverlay, 'utf8');
+        // Enhanced SVG buffer creation with explicit UTF-8 encoding
+        let svgWithEncoding = svgOverlay;
+        
+        // Ensure SVG has proper encoding declaration
+        if (!svgWithEncoding.includes('encoding="UTF-8"')) {
+          svgWithEncoding = svgWithEncoding.replace(
+            /<svg([^>]*)>/,
+            '<svg$1 encoding="UTF-8">'
+          );
+        }
+        
+        // Create buffer with explicit UTF-8 encoding
+        const svgBuffer = Buffer.from(svgWithEncoding, 'utf8');
         console.log('SVG buffer size:', svgBuffer.length, 'bytes');
+        
+        // Validate buffer content
+        const bufferString = svgBuffer.toString('utf8');
+        if (bufferString.includes('\uFFFD')) {
+          console.warn('SVG buffer contains replacement characters, may indicate encoding issues');
+        }
         
         processedImage = processedImage.composite([{
           input: svgBuffer,
