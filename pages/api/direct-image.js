@@ -1,5 +1,35 @@
 import sharp from 'sharp';
-import { fetchImageWithBuiltins } from '../../lib/fetchUtils.js';
+
+// Robust image fetching for Vercel compatibility
+async function fetchImageWithBuiltins(url) {
+  try {
+    // Try native fetch first (works well on Vercel)
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (compatible; ImageBot/1.0)',
+        'Accept': 'image/*,*/*;q=0.8'
+      },
+      // Add timeout
+      signal: AbortSignal.timeout(30000)
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+
+    return response;
+  } catch (error) {
+    console.error('Fetch error:', error.message);
+    
+    // Fallback to Node.js modules for local development
+    if (typeof window === 'undefined') {
+      const { fetchImageWithBuiltins: fallback } = await import('../../lib/fetchUtils.js');
+      return await fallback(url);
+    }
+    
+    throw error;
+  }
+}
 
 // Function to generate different design variants
 function generateDesignVariant(design, params) {
@@ -621,14 +651,36 @@ function generateDesignVariant(design, params) {
 }
 
 export default async function handler(req, res) {
-  const { image, title = "", website = "", format = "jpeg", w = "1080", h = "1350", design = "default" } = req.query;
+  // Handle both query parameters and URL-encoded parameters
+  let { image, title = "", website = "", format = "jpeg", w = "1080", h = "1350", design = "default", textCase = "upper" } = req.query;
+  
+  // Additional parameter extraction for edge cases
+  if (!title && req.url) {
+    const urlParams = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+    title = urlParams.searchParams.get('title') || '';
+    website = urlParams.searchParams.get('website') || '';
+  }
+
+  // Debug logging for Vercel
+  console.log('Query parameters received:', { 
+    image, 
+    title: title ? `"${title}"` : 'empty', 
+    website: website ? `"${website}"` : 'empty', 
+    format, 
+    w, 
+    h, 
+    design,
+    textCase
+  });
+  
+  console.log('Environment:', process.env.VERCEL ? 'Vercel' : 'Local');
 
   // Validate required parameters
   if (!image) {
     res.status(400).json({ 
       error: "Missing required parameter 'image'",
-      usage: "?image=IMAGE_URL&title=TITLE&website=WEBSITE&format=jpeg|png&w=WIDTH&h=HEIGHT&design=default|design1|design2|design3|design4|design5|design6|design7|design8|design9|design10|design11|design12",
-      example: "/api/direct-image?image=https://picsum.photos/800/600&title=Your%20Title&website=YourSite.com&design=design7",
+      usage: "?image=IMAGE_URL&title=TITLE&website=WEBSITE&format=jpeg|png&w=WIDTH&h=HEIGHT&design=default|design1-12&textCase=upper|lower|title|sentence|original",
+      example: "/api/direct-image?image=https://picsum.photos/800/600&title=Your%20Title&website=YourSite.com&design=design7&textCase=title",
       designs: {
         "default": "Modern gradient with clean typography",
         "design1": "🚨 Classic Red Alert - Breaking news style",
@@ -643,6 +695,13 @@ export default async function handler(req, res) {
         "design10": "🟠 Amber Alert - Authoritative newsroom alert",
         "design11": "🔵 Blue Ribbon News - Reliable corporate news",
         "design12": "🔴 Metallic Red Signal - Modern polished breaking update"
+      },
+      textCaseOptions: {
+        "upper/uppercase": "ALL CAPS - Traditional urgent news style (default)",
+        "title/titlecase": "Title Case - Each Word Capitalized For Modern Look",
+        "sentence": "Sentence case - Only first word capitalized for readability", 
+        "lower/lowercase": "all lowercase - modern minimalist style",
+        "original/normal": "Preserves original text case as provided"
       }
     });
     return;
@@ -688,81 +747,317 @@ export default async function handler(req, res) {
     // Add text overlay if title is provided
     if (title && title.trim()) {
       try {
-        const decodedTitle = decodeURIComponent(title);
-        const decodedWebsite = website ? decodeURIComponent(website) : '';
+        // Handle potential double encoding issues on Vercel
+        let decodedTitle;
+        let decodedWebsite = '';
+        
+        // Multiple decoding attempts for different environments
+        try {
+          // First attempt: standard decoding
+          decodedTitle = decodeURIComponent(title);
+          
+          // Second attempt: handle double encoding (common on Vercel)
+          if (decodedTitle.includes('%')) {
+            try {
+              decodedTitle = decodeURIComponent(decodedTitle);
+            } catch {
+              // Keep first decode result if second fails
+            }
+          }
+          
+          // Third attempt: handle specific encoding issues
+          if (decodedTitle.includes('&#x')) {
+            decodedTitle = decodedTitle.replace(/&#x([0-9A-F]+);/gi, (match, hex) => 
+              String.fromCharCode(parseInt(hex, 16))
+            );
+          }
+          
+        } catch (decodeError) {
+          console.warn('Title decode error, using raw value:', decodeError.message);
+          decodedTitle = title;
+        }
+        
+        // Clean up potential quote wrapping and extra characters (common in different environments)
+        decodedTitle = decodedTitle.replace(/^["']|["']$/g, '').trim();
+        
+        // Validate that we have actual text content
+        if (!decodedTitle || decodedTitle === '' || decodedTitle === 'undefined' || decodedTitle === 'null') {
+          console.warn('Title appears empty after decoding, using fallback');
+          decodedTitle = 'Breaking News';
+        }
+        
+        if (website) {
+          try {
+            // Similar multi-step decoding for website
+            decodedWebsite = decodeURIComponent(website);
+            
+            if (decodedWebsite.includes('%')) {
+              try {
+                decodedWebsite = decodeURIComponent(decodedWebsite);
+              } catch {
+                // Keep first decode result if second fails
+              }
+            }
+            
+            // Handle HTML entities
+            if (decodedWebsite.includes('&#x')) {
+              decodedWebsite = decodedWebsite.replace(/&#x([0-9A-F]+);/gi, (match, hex) => 
+                String.fromCharCode(parseInt(hex, 16))
+              );
+            }
+            
+          } catch (decodeError) {
+            console.warn('Website decode error, using raw value:', decodeError.message);
+            decodedWebsite = website;
+          }
+          
+          // Clean up potential quote wrapping and validate
+          decodedWebsite = decodedWebsite.replace(/^["']|["']$/g, '').trim();
+          
+          if (decodedWebsite === '' || decodedWebsite === 'undefined' || decodedWebsite === 'null') {
+            decodedWebsite = '';
+          }
+        }
+        
+        // Apply text case transformation based on textCase parameter
+        let processedTitle = decodedTitle;
+        switch (textCase.toLowerCase()) {
+          case 'upper':
+          case 'uppercase':
+            processedTitle = decodedTitle.toUpperCase();
+            break;
+          case 'lower':
+          case 'lowercase':
+            processedTitle = decodedTitle.toLowerCase();
+            break;
+          case 'title':
+          case 'titlecase':
+            processedTitle = decodedTitle.replace(/\w\S*/g, (txt) => 
+              txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+            );
+            break;
+          case 'sentence':
+            processedTitle = decodedTitle.charAt(0).toUpperCase() + decodedTitle.slice(1).toLowerCase();
+            break;
+          case 'normal':
+          case 'original':
+          default:
+            if (textCase.toLowerCase() !== 'upper' && textCase.toLowerCase() !== 'uppercase') {
+              processedTitle = decodedTitle; // Keep original case
+            } else {
+              processedTitle = decodedTitle.toUpperCase(); // Default to uppercase
+            }
+            break;
+        }
+
+        console.log('Decoded values:', { 
+          decodedTitle, 
+          decodedWebsite, 
+          processedTitle: processedTitle !== decodedTitle ? processedTitle : 'same as original',
+          textCase 
+        });
         
         // Create a gradient overlay using Sharp - make it higher for default design
         const gradientHeight = Math.floor(height * (design === 'default' ? 0.55 : 0.35)); // Higher coverage for default design
         
-        // Function to wrap text into multiple lines with better width calculation
+        // Function to wrap text into multiple lines - display full text without truncation
         const wrapText = (text, maxWidth, fontSize) => {
           const words = text.split(' ');
           const lines = [];
           let currentLine = '';
           
-          // Approximate character width (more accurate)
-          const charWidth = fontSize * 0.6;
+          // More accurate character width calculation based on font weight
+          const charWidth = fontSize * 0.55;
           const maxChars = Math.floor(maxWidth / charWidth);
           
           for (const word of words) {
             const testLine = currentLine ? `${currentLine} ${word}` : word;
+            
+            // Check if adding this word would exceed the character limit
             if (testLine.length <= maxChars) {
               currentLine = testLine;
             } else {
+              // If we have content in current line, save it and start new line
               if (currentLine) {
                 lines.push(currentLine);
                 currentLine = word;
               } else {
-                // Word is too long, break it
-                lines.push(word.substring(0, maxChars - 3) + '...');
+                // Single word is too long, but don't truncate - just add it
+                lines.push(word);
                 currentLine = '';
               }
             }
           }
+          
+          // Add any remaining content
           if (currentLine) {
             lines.push(currentLine);
           }
-          return lines.slice(0, 2); // Max 2 lines for better readability
+          
+          // Return all lines - no maximum limit, display complete text
+          return lines;
         };
         
-        // Calculate font size and text area with more padding
-        const fontSize = Math.min(width * 0.045, 44); // Slightly smaller
-        const textPadding = width * 0.15; // Increased from 8% to 15% padding on each side
+        // Calculate font size and text area with dynamic adaptation for any number of lines
+        const textPadding = width * 0.1; // Optimized padding for maximum text space
         const maxTextWidth = width - (textPadding * 2);
-        const titleLines = wrapText(decodedTitle.toUpperCase(), maxTextWidth, fontSize);
-        const lineHeight = fontSize * 1.15;
+        
+        // Start with a base font size and adjust based on content length
+        let fontSize = Math.min(width * 0.045, 44);
+        let titleLines = wrapText(processedTitle, maxTextWidth, fontSize);
+        
+        // Dynamically adjust font size based on number of lines to ensure everything fits
+        if (titleLines.length >= 5) {
+          fontSize = Math.min(width * 0.032, 32); // Very small for 5+ lines
+        } else if (titleLines.length === 4) {
+          fontSize = Math.min(width * 0.036, 36); // Small for 4 lines
+        } else if (titleLines.length === 3) {
+          fontSize = Math.min(width * 0.04, 38); // Medium-small for 3 lines
+        }
+        
+        // Recalculate lines with the adjusted font size
+        titleLines = wrapText(processedTitle, maxTextWidth, fontSize);
+        
+        // Dynamic line height based on number of lines
+        const lineHeight = titleLines.length >= 4 ? fontSize * 1.05 : fontSize * 1.1;
         const totalTextHeight = titleLines.length * lineHeight;
         
-        // Add spacing between title and website (increase from 100 to 140)
-        const titleWebsiteGap = decodedWebsite ? 60 : 20; // Extra gap if website exists
-        const startY = height - 140 - (totalTextHeight / 2) - titleWebsiteGap;
+        // Adaptive spacing and positioning based on number of lines
+        const baseGap = decodedWebsite ? Math.max(20, 50 - (titleLines.length * 5)) : 15;
+        const titleWebsiteGap = baseGap;
         
+        // Calculate available space and ensure text fits
+        const availableHeight = height * 0.5; // Use bottom 50% for text
+        const requiredHeight = totalTextHeight + titleWebsiteGap + (decodedWebsite ? 30 : 0);
+        
+        let startY;
+        if (requiredHeight > availableHeight) {
+          // If text is too tall, position it higher and compress slightly
+          startY = height - availableHeight + 20;
+        } else {
+          // Normal positioning
+          const baseBottomMargin = Math.max(100, 160 - (titleLines.length * 10));
+          startY = height - baseBottomMargin - (totalTextHeight / 2) - titleWebsiteGap;
+        }
+        
+        // Sanitize text content for SVG
+        const sanitizedTitleLines = titleLines.map(line => 
+          line.replace(/[<>&"']/g, (match) => {
+            const entities = { '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&#39;' };
+            return entities[match];
+          })
+        );
+        
+        const sanitizedWebsite = decodedWebsite.replace(/[<>&"']/g, (match) => {
+          const entities = { '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&#39;' };
+          return entities[match];
+        });
+
         // Create SVG with design-specific styling
         const svgOverlay = generateDesignVariant(design, {
           width,
           height,
           gradientHeight,
-          titleLines,
-          decodedWebsite,
+          titleLines: sanitizedTitleLines,
+          decodedWebsite: sanitizedWebsite,
           startY,
           lineHeight,
           fontSize,
           totalTextHeight,
           titleWebsiteGap
         });
+        
+        console.log('Text layout calculated:', {
+          titleLines: titleLines.length,
+          fontSize,
+          lineHeight,
+          totalTextHeight,
+          startY,
+          titleWebsiteGap,
+          availableHeight: height * 0.5,
+          requiredHeight: totalTextHeight + titleWebsiteGap + (decodedWebsite ? 30 : 0)
+        });
 
         console.log('Adding text overlay with title:', decodedTitle.substring(0, 20) + '...');
         console.log('Text wrapped into', titleLines.length, 'lines:', titleLines);
+        console.log('SVG overlay length:', svgOverlay.length, 'characters');
+        
+        // Validate SVG before using it
+        if (!svgOverlay || svgOverlay.length === 0) {
+          throw new Error('Generated SVG is empty');
+        }
         
         // Composite the SVG overlay
+        const svgBuffer = Buffer.from(svgOverlay, 'utf8');
+        console.log('SVG buffer size:', svgBuffer.length, 'bytes');
+        
         processedImage = processedImage.composite([{
-          input: Buffer.from(svgOverlay),
+          input: svgBuffer,
           blend: 'over'
         }]);
         
       } catch (overlayError) {
         console.error('Error creating text overlay:', overlayError.message);
-        // Continue without overlay if there's an error
+        console.error('Overlay error details:', overlayError);
+        
+          // Try a simpler overlay as fallback
+          try {
+            console.log('Attempting fallback simple overlay...');
+            
+            // Create simple multi-line text for fallback - adapt to content length
+            let fallbackFontSize = 32;
+            const fallbackLines = wrapText(processedTitle, maxTextWidth, fallbackFontSize);
+            
+            // Adjust font size based on number of lines
+            if (fallbackLines.length >= 4) {
+              fallbackFontSize = 28;
+            }
+            
+            const fallbackLineHeight = fallbackFontSize + 4;
+            const fallbackTotalHeight = fallbackLines.length * fallbackLineHeight;
+            const fallbackStartY = height - Math.max(150, fallbackTotalHeight + 50);
+            
+            const fallbackSvg = `
+              <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="fallbackGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:rgb(0,0,0);stop-opacity:0"/>
+                    <stop offset="70%" style="stop-color:rgb(0,0,0);stop-opacity:0.7"/>
+                    <stop offset="100%" style="stop-color:rgb(0,0,0);stop-opacity:0.9"/>
+                  </linearGradient>
+                </defs>
+                <rect x="0" y="${height * 0.6}" width="${width}" height="${height * 0.4}" fill="url(#fallbackGradient)"/>
+                ${fallbackLines.map((line, index) => `
+                  <text x="${width/2}" y="${fallbackStartY + (index * fallbackLineHeight)}" 
+                        text-anchor="middle" 
+                        font-family="Arial, sans-serif" 
+                        font-weight="700" 
+                        font-size="32" 
+                        fill="white">
+                    ${line.replace(/[<>&"']/g, '')}
+                  </text>
+                `).join('')}
+                ${decodedWebsite ? `
+                  <text x="${width/2}" y="${fallbackStartY + (fallbackLines.length * fallbackLineHeight) + 25}" 
+                        text-anchor="middle" 
+                        font-family="Arial, sans-serif" 
+                        font-weight="500" 
+                        font-size="18" 
+                        fill="#FFD700">
+                    ${decodedWebsite.replace(/[<>&"']/g, '').substring(0, 30)}
+                  </text>
+                ` : ''}
+              </svg>
+            `;          processedImage = processedImage.composite([{
+            input: Buffer.from(fallbackSvg, 'utf8'),
+            blend: 'over'
+          }]);
+          
+          console.log('Fallback overlay applied successfully');
+        } catch (fallbackError) {
+          console.error('Fallback overlay also failed:', fallbackError.message);
+          // Continue without any overlay
+        }
       }
     } else {
       console.log('Processing image without overlay - no title provided');
