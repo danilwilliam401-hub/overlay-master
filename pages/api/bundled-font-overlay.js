@@ -498,7 +498,13 @@ export default async function handler(req, res) {
     
     // Calculate website position based on where title ends (ensure integers)
     const titleEndY = Math.round(titleStartY + totalTitleHeight);
-    const websiteY = Math.round(titleEndY + gapBetweenTitleAndWebsite);
+    
+    // Adjust website positioning for designs with accent elements
+    let websiteY = Math.round(titleEndY + gapBetweenTitleAndWebsite);
+    if (design === 'anime') {
+      // For anime design, add extra space after the accent line (15px line position + 20px gap)
+      websiteY = Math.round(titleEndY + 15 + 25); // accent line at +15, website at +40 from title end
+    }
     
     // Calculate dynamic SVG height to fit all content (ensure integers)
     const bottomMargin = 20;
