@@ -8,6 +8,7 @@ export default function Designs() {
   const [imageUrl, setImageUrl] = useState('https://picsum.photos/800/600');
 
   const designs = {
+    // Original 8 designs
     'default': 'Classic Dark',
     'tech': 'Tech Blue',
     'entertainment': 'Entertainment Purple', 
@@ -15,7 +16,24 @@ export default function Designs() {
     'anime': 'Anime Dark',
     'eco': 'Eco Green',
     'news': 'News Professional',
-    'minimal': 'Minimal Clean'
+    'minimal': 'Minimal Clean',
+    
+    // New 15 Universal Designs
+    'modern': '🎨 Modern Lifestyle',
+    'bold': '⚡ Bold Impact',
+    'viral': '💬 Viral Entertainment',
+    'breaking': '📰 Breaking News',
+    'thoughtful': '🧠 Thoughtful Quotes',
+    'colorful': '🌈 Colorful Youth',
+    'overlay': '📸 Photo Overlay',
+    'aesthetic': '🎨 Aesthetic Style',
+    'monochrome': '🖤 Monochrome Minimal',
+    'vintage': '🧩 Vintage Retro',
+    'luxury': '💎 Luxury Premium',
+    'cinematic': '🎥 Cinematic Drama',
+    'neon': '⚙️ Neon Tech',
+    'inspire': '☀️ Inspirational',
+    'cute': '🧁 Cute Aesthetic'
   };
 
   const generateUrl = (design) => {

@@ -174,6 +174,83 @@ http://localhost:3000/api/bundled-font-overlay.jpg?title=YouTuber%20Outdoor%20Bo
 http://localhost:3000/api/bundled-font-overlay.jpg?title=Japan%27s%20Water%20Plant%20Generates%20Endless%20Power%20By%20Mixing%20Saltwater&website=SCIENCE%20HUB&design=minimal
 ```
 
+### **🚀 New Universal Design Test URLs:**
+
+#### 9. Modern Lifestyle
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Live%20Your%20Best%20Life%20Today&website=LIFESTYLE&design=modern
+```
+
+#### 10. Bold Impact (Viral Memes)
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=When%20You%20Realize%20It%27s%20Monday&website=VIRAL%20MEMES&design=bold
+```
+
+#### 11. Viral Entertainment
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Celebrity%20Drama%20Unfolds%20on%20Social%20Media&website=ENTERTAINMENT&design=viral
+```
+
+#### 12. Breaking News
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Major%20Political%20Development%20Shakes%20Nation&website=NEWS%20CENTER&design=breaking
+```
+
+#### 13. Thoughtful Quotes
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Success%20Is%20Not%20Final%20Failure%20Is%20Not%20Fatal&website=MOTIVATION&design=thoughtful
+```
+
+#### 14. Colorful Youth
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Gen%20Z%20Changes%20Everything%20Again&website=YOUTH%20CULTURE&design=colorful
+```
+
+#### 15. Photo Overlay
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Capture%20Every%20Moment%20That%20Matters&website=PHOTOGRAPHY&design=overlay
+```
+
+#### 16. Aesthetic Style
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Wellness%20Journey%20Starts%20With%20Self%20Love&website=WELLNESS&design=aesthetic
+```
+
+#### 17. Monochrome Minimal
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Less%20Is%20More%20In%20Every%20Aspect&website=MINIMALIST&design=monochrome
+```
+
+#### 18. Vintage Retro
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Good%20Old%20Days%20Were%20Actually%20Good&website=RETRO%20VIBES&design=vintage
+```
+
+#### 19. Luxury Premium
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Excellence%20Is%20Never%20An%20Accident&website=LUXURY%20BRAND&design=luxury
+```
+
+#### 20. Cinematic Drama
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Plot%20Twist%20Nobody%20Saw%20Coming&website=CINEMA&design=cinematic
+```
+
+#### 21. Neon Tech
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Artificial%20Intelligence%20Revolution%20Begins&website=TECH%20NEWS&design=neon
+```
+
+#### 22. Inspirational
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Believe%20You%20Can%20And%20You%20Are%20Halfway%20There&website=INSPIRATION&design=inspire
+```
+
+#### 23. Cute Aesthetic
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Small%20Steps%20Lead%20To%20Big%20Changes&website=POSITIVITY&design=cute
+```
+
 ### 🖼️ Format Variations
 
 #### PNG Format (with transparency support)
@@ -247,6 +324,8 @@ fetch('https://your-domain.com/api/image?image=https://picsum.photos/800/600&tit
 
 ## 🎨 Enhanced Font Design Variants (Bundled System)
 
+### Original 8 Designs
+
 | Design | Style | Best For | Color Scheme | Special Features |
 |--------|-------|----------|--------------|------------------|
 | `default` | Classic Dark | General use | White/Gold | Elegant gradient |
@@ -257,6 +336,26 @@ fetch('https://your-domain.com/api/image?image=https://picsum.photos/800/600&tit
 | `eco` | 🌱 Eco Green | Environmental | White/Lime | Earth tones |
 | `news` | 📰 News Professional | News/Media | White/Red | Separator bars |
 | `minimal` | 🤍 Minimal Clean | Minimalist | Dark Gray | Clean/Light |
+
+### Universal Design Collection (15 New Styles)
+
+| Design | Style | Best For | Font Size | Special Features |
+|--------|-------|----------|-----------|------------------|
+| `modern` | 🎨 Modern Lifestyle | General quotes, lifestyle | 60px | Clean centered layout |
+| `bold` | ⚡ Bold Impact | Memes, viral content | 73px | High contrast red background |
+| `viral` | 💬 Viral Entertainment | Pop culture, humor | 67px | Pink-purple gradient |
+| `breaking` | 📰 Breaking News | News, politics | 57px | Red "BREAKING" tag |
+| `thoughtful` | 🧠 Thoughtful Quotes | Motivational content | 53px | Thin divider line |
+| `colorful` | 🌈 Colorful Youth | Lifestyle, youth content | 63px | Bright cyan-orange gradient |
+| `overlay` | 📸 Photo Overlay | Image captions | 60px | Bottom gradient overlay |
+| `aesthetic` | 🎨 Aesthetic Style | Fashion, wellness | 57px | Soft pastel palette |
+| `monochrome` | 🖤 Monochrome Minimal | Brand posts | 60px | Pure black/white |
+| `vintage` | 🧩 Vintage Retro | Nostalgia content | 53px | Cream/brown colors |
+| `luxury` | 💎 Luxury Premium | Business, success | 63px | Gold on navy gradient |
+| `cinematic` | 🎥 Cinematic Drama | Movie content | 70px | Black letterbox bars |
+| `neon` | ⚙️ Neon Tech | Tech, coding | 60px | Neon glow effects |
+| `inspire` | ☀️ Inspirational | Positive quotes | 63px | Blue-yellow gradient |
+| `cute` | 🧁 Cute Aesthetic | Feel-good content | 67px | Pink rounded style |
 
 ## 🔧 Advanced Usage
 

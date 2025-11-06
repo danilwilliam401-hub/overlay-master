@@ -143,6 +143,142 @@ const DESIGN_THEMES = {
     titleSize: 42,
     websiteSize: 20,
     fontWeight: '500'
+  },
+  // 🎨 NEW UNIVERSAL DESIGNS (15 additional styles)
+  'modern': {
+    name: 'Modern Lifestyle',
+    titleColor: '#FFFFFF',
+    websiteColor: '#E0E0E0',
+    gradientColors: ['rgba(100,100,100,0.3)', 'rgba(50,50,50,0.9)'],
+    titleSize: 60,
+    websiteSize: 24,
+    fontWeight: '900'
+  },
+  'bold': {
+    name: 'Bold Impact',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFFF00',
+    gradientColors: ['rgba(255,0,0,0.95)', 'rgba(200,0,0,0.95)'],
+    titleSize: 73,
+    websiteSize: 30,
+    fontWeight: '900'
+  },
+  'viral': {
+    name: 'Viral Entertainment',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FF1493',
+    gradientColors: ['rgba(255,20,147,0.8)', 'rgba(138,43,226,0.9)'],
+    titleSize: 67,
+    websiteSize: 28,
+    fontWeight: '800'
+  },
+  'breaking': {
+    name: 'Breaking News',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FF0000',
+    gradientColors: ['rgba(0,30,60,0.9)', 'rgba(0,50,100,0.95)'],
+    titleSize: 57,
+    websiteSize: 25,
+    fontWeight: '700'
+  },
+  'thoughtful': {
+    name: 'Thoughtful Quotes',
+    titleColor: '#2F2F2F',
+    websiteColor: '#8B4513',
+    gradientColors: ['rgba(245,245,220,0.9)', 'rgba(250,250,250,0.95)'],
+    titleSize: 53,
+    websiteSize: 22,
+    fontWeight: '700'
+  },
+  'colorful': {
+    name: 'Colorful Youth',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFE4E1',
+    gradientColors: ['rgba(0,255,255,0.8)', 'rgba(255,165,0,0.9)'],
+    titleSize: 63,
+    websiteSize: 26,
+    fontWeight: '900'
+  },
+  'overlay': {
+    name: 'Photo Overlay',
+    titleColor: '#FFFFFF',
+    websiteColor: '#F0F0F0',
+    gradientColors: ['rgba(0,0,0,0.1)', 'rgba(0,0,0,0.8)'],
+    titleSize: 60,
+    websiteSize: 24,
+    fontWeight: '800'
+  },
+  'aesthetic': {
+    name: 'Aesthetic Style',
+    titleColor: '#8E44AD',
+    websiteColor: '#D2691E',
+    gradientColors: ['rgba(255,182,193,0.7)', 'rgba(221,160,221,0.9)'],
+    titleSize: 57,
+    websiteSize: 23,
+    fontWeight: '700'
+  },
+  'monochrome': {
+    name: 'Monochrome Minimal',
+    titleColor: '#000000',
+    websiteColor: '#4A4A4A',
+    gradientColors: ['rgba(255,255,255,0.95)', 'rgba(248,248,248,0.98)'],
+    titleSize: 60,
+    websiteSize: 24,
+    fontWeight: '700'
+  },
+  'vintage': {
+    name: 'Vintage Retro',
+    titleColor: '#8B4513',
+    websiteColor: '#D2691E',
+    gradientColors: ['rgba(245,222,179,0.9)', 'rgba(222,184,135,0.95)'],
+    titleSize: 53,
+    websiteSize: 22,
+    fontWeight: '600'
+  },
+  'luxury': {
+    name: 'Luxury Premium',
+    titleColor: '#FFD700',
+    websiteColor: '#C0C0C0',
+    gradientColors: ['rgba(0,0,0,0.9)', 'rgba(25,25,112,0.95)'],
+    titleSize: 63,
+    websiteSize: 26,
+    fontWeight: '700'
+  },
+  'cinematic': {
+    name: 'Cinematic Drama',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFD700',
+    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(20,20,20,0.98)'],
+    titleSize: 70,
+    websiteSize: 30,
+    fontWeight: '900'
+  },
+  'neon': {
+    name: 'Neon Tech',
+    titleColor: '#00FF41',
+    websiteColor: '#00BFFF',
+    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(10,10,30,0.98)'],
+    titleSize: 60,
+    websiteSize: 26,
+    fontWeight: '800'
+  },
+  'inspire': {
+    name: 'Inspirational',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFD700',
+    gradientColors: ['rgba(30,144,255,0.8)', 'rgba(255,215,0,0.9)'],
+    titleSize: 63,
+    websiteSize: 26,
+    fontWeight: '900'
+  },
+  'cute': {
+    name: 'Cute Aesthetic',
+    titleColor: '#FF1493',
+    websiteColor: '#DA70D6',
+    gradientColors: ['rgba(255,182,193,0.9)', 'rgba(221,160,221,0.95)'],
+    titleSize: 67,
+    websiteSize: 28,
+    fontWeight: '800'
   }
 };
 
@@ -337,20 +473,62 @@ export default async function handler(req, res) {
             stroke-width: 3;
             fill: none;
           }` : ''}
+          ${design === 'breaking' ? `
+          .breaking-tag {
+            font-family: "Noto Sans", "Inter", sans-serif;
+            font-size: 18px;
+            font-weight: 900;
+            fill: #FFFFFF;
+            text-anchor: middle;
+          }
+          .breaking-bg {
+            fill: #FF0000;
+          }` : ''}
+          ${design === 'thoughtful' ? `
+          .divider-line {
+            stroke: ${selectedDesign.websiteColor};
+            stroke-width: 1;
+            fill: none;
+          }` : ''}
+          ${design === 'cinematic' ? `
+          .letterbox {
+            fill: rgba(0,0,0,0.9);
+          }` : ''}
+          ${design === 'neon' ? `
+          .neon-glow {
+            filter: drop-shadow(0 0 10px ${selectedDesign.titleColor});
+          }` : ''}
         </style>
         
         <!-- Dynamic Design Gradient Background -->
         <rect width="100%" height="100%" fill="url(#dynamicGradient)"/>
         
-        ${design === 'anime' ? `
-        <!-- Anime-style accent lines -->
-        <line x1="${padding}" y1="${Math.round(titleStartY - 20)}" x2="${targetWidth - padding}" y2="${Math.round(titleStartY - 20)}" class="accent-line"/>
+        ${design === 'breaking' ? `
+        <!-- Breaking News Tag (above title) -->
+        <rect x="${Math.round(targetWidth / 2 - 60)}" y="${Math.round(titleStartY - 50)}" width="120" height="30" rx="4" class="breaking-bg"/>
+        <text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY - 30)}" class="breaking-tag">BREAKING</text>
         ` : ''}
         
+        ${design === 'cinematic' ? `
+        <!-- Cinematic letterbox bars -->
+        <rect x="0" y="0" width="${targetWidth}" height="80" class="letterbox"/>
+        <rect x="0" y="${svgHeight - 80}" width="${targetWidth}" height="80" class="letterbox"/>
+        ` : ''}
+
         <!-- Title Text Lines - Center aligned with design-specific styling -->
         ${titleLines.map((line, index) => 
-          `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY + (index * lineHeight))}" class="title-text">${line}</text>`
+          `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY + (index * lineHeight))}" class="title-text ${design === 'neon' ? 'neon-glow' : ''}">${line}</text>`
         ).join('')}
+        
+        ${design === 'anime' ? `
+        <!-- Anime-style accent lines (below title) -->
+        <line x1="${padding}" y1="${Math.round(titleEndY + 15)}" x2="${targetWidth - padding}" y2="${Math.round(titleEndY + 15)}" class="accent-line"/>
+        ` : ''}
+        
+        ${design === 'thoughtful' ? `
+        <!-- Thoughtful-style thin divider -->
+        <line x1="${Math.round(targetWidth / 2 - 100)}" y1="${Math.round(titleEndY + 15)}" x2="${Math.round(targetWidth / 2 + 100)}" y2="${Math.round(titleEndY + 15)}" class="divider-line"/>
+        ` : ''}
         
         ${design === 'news' ? `
         <!-- News-style separator bar -->
