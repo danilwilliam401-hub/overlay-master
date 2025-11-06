@@ -4,13 +4,24 @@ A powerful Next.js application that creates professional image banners with cust
 
 ## ✨ Features
 
+### Standard Design System
 - **🎨 12 Professional Designs**: From news alerts to corporate styles
 - **⚡ Direct Image URLs**: Works like wsrv.nl for instant embedding
 - **🖼️ High Quality Output**: 1080×1350 resolution with optimized compression
 - **📱 Preview Mode**: Interactive preview with download options
 - **🔗 Multiple Formats**: JPEG and PNG support
-- **🚀 Fast Processing**: Server-side rendering with Sharp image processing
+
+### Enhanced Font System (bundled-font-overlay)
+- **� Superior Unicode Support**: Bundled Noto Sans + Inter fonts with fontconfig
+- **🎯 8 Themed Designs**: Tech, Entertainment, Sports, Anime, Eco, News, Minimal styles
+- **📏 Dynamic Text Layout**: Intelligent wrapping and positioning prevents overlap
+- **⚡ Glow Effects**: Special visual effects for tech designs
+- **🎨 Design-Specific Features**: Accent lines, separator bars, custom gradients
+
+### Common Features
+- **�🚀 Fast Processing**: Server-side rendering with Sharp image processing
 - **🌐 Public API**: No authentication required
+- **📊 Detailed Logging**: Debug information for troubleshooting
 
 ## 🔧 API Parameters
 
@@ -30,12 +41,17 @@ A powerful Next.js application that creates professional image banners with cust
 https://your-domain.com/api/direct-image?image=IMAGE_URL&title=TITLE&design=DESIGN
 ```
 
-### 2. Preview Mode
+### 2. Bundled Font Overlay (Enhanced Font System)
+```
+https://your-domain.com/api/bundled-font-overlay.jpg?image=IMAGE_URL&title=TITLE&design=DESIGN
+```
+
+### 3. Preview Mode
 ```
 https://your-domain.com/?image=IMAGE_URL&title=TITLE&preview=true
 ```
 
-### 3. JSON Metadata (API Endpoint)
+### 4. JSON Metadata (API Endpoint)
 ```
 https://your-domain.com/api/image?image=IMAGE_URL&title=TITLE
 ```
@@ -109,6 +125,55 @@ fetch('https://your-domain.com/api/direct-image?image=https://picsum.photos/800/
 fetch('https://your-domain.com/api/direct-image?image=https://picsum.photos/800/600&title=METALLIC%20SIGNAL&website=ModernNews.com&design=design12')
 ```
 
+## 🎯 Direct Design Test URLs (Bundled Font System)
+
+### **🌟 Design Gallery Page:**
+```
+http://localhost:3000/designs
+```
+
+### **Enhanced Font-Enabled Designs:**
+
+#### 1. Classic Dark (Default)
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=AI%20Will%20Replace%20Doctors%20%26%20Teachers%20Within%2010%20Years&website=SOCIATV&design=default
+```
+
+#### 2. Tech Blue (Solid Black Background) 
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=AI%20Will%20Replace%20Doctors%20%26%20Teachers%20Within%2010%20Years&website=SOCIATV&design=tech
+```
+
+#### 3. Entertainment Yellow (Gaming News Style)
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=US%20GAMERS%20AREN%27T%20BUYING%20VIDEO%20GAMES%20ANYMORE%2C%20NEW%20STUDY%20REVEALS&website=GAMING%20NEWS&design=entertainment
+```
+
+#### 4. Sports Dynamic (Tennis/Sports Style)
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Valentin%20Vacherot%20Discloses%20How%20Jannik%20Sinner%20Treats%20Him&website=THE%20SPORT%20REVIEW&design=sports
+```
+
+#### 5. Anime Dark (Hunter x Hunter Style)
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Hunter%20x%20Hunter%27s%20Dark%20Continent%20Arc%20Finally%20Gets%20An%20Anime%20Adaptation&website=RICHHIPPOS.COM&design=anime
+```
+
+#### 6. Eco Green (Iceland Renewable Energy Style)
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Iceland%20Powers%20Itself%20With%20100%25%20Renewable%20Energy&website=HW&design=eco
+```
+
+#### 7. News Professional (YouTube/News Style)
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=YouTuber%20Outdoor%20Boys%20Has%20Revealed%20He%20Will%20Be%20Uploading%203%20Videos&website=BAD%20FRIENDS&design=news
+```
+
+#### 8. Minimal Clean (Japan Water Plant Style)
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Japan%27s%20Water%20Plant%20Generates%20Endless%20Power%20By%20Mixing%20Saltwater&website=SCIENCE%20HUB&design=minimal
+```
+
 ### 🖼️ Format Variations
 
 #### PNG Format (with transparency support)
@@ -180,37 +245,73 @@ fetch('https://your-domain.com/api/image?image=https://picsum.photos/800/600&tit
 | `design11` | 🔵 Blue Ribbon | Corporate | Professional blue |
 | `design12` | 🔴 Metallic Red | Modern polish | Metallic red |
 
+## 🎨 Enhanced Font Design Variants (Bundled System)
+
+| Design | Style | Best For | Color Scheme | Special Features |
+|--------|-------|----------|--------------|------------------|
+| `default` | Classic Dark | General use | White/Gold | Elegant gradient |
+| `tech` | 🔵 Tech Blue | AI/Tech content | White/Cyan | Solid black bg + Glow effects |
+| `entertainment` | 🟣 Entertainment Purple | Movies/TV shows | Gold/Purple | Rich gradients |
+| `sports` | ⚡ Sports Dynamic | Sports content | White/Green | Dynamic spacing |
+| `anime` | 🌟 Anime Dark | Gaming/Anime | Gold/Orange | Accent lines |
+| `eco` | 🌱 Eco Green | Environmental | White/Lime | Earth tones |
+| `news` | 📰 News Professional | News/Media | White/Red | Separator bars |
+| `minimal` | 🤍 Minimal Clean | Minimalist | Dark Gray | Clean/Light |
+
 ## 🔧 Advanced Usage
 
 ### Embedding in HTML
 ```html
+<!-- Standard Design System -->
 <img src="https://your-domain.com/api/direct-image?image=https://picsum.photos/800/600&title=Embedded%20Banner&design=design1" alt="News Banner" />
+
+<!-- Enhanced Font System -->
+<img src="https://your-domain.com/api/bundled-font-overlay.jpg?image=https://picsum.photos/800/600&title=Enhanced%20Banner&website=YourSite.com&design=tech" alt="Tech News Banner" />
 ```
 
 ### Social Media Integration
 ```javascript
-// Perfect for social media posts
-const bannerUrl = 'https://your-domain.com/api/direct-image?' + 
+// Standard Design System
+const standardBanner = 'https://your-domain.com/api/direct-image?' + 
   'image=https://images.unsplash.com/photo-1506905925346-21bda4d32df4' +
   '&title=Social%20Media%20Post' +
   '&website=YourBrand.com' +
   '&design=design3' +
   '&format=png';
 
-// Use bannerUrl for Twitter, Facebook, Instagram, etc.
+// Enhanced Font System (Better Unicode Support)
+const enhancedBanner = 'https://your-domain.com/api/bundled-font-overlay.jpg?' + 
+  'image=https://images.unsplash.com/photo-1506905925346-21bda4d32df4' +
+  '&title=Social%20Media%20Post' +
+  '&website=YourBrand.com' +
+  '&design=entertainment';
+
+// Use for Twitter, Facebook, Instagram, etc.
 ```
 
 ### Batch Processing
 ```javascript
-const designs = ['design1', 'design2', 'design3'];
-const baseUrl = 'https://your-domain.com/api/direct-image?image=https://picsum.photos/800/600&title=Batch%20Test';
+// Standard Design System
+const standardDesigns = ['design1', 'design2', 'design3'];
+const standardUrl = 'https://your-domain.com/api/direct-image?image=https://picsum.photos/800/600&title=Batch%20Test';
 
-designs.forEach(design => {
-  fetch(`${baseUrl}&design=${design}`)
+standardDesigns.forEach(design => {
+  fetch(`${standardUrl}&design=${design}`)
     .then(response => response.blob())
     .then(blob => {
-      // Process each design variant
       console.log(`Generated ${design} variant`);
+    });
+});
+
+// Enhanced Font System
+const enhancedDesigns = ['tech', 'entertainment', 'sports', 'anime', 'eco', 'news', 'minimal'];
+const enhancedUrl = 'https://your-domain.com/api/bundled-font-overlay.jpg?image=https://picsum.photos/800/600&title=Batch%20Test&website=TestSite.com';
+
+enhancedDesigns.forEach(design => {
+  fetch(`${enhancedUrl}&design=${design}`)
+    .then(response => response.blob())
+    .then(blob => {
+      console.log(`Generated ${design} enhanced variant`);
     });
 });
 ```
@@ -237,14 +338,20 @@ npm run dev
 
 3. Test the API:
 ```bash
-# Test direct image generation
+# Test standard design system
 curl "http://localhost:3001/api/direct-image?image=https://picsum.photos/800/600&title=Test%20Banner&design=design1" --output test-banner.jpg
+
+# Test enhanced font system
+curl "http://localhost:3001/api/bundled-font-overlay.jpg?image=https://picsum.photos/800/600&title=Enhanced%20Test&website=TestSite.com&design=tech" --output test-enhanced.jpg
 
 # Test JSON metadata (pure JSON API)
 curl "http://localhost:3001/api/image?image=https://picsum.photos/800/600&title=Test%20Metadata"
 
 # Test preview mode
 open "http://localhost:3001/?image=https://picsum.photos/800/600&title=Test%20Preview&preview=true&design=design2"
+
+# Test design gallery
+open "http://localhost:3001/designs"
 ```
 
 4. Build for production:
