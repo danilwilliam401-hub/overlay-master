@@ -634,8 +634,8 @@ export default async function handler(req, res) {
         
         ${design === 'breaking' ? `
         <!-- Breaking News Tag (above title) -->
-        <rect x="${Math.round(targetWidth / 2 - 60)}" y="${Math.round(titleStartY - 50)}" width="120" height="30" rx="4" class="breaking-bg"/>
-        <text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY - 30)}" class="breaking-tag">BREAKING</text>
+        <rect x="${Math.round(targetWidth / 2 - 60)}" y="${Math.round(titleStartY - 80)}" width="120" height="30" rx="4" class="breaking-bg"/>
+        <text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY - 60)}" class="breaking-tag">BREAKING</text>
         ` : ''}
         
         ${design === 'cinematic' ? `
