@@ -295,17 +295,89 @@ export default async function handler(req, res) {
   console.log('\n🎨 === MULTI-DESIGN FONT OVERLAY GENERATOR ===');
   console.log('Method:', req.method);
   console.log('Query:', req.query);
+  console.log('Full URL:', req.url);
   
   try {
-    // Extract and properly decode UTF-8 parameters
+    // Enhanced parameter extraction to handle complex image URLs with query parameters
     const rawParams = req.query;
     
-    const image = decodeURIComponent(rawParams.image || 'https://picsum.photos/800/600');
-    const title = decodeURIComponent(rawParams.title || 'Sample Title');
-    const website = decodeURIComponent(rawParams.website || 'Website.com');
-    const design = rawParams.design || 'default'; // New design parameter
-    const w = rawParams.w || '1080';
-    const h = rawParams.h || '1350';
+    // Advanced URL parsing to handle image URLs with query parameters
+    let imageUrl = 'https://picsum.photos/800/600';
+    let title = 'Sample Title';
+    let website = 'Website.com';
+    let design = 'default';
+    let w = '1080';
+    let h = '1350';
+    
+    // Parse the raw URL to reconstruct image URL with its query parameters
+    const originalUrl = req.url;
+    console.log('📥 Processing URL:', originalUrl);
+    
+    // Extract the image parameter and reconstruct it with its query parameters
+    const imageStartMatch = originalUrl.match(/[?&]image=([^&]*)/);
+    if (imageStartMatch) {
+      let reconstructedImageUrl = decodeURIComponent(imageStartMatch[1]);
+      
+      // If the image URL contains '?', it likely has query parameters that were split
+      if (reconstructedImageUrl.includes('?')) {
+        console.log('🔍 Detected image URL with query parameters, reconstructing...');
+        
+        // Find where the image URL ends by looking for our API parameters
+        const apiParams = ['title', 'website', 'design', 'w', 'h'];
+        const urlParts = originalUrl.split(/[?&]/);
+        let imageQueryParams = [];
+        let foundApiParam = false;
+        
+        for (let i = 0; i < urlParts.length; i++) {
+          const part = urlParts[i];
+          if (part.startsWith('image=')) continue; // Skip the image= part itself
+          
+          // Check if this is an API parameter
+          const isApiParam = apiParams.some(param => part.startsWith(param + '='));
+          
+          if (isApiParam) {
+            foundApiParam = true;
+            // Extract API parameter
+            const [paramName, paramValue] = part.split('=');
+            switch (paramName) {
+              case 'title': title = decodeURIComponent(paramValue); break;
+              case 'website': website = decodeURIComponent(paramValue); break;
+              case 'design': design = paramValue; break;
+              case 'w': w = paramValue; break;
+              case 'h': h = paramValue; break;
+            }
+          } else if (!foundApiParam && part.includes('=')) {
+            // This is likely part of the image URL query parameters
+            imageQueryParams.push(part);
+          }
+        }
+        
+        // Reconstruct the full image URL
+        if (imageQueryParams.length > 0) {
+          imageUrl = reconstructedImageUrl + '&' + imageQueryParams.join('&');
+        } else {
+          imageUrl = reconstructedImageUrl;
+        }
+      } else {
+        imageUrl = reconstructedImageUrl;
+      }
+    }
+    
+    // Fallback to standard query parsing for other parameters if not already extracted
+    if (title === 'Sample Title') {
+      title = decodeURIComponent(rawParams.title || 'Sample Title');
+    }
+    if (website === 'Website.com') {
+      website = decodeURIComponent(rawParams.website || 'Website.com');
+    }
+    if (design === 'default') {
+      design = rawParams.design || 'default';
+    }
+    
+    console.log('🔗 Reconstructed image URL:', imageUrl);
+    console.log('� Parameters:', { title, website, design, w, h });
+    
+    const image = imageUrl.startsWith('http') ? imageUrl : decodeURIComponent(imageUrl);
 
     // Get design theme configuration
     const selectedDesign = DESIGN_THEMES[design] || DESIGN_THEMES['default'];
