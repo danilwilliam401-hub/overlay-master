@@ -34,7 +34,8 @@ export default function Designs() {
     'neon': '⚙️ Neon Tech',
     'inspire': '☀️ Inspirational',
     'cute': '🧁 Cute Aesthetic',
-    'warmbrown': '☕ Warm Brown Elegance'
+    'warmbrown': '☕ Warm Brown Elegance',
+    'pokemon': '⚡ Pokémon Electric'
   };
 
   const generateUrl = (design) => {

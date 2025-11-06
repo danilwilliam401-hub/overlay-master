@@ -256,6 +256,11 @@ http://localhost:3000/api/bundled-font-overlay.jpg?title=Small%20Steps%20Lead%20
 http://localhost:3000/api/bundled-font-overlay.jpg?title=Premium%20Coffee%20Experience%20Awaits&website=COFFEE%20CULTURE&design=warmbrown
 ```
 
+#### 25. Pokémon Electric
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Gotta%20Catch%20Em%20All%20Adventure%20Begins&website=POKEMON%20TRAINER&design=pokemon
+```
+
 ### 🖼️ Format Variations
 
 #### PNG Format (with transparency support)
@@ -342,7 +347,7 @@ fetch('https://your-domain.com/api/image?image=https://picsum.photos/800/600&tit
 | `news` | 📰 News Professional | News/Media | White/Red | Separator bars |
 | `minimal` | 🤍 Minimal Clean | Minimalist | Dark Gray | Clean/Light |
 
-### Universal Design Collection (16 New Styles)
+### Universal Design Collection (17 New Styles)
 
 | Design | Style | Best For | Font Size | Special Features |
 |--------|-------|----------|-----------|------------------|
@@ -362,6 +367,7 @@ fetch('https://your-domain.com/api/image?image=https://picsum.photos/800/600&tit
 | `inspire` | ☀️ Inspirational | Positive quotes | 63px | Blue-yellow gradient |
 | `cute` | 🧁 Cute Aesthetic | Feel-good content | 67px | Pink rounded style |
 | `warmbrown` | ☕ Warm Brown Elegance | Professional, coffee shops | 67px | Soft shadow + vignette |
+| `pokemon` | ⚡ Pokémon Electric | Gaming, anime, fun content | 73px | Text outline + radial burst |
 
 ## 🔧 Advanced Usage
 

@@ -288,6 +288,15 @@ const DESIGN_THEMES = {
     titleSize: 67,
     websiteSize: 28,
     fontWeight: '800'
+  },
+  'pokemon': {
+    name: 'Pokémon Electric',
+    titleColor: '#FFCB05',
+    websiteColor: '#2A75BB',
+    gradientColors: ['rgba(255,214,0,0.95)', 'rgba(61,194,255,0.95)'],
+    titleSize: 73,
+    websiteSize: 30,
+    fontWeight: '900'
   }
 };
 
@@ -536,6 +545,13 @@ export default async function handler(req, res) {
             <stop offset="70%" style="stop-color:rgba(0,0,0,0); stop-opacity:0"/>
             <stop offset="100%" style="stop-color:rgba(0,0,0,0.3); stop-opacity:1"/>
           </radialGradient>` : ''}
+          ${design === 'pokemon' ? `
+          <radialGradient id="pokemonBurst" cx="50%" cy="40%" r="60%">
+            <stop offset="0%" style="stop-color:rgba(255,255,255,0.4); stop-opacity:1"/>
+            <stop offset="30%" style="stop-color:rgba(255,203,5,0.2); stop-opacity:1"/>
+            <stop offset="70%" style="stop-color:rgba(255,203,5,0.05); stop-opacity:1"/>
+            <stop offset="100%" style="stop-color:rgba(255,203,5,0); stop-opacity:0"/>
+          </radialGradient>` : ''}
         </defs>
         
         <style>
@@ -598,6 +614,18 @@ export default async function handler(req, res) {
           .vignette-overlay {
             fill: url(#warmVignette);
           }` : ''}
+          ${design === 'pokemon' ? `
+          .pokemon-title {
+            stroke: #2A75BB;
+            stroke-width: 8px;
+            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
+          }
+          .pokemon-website {
+            letter-spacing: 4px;
+          }
+          .radial-burst {
+            fill: url(#pokemonBurst);
+          }` : ''}
         </style>
         
         <!-- Dynamic Design Gradient Background -->
@@ -615,9 +643,14 @@ export default async function handler(req, res) {
         <rect x="0" y="${svgHeight - 80}" width="${targetWidth}" height="80" class="letterbox"/>
         ` : ''}
 
+        ${design === 'pokemon' ? `
+        <!-- Pokemon radial burst behind title -->
+        <circle cx="${Math.round(targetWidth / 2)}" cy="${Math.round(titleStartY + (titleLines.length * lineHeight / 2))}" r="200" class="radial-burst"/>
+        ` : ''}
+
         <!-- Title Text Lines - Center aligned with design-specific styling -->
         ${titleLines.map((line, index) => 
-          `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY + (index * lineHeight))}" class="title-text ${design === 'neon' ? 'neon-glow' : ''} ${design === 'warmbrown' ? 'warm-shadow' : ''}">${line}</text>`
+          `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY + (index * lineHeight))}" class="title-text ${design === 'neon' ? 'neon-glow' : ''} ${design === 'warmbrown' ? 'warm-shadow' : ''} ${design === 'pokemon' ? 'pokemon-title' : ''}">${line}</text>`
         ).join('')}
         
         ${design === 'anime' ? `
@@ -636,7 +669,7 @@ export default async function handler(req, res) {
         ` : ''}
         
         <!-- Website Text - Dynamically positioned with design styling -->
-        <text x="${Math.round(targetWidth / 2)}" y="${Math.round(websiteY)}" class="website-text">${websiteText}</text>
+        <text x="${Math.round(targetWidth / 2)}" y="${Math.round(websiteY)}" class="website-text ${design === 'pokemon' ? 'pokemon-website' : ''}">${websiteText}</text>
         
         ${design === 'warmbrown' ? `
         <!-- Warm brown vignette overlay for depth -->
