@@ -33,7 +33,8 @@ export default function Designs() {
     'cinematic': '🎥 Cinematic Drama',
     'neon': '⚙️ Neon Tech',
     'inspire': '☀️ Inspirational',
-    'cute': '🧁 Cute Aesthetic'
+    'cute': '🧁 Cute Aesthetic',
+    'warmbrown': '☕ Warm Brown Elegance'
   };
 
   const generateUrl = (design) => {

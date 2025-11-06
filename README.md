@@ -251,6 +251,11 @@ http://localhost:3000/api/bundled-font-overlay.jpg?title=Believe%20You%20Can%20A
 http://localhost:3000/api/bundled-font-overlay.jpg?title=Small%20Steps%20Lead%20To%20Big%20Changes&website=POSITIVITY&design=cute
 ```
 
+#### 24. Warm Brown Elegance
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Premium%20Coffee%20Experience%20Awaits&website=COFFEE%20CULTURE&design=warmbrown
+```
+
 ### 🖼️ Format Variations
 
 #### PNG Format (with transparency support)
@@ -337,7 +342,7 @@ fetch('https://your-domain.com/api/image?image=https://picsum.photos/800/600&tit
 | `news` | 📰 News Professional | News/Media | White/Red | Separator bars |
 | `minimal` | 🤍 Minimal Clean | Minimalist | Dark Gray | Clean/Light |
 
-### Universal Design Collection (15 New Styles)
+### Universal Design Collection (16 New Styles)
 
 | Design | Style | Best For | Font Size | Special Features |
 |--------|-------|----------|-----------|------------------|
@@ -356,6 +361,7 @@ fetch('https://your-domain.com/api/image?image=https://picsum.photos/800/600&tit
 | `neon` | ⚙️ Neon Tech | Tech, coding | 60px | Neon glow effects |
 | `inspire` | ☀️ Inspirational | Positive quotes | 63px | Blue-yellow gradient |
 | `cute` | 🧁 Cute Aesthetic | Feel-good content | 67px | Pink rounded style |
+| `warmbrown` | ☕ Warm Brown Elegance | Professional, coffee shops | 67px | Soft shadow + vignette |
 
 ## 🔧 Advanced Usage
 

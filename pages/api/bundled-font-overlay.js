@@ -279,6 +279,15 @@ const DESIGN_THEMES = {
     titleSize: 67,
     websiteSize: 28,
     fontWeight: '800'
+  },
+  'warmbrown': {
+    name: 'Warm Brown Elegance',
+    titleColor: '#FFF8E1',
+    websiteColor: '#FFD180',
+    gradientColors: ['rgba(62,39,35,0.9)', 'rgba(161,136,127,0.95)'],
+    titleSize: 67,
+    websiteSize: 28,
+    fontWeight: '800'
   }
 };
 
@@ -443,6 +452,12 @@ export default async function handler(req, res) {
               <feMergeNode in="SourceGraphic"/>
             </feMerge>
           </filter>` : ''}
+          ${design === 'warmbrown' ? `
+          <radialGradient id="warmVignette" cx="50%" cy="30%" r="80%">
+            <stop offset="0%" style="stop-color:rgba(0,0,0,0); stop-opacity:0"/>
+            <stop offset="70%" style="stop-color:rgba(0,0,0,0); stop-opacity:0"/>
+            <stop offset="100%" style="stop-color:rgba(0,0,0,0.3); stop-opacity:1"/>
+          </radialGradient>` : ''}
         </defs>
         
         <style>
@@ -498,6 +513,13 @@ export default async function handler(req, res) {
           .neon-glow {
             filter: drop-shadow(0 0 10px ${selectedDesign.titleColor});
           }` : ''}
+          ${design === 'warmbrown' ? `
+          .warm-shadow {
+            filter: drop-shadow(2px 2px 8px rgba(0,0,0,0.4));
+          }
+          .vignette-overlay {
+            fill: url(#warmVignette);
+          }` : ''}
         </style>
         
         <!-- Dynamic Design Gradient Background -->
@@ -517,7 +539,7 @@ export default async function handler(req, res) {
 
         <!-- Title Text Lines - Center aligned with design-specific styling -->
         ${titleLines.map((line, index) => 
-          `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY + (index * lineHeight))}" class="title-text ${design === 'neon' ? 'neon-glow' : ''}">${line}</text>`
+          `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY + (index * lineHeight))}" class="title-text ${design === 'neon' ? 'neon-glow' : ''} ${design === 'warmbrown' ? 'warm-shadow' : ''}">${line}</text>`
         ).join('')}
         
         ${design === 'anime' ? `
@@ -537,6 +559,11 @@ export default async function handler(req, res) {
         
         <!-- Website Text - Dynamically positioned with design styling -->
         <text x="${Math.round(targetWidth / 2)}" y="${Math.round(websiteY)}" class="website-text">${websiteText}</text>
+        
+        ${design === 'warmbrown' ? `
+        <!-- Warm brown vignette overlay for depth -->
+        <rect width="100%" height="100%" class="vignette-overlay"/>
+        ` : ''}
       </svg>
     `;
     
