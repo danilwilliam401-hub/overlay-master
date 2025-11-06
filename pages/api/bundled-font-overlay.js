@@ -546,11 +546,10 @@ export default async function handler(req, res) {
             <stop offset="100%" style="stop-color:rgba(0,0,0,0.3); stop-opacity:1"/>
           </radialGradient>` : ''}
           ${design === 'pokemon' ? `
-          <radialGradient id="pokemonBurst" cx="50%" cy="40%" r="60%">
-            <stop offset="0%" style="stop-color:rgba(255,255,255,0.4); stop-opacity:1"/>
-            <stop offset="30%" style="stop-color:rgba(255,203,5,0.2); stop-opacity:1"/>
-            <stop offset="70%" style="stop-color:rgba(255,203,5,0.05); stop-opacity:1"/>
-            <stop offset="100%" style="stop-color:rgba(255,203,5,0); stop-opacity:0"/>
+          <radialGradient id="pokemonBurst" cx="50%" cy="40%" r="50%">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.3"/>
+            <stop offset="40%" stop-color="#FFCB05" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="#FFCB05" stop-opacity="0"/>
           </radialGradient>` : ''}
         </defs>
         
@@ -617,14 +616,16 @@ export default async function handler(req, res) {
           ${design === 'pokemon' ? `
           .pokemon-title {
             stroke: #2A75BB;
-            stroke-width: 8px;
-            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
+            stroke-width: 6;
+            paint-order: stroke fill;
+            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.3));
           }
           .pokemon-website {
-            letter-spacing: 4px;
+            letter-spacing: 3px;
           }
           .radial-burst {
             fill: url(#pokemonBurst);
+            opacity: 0.6;
           }` : ''}
         </style>
         
