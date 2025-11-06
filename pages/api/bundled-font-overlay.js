@@ -297,6 +297,268 @@ const DESIGN_THEMES = {
     titleSize: 73,
     websiteSize: 30,
     fontWeight: '900'
+  },
+  // 30 High-Engagement Design Presets for Facebook Image Headlines
+  'modern': {
+    name: 'Modern Minimal',
+    titleColor: '#FFFFFF',
+    websiteColor: '#00BFA5',
+    gradientColors: ['rgba(240,240,240,0.95)', 'rgba(26,26,26,0.98)'],
+    titleSize: 75,
+    websiteSize: 32,
+    fontWeight: '900'
+  },
+  'boldblue': {
+    name: 'Bold Blue Impact',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFD700',
+    gradientColors: ['rgba(0,51,160,0.95)', 'rgba(0,31,77,0.98)'],
+    titleSize: 80,
+    websiteSize: 34,
+    fontWeight: '900'
+  },
+  'sunrise': {
+    name: 'Sunrise Energy',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFFFFF',
+    gradientColors: ['rgba(255,140,0,0.95)', 'rgba(255,65,108,0.98)'],
+    titleSize: 78,
+    websiteSize: 32,
+    fontWeight: '900'
+  },
+  'gradientgold': {
+    name: 'Gradient Gold',
+    titleColor: '#FFD700',
+    websiteColor: '#FFFFFF',
+    gradientColors: ['rgba(28,28,28,0.95)', 'rgba(58,58,58,0.98)'],
+    titleSize: 75,
+    websiteSize: 30,
+    fontWeight: '900'
+  },
+  'minimalwhite': {
+    name: 'Minimal White',
+    titleColor: '#000000',
+    websiteColor: '#999999',
+    gradientColors: ['rgba(255,255,255,0.95)', 'rgba(255,255,255,0.98)'],
+    titleSize: 80,
+    websiteSize: 32,
+    fontWeight: '900'
+  },
+  'midnight': {
+    name: 'Midnight Dark',
+    titleColor: '#FFFFFF',
+    websiteColor: '#00FFFF',
+    gradientColors: ['rgba(13,27,42,0.95)', 'rgba(0,0,0,0.98)'],
+    titleSize: 80,
+    websiteSize: 34,
+    fontWeight: '900'
+  },
+  'energetic': {
+    name: 'Energetic Fire',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFD700',
+    gradientColors: ['rgba(255,0,0,0.95)', 'rgba(255,165,0,0.98)'],
+    titleSize: 85,
+    websiteSize: 36,
+    fontWeight: '900'
+  },
+  'cyberpunk': {
+    name: 'Cyberpunk Neon',
+    titleColor: '#FF00FF',
+    websiteColor: '#00FFFF',
+    gradientColors: ['rgba(13,13,13,0.95)', 'rgba(106,13,173,0.98)'],
+    titleSize: 78,
+    websiteSize: 32,
+    fontWeight: '800'
+  },
+  'moody': {
+    name: 'Moody Atmosphere',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFD180',
+    gradientColors: ['rgba(78,52,46,0.95)', 'rgba(33,33,33,0.98)'],
+    titleSize: 75,
+    websiteSize: 30,
+    fontWeight: '900'
+  },
+  'forest': {
+    name: 'Forest Deep',
+    titleColor: '#FFFFFF',
+    websiteColor: '#AEEA00',
+    gradientColors: ['rgba(0,77,64,0.95)', 'rgba(0,37,26,0.98)'],
+    titleSize: 78,
+    websiteSize: 32,
+    fontWeight: '900'
+  },
+  'popart': {
+    name: 'Pop Art Style',
+    titleColor: '#000000',
+    websiteColor: '#000000',
+    gradientColors: ['rgba(255,82,82,0.95)', 'rgba(255,235,59,0.98)'],
+    titleSize: 85,
+    websiteSize: 34,
+    fontWeight: '900'
+  },
+  'darkgold': {
+    name: 'Dark Gold Luxury',
+    titleColor: '#FFD700',
+    websiteColor: '#EEEEEE',
+    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(17,17,17,0.98)'],
+    titleSize: 75,
+    websiteSize: 30,
+    fontWeight: '900'
+  },
+  'aqua': {
+    name: 'Aqua Fresh',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFFFFF',
+    gradientColors: ['rgba(0,188,212,0.95)', 'rgba(0,77,128,0.98)'],
+    titleSize: 80,
+    websiteSize: 32,
+    fontWeight: '900'
+  },
+  'fire': {
+    name: 'Fire Intensity',
+    titleColor: '#FFEB3B',
+    websiteColor: '#FFFFFF',
+    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(255,87,34,0.98)'],
+    titleSize: 85,
+    websiteSize: 34,
+    fontWeight: '900'
+  },
+  'chill': {
+    name: 'Chill Vibes',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFFFFF',
+    gradientColors: ['rgba(3,169,244,0.95)', 'rgba(0,188,212,0.98)'],
+    titleSize: 80,
+    websiteSize: 32,
+    fontWeight: '900'
+  },
+  'royal': {
+    name: 'Royal Elegance',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFD54F',
+    gradientColors: ['rgba(40,53,147,0.95)', 'rgba(255,213,79,0.98)'],
+    titleSize: 75,
+    websiteSize: 30,
+    fontWeight: '900'
+  },
+  'cinematic': {
+    name: 'Cinematic Drama',
+    titleColor: '#FFFFFF',
+    websiteColor: '#E50914',
+    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(32,32,32,0.98)'],
+    titleSize: 85,
+    websiteSize: 32,
+    fontWeight: '900'
+  },
+  'retro': {
+    name: 'Retro Nostalgia',
+    titleColor: '#FFF8E1',
+    websiteColor: '#FCE4EC',
+    gradientColors: ['rgba(255,112,67,0.95)', 'rgba(93,64,55,0.98)'],
+    titleSize: 78,
+    websiteSize: 32,
+    fontWeight: '800'
+  },
+  'purpledream': {
+    name: 'Purple Dream',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFFFFF',
+    gradientColors: ['rgba(142,36,170,0.95)', 'rgba(224,64,251,0.98)'],
+    titleSize: 80,
+    websiteSize: 32,
+    fontWeight: '900'
+  },
+  'grunge': {
+    name: 'Grunge Style',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFD600',
+    gradientColors: ['rgba(66,66,66,0.95)', 'rgba(33,33,33,0.98)'],
+    titleSize: 78,
+    websiteSize: 32,
+    fontWeight: '900'
+  },
+  'matrix': {
+    name: 'Matrix Code',
+    titleColor: '#00FF00',
+    websiteColor: '#00FF00',
+    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(0,51,0,0.98)'],
+    titleSize: 80,
+    websiteSize: 32,
+    fontWeight: '900'
+  },
+  'street': {
+    name: 'Street Urban',
+    titleColor: '#FFFFFF',
+    websiteColor: '#E53935',
+    gradientColors: ['rgba(97,97,97,0.95)', 'rgba(66,66,66,0.98)'],
+    titleSize: 80,
+    websiteSize: 32,
+    fontWeight: '900'
+  },
+  'cloud': {
+    name: 'Cloud Sky',
+    titleColor: '#0D47A1',
+    websiteColor: '#FFFFFF',
+    gradientColors: ['rgba(129,212,250,0.95)', 'rgba(255,255,255,0.98)'],
+    titleSize: 78,
+    websiteSize: 30,
+    fontWeight: '900'
+  },
+  'metallic': {
+    name: 'Metallic Steel',
+    titleColor: '#EEEEEE',
+    websiteColor: '#FFFFFF',
+    gradientColors: ['rgba(176,190,197,0.95)', 'rgba(38,50,56,0.98)'],
+    titleSize: 80,
+    websiteSize: 32,
+    fontWeight: '900'
+  },
+  'chocolate': {
+    name: 'Chocolate Brown',
+    titleColor: '#FFF3E0',
+    websiteColor: '#FFE082',
+    gradientColors: ['rgba(62,39,35,0.95)', 'rgba(121,85,72,0.98)'],
+    titleSize: 78,
+    websiteSize: 32,
+    fontWeight: '900'
+  },
+  'future': {
+    name: 'Future Tech',
+    titleColor: '#00E5FF',
+    websiteColor: '#FFFFFF',
+    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(117,117,117,0.98)'],
+    titleSize: 80,
+    websiteSize: 32,
+    fontWeight: '900'
+  },
+  'limepop': {
+    name: 'Lime Pop',
+    titleColor: '#000000',
+    websiteColor: '#FFFFFF',
+    gradientColors: ['rgba(205,220,57,0.95)', 'rgba(104,159,56,0.98)'],
+    titleSize: 80,
+    websiteSize: 32,
+    fontWeight: '900'
+  },
+  'royalred': {
+    name: 'Royal Red',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFD700',
+    gradientColors: ['rgba(183,28,28,0.95)', 'rgba(255,215,0,0.98)'],
+    titleSize: 78,
+    websiteSize: 30,
+    fontWeight: '900'
+  },
+  'viral': {
+    name: 'Viral Impact',
+    titleColor: '#000000',
+    websiteColor: '#FFFFFF',
+    gradientColors: ['rgba(255,235,59,0.95)', 'rgba(255,145,0,0.98)'],
+    titleSize: 85,
+    websiteSize: 32,
+    fontWeight: '900'
   }
 };
 

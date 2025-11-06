@@ -261,6 +261,153 @@ http://localhost:3000/api/bundled-font-overlay.jpg?title=Premium%20Coffee%20Expe
 http://localhost:3000/api/bundled-font-overlay.jpg?title=Gotta%20Catch%20Em%20All%20Adventure%20Begins&website=POKEMON%20TRAINER&design=pokemon
 ```
 
+### **⚡ 30 New High-Engagement Design Presets:**
+
+#### 26. Modern Minimal
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Clean%20Modern%20Design%20For%20Professional%20Content&website=MODERN%20BRAND&design=modern
+```
+
+#### 27. Bold Blue Impact
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Bold%20Statement%20With%20Maximum%20Impact&website=BLUE%20IMPACT&design=boldblue
+```
+
+#### 28. Sunrise Energy
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Energy%20And%20Motivation%20Start%20Here&website=SUNRISE%20VIBES&design=sunrise
+```
+
+#### 29. Gradient Gold
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Luxury%20Content%20With%20Golden%20Touch&website=GOLD%20STANDARD&design=gradientgold
+```
+
+#### 30. Minimal White
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Clean%20Minimalist%20Approach%20To%20Content&website=MINIMAL%20DESIGN&design=minimalwhite
+```
+
+#### 31. Midnight Dark
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Dark%20Theme%20For%20Serious%20Content&website=MIDNIGHT%20MOOD&design=midnight
+```
+
+#### 32. Energetic Fire
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=High%20Energy%20Viral%20Content%20Design&website=FIRE%20ENERGY&design=energetic
+```
+
+#### 33. Cyberpunk Neon
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Future%20Tech%20Cyberpunk%20Aesthetic&website=CYBER%20PUNK&design=cyberpunk
+```
+
+#### 34. Moody Atmosphere
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Atmospheric%20Content%20With%20Mood&website=MOODY%20VIBES&design=moody
+```
+
+#### 35. Forest Deep
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Nature%20And%20Environmental%20Content&website=FOREST%20GREEN&design=forest
+```
+
+#### 36. Pop Art Style
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Retro%20Pop%20Art%20Viral%20Content&website=POP%20ART&design=popart
+```
+
+#### 37. Dark Gold Luxury
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Premium%20Luxury%20Brand%20Content&website=DARK%20GOLD&design=darkgold
+```
+
+#### 38. Aqua Fresh
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Fresh%20Clean%20Water%20Theme%20Design&website=AQUA%20FRESH&design=aqua
+```
+
+#### 39. Fire Intensity
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Intense%20High%20Impact%20Content&website=FIRE%20POWER&design=fire
+```
+
+#### 40. Chill Vibes
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Relaxed%20Chill%20Content%20Vibes&website=CHILL%20MODE&design=chill
+```
+
+#### 41. Royal Elegance
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Royal%20Premium%20Elegant%20Design&website=ROYAL%20CLASS&design=royal
+```
+
+#### 42. Cinematic Drama
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Hollywood%20Movie%20Style%20Content&website=CINEMATIC&design=cinematic
+```
+
+#### 43. Retro Nostalgia
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Vintage%20Retro%20Nostalgic%20Content&website=RETRO%20STYLE&design=retro
+```
+
+#### 44. Purple Dream
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Dreamy%20Purple%20Aesthetic%20Content&website=PURPLE%20DREAM&design=purpledream
+```
+
+#### 45. Grunge Style
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Raw%20Grunge%20Urban%20Style%20Content&website=GRUNGE%20STYLE&design=grunge
+```
+
+#### 46. Matrix Code
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Digital%20Matrix%20Tech%20Content&website=MATRIX%20CODE&design=matrix
+```
+
+#### 47. Street Urban
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Urban%20Street%20Culture%20Content&website=STREET%20STYLE&design=street
+```
+
+#### 48. Cloud Sky
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Sky%20High%20Inspirational%20Content&website=CLOUD%20NINE&design=cloud
+```
+
+#### 49. Metallic Steel
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Industrial%20Metallic%20Steel%20Design&website=STEEL%20POWER&design=metallic
+```
+
+#### 50. Chocolate Brown
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Warm%20Chocolate%20Comfort%20Content&website=CHOCOLATE&design=chocolate
+```
+
+#### 51. Future Tech
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Advanced%20Future%20Technology%20Content&website=FUTURE%20TECH&design=future
+```
+
+#### 52. Lime Pop
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Bright%20Lime%20Pop%20Energy%20Content&website=LIME%20POP&design=limepop
+```
+
+#### 53. Royal Red
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Royal%20Red%20Premium%20Content&website=ROYAL%20RED&design=royalred
+```
+
+#### 54. Viral Impact
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Maximum%20Viral%20Impact%20Content&website=VIRAL%20HIT&design=viral
+```
+
 ### 🖼️ Format Variations
 
 #### PNG Format (with transparency support)
@@ -347,27 +494,53 @@ fetch('https://your-domain.com/api/image?image=https://picsum.photos/800/600&tit
 | `news` | 📰 News Professional | News/Media | White/Red | Separator bars |
 | `minimal` | 🤍 Minimal Clean | Minimalist | Dark Gray | Clean/Light |
 
-### Universal Design Collection (17 New Styles)
+### Universal Design Collection (47 Total Styles)
 
 | Design | Style | Best For | Font Size | Special Features |
 |--------|-------|----------|-----------|------------------|
-| `modern` | 🎨 Modern Lifestyle | General quotes, lifestyle | 60px | Clean centered layout |
-| `bold` | ⚡ Bold Impact | Memes, viral content | 73px | High contrast red background |
-| `viral` | 💬 Viral Entertainment | Pop culture, humor | 67px | Pink-purple gradient |
+| `modern` | 🎨 Modern Lifestyle | General quotes, lifestyle | 75px | Clean centered layout |
+| `bold` | ⚡ Bold Impact | Memes, viral content | 85px | High contrast dark red background |
+| `viral` | 💬 Viral Entertainment | Pop culture, humor | 85px | Yellow-orange viral gradient |
 | `breaking` | 📰 Breaking News | News, politics | 57px | Red "BREAKING" tag |
 | `thoughtful` | 🧠 Thoughtful Quotes | Motivational content | 53px | Thin divider line |
 | `colorful` | 🌈 Colorful Youth | Lifestyle, youth content | 63px | Bright cyan-orange gradient |
 | `overlay` | 📸 Photo Overlay | Image captions | 60px | Bottom gradient overlay |
 | `aesthetic` | 🎨 Aesthetic Style | Fashion, wellness | 57px | Soft pastel palette |
 | `monochrome` | 🖤 Monochrome Minimal | Brand posts | 60px | Pure black/white |
-| `vintage` | 🧩 Vintage Retro | Nostalgia content | 53px | Cream/brown colors |
+| `vintage` | 🧩 Vintage Retro | Nostalgia content | 78px | Cream/brown retro colors |
 | `luxury` | 💎 Luxury Premium | Business, success | 63px | Gold on navy gradient |
-| `cinematic` | 🎥 Cinematic Drama | Movie content | 70px | Black letterbox bars |
+| `cinematic` | 🎥 Cinematic Drama | Movie content | 85px | Black letterbox bars |
 | `neon` | ⚙️ Neon Tech | Tech, coding | 60px | Neon glow effects |
 | `inspire` | ☀️ Inspirational | Positive quotes | 63px | Blue-yellow gradient |
 | `cute` | 🧁 Cute Aesthetic | Feel-good content | 67px | Pink rounded style |
 | `warmbrown` | ☕ Warm Brown Elegance | Professional, coffee shops | 67px | Soft shadow + vignette |
 | `pokemon` | ⚡ Pokémon Electric | Gaming, anime, fun content | 73px | Text outline + radial burst |
+| `boldblue` | 🔵 Bold Blue Impact | Corporate, tech announcements | 80px | Deep blue professional gradient |
+| `sunrise` | 🌅 Sunrise Energy | Motivational, morning content | 78px | Orange-pink energy gradient |
+| `gradientgold` | 👑 Gradient Gold | Luxury, premium brands | 75px | Gold gradient on dark background |
+| `minimalwhite` | ⚪ Minimal White | Clean, professional content | 80px | Pure white minimalist design |
+| `midnight` | 🌙 Midnight Dark | Night themes, serious content | 80px | Deep navy to black gradient |
+| `energetic` | 🔥 Energetic Fire | High-energy, sports content | 85px | Red-orange fire gradient |
+| `cyberpunk` | 🤖 Cyberpunk Neon | Futuristic, gaming content | 78px | Pink-cyan cyberpunk aesthetic |
+| `moody` | 🍂 Moody Atmosphere | Artistic, emotional content | 75px | Brown-gray atmospheric tones |
+| `forest` | 🌲 Forest Deep | Environmental, nature content | 78px | Deep green forest gradient |
+| `popart` | 🎨 Pop Art Style | Retro, fun viral content | 85px | Bright red-yellow pop colors |
+| `darkgold` | 🏆 Dark Gold Luxury | Premium, exclusive content | 75px | Gold on black luxury theme |
+| `aqua` | 💧 Aqua Fresh | Health, wellness, fresh content | 80px | Teal-blue water gradient |
+| `fire` | 🔥 Fire Intensity | Intense, urgent content | 85px | Yellow on black with red accent |
+| `chill` | 😌 Chill Vibes | Relaxed, lifestyle content | 80px | Cool blue calming gradient |
+| `royal` | 👑 Royal Elegance | Premium, luxury brands | 75px | Royal blue to gold gradient |
+| `grunge` | 🎸 Grunge Style | Alternative, urban content | 78px | Dark gray grunge texture |
+| `matrix` | 💚 Matrix Code | Tech, programming content | 80px | Green matrix code aesthetic |
+| `street` | 🏙️ Street Urban | Urban culture, street style | 80px | Gray urban concrete theme |
+| `cloud` | ☁️ Cloud Sky | Inspirational, sky themes | 78px | Light blue sky gradient |
+| `metallic` | ⚙️ Metallic Steel | Industrial, tech content | 80px | Silver-steel metallic gradient |
+| `chocolate` | 🍫 Chocolate Brown | Comfort, food content | 78px | Warm brown chocolate tones |
+| `future` | 🚀 Future Tech | Sci-fi, technology content | 80px | Cyan on black futuristic |
+| `limepop` | 🍃 Lime Pop | Fresh, energetic content | 80px | Bright lime-green gradient |
+| `royalred` | 🏴 Royal Red | Premium, luxury red theme | 78px | Deep red to gold gradient |
+| `purpledream` | 💜 Purple Dream | Creative, artistic content | 80px | Purple-magenta dream gradient |
+| `retro` | 📼 Retro Nostalgia | Vintage, nostalgic content | 78px | Orange-brown retro palette |
 
 ## 🔧 Advanced Usage
 
