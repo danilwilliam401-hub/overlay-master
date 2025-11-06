@@ -157,10 +157,10 @@ const DESIGN_THEMES = {
   'bold': {
     name: 'Bold Impact',
     titleColor: '#FFFFFF',
-    websiteColor: '#FFFF00',
-    gradientColors: ['rgba(255,0,0,0.95)', 'rgba(200,0,0,0.95)'],
-    titleSize: 73,
-    websiteSize: 30,
+    websiteColor: '#FFD700',
+    gradientColors: ['rgba(139,0,0,0.95)', 'rgba(26,0,0,0.98)'],
+    titleSize: 85,
+    websiteSize: 35,
     fontWeight: '900'
   },
   'viral': {
@@ -551,6 +551,12 @@ export default async function handler(req, res) {
             <stop offset="40%" stop-color="#FFCB05" stop-opacity="0.15"/>
             <stop offset="100%" stop-color="#FFCB05" stop-opacity="0"/>
           </radialGradient>` : ''}
+          ${design === 'bold' ? `
+          <radialGradient id="boldVignette" cx="50%" cy="50%" r="70%">
+            <stop offset="0%" style="stop-color:rgba(0,0,0,0); stop-opacity:0"/>
+            <stop offset="60%" style="stop-color:rgba(0,0,0,0); stop-opacity:0"/>
+            <stop offset="100%" style="stop-color:rgba(0,0,0,0.5); stop-opacity:1"/>
+          </radialGradient>` : ''}
         </defs>
         
         <style>
@@ -627,6 +633,18 @@ export default async function handler(req, res) {
             fill: url(#pokemonBurst);
             opacity: 0.6;
           }` : ''}
+          ${design === 'bold' ? `
+          .bold-title {
+            filter: drop-shadow(0 6px 16px rgba(0,0,0,0.6));
+            letter-spacing: 1px;
+          }
+          .bold-website {
+            letter-spacing: 3px;
+          }
+          .bold-vignette {
+            fill: url(#boldVignette);
+            opacity: 0.4;
+          }` : ''}
         </style>
         
         <!-- Dynamic Design Gradient Background -->
@@ -651,7 +669,7 @@ export default async function handler(req, res) {
 
         <!-- Title Text Lines - Center aligned with design-specific styling -->
         ${titleLines.map((line, index) => 
-          `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY + (index * lineHeight))}" class="title-text ${design === 'neon' ? 'neon-glow' : ''} ${design === 'warmbrown' ? 'warm-shadow' : ''} ${design === 'pokemon' ? 'pokemon-title' : ''}">${line}</text>`
+          `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY + (index * lineHeight))}" class="title-text ${design === 'neon' ? 'neon-glow' : ''} ${design === 'warmbrown' ? 'warm-shadow' : ''} ${design === 'pokemon' ? 'pokemon-title' : ''} ${design === 'bold' ? 'bold-title' : ''}">${line}</text>`
         ).join('')}
         
         ${design === 'anime' ? `
@@ -670,11 +688,16 @@ export default async function handler(req, res) {
         ` : ''}
         
         <!-- Website Text - Dynamically positioned with design styling -->
-        <text x="${Math.round(targetWidth / 2)}" y="${Math.round(websiteY)}" class="website-text ${design === 'pokemon' ? 'pokemon-website' : ''}">${websiteText}</text>
+        <text x="${Math.round(targetWidth / 2)}" y="${Math.round(websiteY)}" class="website-text ${design === 'pokemon' ? 'pokemon-website' : ''} ${design === 'bold' ? 'bold-website' : ''}">${websiteText}</text>
         
         ${design === 'warmbrown' ? `
         <!-- Warm brown vignette overlay for depth -->
         <rect width="100%" height="100%" class="vignette-overlay"/>
+        ` : ''}
+        
+        ${design === 'bold' ? `
+        <!-- Bold design vignette overlay for dramatic depth -->
+        <rect width="100%" height="100%" class="bold-vignette"/>
         ` : ''}
       </svg>
     `;
