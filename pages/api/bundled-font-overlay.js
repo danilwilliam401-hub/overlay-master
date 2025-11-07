@@ -2,6 +2,7 @@ import sharp from 'sharp';
 import https from 'https';
 import http from 'http';
 import path from 'path';
+import fs from 'fs';
 
 // Force Node.js runtime (crucial for Sharp + fontconfig)
 export const runtime = 'nodejs';
@@ -19,13 +20,44 @@ process.env.FONTCONFIG_CACHE = '/tmp/fontconfig-cache';
 // Enable debug logging for fontconfig (helpful for debugging)
 process.env.FC_DEBUG = "1";
 
-// Verify font files exist
-const fs = require('fs');
-const notoRegular = path.join(fontsDir, 'NotoSans-Regular.ttf');
-const notoBold = path.join(fontsDir, 'NotoSans-Bold.ttf');
-const interRegular = path.join(fontsDir, 'Inter-Regular.ttf');
-const interBold = path.join(fontsDir, 'Inter-Bold.ttf');
+// Load and encode fonts as base64 at module load time
+const fontFiles = {
+  notoRegular: path.join(fontsDir, 'NotoSans-Regular.ttf'),
+  notoBold: path.join(fontsDir, 'NotoSans-Bold.ttf'),
+  interRegular: path.join(fontsDir, 'Inter-Regular.ttf'),
+  interBold: path.join(fontsDir, 'Inter-Bold.ttf')
+};
 
+let fontBase64Cache = {};
+
+// Function to load font as base64
+function loadFontAsBase64(fontPath, fontName) {
+  try {
+    if (fs.existsSync(fontPath)) {
+      const fontBuffer = fs.readFileSync(fontPath);
+      const base64Font = fontBuffer.toString('base64');
+      console.log(`✅ Loaded ${fontName}: ${Math.round(base64Font.length / 1024)}KB`);
+      return `data:font/truetype;charset=utf-8;base64,${base64Font}`;
+    } else {
+      console.log(`❌ Font not found: ${fontPath}`);
+      return null;
+    }
+  } catch (error) {
+    console.log(`❌ Error loading ${fontName}:`, error.message);
+    return null;
+  }
+}
+
+// Load all fonts at startup
+console.log('🔤 Loading fonts as base64...');
+fontBase64Cache = {
+  notoRegular: loadFontAsBase64(fontFiles.notoRegular, 'Noto Sans Regular'),
+  notoBold: loadFontAsBase64(fontFiles.notoBold, 'Noto Sans Bold'),
+  interRegular: loadFontAsBase64(fontFiles.interRegular, 'Inter Regular'),
+  interBold: loadFontAsBase64(fontFiles.interBold, 'Inter Bold')
+};
+
+// Verify font files exist
 console.log('🔤 Font Configuration Check:', {
   workingDir: process.cwd(),
   FONTCONFIG_PATH: process.env.FONTCONFIG_PATH,
@@ -33,16 +65,17 @@ console.log('🔤 Font Configuration Check:', {
   FONTCONFIG_CACHE: process.env.FONTCONFIG_CACHE,
   fontsDir: fontsDir,
   fontConfigExists: fs.existsSync(fontConfigFile),
-  notoRegularExists: fs.existsSync(notoRegular),
-  notoBoldExists: fs.existsSync(notoBold),
-  interRegularExists: fs.existsSync(interRegular),
-  interBoldExists: fs.existsSync(interBold)
+  notoRegularExists: fs.existsSync(fontFiles.notoRegular),
+  notoBoldExists: fs.existsSync(fontFiles.notoBold),
+  interRegularExists: fs.existsSync(fontFiles.interRegular),
+  interBoldExists: fs.existsSync(fontFiles.interBold),
+  base64CacheReady: Object.values(fontBase64Cache).filter(Boolean).length > 0
 });
 
 // List all font files available
 try {
-  const fontFiles = fs.readdirSync(fontsDir);
-  console.log('📁 Available font files:', fontFiles);
+  const fontFilesList = fs.readdirSync(fontsDir);
+  console.log('📁 Available font files:', fontFilesList);
 } catch (err) {
   console.log('❌ Could not read fonts directory:', err.message);
 }
@@ -787,6 +820,46 @@ export default async function handler(req, res) {
       return `<stop offset="${offset}" style="stop-color:${color}"/>`;
     }).join('');
 
+    // Generate embedded font-face declarations
+    const fontFaceDeclarations = `
+      @font-face {
+        font-family: 'Noto Sans';
+        font-weight: 400;
+        font-style: normal;
+        src: url('${fontBase64Cache.notoRegular || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Noto Sans';
+        font-weight: 700;
+        font-style: normal;
+        src: url('${fontBase64Cache.notoBold || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Noto Sans Bold';
+        font-weight: 700;
+        font-style: normal;
+        src: url('${fontBase64Cache.notoBold || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Inter';
+        font-weight: 400;
+        font-style: normal;
+        src: url('${fontBase64Cache.interRegular || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Inter';
+        font-weight: 700;
+        font-style: normal;
+        src: url('${fontBase64Cache.interBold || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Inter Bold';
+        font-weight: 700;
+        font-style: normal;
+        src: url('${fontBase64Cache.interBold || ''}') format('truetype');
+      }
+    `;
+
     const svg = `<?xml version="1.0" encoding="UTF-8"?>
       <svg width="${targetWidth}" height="${svgHeight}" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -822,10 +895,12 @@ export default async function handler(req, res) {
         </defs>
         
         <style>
+          ${fontBase64Cache.notoBold || fontBase64Cache.notoRegular ? fontFaceDeclarations : ''}
+          
           .title-text { 
-            font-family: "Noto Sans Bold", "Noto Sans", "Inter", sans-serif; 
+            font-family: "Noto Sans", "Inter", Arial, sans-serif; 
             font-size: ${selectedDesign.titleSize}px; 
-            font-weight: 900;
+            font-weight: 700;
             fill: ${selectedDesign.titleColor}; 
             text-anchor: middle;
             dominant-baseline: middle;
@@ -834,7 +909,7 @@ export default async function handler(req, res) {
             ${design === 'tech' ? 'filter: url(#glow);' : ''}
           }
           .website-text { 
-            font-family: "Noto Sans Bold", "Noto Sans", "Inter", sans-serif; 
+            font-family: "Noto Sans", "Inter", Arial, sans-serif; 
             font-size: ${selectedDesign.websiteSize}px; 
             font-weight: 700;
             fill: ${selectedDesign.websiteColor}; 
@@ -844,7 +919,13 @@ export default async function handler(req, res) {
             text-transform: uppercase;
           }
           .bold-text {
-            font-family: "Noto Sans Bold", "Inter Bold", sans-serif;
+            font-family: "Noto Sans", "Inter", Arial, sans-serif;
+            font-weight: 700;
+            stroke: rgba(0,0,0,0.3);
+            stroke-width: 1.5px;
+            paint-order: stroke fill;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+          }
             font-weight: 900;
             stroke: rgba(0,0,0,0.3);
             stroke-width: 1.5px;
@@ -853,8 +934,8 @@ export default async function handler(req, res) {
           }
           ${design === 'boldblue' ? `
           .boldblue-title {
-            font-family: "Noto Sans Bold", "Inter Bold", sans-serif;
-            font-weight: 900;
+            font-family: "Noto Sans", "Inter", Arial, sans-serif;
+            font-weight: 700;
             stroke: rgba(0,0,0,0.4);
             stroke-width: 2px;
             paint-order: stroke fill;
@@ -862,8 +943,8 @@ export default async function handler(req, res) {
             letter-spacing: 1px;
           }
           .boldblue-website {
-            font-family: "Noto Sans Bold", "Inter Bold", sans-serif;
-            font-weight: 800;
+            font-family: "Noto Sans", "Inter", Arial, sans-serif;
+            font-weight: 700;
             letter-spacing: 2px;
             stroke: rgba(0,0,0,0.2);
             stroke-width: 1px;
@@ -924,8 +1005,8 @@ export default async function handler(req, res) {
           }` : ''}
           ${design === 'bold' ? `
           .bold-title {
-            font-family: "Noto Sans Bold", "Inter Bold", sans-serif;
-            font-weight: 900;
+            font-family: "Noto Sans", "Inter", Arial, sans-serif;
+            font-weight: 700;
             stroke: rgba(0,0,0,0.4);
             stroke-width: 2px;
             paint-order: stroke fill;
@@ -933,8 +1014,8 @@ export default async function handler(req, res) {
             letter-spacing: 1px;
           }
           .bold-website {
-            font-family: "Noto Sans Bold", "Inter Bold", sans-serif;
-            font-weight: 800;
+            font-family: "Noto Sans", "Inter", Arial, sans-serif;
+            font-weight: 700;
             letter-spacing: 3px;
           }
           .bold-vignette {
