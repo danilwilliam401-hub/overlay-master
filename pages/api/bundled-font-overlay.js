@@ -25,7 +25,18 @@ const fontFiles = {
   notoRegular: path.join(fontsDir, 'NotoSans-Regular.ttf'),
   notoBold: path.join(fontsDir, 'NotoSans-Bold.ttf'),
   interRegular: path.join(fontsDir, 'Inter-Regular.ttf'),
-  interBold: path.join(fontsDir, 'Inter-Bold.ttf')
+  interBold: path.join(fontsDir, 'Inter-Bold.ttf'),
+  // Professional News Fonts
+  bebasNeue: path.join(fontsDir, 'BebasNeue-Regular.ttf'),
+  anton: path.join(fontsDir, 'Anton-Regular.ttf'),
+  impact: path.join(fontsDir, 'Impact-Regular.ttf'),
+  oswaldBold: path.join(fontsDir, 'Oswald-Bold.ttf'),
+  montserratExtraBold: path.join(fontsDir, 'Montserrat-ExtraBold.ttf'),
+  leagueSpartanBold: path.join(fontsDir, 'LeagueSpartan-Bold.ttf'),
+  ralewayHeavy: path.join(fontsDir, 'Raleway-Heavy.ttf'),
+  robotoCondensedBold: path.join(fontsDir, 'RobotoCondensed-Bold.ttf'),
+  poppinsExtraBold: path.join(fontsDir, 'Poppins-ExtraBold.ttf'),
+  playfairDisplayBlack: path.join(fontsDir, 'PlayfairDisplay-Black.ttf')
 };
 
 let fontBase64Cache = {};
@@ -54,7 +65,18 @@ fontBase64Cache = {
   notoRegular: loadFontAsBase64(fontFiles.notoRegular, 'Noto Sans Regular'),
   notoBold: loadFontAsBase64(fontFiles.notoBold, 'Noto Sans Bold'),
   interRegular: loadFontAsBase64(fontFiles.interRegular, 'Inter Regular'),
-  interBold: loadFontAsBase64(fontFiles.interBold, 'Inter Bold')
+  interBold: loadFontAsBase64(fontFiles.interBold, 'Inter Bold'),
+  // Professional News Fonts
+  bebasNeue: loadFontAsBase64(fontFiles.bebasNeue, 'Bebas Neue'),
+  anton: loadFontAsBase64(fontFiles.anton, 'Anton'),
+  impact: loadFontAsBase64(fontFiles.impact, 'Impact'),
+  oswaldBold: loadFontAsBase64(fontFiles.oswaldBold, 'Oswald Bold'),
+  montserratExtraBold: loadFontAsBase64(fontFiles.montserratExtraBold, 'Montserrat ExtraBold'),
+  leagueSpartanBold: loadFontAsBase64(fontFiles.leagueSpartanBold, 'League Spartan Bold'),
+  ralewayHeavy: loadFontAsBase64(fontFiles.ralewayHeavy, 'Raleway Heavy'),
+  robotoCondensedBold: loadFontAsBase64(fontFiles.robotoCondensedBold, 'Roboto Condensed Bold'),
+  poppinsExtraBold: loadFontAsBase64(fontFiles.poppinsExtraBold, 'Poppins ExtraBold'),
+  playfairDisplayBlack: loadFontAsBase64(fontFiles.playfairDisplayBlack, 'Playfair Display Black')
 };
 
 // Debug font loading results
@@ -64,7 +86,7 @@ Object.entries(fontBase64Cache).forEach(([key, value]) => {
 });
 
 // Check if we have at least one bold font
-const hasBoldFonts = fontBase64Cache.notoBold || fontBase64Cache.interBold;
+const hasBoldFonts = fontBase64Cache.notoBold || fontBase64Cache.interBold || fontBase64Cache.bebasNeue || fontBase64Cache.anton || fontBase64Cache.impact || fontBase64Cache.oswaldBold || fontBase64Cache.montserratExtraBold || fontBase64Cache.leagueSpartanBold || fontBase64Cache.ralewayHeavy || fontBase64Cache.robotoCondensedBold || fontBase64Cache.poppinsExtraBold || fontBase64Cache.playfairDisplayBlack;
 console.log(`🔤 Bold fonts available: ${hasBoldFonts ? '✅ YES' : '❌ NO'}`);
 
 // Verify font files exist
@@ -116,113 +138,125 @@ function fetchImageBuffer(imageUrl) {
 // Design configurations for different styles
 const DESIGN_THEMES = {
   'default': {
-    name: 'Classic Navy',
+    name: 'Breaking News Boldness',
     titleColor: '#FFFFFF',
     websiteColor: '#FFD700',
     gradientColors: ['rgba(0,31,63,0.95)', 'rgba(0,31,63,0.98)'], // Navy Blue
     titleSize: 48,
     websiteSize: 24,
-    fontWeight: '700'
+    fontWeight: '700',
+    fontFamily: 'Bebas Neue'
   },
   'tech': {
-    name: 'Tech Royal Blue',
+    name: 'Professional Editorial',
     titleColor: '#FFFFFF',
-    websiteColor: '#00D4FF',
-    gradientColors: ['rgba(0,51,153,0.95)', 'rgba(0,51,153,0.98)'], // Royal Blue
+    websiteColor: '#E0E0E0',
+    gradientColors: ['rgba(38,50,56,0.95)', 'rgba(38,50,56,0.98)'], // Steel Blue
     titleSize: 52,
     websiteSize: 26,
-    fontWeight: '800'
+    fontWeight: '700',
+    fontFamily: 'Oswald'
   },
   'entertainment': {
-    name: 'Entertainment Teal',
+    name: 'Viral & Loud',
     titleColor: '#FFFFFF',
-    websiteColor: '#FFD700',
-    gradientColors: ['rgba(0,77,77,0.95)', 'rgba(0,77,77,0.98)'], // Deep Teal
+    websiteColor: '#FFB347',
+    gradientColors: ['rgba(230,81,0,0.95)', 'rgba(230,81,0,0.98)'], // Burnt Orange
     titleSize: 70,
     websiteSize: 32,
-    fontWeight: '900'
+    fontWeight: '900',
+    fontFamily: 'Anton'
   },
   'sports': {
-    name: 'Sports Charcoal',
-    titleColor: '#FFFFFF',
-    websiteColor: '#00FF88',
-    gradientColors: ['rgba(26,26,26,0.95)', 'rgba(26,26,26,0.98)'], // Charcoal
-    titleSize: 50,
-    websiteSize: 25,
-    fontWeight: '800'
-  },
-  'anime': {
-    name: 'Anime Slate',
-    titleColor: '#FFFFFF',
-    websiteColor: '#FF6B35',
-    gradientColors: ['rgba(47,79,79,0.95)', 'rgba(47,79,79,0.98)'], // Slate Gray
-    titleSize: 46,
-    websiteSize: 23,
-    fontWeight: '700'
-  },
-  'eco': {
-    name: 'Eco Forest Green',
+    name: 'Impact Headlines',
     titleColor: '#FFFFFF',
     websiteColor: '#90EE90',
-    gradientColors: ['rgba(11,61,11,0.95)', 'rgba(11,61,11,0.98)'], // Forest Green
+    gradientColors: ['rgba(0,77,64,0.95)', 'rgba(0,77,64,0.98)'], // Teal
+    titleSize: 50,
+    websiteSize: 25,
+    fontWeight: '900',
+    fontFamily: 'Impact'
+  },
+  'anime': {
+    name: 'Friendly & Trustworthy',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFB347',
+    gradientColors: ['rgba(255,111,0,0.95)', 'rgba(255,111,0,0.98)'], // Amber
+    titleSize: 46,
+    websiteSize: 23,
+    fontWeight: '800',
+    fontFamily: 'Poppins'
+  },
+  'eco': {
+    name: 'Smart & Minimal',
+    titleColor: '#FFFFFF',
+    websiteColor: '#90EE90',
+    gradientColors: ['rgba(0,77,77,0.95)', 'rgba(0,77,77,0.98)'], // Teal
     titleSize: 48,
     websiteSize: 24,
-    fontWeight: '700'
+    fontWeight: '800',
+    fontFamily: 'League Spartan'
   },
   'news': {
-    name: 'News Crimson',
+    name: 'Breaking News Crimson',
     titleColor: '#FFFFFF',
     websiteColor: '#FFD700',
     gradientColors: ['rgba(139,0,0,0.95)', 'rgba(139,0,0,0.98)'], // Crimson Red
     titleSize: 44,
     websiteSize: 22,
-    fontWeight: '600'
+    fontWeight: '400',
+    fontFamily: 'Bebas Neue'
   },
   'minimal': {
-    name: 'Minimal Pure Black',
+    name: 'Editorial Prestige',
     titleColor: '#FFFFFF',
-    websiteColor: '#E0E0E0',
+    websiteColor: '#D4AF37',
     gradientColors: ['rgba(0,0,0,0.95)', 'rgba(0,0,0,0.98)'], // Pure Black
     titleSize: 42,
     websiteSize: 20,
-    fontWeight: '500'
+    fontWeight: '900',
+    fontFamily: 'Playfair Display'
   },
   // 🎨 NEW UNIVERSAL DESIGNS (15 additional styles)
   'modern': {
-    name: 'Modern Emerald',
+    name: 'Modern Authority',
     titleColor: '#FFFFFF',
-    websiteColor: '#90EE90',
-    gradientColors: ['rgba(0,100,0,0.95)', 'rgba(0,100,0,0.98)'], // Emerald
+    websiteColor: '#E6E6FA',
+    gradientColors: ['rgba(0,51,153,0.95)', 'rgba(0,51,153,0.98)'], // Royal Blue
     titleSize: 60,
     websiteSize: 24,
-    fontWeight: '900'
+    fontWeight: '800',
+    fontFamily: 'Montserrat'
   },
   'bold': {
-    name: 'Bold Fire Orange',
+    name: 'Stylish Credibility',
     titleColor: '#FFFFFF',
-    websiteColor: '#FFD700',
-    gradientColors: ['rgba(255,69,0,0.95)', 'rgba(255,69,0,0.98)'], // Fire Orange
+    websiteColor: '#F5DEB3',
+    gradientColors: ['rgba(62,39,35,0.95)', 'rgba(62,39,35,0.98)'], // Espresso
     titleSize: 85,
     websiteSize: 35,
-    fontWeight: '900'
+    fontWeight: '900',
+    fontFamily: 'Raleway'
   },
   'viral': {
-    name: 'Viral Magenta',
+    name: 'Versatile & Balanced',
     titleColor: '#FFFFFF',
     websiteColor: '#FFB6C1',
-    gradientColors: ['rgba(173,20,87,0.95)', 'rgba(173,20,87,0.98)'], // Magenta
+    gradientColors: ['rgba(43,43,43,0.95)', 'rgba(43,43,43,0.98)'], // Graphite
     titleSize: 67,
     websiteSize: 28,
-    fontWeight: '800'
+    fontWeight: '700',
+    fontFamily: 'Roboto Condensed'
   },
   'breaking': {
-    name: 'Breaking Scarlet',
+    name: 'Breaking News Alert',
     titleColor: '#FFFFFF',
     websiteColor: '#FFD700',
-    gradientColors: ['rgba(198,40,40,0.95)', 'rgba(198,40,40,0.98)'], // Scarlet
+    gradientColors: ['rgba(139,0,0,0.95)', 'rgba(139,0,0,0.98)'], // Dark Red
     titleSize: 57,
     websiteSize: 25,
-    fontWeight: '700'
+    fontWeight: '400',
+    fontFamily: 'Bebas Neue'
   },
   'thoughtful': {
     name: 'Thoughtful Deep Purple',
@@ -231,7 +265,8 @@ const DESIGN_THEMES = {
     gradientColors: ['rgba(74,20,140,0.95)', 'rgba(74,20,140,0.98)'], // Deep Purple
     titleSize: 53,
     websiteSize: 22,
-    fontWeight: '700'
+    fontWeight: '700',
+    fontFamily: 'Montserrat'
   },
   'colorful': {
     name: 'Colorful Amber',
@@ -240,7 +275,8 @@ const DESIGN_THEMES = {
     gradientColors: ['rgba(255,111,0,0.95)', 'rgba(255,111,0,0.98)'], // Amber
     titleSize: 63,
     websiteSize: 26,
-    fontWeight: '900'
+    fontWeight: '900',
+    fontFamily: 'Anton'
   },
   'overlay': {
     name: 'Photo Overlay Dark Gray',
@@ -249,7 +285,8 @@ const DESIGN_THEMES = {
     gradientColors: ['rgba(18,18,18,0.95)', 'rgba(18,18,18,0.98)'], // Dark Gray
     titleSize: 60,
     websiteSize: 24,
-    fontWeight: '800'
+    fontWeight: '800',
+    fontFamily: 'Roboto Condensed'
   },
   'aesthetic': {
     name: 'Aesthetic Sea Green',
@@ -258,7 +295,8 @@ const DESIGN_THEMES = {
     gradientColors: ['rgba(46,139,87,0.95)', 'rgba(46,139,87,0.98)'], // Sea Green
     titleSize: 57,
     websiteSize: 23,
-    fontWeight: '700'
+    fontWeight: '700',
+    fontFamily: 'Poppins'
   },
   'monochrome': {
     name: 'Monochrome Graphite',
@@ -267,7 +305,8 @@ const DESIGN_THEMES = {
     gradientColors: ['rgba(43,43,43,0.95)', 'rgba(43,43,43,0.98)'], // Graphite
     titleSize: 60,
     websiteSize: 24,
-    fontWeight: '700'
+    fontWeight: '700',
+    fontFamily: 'Impact'
   },
   'vintage': {
     name: 'Vintage Copper',
@@ -276,7 +315,8 @@ const DESIGN_THEMES = {
     gradientColors: ['rgba(184,115,51,0.95)', 'rgba(184,115,51,0.98)'], // Copper
     titleSize: 53,
     websiteSize: 22,
-    fontWeight: '600'
+    fontWeight: '600',
+    fontFamily: 'Playfair Display'
   },
   'luxury': {
     name: 'Luxury Burgundy',
@@ -285,7 +325,8 @@ const DESIGN_THEMES = {
     gradientColors: ['rgba(128,0,32,0.95)', 'rgba(128,0,32,0.98)'], // Burgundy
     titleSize: 63,
     websiteSize: 26,
-    fontWeight: '700'
+    fontWeight: '700',
+    fontFamily: 'Playfair Display'
   },
   'cinematic': {
     name: 'Cinematic Steel Blue',
@@ -294,7 +335,8 @@ const DESIGN_THEMES = {
     gradientColors: ['rgba(38,50,56,0.95)', 'rgba(38,50,56,0.98)'], // Steel Blue
     titleSize: 70,
     websiteSize: 30,
-    fontWeight: '900'
+    fontWeight: '900',
+    fontFamily: 'Anton'
   },
   'neon': {
     name: 'Neon Indigo',
@@ -303,7 +345,8 @@ const DESIGN_THEMES = {
     gradientColors: ['rgba(63,81,181,0.95)', 'rgba(63,81,181,0.98)'], // Indigo
     titleSize: 60,
     websiteSize: 26,
-    fontWeight: '800'
+    fontWeight: '800',
+    fontFamily: 'Bebas Neue'
   },
   'inspire': {
     name: 'Inspirational Olive',
@@ -312,7 +355,8 @@ const DESIGN_THEMES = {
     gradientColors: ['rgba(61,153,112,0.95)', 'rgba(61,153,112,0.98)'], // Olive
     titleSize: 63,
     websiteSize: 26,
-    fontWeight: '900'
+    fontWeight: '900',
+    fontFamily: 'League Spartan'
   },
   'cute': {
     name: 'Cute Royal Violet',
@@ -321,7 +365,8 @@ const DESIGN_THEMES = {
     gradientColors: ['rgba(94,53,177,0.95)', 'rgba(94,53,177,0.98)'], // Royal Violet
     titleSize: 67,
     websiteSize: 28,
-    fontWeight: '800'
+    fontWeight: '800',
+    fontFamily: 'Poppins'
   },
   'warmbrown': {
     name: 'Warm Espresso',
@@ -330,7 +375,8 @@ const DESIGN_THEMES = {
     gradientColors: ['rgba(62,39,35,0.95)', 'rgba(62,39,35,0.98)'], // Espresso
     titleSize: 67,
     websiteSize: 28,
-    fontWeight: '800'
+    fontWeight: '800',
+    fontFamily: 'Montserrat'
   },
   'pokemon': {
     name: 'Pokémon Wine',
@@ -339,7 +385,8 @@ const DESIGN_THEMES = {
     gradientColors: ['rgba(81,45,168,0.95)', 'rgba(81,45,168,0.98)'], // Wine
     titleSize: 73,
     websiteSize: 30,
-    fontWeight: '900'
+    fontWeight: '900',
+    fontFamily: 'Impact'
   }
 };
 
@@ -585,13 +632,6 @@ export default async function handler(req, res) {
         src: url('${fontBase64Cache.notoBold || ''}') format('truetype');
       }
       @font-face {
-        font-family: 'Noto Sans Bold';
-        font-weight: normal;
-        font-style: normal;
-        font-display: block;
-        src: url('${fontBase64Cache.notoBold || ''}') format('truetype');
-      }
-      @font-face {
         font-family: 'Inter';
         font-weight: 400;
         font-style: normal;
@@ -606,11 +646,74 @@ export default async function handler(req, res) {
         src: url('${fontBase64Cache.interBold || ''}') format('truetype');
       }
       @font-face {
-        font-family: 'Inter Bold';
-        font-weight: normal;
+        font-family: 'Bebas Neue';
+        font-weight: 400;
         font-style: normal;
         font-display: block;
-        src: url('${fontBase64Cache.interBold || ''}') format('truetype');
+        src: url('${fontBase64Cache.bebasNeue || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Anton';
+        font-weight: 400;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.anton || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Impact';
+        font-weight: 400;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.impact || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Oswald';
+        font-weight: 700;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.oswaldBold || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Montserrat';
+        font-weight: 800;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.montserratExtraBold || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'League Spartan';
+        font-weight: 800;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.leagueSpartanBold || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Raleway';
+        font-weight: 900;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.ralewayHeavy || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Roboto Condensed';
+        font-weight: 700;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.robotoCondensedBold || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Poppins';
+        font-weight: 800;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.poppinsExtraBold || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Playfair Display';
+        font-weight: 900;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.playfairDisplayBlack || ''}') format('truetype');
       }
     `;
 
@@ -652,9 +755,9 @@ export default async function handler(req, res) {
           ${fontBase64Cache.notoBold || fontBase64Cache.notoRegular ? fontFaceDeclarations : ''}
           
           .title-text { 
-            font-family: "Noto Sans Bold", "Inter Bold", "Noto Sans", "Inter", Arial, sans-serif; 
+            font-family: "${selectedDesign.fontFamily || 'Noto Sans'}", "Noto Sans Bold", "Inter Bold", "Noto Sans", "Inter", Arial, sans-serif; 
             font-size: ${selectedDesign.titleSize}px; 
-            font-weight: 700;
+            font-weight: ${selectedDesign.fontWeight || '700'};
             font-style: normal;
             fill: ${selectedDesign.titleColor}; 
             text-anchor: middle;
@@ -664,9 +767,9 @@ export default async function handler(req, res) {
             ${design === 'tech' ? 'filter: url(#glow);' : ''}
           }
           .website-text { 
-            font-family: "Noto Sans Bold", "Inter Bold", "Noto Sans", "Inter", Arial, sans-serif; 
+            font-family: "${selectedDesign.fontFamily || 'Noto Sans'}", "Noto Sans Bold", "Inter Bold", "Noto Sans", "Inter", Arial, sans-serif; 
             font-size: ${selectedDesign.websiteSize}px; 
-            font-weight: 700;
+            font-weight: ${selectedDesign.fontWeight || '700'};
             font-style: normal;
             fill: ${selectedDesign.websiteColor}; 
             text-anchor: middle;
@@ -681,8 +784,6 @@ export default async function handler(req, res) {
             stroke: rgba(0,0,0,0.3);
             stroke-width: 1.5px;
             paint-order: stroke fill;
-            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
-          }
             filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
           }
           ${design === 'boldblue' ? `
