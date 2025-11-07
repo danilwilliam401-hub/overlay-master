@@ -819,13 +819,6 @@ export default async function handler(req, res) {
             <stop offset="60%" style="stop-color:rgba(0,0,0,0); stop-opacity:0"/>
             <stop offset="100%" style="stop-color:rgba(0,0,0,0.5); stop-opacity:1"/>
           </radialGradient>` : ''}
-          ${design === 'boldblue' ? `
-          <linearGradient id="boldblueTopFade" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" style="stop-color:rgba(0,0,0,0.7); stop-opacity:1"/>
-            <stop offset="30%" style="stop-color:rgba(0,0,0,0.3); stop-opacity:1"/>
-            <stop offset="70%" style="stop-color:rgba(0,0,0,0); stop-opacity:0"/>
-            <stop offset="100%" style="stop-color:rgba(0,0,0,0); stop-opacity:0"/>
-          </linearGradient>` : ''}
         </defs>
         
         <style>
@@ -914,18 +907,6 @@ export default async function handler(req, res) {
             fill: url(#boldVignette);
             opacity: 0.4;
           }` : ''}
-          ${design === 'boldblue' ? `
-          .boldblue-title {
-            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.8));
-            letter-spacing: 2px;
-          }
-          .boldblue-website {
-            letter-spacing: 3px;
-            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
-          }
-          .boldblue-fade {
-            fill: url(#boldblueTopFade);
-          }` : ''}
         </style>
         
         <!-- Dynamic Design Gradient Background -->
@@ -950,7 +931,7 @@ export default async function handler(req, res) {
 
         <!-- Title Text Lines - Center aligned with design-specific styling -->
         ${titleLines.map((line, index) => 
-          `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY + (index * lineHeight))}" class="title-text ${design === 'neon' ? 'neon-glow' : ''} ${design === 'warmbrown' ? 'warm-shadow' : ''} ${design === 'pokemon' ? 'pokemon-title' : ''} ${design === 'bold' ? 'bold-title' : ''} ${design === 'boldblue' ? 'boldblue-title' : ''}">${line}</text>`
+          `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY + (index * lineHeight))}" class="title-text ${design === 'neon' ? 'neon-glow' : ''} ${design === 'warmbrown' ? 'warm-shadow' : ''} ${design === 'pokemon' ? 'pokemon-title' : ''} ${design === 'bold' ? 'bold-title' : ''}">${line}</text>`
         ).join('')}
         
         ${design === 'anime' ? `
@@ -969,7 +950,7 @@ export default async function handler(req, res) {
         ` : ''}
         
         <!-- Website Text - Dynamically positioned with design styling -->
-        <text x="${Math.round(targetWidth / 2)}" y="${Math.round(websiteY)}" class="website-text ${design === 'pokemon' ? 'pokemon-website' : ''} ${design === 'bold' ? 'bold-website' : ''} ${design === 'boldblue' ? 'boldblue-website' : ''}">${websiteText}</text>
+        <text x="${Math.round(targetWidth / 2)}" y="${Math.round(websiteY)}" class="website-text ${design === 'pokemon' ? 'pokemon-website' : ''} ${design === 'bold' ? 'bold-website' : ''}">${websiteText}</text>
         
         ${design === 'warmbrown' ? `
         <!-- Warm brown vignette overlay for depth -->
@@ -979,11 +960,6 @@ export default async function handler(req, res) {
         ${design === 'bold' ? `
         <!-- Bold design vignette overlay for dramatic depth -->
         <rect width="100%" height="100%" class="bold-vignette"/>
-        ` : ''}
-        
-        ${design === 'boldblue' ? `
-        <!-- BoldBlue top fade overlay for gradient effect -->
-        <rect width="100%" height="100%" class="boldblue-fade"/>
         ` : ''}
       </svg>
     `;
