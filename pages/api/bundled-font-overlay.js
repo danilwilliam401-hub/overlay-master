@@ -346,7 +346,7 @@ const DESIGN_THEMES = {
     name: 'Modern Minimal',
     titleColor: '#FFFFFF',
     websiteColor: '#00BFA5',
-    gradientColors: ['rgba(240,240,240,0.95)', 'rgba(26,26,26,0.98)'],
+    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(0,0,0,0.98)'],
     titleSize: 75,
     websiteSize: 32,
     fontWeight: '900'
