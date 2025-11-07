@@ -823,9 +823,9 @@ export default async function handler(req, res) {
         
         <style>
           .title-text { 
-            font-family: "Noto Sans", "Inter", sans-serif; 
+            font-family: "Noto Sans Bold", "Noto Sans", "Inter", sans-serif; 
             font-size: ${selectedDesign.titleSize}px; 
-            font-weight: ${selectedDesign.fontWeight};
+            font-weight: 900;
             fill: ${selectedDesign.titleColor}; 
             text-anchor: middle;
             dominant-baseline: middle;
@@ -834,30 +834,41 @@ export default async function handler(req, res) {
             ${design === 'tech' ? 'filter: url(#glow);' : ''}
           }
           .website-text { 
-            font-family: "Noto Sans", "Inter", sans-serif; 
+            font-family: "Noto Sans Bold", "Noto Sans", "Inter", sans-serif; 
             font-size: ${selectedDesign.websiteSize}px; 
-            font-weight: ${design === 'minimal' ? '400' : '500'};
+            font-weight: 700;
             fill: ${selectedDesign.websiteColor}; 
             text-anchor: middle;
             dominant-baseline: middle;
             letter-spacing: ${design === 'sports' ? '3px' : '2px'};
             text-transform: uppercase;
           }
-          ${design === 'boldblue' ? `
-          .boldblue-title {
-            font-family: "Noto Sans", "Inter", sans-serif;
+          .bold-text {
+            font-family: "Noto Sans Bold", "Inter Bold", sans-serif;
             font-weight: 900;
             stroke: rgba(0,0,0,0.3);
-            stroke-width: 1px;
+            stroke-width: 1.5px;
             paint-order: stroke fill;
-            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+          }
+          ${design === 'boldblue' ? `
+          .boldblue-title {
+            font-family: "Noto Sans Bold", "Inter Bold", sans-serif;
+            font-weight: 900;
+            stroke: rgba(0,0,0,0.4);
+            stroke-width: 2px;
+            paint-order: stroke fill;
+            filter: drop-shadow(0 3px 10px rgba(0,0,0,0.6));
             letter-spacing: 1px;
           }
           .boldblue-website {
-            font-family: "Noto Sans", "Inter", sans-serif;
-            font-weight: 700;
+            font-family: "Noto Sans Bold", "Inter Bold", sans-serif;
+            font-weight: 800;
             letter-spacing: 2px;
-            filter: drop-shadow(0 1px 4px rgba(0,0,0,0.4));
+            stroke: rgba(0,0,0,0.2);
+            stroke-width: 1px;
+            paint-order: stroke fill;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
           }` : ''}
           ${design === 'anime' ? `
           .accent-line {
@@ -867,7 +878,7 @@ export default async function handler(req, res) {
           }` : ''}
           ${design === 'breaking' ? `
           .breaking-tag {
-            font-family: "Noto Sans", "Inter", sans-serif;
+            font-family: "Noto Sans Bold", "Inter Bold", sans-serif;
             font-size: 18px;
             font-weight: 900;
             fill: #FFFFFF;
@@ -913,10 +924,17 @@ export default async function handler(req, res) {
           }` : ''}
           ${design === 'bold' ? `
           .bold-title {
+            font-family: "Noto Sans Bold", "Inter Bold", sans-serif;
+            font-weight: 900;
+            stroke: rgba(0,0,0,0.4);
+            stroke-width: 2px;
+            paint-order: stroke fill;
             filter: drop-shadow(0 6px 16px rgba(0,0,0,0.6));
             letter-spacing: 1px;
           }
           .bold-website {
+            font-family: "Noto Sans Bold", "Inter Bold", sans-serif;
+            font-weight: 800;
             letter-spacing: 3px;
           }
           .bold-vignette {
@@ -946,9 +964,22 @@ export default async function handler(req, res) {
         ` : ''}
 
         <!-- Title Text Lines - Center aligned with design-specific styling -->
-        ${titleLines.map((line, index) => 
-          `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY + (index * lineHeight))}" class="title-text ${design === 'neon' ? 'neon-glow' : ''} ${design === 'warmbrown' ? 'warm-shadow' : ''} ${design === 'pokemon' ? 'pokemon-title' : ''} ${design === 'bold' ? 'bold-title' : ''} ${design === 'boldblue' ? 'boldblue-title' : ''}">${line}</text>`
-        ).join('')}
+        ${titleLines.map((line, index) => {
+          // Determine classes for bold designs
+          const boldDesigns = ['boldblue', 'bold', 'energetic', 'popart', 'viral'];
+          const isBoldDesign = boldDesigns.includes(design);
+          const classes = [
+            'title-text',
+            design === 'neon' ? 'neon-glow' : '',
+            design === 'warmbrown' ? 'warm-shadow' : '',
+            design === 'pokemon' ? 'pokemon-title' : '',
+            design === 'bold' ? 'bold-title' : '',
+            design === 'boldblue' ? 'boldblue-title' : '',
+            isBoldDesign ? 'bold-text' : ''
+          ].filter(Boolean).join(' ');
+          
+          return `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY + (index * lineHeight))}" class="${classes}">${line}</text>`;
+        }).join('')}
         
         ${design === 'anime' ? `
         <!-- Anime-style accent lines (below title) -->
@@ -966,7 +997,7 @@ export default async function handler(req, res) {
         ` : ''}
         
         <!-- Website Text - Dynamically positioned with design styling -->
-        <text x="${Math.round(targetWidth / 2)}" y="${Math.round(websiteY)}" class="website-text ${design === 'pokemon' ? 'pokemon-website' : ''} ${design === 'bold' ? 'bold-website' : ''} ${design === 'boldblue' ? 'boldblue-website' : ''}">${websiteText}</text>
+        <text x="${Math.round(targetWidth / 2)}" y="${Math.round(websiteY)}" class="website-text ${design === 'pokemon' ? 'pokemon-website' : ''} ${design === 'bold' ? 'bold-website' : ''} ${design === 'boldblue' ? 'boldblue-website' : ''} ${['boldblue', 'bold', 'energetic', 'popart', 'viral'].includes(design) ? 'bold-text' : ''}">${websiteText}</text>
         
         ${design === 'warmbrown' ? `
         <!-- Warm brown vignette overlay for depth -->
