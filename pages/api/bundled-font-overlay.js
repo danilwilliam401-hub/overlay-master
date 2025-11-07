@@ -116,491 +116,229 @@ function fetchImageBuffer(imageUrl) {
 // Design configurations for different styles
 const DESIGN_THEMES = {
   'default': {
-    name: 'Classic Dark',
+    name: 'Classic Navy',
     titleColor: '#FFFFFF',
     websiteColor: '#FFD700',
-    gradientColors: ['rgba(0,0,0,0.2)', 'rgba(0,0,0,0.95)'],
+    gradientColors: ['rgba(0,31,63,0.95)', 'rgba(0,31,63,0.98)'], // Navy Blue
     titleSize: 48,
     websiteSize: 24,
     fontWeight: '700'
   },
   'tech': {
-    name: 'Tech Blue',
+    name: 'Tech Royal Blue',
     titleColor: '#FFFFFF',
     websiteColor: '#00D4FF',
-    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(0,0,0,0.95)'],
+    gradientColors: ['rgba(0,51,153,0.95)', 'rgba(0,51,153,0.98)'], // Royal Blue
     titleSize: 52,
     websiteSize: 26,
     fontWeight: '800'
   },
   'entertainment': {
-    name: 'Entertainment Yellow',
-    titleColor: '#000000',
-    websiteColor: '#000000',
-    gradientColors: ['rgba(255,212,0,0.95)', 'rgba(255,212,0,0.95)'],
+    name: 'Entertainment Teal',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFD700',
+    gradientColors: ['rgba(0,77,77,0.95)', 'rgba(0,77,77,0.98)'], // Deep Teal
     titleSize: 70,
     websiteSize: 32,
     fontWeight: '900'
   },
   'sports': {
-    name: 'Sports Dynamic',
+    name: 'Sports Charcoal',
     titleColor: '#FFFFFF',
     websiteColor: '#00FF88',
-    gradientColors: ['rgba(0,40,80,0.3)', 'rgba(10,70,140,0.95)'],
+    gradientColors: ['rgba(26,26,26,0.95)', 'rgba(26,26,26,0.98)'], // Charcoal
     titleSize: 50,
     websiteSize: 25,
     fontWeight: '800'
   },
   'anime': {
-    name: 'Anime Dark',
-    titleColor: '#FFD700',
+    name: 'Anime Slate',
+    titleColor: '#FFFFFF',
     websiteColor: '#FF6B35',
-    gradientColors: ['rgba(20,10,30,0.4)', 'rgba(40,20,60,0.95)'],
+    gradientColors: ['rgba(47,79,79,0.95)', 'rgba(47,79,79,0.98)'], // Slate Gray
     titleSize: 46,
     websiteSize: 23,
     fontWeight: '700'
   },
   'eco': {
-    name: 'Eco Green',
+    name: 'Eco Forest Green',
     titleColor: '#FFFFFF',
-    websiteColor: '#32CD32',
-    gradientColors: ['rgba(10,40,20,0.3)', 'rgba(20,80,40,0.95)'],
+    websiteColor: '#90EE90',
+    gradientColors: ['rgba(11,61,11,0.95)', 'rgba(11,61,11,0.98)'], // Forest Green
     titleSize: 48,
     websiteSize: 24,
     fontWeight: '700'
   },
   'news': {
-    name: 'News Professional',
+    name: 'News Crimson',
     titleColor: '#FFFFFF',
-    websiteColor: '#FF4444',
-    gradientColors: ['rgba(20,20,20,0.4)', 'rgba(60,60,60,0.95)'],
+    websiteColor: '#FFD700',
+    gradientColors: ['rgba(139,0,0,0.95)', 'rgba(139,0,0,0.98)'], // Crimson Red
     titleSize: 44,
     websiteSize: 22,
     fontWeight: '600'
   },
   'minimal': {
-    name: 'Minimal Clean',
-    titleColor: '#333333',
-    websiteColor: '#666666',
-    gradientColors: ['rgba(255,255,255,0.1)', 'rgba(240,240,240,0.9)'],
+    name: 'Minimal Pure Black',
+    titleColor: '#FFFFFF',
+    websiteColor: '#E0E0E0',
+    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(0,0,0,0.98)'], // Pure Black
     titleSize: 42,
     websiteSize: 20,
     fontWeight: '500'
   },
   // 🎨 NEW UNIVERSAL DESIGNS (15 additional styles)
   'modern': {
-    name: 'Modern Lifestyle',
+    name: 'Modern Emerald',
     titleColor: '#FFFFFF',
-    websiteColor: '#E0E0E0',
-    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(0,0,0,0.98)'],
+    websiteColor: '#90EE90',
+    gradientColors: ['rgba(0,100,0,0.95)', 'rgba(0,100,0,0.98)'], // Emerald
     titleSize: 60,
     websiteSize: 24,
     fontWeight: '900'
   },
   'bold': {
-    name: 'Bold Impact',
+    name: 'Bold Fire Orange',
     titleColor: '#FFFFFF',
     websiteColor: '#FFD700',
-    gradientColors: ['rgba(139,0,0,0.95)', 'rgba(26,0,0,0.98)'],
+    gradientColors: ['rgba(255,69,0,0.95)', 'rgba(255,69,0,0.98)'], // Fire Orange
     titleSize: 85,
     websiteSize: 35,
     fontWeight: '900'
   },
   'viral': {
-    name: 'Viral Entertainment',
+    name: 'Viral Magenta',
     titleColor: '#FFFFFF',
-    websiteColor: '#FF1493',
-    gradientColors: ['rgba(255,20,147,0.8)', 'rgba(138,43,226,0.9)'],
+    websiteColor: '#FFB6C1',
+    gradientColors: ['rgba(173,20,87,0.95)', 'rgba(173,20,87,0.98)'], // Magenta
     titleSize: 67,
     websiteSize: 28,
     fontWeight: '800'
   },
   'breaking': {
-    name: 'Breaking News',
+    name: 'Breaking Scarlet',
     titleColor: '#FFFFFF',
-    websiteColor: '#FF0000',
-    gradientColors: ['rgba(0,30,60,0.9)', 'rgba(0,50,100,0.95)'],
+    websiteColor: '#FFD700',
+    gradientColors: ['rgba(198,40,40,0.95)', 'rgba(198,40,40,0.98)'], // Scarlet
     titleSize: 57,
     websiteSize: 25,
     fontWeight: '700'
   },
   'thoughtful': {
-    name: 'Thoughtful Quotes',
-    titleColor: '#2F2F2F',
-    websiteColor: '#8B4513',
-    gradientColors: ['rgba(245,245,220,0.9)', 'rgba(250,250,250,0.95)'],
+    name: 'Thoughtful Deep Purple',
+    titleColor: '#FFFFFF',
+    websiteColor: '#E6E6FA',
+    gradientColors: ['rgba(74,20,140,0.95)', 'rgba(74,20,140,0.98)'], // Deep Purple
     titleSize: 53,
     websiteSize: 22,
     fontWeight: '700'
   },
   'colorful': {
-    name: 'Colorful Youth',
+    name: 'Colorful Amber',
     titleColor: '#FFFFFF',
-    websiteColor: '#FFE4E1',
-    gradientColors: ['rgba(0,255,255,0.8)', 'rgba(255,165,0,0.9)'],
+    websiteColor: '#FFE4B5',
+    gradientColors: ['rgba(255,111,0,0.95)', 'rgba(255,111,0,0.98)'], // Amber
     titleSize: 63,
     websiteSize: 26,
     fontWeight: '900'
   },
   'overlay': {
-    name: 'Photo Overlay',
+    name: 'Photo Overlay Dark Gray',
     titleColor: '#FFFFFF',
-    websiteColor: '#F0F0F0',
-    gradientColors: ['rgba(0,0,0,0.1)', 'rgba(0,0,0,0.8)'],
+    websiteColor: '#D3D3D3',
+    gradientColors: ['rgba(18,18,18,0.95)', 'rgba(18,18,18,0.98)'], // Dark Gray
     titleSize: 60,
     websiteSize: 24,
     fontWeight: '800'
   },
   'aesthetic': {
-    name: 'Aesthetic Style',
-    titleColor: '#8E44AD',
-    websiteColor: '#D2691E',
-    gradientColors: ['rgba(255,182,193,0.7)', 'rgba(221,160,221,0.9)'],
+    name: 'Aesthetic Sea Green',
+    titleColor: '#FFFFFF',
+    websiteColor: '#AFEEEE',
+    gradientColors: ['rgba(46,139,87,0.95)', 'rgba(46,139,87,0.98)'], // Sea Green
     titleSize: 57,
     websiteSize: 23,
     fontWeight: '700'
   },
   'monochrome': {
-    name: 'Monochrome Minimal',
-    titleColor: '#000000',
-    websiteColor: '#4A4A4A',
-    gradientColors: ['rgba(255,255,255,0.95)', 'rgba(248,248,248,0.98)'],
+    name: 'Monochrome Graphite',
+    titleColor: '#FFFFFF',
+    websiteColor: '#D3D3D3',
+    gradientColors: ['rgba(43,43,43,0.95)', 'rgba(43,43,43,0.98)'], // Graphite
     titleSize: 60,
     websiteSize: 24,
     fontWeight: '700'
   },
   'vintage': {
-    name: 'Vintage Retro',
-    titleColor: '#8B4513',
-    websiteColor: '#D2691E',
-    gradientColors: ['rgba(245,222,179,0.9)', 'rgba(222,184,135,0.95)'],
+    name: 'Vintage Copper',
+    titleColor: '#FFFFFF',
+    websiteColor: '#F5DEB3',
+    gradientColors: ['rgba(184,115,51,0.95)', 'rgba(184,115,51,0.98)'], // Copper
     titleSize: 53,
     websiteSize: 22,
     fontWeight: '600'
   },
   'luxury': {
-    name: 'Luxury Premium',
-    titleColor: '#FFD700',
-    websiteColor: '#C0C0C0',
-    gradientColors: ['rgba(0,0,0,0.9)', 'rgba(25,25,112,0.95)'],
+    name: 'Luxury Burgundy',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFD700',
+    gradientColors: ['rgba(128,0,32,0.95)', 'rgba(128,0,32,0.98)'], // Burgundy
     titleSize: 63,
     websiteSize: 26,
     fontWeight: '700'
   },
   'cinematic': {
-    name: 'Cinematic Drama',
+    name: 'Cinematic Steel Blue',
     titleColor: '#FFFFFF',
-    websiteColor: '#FFD700',
-    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(20,20,20,0.98)'],
+    websiteColor: '#B0C4DE',
+    gradientColors: ['rgba(38,50,56,0.95)', 'rgba(38,50,56,0.98)'], // Steel Blue
     titleSize: 70,
     websiteSize: 30,
     fontWeight: '900'
   },
   'neon': {
-    name: 'Neon Tech',
-    titleColor: '#00FF41',
-    websiteColor: '#00BFFF',
-    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(10,10,30,0.98)'],
+    name: 'Neon Indigo',
+    titleColor: '#FFFFFF',
+    websiteColor: '#87CEEB',
+    gradientColors: ['rgba(63,81,181,0.95)', 'rgba(63,81,181,0.98)'], // Indigo
     titleSize: 60,
     websiteSize: 26,
     fontWeight: '800'
   },
   'inspire': {
-    name: 'Inspirational',
+    name: 'Inspirational Olive',
     titleColor: '#FFFFFF',
-    websiteColor: '#FFD700',
-    gradientColors: ['rgba(30,144,255,0.8)', 'rgba(255,215,0,0.9)'],
+    websiteColor: '#F0E68C',
+    gradientColors: ['rgba(61,153,112,0.95)', 'rgba(61,153,112,0.98)'], // Olive
     titleSize: 63,
     websiteSize: 26,
     fontWeight: '900'
   },
   'cute': {
-    name: 'Cute Aesthetic',
-    titleColor: '#FF1493',
-    websiteColor: '#DA70D6',
-    gradientColors: ['rgba(255,182,193,0.9)', 'rgba(221,160,221,0.95)'],
+    name: 'Cute Royal Violet',
+    titleColor: '#FFFFFF',
+    websiteColor: '#DDA0DD',
+    gradientColors: ['rgba(94,53,177,0.95)', 'rgba(94,53,177,0.98)'], // Royal Violet
     titleSize: 67,
     websiteSize: 28,
     fontWeight: '800'
   },
   'warmbrown': {
-    name: 'Warm Brown Elegance',
-    titleColor: '#FFF8E1',
-    websiteColor: '#FFD180',
-    gradientColors: ['rgba(62,39,35,0.9)', 'rgba(161,136,127,0.95)'],
+    name: 'Warm Espresso',
+    titleColor: '#FFFFFF',
+    websiteColor: '#D2B48C',
+    gradientColors: ['rgba(62,39,35,0.95)', 'rgba(62,39,35,0.98)'], // Espresso
     titleSize: 67,
     websiteSize: 28,
     fontWeight: '800'
   },
   'pokemon': {
-    name: 'Pokémon Electric',
-    titleColor: '#FFCB05',
-    websiteColor: '#2A75BB',
-    gradientColors: ['rgba(255,214,0,0.95)', 'rgba(61,194,255,0.95)'],
+    name: 'Pokémon Wine',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFD700',
+    gradientColors: ['rgba(81,45,168,0.95)', 'rgba(81,45,168,0.98)'], // Wine
     titleSize: 73,
     websiteSize: 30,
-    fontWeight: '900'
-  },
-  // 30 High-Engagement Design Presets for Facebook Image Headlines
-  'modern': {
-    name: 'Modern Minimal',
-    titleColor: '#FFFFFF',
-    websiteColor: '#00BFA5',
-    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(0,0,0,0.98)'],
-    titleSize: 75,
-    websiteSize: 32,
-    fontWeight: '900'
-  },
-  'boldblue': {
-    name: 'Bold Blue Impact',
-    titleColor: '#FFFFFF',
-    websiteColor: '#FFD700',
-    gradientColors: ['rgba(0,51,160,0.95)', 'rgba(0,31,77,0.98)'],
-    titleSize: 80,
-    websiteSize: 34,
-    fontWeight: '900'
-  },
-  'sunrise': {
-    name: 'Sunrise Energy',
-    titleColor: '#FFFFFF',
-    websiteColor: '#FFFFFF',
-    gradientColors: ['rgba(255,140,0,0.95)', 'rgba(255,65,108,0.98)'],
-    titleSize: 78,
-    websiteSize: 32,
-    fontWeight: '900'
-  },
-  'gradientgold': {
-    name: 'Gradient Gold',
-    titleColor: '#FFD700',
-    websiteColor: '#FFFFFF',
-    gradientColors: ['rgba(28,28,28,0.95)', 'rgba(58,58,58,0.98)'],
-    titleSize: 75,
-    websiteSize: 30,
-    fontWeight: '900'
-  },
-  'minimalwhite': {
-    name: 'Minimal White',
-    titleColor: '#000000',
-    websiteColor: '#999999',
-    gradientColors: ['rgba(255,255,255,0.95)', 'rgba(255,255,255,0.98)'],
-    titleSize: 80,
-    websiteSize: 32,
-    fontWeight: '900'
-  },
-  'midnight': {
-    name: 'Midnight Dark',
-    titleColor: '#FFFFFF',
-    websiteColor: '#00FFFF',
-    gradientColors: ['rgba(13,27,42,0.95)', 'rgba(0,0,0,0.98)'],
-    titleSize: 80,
-    websiteSize: 34,
-    fontWeight: '900'
-  },
-  'energetic': {
-    name: 'Energetic Fire',
-    titleColor: '#FFFFFF',
-    websiteColor: '#FFD700',
-    gradientColors: ['rgba(255,0,0,0.95)', 'rgba(255,165,0,0.98)'],
-    titleSize: 85,
-    websiteSize: 36,
-    fontWeight: '900'
-  },
-  'cyberpunk': {
-    name: 'Cyberpunk Neon',
-    titleColor: '#FF00FF',
-    websiteColor: '#00FFFF',
-    gradientColors: ['rgba(13,13,13,0.95)', 'rgba(106,13,173,0.98)'],
-    titleSize: 78,
-    websiteSize: 32,
-    fontWeight: '800'
-  },
-  'moody': {
-    name: 'Moody Atmosphere',
-    titleColor: '#FFFFFF',
-    websiteColor: '#FFD180',
-    gradientColors: ['rgba(78,52,46,0.95)', 'rgba(33,33,33,0.98)'],
-    titleSize: 75,
-    websiteSize: 30,
-    fontWeight: '900'
-  },
-  'forest': {
-    name: 'Forest Deep',
-    titleColor: '#FFFFFF',
-    websiteColor: '#AEEA00',
-    gradientColors: ['rgba(0,77,64,0.95)', 'rgba(0,37,26,0.98)'],
-    titleSize: 78,
-    websiteSize: 32,
-    fontWeight: '900'
-  },
-  'popart': {
-    name: 'Pop Art Style',
-    titleColor: '#000000',
-    websiteColor: '#000000',
-    gradientColors: ['rgba(255,82,82,0.95)', 'rgba(255,235,59,0.98)'],
-    titleSize: 85,
-    websiteSize: 34,
-    fontWeight: '900'
-  },
-  'darkgold': {
-    name: 'Dark Gold Luxury',
-    titleColor: '#FFD700',
-    websiteColor: '#EEEEEE',
-    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(17,17,17,0.98)'],
-    titleSize: 75,
-    websiteSize: 30,
-    fontWeight: '900'
-  },
-  'aqua': {
-    name: 'Aqua Fresh',
-    titleColor: '#FFFFFF',
-    websiteColor: '#FFFFFF',
-    gradientColors: ['rgba(0,188,212,0.95)', 'rgba(0,77,128,0.98)'],
-    titleSize: 80,
-    websiteSize: 32,
-    fontWeight: '900'
-  },
-  'fire': {
-    name: 'Fire Intensity',
-    titleColor: '#FFEB3B',
-    websiteColor: '#FFFFFF',
-    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(255,87,34,0.98)'],
-    titleSize: 85,
-    websiteSize: 34,
-    fontWeight: '900'
-  },
-  'chill': {
-    name: 'Chill Vibes',
-    titleColor: '#FFFFFF',
-    websiteColor: '#FFFFFF',
-    gradientColors: ['rgba(3,169,244,0.95)', 'rgba(0,188,212,0.98)'],
-    titleSize: 80,
-    websiteSize: 32,
-    fontWeight: '900'
-  },
-  'royal': {
-    name: 'Royal Elegance',
-    titleColor: '#FFFFFF',
-    websiteColor: '#FFD54F',
-    gradientColors: ['rgba(40,53,147,0.95)', 'rgba(255,213,79,0.98)'],
-    titleSize: 75,
-    websiteSize: 30,
-    fontWeight: '900'
-  },
-  'cinematic': {
-    name: 'Cinematic Drama',
-    titleColor: '#FFFFFF',
-    websiteColor: '#E50914',
-    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(32,32,32,0.98)'],
-    titleSize: 85,
-    websiteSize: 32,
-    fontWeight: '900'
-  },
-  'retro': {
-    name: 'Retro Nostalgia',
-    titleColor: '#FFF8E1',
-    websiteColor: '#FCE4EC',
-    gradientColors: ['rgba(255,112,67,0.95)', 'rgba(93,64,55,0.98)'],
-    titleSize: 78,
-    websiteSize: 32,
-    fontWeight: '800'
-  },
-  'purpledream': {
-    name: 'Purple Dream',
-    titleColor: '#FFFFFF',
-    websiteColor: '#FFFFFF',
-    gradientColors: ['rgba(142,36,170,0.95)', 'rgba(224,64,251,0.98)'],
-    titleSize: 80,
-    websiteSize: 32,
-    fontWeight: '900'
-  },
-  'grunge': {
-    name: 'Grunge Style',
-    titleColor: '#FFFFFF',
-    websiteColor: '#FFD600',
-    gradientColors: ['rgba(66,66,66,0.95)', 'rgba(33,33,33,0.98)'],
-    titleSize: 78,
-    websiteSize: 32,
-    fontWeight: '900'
-  },
-  'matrix': {
-    name: 'Matrix Code',
-    titleColor: '#00FF00',
-    websiteColor: '#00FF00',
-    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(0,51,0,0.98)'],
-    titleSize: 80,
-    websiteSize: 32,
-    fontWeight: '900'
-  },
-  'street': {
-    name: 'Street Urban',
-    titleColor: '#FFFFFF',
-    websiteColor: '#E53935',
-    gradientColors: ['rgba(97,97,97,0.95)', 'rgba(66,66,66,0.98)'],
-    titleSize: 80,
-    websiteSize: 32,
-    fontWeight: '900'
-  },
-  'cloud': {
-    name: 'Cloud Sky',
-    titleColor: '#0D47A1',
-    websiteColor: '#FFFFFF',
-    gradientColors: ['rgba(129,212,250,0.95)', 'rgba(255,255,255,0.98)'],
-    titleSize: 78,
-    websiteSize: 30,
-    fontWeight: '900'
-  },
-  'metallic': {
-    name: 'Metallic Steel',
-    titleColor: '#EEEEEE',
-    websiteColor: '#FFFFFF',
-    gradientColors: ['rgba(176,190,197,0.95)', 'rgba(38,50,56,0.98)'],
-    titleSize: 80,
-    websiteSize: 32,
-    fontWeight: '900'
-  },
-  'chocolate': {
-    name: 'Chocolate Brown',
-    titleColor: '#FFF3E0',
-    websiteColor: '#FFE082',
-    gradientColors: ['rgba(62,39,35,0.95)', 'rgba(121,85,72,0.98)'],
-    titleSize: 78,
-    websiteSize: 32,
-    fontWeight: '900'
-  },
-  'future': {
-    name: 'Future Tech',
-    titleColor: '#00E5FF',
-    websiteColor: '#FFFFFF',
-    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(117,117,117,0.98)'],
-    titleSize: 80,
-    websiteSize: 32,
-    fontWeight: '900'
-  },
-  'limepop': {
-    name: 'Lime Pop',
-    titleColor: '#000000',
-    websiteColor: '#FFFFFF',
-    gradientColors: ['rgba(205,220,57,0.95)', 'rgba(104,159,56,0.98)'],
-    titleSize: 80,
-    websiteSize: 32,
-    fontWeight: '900'
-  },
-  'royalred': {
-    name: 'Royal Red',
-    titleColor: '#FFFFFF',
-    websiteColor: '#FFD700',
-    gradientColors: ['rgba(183,28,28,0.95)', 'rgba(255,215,0,0.98)'],
-    titleSize: 78,
-    websiteSize: 30,
-    fontWeight: '900'
-  },
-  'viral': {
-    name: 'Viral Impact',
-    titleColor: '#000000',
-    websiteColor: '#FFFFFF',
-    gradientColors: ['rgba(255,235,59,0.95)', 'rgba(255,145,0,0.98)'],
-    titleSize: 85,
-    websiteSize: 32,
     fontWeight: '900'
   }
 };
