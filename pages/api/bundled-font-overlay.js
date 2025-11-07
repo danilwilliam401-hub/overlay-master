@@ -57,6 +57,16 @@ fontBase64Cache = {
   interBold: loadFontAsBase64(fontFiles.interBold, 'Inter Bold')
 };
 
+// Debug font loading results
+console.log('📊 Font Loading Results:');
+Object.entries(fontBase64Cache).forEach(([key, value]) => {
+  console.log(`  ${key}: ${value ? '✅ Loaded' : '❌ Failed'} (${value ? `${Math.round(value.length / 1024)}KB` : 'N/A'})`);
+});
+
+// Check if we have at least one bold font
+const hasBoldFonts = fontBase64Cache.notoBold || fontBase64Cache.interBold;
+console.log(`🔤 Bold fonts available: ${hasBoldFonts ? '✅ YES' : '❌ NO'}`);
+
 // Verify font files exist
 console.log('🔤 Font Configuration Check:', {
   workingDir: process.cwd(),
@@ -820,42 +830,48 @@ export default async function handler(req, res) {
       return `<stop offset="${offset}" style="stop-color:${color}"/>`;
     }).join('');
 
-    // Generate embedded font-face declarations
+    // Generate embedded font-face declarations with explicit family names for Sharp
     const fontFaceDeclarations = `
       @font-face {
         font-family: 'Noto Sans';
         font-weight: 400;
         font-style: normal;
+        font-display: block;
         src: url('${fontBase64Cache.notoRegular || ''}') format('truetype');
       }
       @font-face {
         font-family: 'Noto Sans';
         font-weight: 700;
         font-style: normal;
+        font-display: block;
         src: url('${fontBase64Cache.notoBold || ''}') format('truetype');
       }
       @font-face {
         font-family: 'Noto Sans Bold';
-        font-weight: 700;
+        font-weight: normal;
         font-style: normal;
+        font-display: block;
         src: url('${fontBase64Cache.notoBold || ''}') format('truetype');
       }
       @font-face {
         font-family: 'Inter';
         font-weight: 400;
         font-style: normal;
+        font-display: block;
         src: url('${fontBase64Cache.interRegular || ''}') format('truetype');
       }
       @font-face {
         font-family: 'Inter';
         font-weight: 700;
         font-style: normal;
+        font-display: block;
         src: url('${fontBase64Cache.interBold || ''}') format('truetype');
       }
       @font-face {
         font-family: 'Inter Bold';
-        font-weight: 700;
+        font-weight: normal;
         font-style: normal;
+        font-display: block;
         src: url('${fontBase64Cache.interBold || ''}') format('truetype');
       }
     `;
@@ -898,9 +914,10 @@ export default async function handler(req, res) {
           ${fontBase64Cache.notoBold || fontBase64Cache.notoRegular ? fontFaceDeclarations : ''}
           
           .title-text { 
-            font-family: "Noto Sans", "Inter", Arial, sans-serif; 
+            font-family: "Noto Sans Bold", "Inter Bold", "Noto Sans", "Inter", Arial, sans-serif; 
             font-size: ${selectedDesign.titleSize}px; 
             font-weight: 700;
+            font-style: normal;
             fill: ${selectedDesign.titleColor}; 
             text-anchor: middle;
             dominant-baseline: middle;
@@ -909,9 +926,10 @@ export default async function handler(req, res) {
             ${design === 'tech' ? 'filter: url(#glow);' : ''}
           }
           .website-text { 
-            font-family: "Noto Sans", "Inter", Arial, sans-serif; 
+            font-family: "Noto Sans Bold", "Inter Bold", "Noto Sans", "Inter", Arial, sans-serif; 
             font-size: ${selectedDesign.websiteSize}px; 
             font-weight: 700;
+            font-style: normal;
             fill: ${selectedDesign.websiteColor}; 
             text-anchor: middle;
             dominant-baseline: middle;
@@ -919,17 +937,14 @@ export default async function handler(req, res) {
             text-transform: uppercase;
           }
           .bold-text {
-            font-family: "Noto Sans", "Inter", Arial, sans-serif;
+            font-family: "Noto Sans Bold", "Inter Bold", "Noto Sans", "Inter", Arial, sans-serif;
             font-weight: 700;
+            font-style: normal;
             stroke: rgba(0,0,0,0.3);
             stroke-width: 1.5px;
             paint-order: stroke fill;
             filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
           }
-            font-weight: 900;
-            stroke: rgba(0,0,0,0.3);
-            stroke-width: 1.5px;
-            paint-order: stroke fill;
             filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
           }
           ${design === 'boldblue' ? `
