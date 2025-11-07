@@ -192,7 +192,7 @@ const DESIGN_THEMES = {
     name: 'Modern Lifestyle',
     titleColor: '#FFFFFF',
     websiteColor: '#E0E0E0',
-    gradientColors: ['rgba(100,100,100,0.3)', 'rgba(50,50,50,0.9)'],
+    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(0,0,0,0.98)'],
     titleSize: 60,
     websiteSize: 24,
     fontWeight: '900'
