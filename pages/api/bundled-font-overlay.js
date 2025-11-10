@@ -392,7 +392,7 @@ const DESIGN_THEMES = {
     name: 'Bold Quote Overlay',
     titleColor: '#FFFFFF',
     websiteColor: '#CCCCCC',
-    gradientColors: ['rgba(0,0,0,0.85)', 'rgba(0,0,0,0.85)'], // Pure black overlay
+    gradientColors: ['rgba(0,0,0,1.0)', 'rgba(0,0,0,1.0)'], // Pure black - no overlay needed for blank backgrounds
     titleSize: 64,
     websiteSize: 28,
     fontWeight: '900',
@@ -402,7 +402,7 @@ const DESIGN_THEMES = {
     name: 'Elegant Quote Overlay',
     titleColor: '#FFFFFF',
     websiteColor: '#E0E0E0',
-    gradientColors: ['rgba(30,30,30,0.90)', 'rgba(30,30,30,0.90)'], // Dark charcoal overlay
+    gradientColors: ['rgba(30,30,30,1.0)', 'rgba(30,30,30,1.0)'], // Dark charcoal - no overlay needed for blank backgrounds
     titleSize: 58,
     websiteSize: 26,
     fontWeight: '900',
@@ -412,7 +412,7 @@ const DESIGN_THEMES = {
     name: 'Impact Quote Overlay',
     titleColor: '#FFFFFF',
     websiteColor: '#FFD700',
-    gradientColors: ['rgba(0,0,0,0.80)', 'rgba(20,20,20,0.80)'], // Gradient black overlay
+    gradientColors: ['rgba(0,0,0,1.0)', 'rgba(20,20,20,1.0)'], // Gradient black - subtle gradient even on blank background
     titleSize: 68,
     websiteSize: 30,
     fontWeight: '900',
@@ -527,21 +527,58 @@ export default async function handler(req, res) {
 
     console.log('📥 Fetching image:', image);
     let imageBuffer;
-    try {
-      imageBuffer = await fetchImageBuffer(image);
-      console.log('✅ Image fetched:', imageBuffer.length, 'bytes');
-    } catch (fetchError) {
-      console.log('⚠️ Image fetch failed, creating default image:', fetchError.message);
-      // Create a default solid color image
+    let useBlankBackground = false;
+    
+    // Check if image URL is empty or just whitespace for quote designs
+    const isQuoteDesign = ['quote1', 'quote2', 'quote3'].includes(design);
+    const isEmptyImage = !image || image.trim() === '' || image === 'undefined' || image === 'null';
+    
+    if (isQuoteDesign && isEmptyImage) {
+      console.log('🎨 Creating blank background for quote design:', design);
+      useBlankBackground = true;
+      
+      // Define background colors for each quote design
+      let backgroundColor;
+      switch (design) {
+        case 'quote1':
+          backgroundColor = { r: 0, g: 0, b: 0 }; // Pure black
+          break;
+        case 'quote2':
+          backgroundColor = { r: 30, g: 30, b: 30 }; // Dark charcoal
+          break;
+        case 'quote3':
+          backgroundColor = { r: 10, g: 10, b: 10 }; // Very dark for gradient effect
+          break;
+        default:
+          backgroundColor = { r: 0, g: 0, b: 0 }; // Default black
+      }
+      
       imageBuffer = await sharp({
         create: {
           width: targetWidth,
           height: targetHeight,
           channels: 3,
-          background: { r: 70, g: 130, b: 180 } // Steel blue background
+          background: backgroundColor
         }
       }).jpeg().toBuffer();
-      console.log('✅ Default image created:', imageBuffer.length, 'bytes');
+      console.log('✅ Blank background created for', design, ':', imageBuffer.length, 'bytes');
+    } else {
+      try {
+        imageBuffer = await fetchImageBuffer(image);
+        console.log('✅ Image fetched:', imageBuffer.length, 'bytes');
+      } catch (fetchError) {
+        console.log('⚠️ Image fetch failed, creating default image:', fetchError.message);
+        // Create a default solid color image
+        imageBuffer = await sharp({
+          create: {
+            width: targetWidth,
+            height: targetHeight,
+            channels: 3,
+            background: { r: 70, g: 130, b: 180 } // Steel blue background
+          }
+        }).jpeg().toBuffer();
+        console.log('✅ Default image created:', imageBuffer.length, 'bytes');
+      }
     }
 
     // Process base image
@@ -926,7 +963,10 @@ export default async function handler(req, res) {
         </style>
         
         <!-- Dynamic Design Gradient Background -->
-        <rect width="100%" height="100%" fill="url(#dynamicGradient)"/>
+        ${(useBlankBackground && ['quote1', 'quote2', 'quote3'].includes(design)) ? 
+          (design === 'quote3' ? '<rect width="100%" height="100%" fill="url(#dynamicGradient)"/>' : '') : // quote3 gets subtle gradient even on blank, others get none
+          '<rect width="100%" height="100%" fill="url(#dynamicGradient)"/>' // Normal gradient overlay for images
+        }
         
         ${design === 'breaking' ? `
         <!-- Breaking News Tag (above title) -->

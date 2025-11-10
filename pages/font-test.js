@@ -4,6 +4,7 @@ export default function FontTest() {
   const [design, setDesign] = useState('aesthetic');
   const [title, setTitle] = useState('Font Test Example');
   const [website, setWebsite] = useState('TestSite.com');
+  const [imageUrl, setImageUrl] = useState('https://picsum.photos/800/600');
 
   const designs = {
     'default': 'Breaking News Boldness (Bebas Neue)',
@@ -36,7 +37,7 @@ export default function FontTest() {
     'quote3': 'Impact Quote Overlay (Impact)'
   };
 
-  const apiUrl = `/api/bundled-font-overlay?image=https://picsum.photos/800/600&title=${encodeURIComponent(title)}&website=${encodeURIComponent(website)}&design=${design}&w=1080&h=1350`;
+  const apiUrl = `/api/bundled-font-overlay?image=${encodeURIComponent(imageUrl)}&title=${encodeURIComponent(title)}&website=${encodeURIComponent(website)}&design=${design}&w=1080&h=1350`;
 
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
@@ -67,6 +68,35 @@ export default function FontTest() {
               placeholder="Leave blank for no author/source"
             />
           </label>
+        </div>
+
+        <div style={{ marginBottom: '10px' }}>
+          <label>
+            <strong>Image URL: </strong>
+            <input 
+              type="text" 
+              value={imageUrl} 
+              onChange={(e) => setImageUrl(e.target.value)}
+              style={{ width: '300px', padding: '5px' }}
+              placeholder="https://picsum.photos/800/600"
+            />
+          </label>
+        </div>
+
+        <div style={{ marginBottom: '10px' }}>
+          <label>
+            <input 
+              type="checkbox" 
+              checked={imageUrl === ''}
+              onChange={(e) => setImageUrl(e.target.checked ? '' : 'https://picsum.photos/800/600')}
+              style={{ marginRight: '8px' }}
+            />
+            <strong>Use Blank Background (Quote Designs Only)</strong>
+          </label>
+          <div style={{ fontSize: '12px', color: '#666', marginTop: '5px' }}>
+            ✨ <strong>New Feature:</strong> Quote designs (quote1, quote2, quote3) now support solid color backgrounds when no image URL is provided!<br/>
+            📝 quote1: Pure black • quote2: Dark charcoal • quote3: Gradient black
+          </div>
         </div>
 
         <div style={{ marginBottom: '10px' }}>
