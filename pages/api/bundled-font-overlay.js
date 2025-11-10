@@ -387,6 +387,36 @@ const DESIGN_THEMES = {
     websiteSize: 30,
     fontWeight: '900',
     fontFamily: 'Impact'
+  },
+  'quote1': {
+    name: 'Bold Quote Overlay',
+    titleColor: '#FFFFFF',
+    websiteColor: '#CCCCCC',
+    gradientColors: ['rgba(0,0,0,0.85)', 'rgba(0,0,0,0.85)'], // Pure black overlay
+    titleSize: 64,
+    websiteSize: 28,
+    fontWeight: '900',
+    fontFamily: 'Anton'
+  },
+  'quote2': {
+    name: 'Elegant Quote Overlay',
+    titleColor: '#FFFFFF',
+    websiteColor: '#E0E0E0',
+    gradientColors: ['rgba(30,30,30,0.90)', 'rgba(30,30,30,0.90)'], // Dark charcoal overlay
+    titleSize: 58,
+    websiteSize: 26,
+    fontWeight: '900',
+    fontFamily: 'Playfair Display'
+  },
+  'quote3': {
+    name: 'Impact Quote Overlay',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFD700',
+    gradientColors: ['rgba(0,0,0,0.80)', 'rgba(20,20,20,0.80)'], // Gradient black overlay
+    titleSize: 68,
+    websiteSize: 30,
+    fontWeight: '900',
+    fontFamily: 'Impact'
   }
 };
 
@@ -403,7 +433,7 @@ export default async function handler(req, res) {
     // Advanced URL parsing to handle image URLs with query parameters
     let imageUrl = 'https://picsum.photos/800/600';
     let title = 'Sample Title';
-    let website = 'Website.com';
+    let website = '';
     let design = 'default';
     let w = '1080';
     let h = '1350';
@@ -466,8 +496,8 @@ export default async function handler(req, res) {
     if (title === 'Sample Title') {
       title = decodeURIComponent(rawParams.title || 'Sample Title');
     }
-    if (website === 'Website.com') {
-      website = decodeURIComponent(rawParams.website || 'Website.com');
+    if (website === '') {
+      website = decodeURIComponent(rawParams.website || '');
     }
     if (design === 'default') {
       design = rawParams.design || 'default';
@@ -589,25 +619,42 @@ export default async function handler(req, res) {
     
     // Dynamic positioning to prevent overlap
     const topMargin = 20; // Top margin
-    const gapBetweenTitleAndWebsite = 25; // Minimum gap between title and website
-    const websiteTextSize = selectedDesign.websiteSize; // Design-specific website text size
+    const gapBetweenTitleAndWebsite = website ? 25 : 0; // No gap if no website
+    const websiteTextSize = website ? selectedDesign.websiteSize : 0; // No size if no website
     
     // Calculate title start position (ensure integers)
-    const titleStartY = Math.round(topMargin + (lineHeight * 0.8)); // Start from top with margin
+    let titleStartY, websiteY, svgHeight;
     
-    // Calculate website position based on where title ends (ensure integers)
-    const titleEndY = Math.round(titleStartY + totalTitleHeight);
-    
-    // Adjust website positioning for designs with accent elements
-    let websiteY = Math.round(titleEndY + gapBetweenTitleAndWebsite);
-    if (design === 'anime') {
-      // For anime design, add extra space after the accent line (15px line position + 20px gap)
-      websiteY = Math.round(titleEndY + 15 + 25); // accent line at +15, website at +40 from title end
+    if (design === 'quote1' || design === 'quote2' || design === 'quote3') {
+      // Center the text vertically in the middle of the image for quote overlay
+      const totalContentHeight = totalTitleHeight + gapBetweenTitleAndWebsite + websiteTextSize;
+      const centerY = Math.round(targetHeight / 2);
+      titleStartY = Math.round(centerY - (totalContentHeight / 2) + (lineHeight * 0.8));
+      websiteY = website ? Math.round(titleStartY + totalTitleHeight + gapBetweenTitleAndWebsite) : 0;
+      svgHeight = targetHeight; // Use full image height for quote overlay
+    } else {
+      // Default positioning - text at bottom
+      titleStartY = Math.round(topMargin + (lineHeight * 0.8)); // Start from top with margin
+      
+      // Calculate website position based on where title ends (ensure integers)
+      const titleEndY = Math.round(titleStartY + totalTitleHeight);
+      
+      // Adjust website positioning for designs with accent elements
+      if (website) {
+        websiteY = Math.round(titleEndY + gapBetweenTitleAndWebsite);
+        if (design === 'anime') {
+          // For anime design, add extra space after the accent line (15px line position + 20px gap)
+          websiteY = Math.round(titleEndY + 15 + 25); // accent line at +15, website at +40 from title end
+        }
+      } else {
+        websiteY = titleEndY; // No extra space if no website
+      }
+      
+      // Calculate dynamic SVG height to fit all content (ensure integers)
+      const bottomMargin = 20;
+      const contentBottom = website ? websiteY + bottomMargin + 10 : titleEndY + bottomMargin;
+      svgHeight = Math.round(Math.max(200, contentBottom)); // Minimum 200px, or calculated height
     }
-    
-    // Calculate dynamic SVG height to fit all content (ensure integers)
-    const bottomMargin = 20;
-    const svgHeight = Math.round(Math.max(200, websiteY + bottomMargin + 10)); // Minimum 200px, or calculated height
     
     // Generate design-specific gradient stops
     const gradientStops = selectedDesign.gradientColors.map((color, index) => {
@@ -932,7 +979,7 @@ export default async function handler(req, res) {
         ` : ''}
         
         <!-- Website Text - Dynamically positioned with design styling -->
-        <text x="${Math.round(targetWidth / 2)}" y="${Math.round(websiteY)}" class="website-text ${design === 'pokemon' ? 'pokemon-website' : ''} ${design === 'bold' ? 'bold-website' : ''} ${design === 'boldblue' ? 'boldblue-website' : ''} ${['boldblue', 'bold', 'energetic', 'popart', 'viral'].includes(design) ? 'bold-text' : ''}">${websiteText}</text>
+        ${website ? `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(websiteY)}" class="website-text ${design === 'pokemon' ? 'pokemon-website' : ''} ${design === 'bold' ? 'bold-website' : ''} ${design === 'boldblue' ? 'boldblue-website' : ''} ${['boldblue', 'bold', 'energetic', 'popart', 'viral'].includes(design) ? 'bold-text' : ''}">${websiteText}</text>` : ''}
         
         ${design === 'warmbrown' ? `
         <!-- Warm brown vignette overlay for depth -->
@@ -955,11 +1002,12 @@ export default async function handler(req, res) {
     console.log('⚡ Compositing with Sharp...');
     
     // Composite the SVG onto the image (ensure integer positioning)
+    const compositeTop = (design === 'quote1' || design === 'quote2' || design === 'quote3') ? 0 : Math.round(targetHeight - svgHeight);
     const finalImage = await processedImage
       .composite([{
         input: svgBuffer,
         left: 0,
-        top: Math.round(targetHeight - svgHeight),
+        top: compositeTop,
         blend: 'over'
       }])
       .jpeg({ quality: 90 })

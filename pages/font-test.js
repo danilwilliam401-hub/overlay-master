@@ -30,7 +30,10 @@ export default function FontTest() {
     'inspire': 'Inspirational Olive (League Spartan)',
     'cute': 'Cute Royal Violet (Poppins)',
     'warmbrown': 'Warm Espresso (Montserrat)',
-    'pokemon': 'Pokémon Wine (Impact)'
+    'pokemon': 'Pokémon Wine (Impact)',
+    'quote1': 'Bold Quote Overlay (Anton)',
+    'quote2': 'Elegant Quote Overlay (Playfair Display)',
+    'quote3': 'Impact Quote Overlay (Impact)'
   };
 
   const apiUrl = `/api/bundled-font-overlay?image=https://picsum.photos/800/600&title=${encodeURIComponent(title)}&website=${encodeURIComponent(website)}&design=${design}&w=1080&h=1350`;
@@ -61,6 +64,7 @@ export default function FontTest() {
               value={website} 
               onChange={(e) => setWebsite(e.target.value)}
               style={{ width: '300px', padding: '5px' }}
+              placeholder="Leave blank for no author/source"
             />
           </label>
         </div>
@@ -125,8 +129,10 @@ export default function FontTest() {
           <li>✅ Added missing fontFamily to 'cute' design (now uses Poppins)</li>
           <li>✅ Added missing fontFamily to 'warmbrown' design (now uses Montserrat)</li>
           <li>✅ Added missing fontFamily to 'pokemon' design (now uses Impact)</li>
+          <li>✅ Added 3 new quote designs (quote1, quote2, quote3) with centered text</li>
+          <li>✅ Added support for blank Author/Source - leave website field empty</li>
           <li>✅ Fixed duplicate CSS filter rule</li>
-          <li>🎉 <strong>All 25 designs now have proper font families assigned!</strong></li>
+          <li>🎉 <strong>All 28+ designs now have proper font families assigned!</strong></li>
         </ul>
       </div>
 
