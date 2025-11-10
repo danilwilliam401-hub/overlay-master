@@ -424,11 +424,21 @@ export default async function handler(req, res) {
   console.log('\n🎨 === MULTI-DESIGN FONT OVERLAY GENERATOR ===');
   console.log('Method:', req.method);
   console.log('Query:', req.query);
+  console.log('Body:', req.body);
   console.log('Full URL:', req.url);
   
   try {
-    // Enhanced parameter extraction to handle complex image URLs with query parameters
-    const rawParams = req.query;
+    // Support both GET and POST methods for long text handling
+    let rawParams;
+    if (req.method === 'POST') {
+      // For POST requests, use body parameters
+      rawParams = req.body || {};
+      console.log('📝 Using POST body parameters for long text support');
+    } else {
+      // For GET requests, use query parameters
+      rawParams = req.query;
+      console.log('📝 Using GET query parameters');
+    }
     
     // Advanced URL parsing to handle image URLs with query parameters
     let imageUrl = 'https://picsum.photos/800/600';
