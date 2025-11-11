@@ -442,6 +442,7 @@ export default async function handler(req, res) {
     
     // Advanced URL parsing to handle image URLs with query parameters
     let imageUrl = 'https://picsum.photos/800/600';
+    let imageData = ''; // New parameter for base64 binary data
     let title = 'Sample Title';
     let website = '';
     let design = 'default';
@@ -462,7 +463,7 @@ export default async function handler(req, res) {
         console.log('🔍 Detected image URL with query parameters, reconstructing...');
         
         // Find where the image URL ends by looking for our API parameters
-        const apiParams = ['title', 'website', 'design', 'w', 'h'];
+        const apiParams = ['title', 'website', 'design', 'w', 'h', 'imageData'];
         const urlParts = originalUrl.split(/[?&]/);
         let imageQueryParams = [];
         let foundApiParam = false;
@@ -484,6 +485,7 @@ export default async function handler(req, res) {
               case 'design': design = paramValue; break;
               case 'w': w = paramValue; break;
               case 'h': h = paramValue; break;
+              case 'imageData': imageData = decodeURIComponent(paramValue); break;
             }
           } else if (!foundApiParam && part.includes('=')) {
             // This is likely part of the image URL query parameters
@@ -512,11 +514,15 @@ export default async function handler(req, res) {
     if (design === 'default') {
       design = rawParams.design || 'default';
     }
+    if (imageData === '') {
+      imageData = rawParams.imageData || '';
+    }
     
     console.log('🔗 Reconstructed image URL:', imageUrl);
+    console.log('📦 Image Data parameter length:', imageData ? imageData.length : 0);
     console.log('� Parameters:', { title, website, design, w, h });
     
-    const image = imageUrl.startsWith('http') ? imageUrl : decodeURIComponent(imageUrl);
+    const image = imageData ? null : (imageUrl.startsWith('http') ? imageUrl : decodeURIComponent(imageUrl));
 
     // Get design theme configuration
     const selectedDesign = DESIGN_THEMES[design] || DESIGN_THEMES['default'];
@@ -535,59 +541,84 @@ export default async function handler(req, res) {
     const targetWidth = parseInt(w);
     const targetHeight = parseInt(h);
 
-    console.log('📥 Fetching image:', image);
+    console.log('📥 Processing image input...');
     let imageBuffer;
     let useBlankBackground = false;
     
-    // Check if image URL is empty or just whitespace for quote designs
-    const isQuoteDesign = ['quote1', 'quote2', 'quote3'].includes(design);
-    const isEmptyImage = !image || image.trim() === '' || image === 'undefined' || image === 'null';
-    
-    if (isQuoteDesign && isEmptyImage) {
-      console.log('🎨 Creating blank background for quote design:', design);
-      useBlankBackground = true;
-      
-      // Define background colors for each quote design
-      let backgroundColor;
-      switch (design) {
-        case 'quote1':
-          backgroundColor = { r: 0, g: 0, b: 0 }; // Pure black
-          break;
-        case 'quote2':
-          backgroundColor = { r: 30, g: 30, b: 30 }; // Dark charcoal
-          break;
-        case 'quote3':
-          backgroundColor = { r: 10, g: 10, b: 10 }; // Very dark for gradient effect
-          break;
-        default:
-          backgroundColor = { r: 0, g: 0, b: 0 }; // Default black
-      }
-      
-      imageBuffer = await sharp({
-        create: {
-          width: targetWidth,
-          height: targetHeight,
-          channels: 3,
-          background: backgroundColor
-        }
-      }).jpeg().toBuffer();
-      console.log('✅ Blank background created for', design, ':', imageBuffer.length, 'bytes');
-    } else {
+    // Priority: imageData > image URL > blank background for quotes
+    if (imageData) {
+      console.log('📦 Processing base64 image data:', imageData.substring(0, 50) + '...');
       try {
-        imageBuffer = await fetchImageBuffer(image);
-        console.log('✅ Image fetched:', imageBuffer.length, 'bytes');
-      } catch (fetchError) {
-        console.log('⚠️ Image fetch failed, creating default image:', fetchError.message);
-        // Create a default solid color image
+        // Handle base64 data with or without data URI prefix
+        let base64Data = imageData;
+        if (imageData.startsWith('data:')) {
+          // Extract base64 part from data URI (e.g., "data:image/jpeg;base64,/9j/4AAQ...")
+          const base64Match = imageData.match(/^data:image\/[^;]+;base64,(.+)$/);
+          if (base64Match) {
+            base64Data = base64Match[1];
+            console.log('📦 Extracted base64 data from data URI');
+          } else {
+            throw new Error('Invalid data URI format');
+          }
+        }
+        
+        imageBuffer = Buffer.from(base64Data, 'base64');
+        console.log('✅ Binary data processed:', imageBuffer.length, 'bytes');
+      } catch (error) {
+        console.log('⚠️ Failed to process binary data:', error.message);
+        throw new Error('Invalid base64 image data: ' + error.message);
+      }
+    } else {
+      // Check if image URL is empty or just whitespace for quote designs
+      const isQuoteDesign = ['quote1', 'quote2', 'quote3'].includes(design);
+      const isEmptyImage = !image || image.trim() === '' || image === 'undefined' || image === 'null';
+      
+      if (isQuoteDesign && isEmptyImage) {
+        console.log('🎨 Creating blank background for quote design:', design);
+        useBlankBackground = true;
+        
+        // Define background colors for each quote design
+        let backgroundColor;
+        switch (design) {
+          case 'quote1':
+            backgroundColor = { r: 0, g: 0, b: 0 }; // Pure black
+            break;
+          case 'quote2':
+            backgroundColor = { r: 30, g: 30, b: 30 }; // Dark charcoal
+            break;
+          case 'quote3':
+            backgroundColor = { r: 10, g: 10, b: 10 }; // Very dark for gradient effect
+            break;
+          default:
+            backgroundColor = { r: 0, g: 0, b: 0 }; // Default black
+        }
+        
         imageBuffer = await sharp({
           create: {
             width: targetWidth,
             height: targetHeight,
             channels: 3,
-            background: { r: 70, g: 130, b: 180 } // Steel blue background
+            background: backgroundColor
           }
         }).jpeg().toBuffer();
-        console.log('✅ Default image created:', imageBuffer.length, 'bytes');
+        console.log('✅ Blank background created for', design, ':', imageBuffer.length, 'bytes');
+      } else {
+        try {
+          imageBuffer = await fetchImageBuffer(image);
+          console.log('✅ Image fetched:', imageBuffer.length, 'bytes');
+        } catch (fetchError) {
+          console.log('⚠️ Image fetch failed, creating default image:', fetchError.message);
+          // Create a default solid color image
+          imageBuffer = await sharp({
+            create: {
+              width: targetWidth,
+              height: targetHeight,
+              channels: 3,
+              background: { r: 70, g: 130, b: 180 } // Steel blue background
+            }
+          }).jpeg().toBuffer();
+          console.log('✅ Default image created:', imageBuffer.length, 'bytes');
+        }
       }
     }
 

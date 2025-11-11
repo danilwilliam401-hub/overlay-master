@@ -25,14 +25,49 @@ A powerful Next.js application that creates professional image banners with cust
 
 ## 🔧 API Parameters
 
-- `image` → Source image URL (required)
+### Image Sources
+- `image` → Source image URL (use OR imageData)
+- `imageData` → **🆕 Base64-encoded binary image data** (use OR image URL)
+
+### Text Overlays
 - `title` → Text overlay for banner
 - `website` → Brand/website name (optional)
+
+### Design Options
 - `design` → Design variant: `default`, `design1`-`design12`
 - `format` → Output format: `jpeg` (default) or `png`
 - `preview` → Set to `true` for interactive preview
+
+### Output Settings
 - `w` → Width in pixels (default: 1080)
 - `h` → Height in pixels (default: 1350)
+
+### 🆕 Binary Data Support
+The API now supports **direct binary image data** via the `imageData` parameter:
+
+- **Format**: Base64-encoded image data
+- **Data URI Support**: Both `data:image/jpeg;base64,/9j/4AAQ...` and raw base64 `iVBORw0KGgo...`
+- **Priority**: `imageData` > `image` URL > blank background
+- **Method**: POST recommended for large binary data
+- **Size Limit**: 5MB recommended for optimal performance
+
+#### Binary Data Usage Examples:
+```javascript
+// POST with JSON body (recommended for large data)
+fetch('/api/bundled-font-overlay', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    imageData: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQ...',
+    title: 'Binary Data Test',
+    website: 'TestSite.com',
+    design: 'tech'
+  })
+});
+
+// URL parameter (for smaller base64 data)
+fetch('/api/bundled-font-overlay?imageData=iVBORw0KGgo...&title=Small%20Binary&design=minimal');
+```
 
 ## 🚀 API Endpoints
 
@@ -131,6 +166,12 @@ fetch('https://your-domain.com/api/direct-image?image=https://picsum.photos/800/
 ```
 http://localhost:3000/designs
 ```
+
+### **🔬 Binary Data Testing Page:**
+```
+http://localhost:3000/binary-test
+```
+Test the new `imageData` parameter with file uploads and sample image generation.
 
 ### **Enhanced Font-Enabled Designs:**
 
