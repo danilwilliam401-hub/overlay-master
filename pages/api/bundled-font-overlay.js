@@ -554,12 +554,13 @@ export default async function handler(req, res) {
     }
     
     // Check if we should use quote designs and generate random Tagalog quote
+    // This will generate a NEW quote on every request/refresh when val=InspirationTagalog is present
     const isQuoteDesign = ['quote1', 'quote2', 'quote3'].includes(design);
-    if (isQuoteDesign && val === 'InspirationTagalog' && (!title || title === 'Sample Title')) {
+    if (isQuoteDesign && val === 'InspirationTagalog') {
       const randomIndex = Math.floor(Math.random() * tagalogQuotes.length);
       title = tagalogQuotes[randomIndex];
-      website = website || tagalogAuthors[randomIndex];
-      console.log('🇵🇭 Generated random Tagalog quote:', title);
+      website = tagalogAuthors[randomIndex];
+      console.log('🇵🇭 Generated random Tagalog quote on request:', title);
     }
     
     console.log('🔗 Reconstructed image URL:', imageUrl);
