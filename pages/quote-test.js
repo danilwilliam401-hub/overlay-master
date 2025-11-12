@@ -27,12 +27,37 @@ export default function QuoteTest() {
     "Eleanor Roosevelt", "Nelson Mandela", "Sam Levenson", "Franklin D. Roosevelt"
   ];
 
+  const tagalogQuotes = [
+    "Ang taong walang pangarap ay parang barko na walang direksyon",
+    "Huwag kang susuko, kahit gaano pa kahirap ang buhay",
+    "Ang tagumpay ay nagsisimula sa pag-asa at determinasyon",
+    "Kapag may tiyaga, may nilaga",
+    "Ang tunay na lakas ay nagmumula sa loob",
+    "Walang imposible sa taong may pangarap at sipag",
+    "Ang bawat pagsubok ay pagkakataon upang lumago",
+    "Magtiwala sa proseso, ang tagumpay ay darating",
+    "Huwag matakot sa pagkakamali, ito ay bahagi ng pag-aaral",
+    "Ang iyong kinabukasan ay nabubuo ng iyong mga desisyon ngayon"
+  ];
+
+  const tagalogAuthors = [
+    "Karunungang Pilipino", "Kasabihan", "Inspirasyon", "Karunungan",
+    "Pag-asa", "Sipag at Tiyaga", "Karanasan", "Positibong Pag-iisip",
+    "Aral ng Buhay", "Pangarap"
+  ];
+
   const apiUrl = `/api/bundled-font-overlay?image=https://picsum.photos/800/600&title=${encodeURIComponent(title)}&website=${encodeURIComponent(website)}&design=${design}&w=1080&h=1350`;
 
   const loadRandomQuote = () => {
     const randomIndex = Math.floor(Math.random() * inspirationalQuotes.length);
     setTitle(inspirationalQuotes[randomIndex]);
     setWebsite(authors[randomIndex]);
+  };
+
+  const loadRandomTagalogQuote = () => {
+    const randomIndex = Math.floor(Math.random() * tagalogQuotes.length);
+    setTitle(tagalogQuotes[randomIndex]);
+    setWebsite(tagalogAuthors[randomIndex]);
   };
 
   return (
@@ -121,21 +146,41 @@ export default function QuoteTest() {
             </div>
           </div>
 
-          <button 
-            onClick={loadRandomQuote}
-            style={{
-              backgroundColor: '#007cba',
-              color: 'white',
-              border: 'none',
-              padding: '12px 24px',
-              borderRadius: '5px',
-              fontSize: '16px',
-              cursor: 'pointer',
-              fontWeight: 'bold'
-            }}
-          >
-            🎲 Load Random Inspirational Quote
-          </button>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <button 
+              onClick={loadRandomQuote}
+              style={{
+                backgroundColor: '#007cba',
+                color: 'white',
+                border: 'none',
+                padding: '12px 24px',
+                borderRadius: '5px',
+                fontSize: '16px',
+                cursor: 'pointer',
+                fontWeight: 'bold',
+                flex: 1
+              }}
+            >
+              🎲 Load Random Inspirational Quote
+            </button>
+
+            <button 
+              onClick={loadRandomTagalogQuote}
+              style={{
+                backgroundColor: '#28a745',
+                color: 'white',
+                border: 'none',
+                padding: '12px 24px',
+                borderRadius: '5px',
+                fontSize: '16px',
+                cursor: 'pointer',
+                fontWeight: 'bold',
+                flex: 1
+              }}
+            >
+              🇵🇭 Mag-load ng Random na Inspirational Quote Tagalog
+            </button>
+          </div>
         </div>
 
         <div style={{ 
