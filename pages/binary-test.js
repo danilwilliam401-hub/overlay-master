@@ -19,7 +19,8 @@ export default function BinaryDataTest() {
     'minimal': 'Minimal Clean',
     'quote1': 'Bold Quote Overlay',
     'quote2': 'Elegant Quote Overlay',
-    'quote3': 'Impact Quote Overlay'
+    'quote3': 'Impact Quote Overlay',
+    'blank': 'Transparent Text Only'
   };
 
   const handleFileUpload = (event) => {

@@ -417,6 +417,16 @@ const DESIGN_THEMES = {
     websiteSize: 30,
     fontWeight: '900',
     fontFamily: 'Impact'
+  },
+  'blank': {
+    name: 'Transparent Blank',
+    titleColor: '#FFFFFF',
+    websiteColor: '#E0E0E0',
+    gradientColors: ['rgba(0,0,0,0)', 'rgba(0,0,0,0)'], // Completely transparent - no background
+    titleSize: 60,
+    websiteSize: 28,
+    fontWeight: '900',
+    fontFamily: 'Anton'
   }
 };
 
@@ -545,8 +555,21 @@ export default async function handler(req, res) {
     let imageBuffer;
     let useBlankBackground = false;
     
-    // Priority: imageData > image URL > blank background for quotes
-    if (imageData) {
+    // Special handling for blank design - always create transparent background
+    if (design === 'blank') {
+      console.log('🎨 Creating transparent background for blank design (text-only overlay)');
+      useBlankBackground = true;
+      imageBuffer = await sharp({
+        create: {
+          width: targetWidth,
+          height: targetHeight,
+          channels: 4, // RGBA for transparency
+          background: { r: 0, g: 0, b: 0, alpha: 0 } // Fully transparent
+        }
+      }).png().toBuffer();
+      console.log('✅ Transparent background created:', imageBuffer.length, 'bytes');
+    } else if (imageData) {
+      // Priority: imageData > image URL > blank background for quotes
       console.log('📦 Processing base64 image data:', imageData.substring(0, 50) + '...');
       try {
         // Handle base64 data with or without data URI prefix
@@ -1082,23 +1105,36 @@ export default async function handler(req, res) {
     
     console.log('⚡ Compositing with Sharp...');
     
-    // Composite the SVG onto the image (ensure integer positioning)
-    const compositeTop = (design === 'quote1' || design === 'quote2' || design === 'quote3') ? 0 : Math.round(targetHeight - svgHeight);
-    const finalImage = await processedImage
-      .composite([{
-        input: svgBuffer,
-        left: 0,
-        top: compositeTop,
-        blend: 'over'
-      }])
-      .jpeg({ quality: 90 })
-      .toBuffer();
-      
-    console.log('✅ Final image generated:', finalImage.length, 'bytes');
+    // For blank design, create transparent PNG instead of compositing on image
+    let finalImage;
+    if (design === 'blank') {
+      console.log('🎨 Creating transparent PNG for blank design...');
+      // Create just the SVG as transparent PNG (no background image)
+      finalImage = await sharp(svgBuffer)
+        .png()
+        .toBuffer();
+      console.log('✅ Transparent PNG generated:', finalImage.length, 'bytes');
+    } else {
+      // Composite the SVG onto the image (ensure integer positioning)
+      const compositeTop = (design === 'quote1' || design === 'quote2' || design === 'quote3') ? 0 : Math.round(targetHeight - svgHeight);
+      finalImage = await processedImage
+        .composite([{
+          input: svgBuffer,
+          left: 0,
+          top: compositeTop,
+          blend: 'over'
+        }])
+        .jpeg({ quality: 90 })
+        .toBuffer();
+        
+      console.log('✅ Final image generated:', finalImage.length, 'bytes');
+    }
     
     // Set response headers with proper filename and content length
-    res.setHeader('Content-Type', 'image/jpeg');
-    res.setHeader('Content-Disposition', `inline; filename="${design}-overlay.jpg"`);
+    const contentType = design === 'blank' ? 'image/png' : 'image/jpeg';
+    const fileExtension = design === 'blank' ? 'png' : 'jpg';
+    res.setHeader('Content-Type', contentType);
+    res.setHeader('Content-Disposition', `inline; filename="${design}-overlay.${fileExtension}"`);
     res.setHeader('Content-Length', String(finalImage.length));
     res.setHeader('Cache-Control', 'public, max-age=300');
     res.setHeader('X-Font-System', 'bundled-fonts');

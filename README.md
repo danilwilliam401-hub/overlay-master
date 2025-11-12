@@ -449,6 +449,12 @@ http://localhost:3000/api/bundled-font-overlay.jpg?title=Royal%20Red%20Premium%2
 http://localhost:3000/api/bundled-font-overlay.jpg?title=Maximum%20Viral%20Impact%20Content&website=VIRAL%20HIT&design=viral
 ```
 
+#### 55. Transparent Text Only (Blank)
+```
+http://localhost:3000/api/bundled-font-overlay.jpg?title=Transparent%20Text%20Overlay&website=NO%20BACKGROUND&design=blank
+```
+**Note**: Returns PNG with transparent background - perfect for compositing over other images!
+
 ### 🖼️ Format Variations
 
 #### PNG Format (with transparency support)
@@ -582,6 +588,7 @@ fetch('https://your-domain.com/api/image?image=https://picsum.photos/800/600&tit
 | `royalred` | 🏴 Royal Red | Premium, luxury red theme | 78px | Deep red to gold gradient |
 | `purpledream` | 💜 Purple Dream | Creative, artistic content | 80px | Purple-magenta dream gradient |
 | `retro` | 📼 Retro Nostalgia | Vintage, nostalgic content | 78px | Orange-brown retro palette |
+| `blank` | ⚪ Transparent Text Only | Text overlays, compositing | 60px | No background - transparent PNG |
 
 ## 🔧 Advanced Usage
 
