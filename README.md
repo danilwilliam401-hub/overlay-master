@@ -2,6 +2,22 @@
 
 A powerful Next.js application that creates professional image banners with custom text overlays. Features 29 design themes with superior font support and comprehensive image processing capabilities.
 
+## 🎉 Recent Updates (November 2025)
+
+### New Quote Generation Features
+- ✨ **New Inspirational Tagalog Quotes Button**: Added 50 fresh motivational Tagalog quotes with dedicated button
+- 💕 **babaeTagalog Parameter**: New `val=babaeTagalog` parameter for API-side romantic quote generation
+- 🤖 **Auto-Fill Empty Titles**: System automatically picks random quotes when title field is empty
+- 🎲 **Random Quote on Every Request**: Fresh content generation with each API call when using `val` parameter
+- 🎨 **Enhanced Quote Test Page**: Now features 4 quote buttons with 260+ total Tagalog quotes
+- 📱 **Responsive Button Layout**: Improved UI with flex-wrap for better mobile experience
+
+### Technical Improvements
+- 🔄 **Frontend-Backend Integration**: Seamless quote generation between quote-test page and API
+- 🎯 **Expanded Quote Collection**: 200+ romantic/relationship quotes in `tagalogQuotes` array
+- 🔧 **API Enhancement**: Added `val=babaeTagalog` handler in bundled-font-overlay.js
+- 🎪 **Cache Busting**: Improved refresh mechanism for dynamic quote loading
+
 ## ✨ Features
 
 ### Enhanced Font System
@@ -31,10 +47,11 @@ A powerful Next.js application that creates professional image banners with cust
 ### Design Options
 - `design` → Design theme: `default`, `tech`, `entertainment`, `sports`, `anime`, `eco`, `news`, `minimal`, `modern`, `bold`, `viral`, `breaking`, `thoughtful`, `colorful`, `overlay`, `aesthetic`, `monochrome`, `vintage`, `luxury`, `cinematic`, `neon`, `inspire`, `cute`, `warmbrown`, `pokemon`, `quote1`, `quote2`, `quote3`, `blank`
 
-### 🇵🇭 Auto-Generated Tagalog Quotes (NEW!)
+### 🇵🇭 Auto-Generated Tagalog Quotes (UPDATED!)
 - `val` → Quote generation mode for quote designs:
   - `InspirationTagalog` → Generates random Tagalog inspirational quotes (10 quotes)
   - `HugotTagalog` → Generates random Tagalog Hugot quotes about love and heartbreak (200+ quotes)
+  - `babaeTagalog` → **NEW!** Generates random romantic/relationship Tagalog quotes (200+ quotes focused on love, relationships, and dating)
 
 **Usage with Quote Designs:**
 When using `val` parameter with quote designs (`quote1`, `quote2`, `quote3`), the API will automatically generate a random quote on every request, even if `title` is empty. This enables fresh quote content on every refresh.
@@ -43,7 +60,12 @@ When using `val` parameter with quote designs (`quote1`, `quote2`, `quote3`), th
 ```
 /api/bundled-font-overlay?image=https://picsum.photos/800/600&design=quote1&val=InspirationTagalog
 /api/bundled-font-overlay?image=https://picsum.photos/800/600&design=quote2&val=HugotTagalog
+/api/bundled-font-overlay?image=https://picsum.photos/800/600&design=quote3&val=babaeTagalog
 ```
+
+**Auto-Fill Empty Titles:** 
+- When `val=babaeTagalog` is used, if the `title` parameter is empty, the system automatically picks a random quote from the Tagalog collection
+- This ensures every image has meaningful content even when no specific title is provided
 
 **Cache Control:** When `val` parameter is used, caching is disabled to ensure fresh quotes on every request.
 
@@ -194,10 +216,15 @@ Test all 14 embedded font families (Bebas Neue, Oswald, Anton, Impact, Poppins, 
 http://localhost:3000/quote-test
 ```
 Interactive testing for quote overlay designs (quote1, quote2, quote3) with:
-- 8 English inspirational quotes
-- 10 Tagalog inspirational quotes (🇵🇭 Inspirational)
-- 200+ Tagalog Hugot quotes (💔 Love & Heartbreak)
-- Live preview with cache-busting for fresh content on every load
+- **4 Quote Buttons** with extensive collections:
+  - 🎲 Load Random Inspirational Quote (8 English quotes)
+  - 🇵🇭 Mag-load ng Random na Inspirational Quote Tagalog (10 original Tagalog inspirational quotes)
+  - ✨ **NEW!** Load Random Inspirational Quote Tagalog (50 fresh motivational Tagalog quotes)
+  - 💔 Load Random Hugot Babae Quote (200+ Tagalog romantic/hugot quotes)
+- **Automatic Quote Generation**: When title is empty, automatically picks a random quote
+- **val=babaeTagalog Parameter**: Integrated URL parameter for API-side quote generation
+- **Live Preview**: Real-time rendering with cache-busting for fresh content on every load
+- **Responsive Layout**: Buttons wrap nicely on all screen sizes
 
 ### **📝 Long Text Tester**
 ```
@@ -396,6 +423,12 @@ Generates random Tagalog Hugot quotes on every request (200+ quotes available).
 /api/bundled-font-overlay.jpg?image=https://picsum.photos/800/600&design=quote1&val=InspirationTagalog
 ```
 Generates random Tagalog inspirational quotes on every request (10 quotes available).
+
+**💕 NEW! With Auto-Generated Tagalog Romantic Quotes:**
+```
+/api/bundled-font-overlay.jpg?image=https://picsum.photos/800/600&design=quote1&val=babaeTagalog
+```
+Generates random romantic/relationship Tagalog quotes on every request (200+ quotes about love, dating, and relationships). Automatically uses quotes even when title is empty!
 
 #### 27. `quote2` - Elegant Quote Overlay
 Dark charcoal background with Playfair Display (58pt). Elegant wisdom quotes.
