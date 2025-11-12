@@ -499,7 +499,7 @@ export default function QuoteTest() {
                 flex: 1
               }}
             >
-              💔 Mag-load ng Random na Hugot Quotes Tagalog
+              💔 Load Random Hugot Babae Quote
             </button>
           </div>
         </div>
