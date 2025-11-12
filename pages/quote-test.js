@@ -47,6 +47,76 @@ export default function QuoteTest() {
     "Aral ng Buhay", "Pangarap"
   ];
 
+  const hugotQuotes = [
+    "Sa tamang panahon may isang taong magpapatunay sayo kung bakit ka para sa kanya at kung bakit hindi ka para sa iba.",
+    "Di ko man maisigaw sa buong mundo kung sino ang mahal ko, sapat nang alam natin pareho na ikaw ang tinutukoy ko.",
+    "Kung pwede lang maging excuse ang pagiging broken hearted, malamang marami ng absent sa high school at college.",
+    "Wag mong isiksik ang sarili mo sa taong hindi marunong magpahalaga sa nararamdaman mo. Masasaktan ka lang.",
+    "Mahirap kumalma lalo na kapag selos na selos ka na.",
+    "Sana isinusulat na ang feelings, para madali lang burahin.",
+    "Sana thesis na lang ako na ipaglalaban mo kahit hirap na hirap ka na.",
+    "Balang araw makakaya ko na ulit na tingnan ka ng wala na akong nararamdaman pa.",
+    "Mahirap mag-let go. Pero mas mahirap yung kumakapit ka pa, tinutulak ka na.",
+    "May mga tao talaga na kahit napapasaya ka, kaylangan mong iwasan.",
+    "Hindi na baleng siya ang bumitaw. Ang importante alam mong lumaban ka hanggang sa wala ka ng maipaglaban.",
+    "Hindi mo kailangang mamili sa aming dalawa. Handa akong lumabas sa puso mo para lang sumaya ka sa piling niya.",
+    "Ang hirap bitawan nung taong kahit hindi kayo, siya yung nagpapasaya at kumukumpleto ng araw mo!",
+    "Pag hindi ka mahal ng mahal mo, wag ka magreklamo. Kasi may mga tao rin na di mo mahal pero mahal ka. Kaya quits lang.",
+    "Alam mo kung bakit nasasaktan ka? Kasi iniisip mo na gusto ka rin niya kahit hindi naman talaga.",
+    "Dapat ba akong ngumiti dahil magkaibigan tayo? O dapat ba kong malungkot dahil hanggang dun lang tayo?",
+    "Hindi tamang gumamit ka ng ibang tao para maka move-on ka. Ginagago mo na nga ang sarili mo, nakasakit ka pa ng iba.",
+    "Ibinigay ko na ang lahat pero hindi pa rin sapat.",
+    "Lahat tayo napapagod. Wag mong hintayin na mawala pa siya sa buhay mo bago mo siya pahalagahan.",
+    "Yung naghihintay ka sa isang bagay na imposible namang mangyari.",
+    "Ang oras ay isang mahalagang elemento sa mundo. Bumibilis kapag masaya, at bumabagal kapag wala ka.",
+    "Masakit isipin na dahil sa isang pangyayari hindi na kayo pwedeng maging tulad ng dati.",
+    "Yung akala mo minahal ka niya pero hindi pala.",
+    "Sana tinuruan mo 'ko kung paano madaling makalimot tulad ng ginawa mong paglimot sa'kin.",
+    "Buti pa ang ngipin nabubunot kapag masakit. Sana ang puso ganun din.",
+    "Minsan kahit sabihin mong suko ka na, kapag naalala mo kung paano ka niya napasaya, bumabalik ka ulit sa pagiging tanga.",
+    "Minsan kailangan tayong masaktan bago tayo matauhan.",
+    "Minsan kung sino pa yung rason mo kung bakit ka masaya, siya din ang rason kung bakit masasaktan ka ng sobra.",
+    "Kung talagang mahal ka nyan mageefort yan kahit di ka mag-demand.",
+    "Kapag nasasaktan ka, pwede kang umiyak. Tao lang tayo hindi superhero.",
+    "Tao ka kaya hindi ka exempted masaktan.",
+    "Kaya may monthsary ay dahil hindi lahat ng relasyon ay umaabot ng anniversary.",
+    "Bago mo ko hawakan, pwede ko bang malaman kung paano mo bibitiwan?",
+    "Hindi lahat ng nagsasama ay nagmamahalan at hindi lahat ng nagmamahalan ay magkasama.",
+    "Ang salitang 'I love you' ay hindi tanong. Pero bakit masakit pag walang sagot.",
+    "Tulungan mo ang sarili mo na makalimot. Wag mong tulungan ang sarili mong masaktan.",
+    "Dapat matuto tayong bumitaw. Dahil mas okay ang maging malungkot ng panandalian kesa magmukhang tanga ng matagalan.",
+    "Huwag kang malungkot kung iniwan ka niya ang mahalaga ay napadama mo sa kanya kung gaano mo sya kamahal.",
+    "Kapag alam mong wala nang pagmamahal, wag mo nang ipagsiksikan ang sarili mo. Sa huli ikaw rin ang talo.",
+    "Mas pipiliin kong ako na lang ang masaktan kaysa magkasama nga tayo pero sya naman ang hinahanap ng puso mo.",
+    "Ginawa ang break-up para ilayo tayo sa maling tao na akala natin ay tama.",
+    "Ang PAG-IBIG parang harutan. Minsan hindi mo maiiwasang hindi MASAKTAN.",
+    "Hindi naman masamang maging selfish. May mga bagay lang talaga na hindi pwedeng may kahati.",
+    "Kung hindi mo mahal ang isang tao, wag ka nang magpakita ng motibo para mahalin ka nya.",
+    "Huwag mong bitawan ang bagay na hindi mo kayang makitang hawakan ng iba.",
+    "Huwag mong hawakan kung alam mong bibitawan mo lang.",
+    "Huwag na huwag ka hahawak kapag alam mong may hawak ka na.",
+    "Wag magpakatanga sa PAG-IBIG. 'Cause GOD gave you REAL EYES to REALIZE the REAL LIES.",
+    "Wag mong gawing soccer ang pag-ibig na pagkatapos mong sipain, saka mo hahabulin.",
+    "Mahal mo? Ipaglaban mo parang pangarap mo.",
+    "May mga bagay na masarap ingatan kahit hindi sayo. Parang ikaw, ang sarap mahalin kahit hindi tayo",
+    "Bakit ba naman kasi maglilihim kung pwede mo namang sabihin? Hindi yung kung kelan huli na ang lahat tsaka mo aaminin.",
+    "Hindi lahat ng kaya mong intindihin ay katotohanan at hindi lahat ng hindi mo kayang intindihin ay kasinungalingan",
+    "Sa panahon ngayon, joke na ang totoo at promise na ang panloloko.",
+    "Binabalewala mo siya tapos kapag nakita mo siyang masaya sa iba, masasaktan at magagalit ka. Ano ka, tanga?",
+    "Kapag pagod ka na, bitawan mo na. Hindi yung nagpapaka-tanga ka madami pa namang mas better sa kanya.",
+    "May mga feelings talaga na hanggang social media na lang.",
+    "Pinakilig ka lang akala mo mahal ka na? Sige, assume pa!",
+    "Hindi lahat ng nararamdaman ay dapat sabihin. Dahil hindi lahat ng sinasabi ay kayang maramdaman.",
+    "Yung feeling na may narinig kang kanta, tapos naalala mo siya.",
+    "Hindi mo kailangang baguhin ang sarili mo para sa taong mahal mo, Magpakatotoo ka lang at turuan syang tanggapin ang buong pagkatao mo.",
+    "Ang pakikipag-relasyon ay tanda ng pagmamahalan, hindi yan biro para gawin mo lang libangan."
+  ];
+
+  const hugotAuthors = [
+    "Hugot", "Pag-ibig", "Broken", "Heartbreak", "Hugot Lines",
+    "Pinoy Hugot", "Love Quotes", "Sad Quotes", "Tagalog Quotes", "Bitter"
+  ];
+
   const apiUrl = `/api/bundled-font-overlay?image=https://picsum.photos/800/600&title=${encodeURIComponent(title)}&website=${encodeURIComponent(website)}&design=${design}&w=1080&h=1350&_t=${refreshKey}`;
 
   const loadRandomQuote = () => {
@@ -60,6 +130,13 @@ export default function QuoteTest() {
     const randomIndex = Math.floor(Math.random() * tagalogQuotes.length);
     setTitle(tagalogQuotes[randomIndex]);
     setWebsite(tagalogAuthors[randomIndex]);
+    setRefreshKey(Date.now()); // Update refresh key to bust cache
+  };
+
+  const loadRandomHugotQuote = () => {
+    const randomIndex = Math.floor(Math.random() * hugotQuotes.length);
+    setTitle(hugotQuotes[randomIndex]);
+    setWebsite(hugotAuthors[randomIndex % hugotAuthors.length]);
     setRefreshKey(Date.now()); // Update refresh key to bust cache
   };
 
@@ -182,6 +259,23 @@ export default function QuoteTest() {
               }}
             >
               🇵🇭 Mag-load ng Random na Inspirational Quote Tagalog
+            </button>
+
+            <button 
+              onClick={loadRandomHugotQuote}
+              style={{
+                backgroundColor: '#dc3545',
+                color: 'white',
+                border: 'none',
+                padding: '12px 24px',
+                borderRadius: '5px',
+                fontSize: '16px',
+                cursor: 'pointer',
+                fontWeight: 'bold',
+                flex: 1
+              }}
+            >
+              💔 Mag-load ng Random na Hugot Quotes Tagalog
             </button>
           </div>
         </div>
