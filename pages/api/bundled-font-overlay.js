@@ -460,18 +460,18 @@ export default async function handler(req, res) {
     let w = '1080';
     let h = '1350';
     
-    // Tagalog inspirational quotes for random generation
+    // Tagalog quotes for random generation (Babae/Hugot theme)
     const tagalogQuotes = [
-      "Ang taong walang pangarap ay parang barko na walang direksyon",
-      "Huwag kang susuko, kahit gaano pa kahirap ang buhay",
-      "Ang tagumpay ay nagsisimula sa pag-asa at determinasyon",
-      "Kapag may tiyaga, may nilaga",
-      "Ang tunay na lakas ay nagmumula sa loob",
-      "Walang imposible sa taong may pangarap at sipag",
-      "Ang bawat pagsubok ay pagkakataon upang lumago",
-      "Magtiwala sa proseso, ang tagumpay ay darating",
-      "Huwag matakot sa pagkakamali, ito ay bahagi ng pag-aaral",
-      "Ang iyong kinabukasan ay nabubuo ng iyong mga desisyon ngayon"
+      `Sick leave. Dahil nasaktan ako nung iniwan mo ko.`,
+      `Lahat ba ng Math major laging hinahanap si X?`,
+      `Huwag kang umasa na babalik pa siya, kung nasa piling na siya ng iba.`,
+      `Para kang exam, hindi ko na maunawaan.`,
+      `Sana may traffic lights din sa love, para alam natin kung kailang maghahanda, di-direstso, o hihinto.`,
+      `Ang jowa minsan parang sinaing rin iyan, kailangang bantayan.`,
+      `Mabuti pa yung kape, mainit man o malamig, hinahanap-hanap pa rin.`,
+      `Sa love, 'di maiiwasan na may U-Turn. Yung akala mong dire-diretso na, may babalikan pa pala.`,
+      `Walang masama magmahal basta alam mong Saan ka liliko o didiretso para wala kang nasasagasaang tao`,
+      `Mahal. Minsan bilihin, kadalasan ikaw.`
     ];
     
     const tagalogAuthors = [
@@ -860,6 +860,11 @@ export default async function handler(req, res) {
       title = hugotQuotes[randomIndex];
       website = hugotAuthors[randomIndex % hugotAuthors.length];
       console.log('💔 Generated random Hugot quote on request:', title);
+    } else if (isQuoteDesign && val === 'babaeTagalog') {
+      const randomIndex = Math.floor(Math.random() * tagalogQuotes.length);
+      title = tagalogQuotes[randomIndex];
+      website = tagalogAuthors[randomIndex];
+      console.log('💕 Generated random Babae Tagalog quote on request:', title);
     }
     
     console.log('🔗 Reconstructed image URL:', imageUrl);
