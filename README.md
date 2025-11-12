@@ -31,6 +31,22 @@ A powerful Next.js application that creates professional image banners with cust
 ### Design Options
 - `design` → Design theme: `default`, `tech`, `entertainment`, `sports`, `anime`, `eco`, `news`, `minimal`, `modern`, `bold`, `viral`, `breaking`, `thoughtful`, `colorful`, `overlay`, `aesthetic`, `monochrome`, `vintage`, `luxury`, `cinematic`, `neon`, `inspire`, `cute`, `warmbrown`, `pokemon`, `quote1`, `quote2`, `quote3`, `blank`
 
+### 🇵🇭 Auto-Generated Tagalog Quotes (NEW!)
+- `val` → Quote generation mode for quote designs:
+  - `InspirationTagalog` → Generates random Tagalog inspirational quotes (10 quotes)
+  - `HugotTagalog` → Generates random Tagalog Hugot quotes about love and heartbreak (200+ quotes)
+
+**Usage with Quote Designs:**
+When using `val` parameter with quote designs (`quote1`, `quote2`, `quote3`), the API will automatically generate a random quote on every request, even if `title` is empty. This enables fresh quote content on every refresh.
+
+**Example URLs:**
+```
+/api/bundled-font-overlay?image=https://picsum.photos/800/600&design=quote1&val=InspirationTagalog
+/api/bundled-font-overlay?image=https://picsum.photos/800/600&design=quote2&val=HugotTagalog
+```
+
+**Cache Control:** When `val` parameter is used, caching is disabled to ensure fresh quotes on every request.
+
 ### Output Settings
 - `w` → Width in pixels (default: 1080)
 - `h` → Height in pixels (default: 1350)
@@ -177,7 +193,11 @@ Test all 14 embedded font families (Bebas Neue, Oswald, Anton, Impact, Poppins, 
 ```
 http://localhost:3000/quote-test
 ```
-Interactive testing for quote overlay designs (quote1, quote2, quote3) with 8 built-in inspirational quotes and live preview.
+Interactive testing for quote overlay designs (quote1, quote2, quote3) with:
+- 8 English inspirational quotes
+- 10 Tagalog inspirational quotes (🇵🇭 Inspirational)
+- 200+ Tagalog Hugot quotes (💔 Love & Heartbreak)
+- Live preview with cache-busting for fresh content on every load
 
 ### **📝 Long Text Tester**
 ```
@@ -364,6 +384,18 @@ Pure black background with Anton font (64pt). Bold inspirational quotes.
 ```
 /api/bundled-font-overlay.jpg?title=Your%20Inspirational%20Quote%20Here&website=QUOTES&design=quote1
 ```
+
+**🇵🇭 With Auto-Generated Tagalog Hugot Quotes:**
+```
+/api/bundled-font-overlay.jpg?image=https://picsum.photos/800/600&design=quote1&val=HugotTagalog
+```
+Generates random Tagalog Hugot quotes on every request (200+ quotes available).
+
+**🇵🇭 With Auto-Generated Tagalog Inspirational Quotes:**
+```
+/api/bundled-font-overlay.jpg?image=https://picsum.photos/800/600&design=quote1&val=InspirationTagalog
+```
+Generates random Tagalog inspirational quotes on every request (10 quotes available).
 
 #### 27. `quote2` - Elegant Quote Overlay
 Dark charcoal background with Playfair Display (58pt). Elegant wisdom quotes.
