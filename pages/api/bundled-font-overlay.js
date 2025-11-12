@@ -456,8 +456,29 @@ export default async function handler(req, res) {
     let title = 'Sample Title';
     let website = '';
     let design = 'default';
+    let val = ''; // New parameter for random quote generation
     let w = '1080';
     let h = '1350';
+    
+    // Tagalog inspirational quotes for random generation
+    const tagalogQuotes = [
+      "Ang taong walang pangarap ay parang barko na walang direksyon",
+      "Huwag kang susuko, kahit gaano pa kahirap ang buhay",
+      "Ang tagumpay ay nagsisimula sa pag-asa at determinasyon",
+      "Kapag may tiyaga, may nilaga",
+      "Ang tunay na lakas ay nagmumula sa loob",
+      "Walang imposible sa taong may pangarap at sipag",
+      "Ang bawat pagsubok ay pagkakataon upang lumago",
+      "Magtiwala sa proseso, ang tagumpay ay darating",
+      "Huwag matakot sa pagkakamali, ito ay bahagi ng pag-aaral",
+      "Ang iyong kinabukasan ay nabubuo ng iyong mga desisyon ngayon"
+    ];
+    
+    const tagalogAuthors = [
+      "Karunungang Pilipino", "Kasabihan", "Inspirasyon", "Karunungan",
+      "Pag-asa", "Sipag at Tiyaga", "Karanasan", "Positibong Pag-iisip",
+      "Aral ng Buhay", "Pangarap"
+    ];
     
     // Parse the raw URL to reconstruct image URL with its query parameters
     const originalUrl = req.url;
@@ -473,7 +494,7 @@ export default async function handler(req, res) {
         console.log('🔍 Detected image URL with query parameters, reconstructing...');
         
         // Find where the image URL ends by looking for our API parameters
-        const apiParams = ['title', 'website', 'design', 'w', 'h', 'imageData'];
+        const apiParams = ['title', 'website', 'design', 'w', 'h', 'imageData', 'val'];
         const urlParts = originalUrl.split(/[?&]/);
         let imageQueryParams = [];
         let foundApiParam = false;
@@ -496,6 +517,7 @@ export default async function handler(req, res) {
               case 'w': w = paramValue; break;
               case 'h': h = paramValue; break;
               case 'imageData': imageData = decodeURIComponent(paramValue); break;
+              case 'val': val = paramValue; break;
             }
           } else if (!foundApiParam && part.includes('=')) {
             // This is likely part of the image URL query parameters
@@ -527,10 +549,22 @@ export default async function handler(req, res) {
     if (imageData === '') {
       imageData = rawParams.imageData || '';
     }
+    if (val === '') {
+      val = rawParams.val || '';
+    }
+    
+    // Check if we should use quote designs and generate random Tagalog quote
+    const isQuoteDesign = ['quote1', 'quote2', 'quote3'].includes(design);
+    if (isQuoteDesign && val === 'InspirationTagalog' && (!title || title === 'Sample Title')) {
+      const randomIndex = Math.floor(Math.random() * tagalogQuotes.length);
+      title = tagalogQuotes[randomIndex];
+      website = website || tagalogAuthors[randomIndex];
+      console.log('🇵🇭 Generated random Tagalog quote:', title);
+    }
     
     console.log('🔗 Reconstructed image URL:', imageUrl);
     console.log('📦 Image Data parameter length:', imageData ? imageData.length : 0);
-    console.log('� Parameters:', { title, website, design, w, h });
+    console.log('📝 Parameters:', { title, website, design, val, w, h });
     
     const image = imageData ? null : (imageUrl.startsWith('http') ? imageUrl : decodeURIComponent(imageUrl));
 
