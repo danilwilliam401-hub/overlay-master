@@ -1,49 +1,42 @@
-# �️ Banner Generator API
+# 🖼️ Banner Generator API
 
-A powerful Next.js application that creates professional image banners with custom text overlays. Features 12 design variants, direct image URLs, and comprehensive image processing capabilities.
+A powerful Next.js application that creates professional image banners with custom text overlays. Features 29 design themes with superior font support and comprehensive image processing capabilities.
 
 ## ✨ Features
 
-### Standard Design System
-- **🎨 12 Professional Designs**: From news alerts to corporate styles
-- **⚡ Direct Image URLs**: Works like wsrv.nl for instant embedding
-- **🖼️ High Quality Output**: 1080×1350 resolution with optimized compression
-- **📱 Preview Mode**: Interactive preview with download options
-- **🔗 Multiple Formats**: JPEG and PNG support
-
-### Enhanced Font System (bundled-font-overlay)
-- **� Superior Unicode Support**: Bundled Noto Sans + Inter fonts with fontconfig
-- **🎯 8 Themed Designs**: Tech, Entertainment, Sports, Anime, Eco, News, Minimal styles
+### Enhanced Font System
+- **🔤 Superior Unicode Support**: Bundled 14 professional fonts with fontconfig
+- **� 29 Design Themes**: From breaking news to aesthetic quotes, covering all content types
 - **📏 Dynamic Text Layout**: Intelligent wrapping and positioning prevents overlap
-- **⚡ Glow Effects**: Special visual effects for tech designs
-- **🎨 Design-Specific Features**: Accent lines, separator bars, custom gradients
+- **⚡ Special Effects**: Glow effects, gradients, transparency support
+- **� Professional Typography**: Bebas Neue, Anton, Impact, Oswald, Montserrat, League Spartan, Raleway, Roboto Condensed, Poppins, Playfair Display, and more
 
-### Common Features
-- **�🚀 Fast Processing**: Server-side rendering with Sharp image processing
+### Core Features
+- **🚀 Fast Processing**: Server-side rendering with Sharp image processing
 - **🌐 Public API**: No authentication required
-- **📊 Detailed Logging**: Debug information for troubleshooting
+- **📊 Binary Data Support**: Direct base64 image upload
+- **🎨 PNG Transparency**: Transparent overlays with blank design
+- **📱 Interactive Testing**: Multiple preview pages for design testing
 
 ## 🔧 API Parameters
 
 ### Image Sources
 - `image` → Source image URL (use OR imageData)
-- `imageData` → **🆕 Base64-encoded binary image data** (use OR image URL)
+- `imageData` → **Base64-encoded binary image data** (use OR image URL)
 
 ### Text Overlays
 - `title` → Text overlay for banner
 - `website` → Brand/website name (optional)
 
 ### Design Options
-- `design` → Design variant: `default`, `design1`-`design12`
-- `format` → Output format: `jpeg` (default) or `png`
-- `preview` → Set to `true` for interactive preview
+- `design` → Design theme: `default`, `tech`, `entertainment`, `sports`, `anime`, `eco`, `news`, `minimal`, `modern`, `bold`, `viral`, `breaking`, `thoughtful`, `colorful`, `overlay`, `aesthetic`, `monochrome`, `vintage`, `luxury`, `cinematic`, `neon`, `inspire`, `cute`, `warmbrown`, `pokemon`, `quote1`, `quote2`, `quote3`, `blank`
 
 ### Output Settings
 - `w` → Width in pixels (default: 1080)
 - `h` → Height in pixels (default: 1350)
 
 ### 🆕 Binary Data Support
-The API now supports **direct binary image data** via the `imageData` parameter:
+The API supports **direct binary image data** via the `imageData` parameter:
 
 - **Format**: Base64-encoded image data
 - **Data URI Support**: Both `data:image/jpeg;base64,/9j/4AAQ...` and raw base64 `iVBORw0KGgo...`
@@ -66,7 +59,13 @@ fetch('/api/bundled-font-overlay', {
 });
 
 // URL parameter (for smaller base64 data)
-fetch('/api/bundled-font-overlay?imageData=iVBORw0KGgo...&title=Small%20Binary&design=minimal');
+})
+
+// Or GET with URL parameter (smaller data)
+fetch('/api/bundled-font-overlay?imageData=iVBORw0KGgoAAAANS...&title=Test&design=aesthetic')
+```
+
+## 🧪 Interactive Testing & Preview Pages;
 ```
 
 ## 🚀 API Endpoints
@@ -160,458 +159,242 @@ fetch('https://your-domain.com/api/direct-image?image=https://picsum.photos/800/
 fetch('https://your-domain.com/api/direct-image?image=https://picsum.photos/800/600&title=METALLIC%20SIGNAL&website=ModernNews.com&design=design12')
 ```
 
-## 🎯 Direct Design Test URLs (Bundled Font System)
+## 🧪 Interactive Testing & Preview Pages
 
-### **🌟 Design Gallery Page:**
+### **� Design Gallery**
 ```
 http://localhost:3000/designs
 ```
+Browse and preview all 30+ available designs with live rendering. Select from modern, bold, viral, breaking, thoughtful, colorful, overlay, aesthetic, monochrome, vintage, and more.
 
-### **🔬 Binary Data Testing Page:**
+### **🔤 Font Tester**
+```
+http://localhost:3000/font-test
+```
+Test all 14 embedded font families (Bebas Neue, Oswald, Anton, Impact, Poppins, League Spartan, Playfair Display, etc.) across different designs with live preview.
+
+### **💬 Quote Design Tester**
+```
+http://localhost:3000/quote-test
+```
+Interactive testing for quote overlay designs (quote1, quote2, quote3) with 8 built-in inspirational quotes and live preview.
+
+### **📝 Long Text Tester**
+```
+http://localhost:3000/long-text-test
+```
+Test quote designs with lengthy text content. Supports both GET and POST methods. Perfect for testing text wrapping and layout with extended quotes.
+
+### **🔬 Binary Data Tester**
 ```
 http://localhost:3000/binary-test
 ```
-Test the new `imageData` parameter with file uploads and sample image generation.
+Upload image files or generate sample images to test the `imageData` parameter. Supports all designs including the transparent blank design.
 
-### **Enhanced Font-Enabled Designs:**
-
-#### 1. Classic Dark (Default)
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=AI%20Will%20Replace%20Doctors%20%26%20Teachers%20Within%2010%20Years&website=SOCIATV&design=default
-```
-
-#### 2. Tech Blue (Solid Black Background) 
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=AI%20Will%20Replace%20Doctors%20%26%20Teachers%20Within%2010%20Years&website=SOCIATV&design=tech
-```
-
-#### 3. Entertainment Yellow (Gaming News Style)
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=US%20GAMERS%20AREN%27T%20BUYING%20VIDEO%20GAMES%20ANYMORE%2C%20NEW%20STUDY%20REVEALS&website=GAMING%20NEWS&design=entertainment
-```
-
-#### 4. Sports Dynamic (Tennis/Sports Style)
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Valentin%20Vacherot%20Discloses%20How%20Jannik%20Sinner%20Treats%20Him&website=THE%20SPORT%20REVIEW&design=sports
-```
-
-#### 5. Anime Dark (Hunter x Hunter Style)
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Hunter%20x%20Hunter%27s%20Dark%20Continent%20Arc%20Finally%20Gets%20An%20Anime%20Adaptation&website=RICHHIPPOS.COM&design=anime
-```
-
-#### 6. Eco Green (Iceland Renewable Energy Style)
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Iceland%20Powers%20Itself%20With%20100%25%20Renewable%20Energy&website=HW&design=eco
-```
-
-#### 7. News Professional (YouTube/News Style)
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=YouTuber%20Outdoor%20Boys%20Has%20Revealed%20He%20Will%20Be%20Uploading%203%20Videos&website=BAD%20FRIENDS&design=news
-```
-
-#### 8. Minimal Clean (Japan Water Plant Style)
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Japan%27s%20Water%20Plant%20Generates%20Endless%20Power%20By%20Mixing%20Saltwater&website=SCIENCE%20HUB&design=minimal
-```
-
-### **🚀 New Universal Design Test URLs:**
-
-#### 9. Modern Lifestyle
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Live%20Your%20Best%20Life%20Today&website=LIFESTYLE&design=modern
-```
-
-#### 10. Bold Impact (Viral Memes)
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=When%20You%20Realize%20It%27s%20Monday&website=VIRAL%20MEMES&design=bold
-```
-
-#### 11. Viral Entertainment
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Celebrity%20Drama%20Unfolds%20on%20Social%20Media&website=ENTERTAINMENT&design=viral
-```
-
-#### 12. Breaking News
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Major%20Political%20Development%20Shakes%20Nation&website=NEWS%20CENTER&design=breaking
-```
-
-#### 13. Thoughtful Quotes
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Success%20Is%20Not%20Final%20Failure%20Is%20Not%20Fatal&website=MOTIVATION&design=thoughtful
-```
-
-#### 14. Colorful Youth
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Gen%20Z%20Changes%20Everything%20Again&website=YOUTH%20CULTURE&design=colorful
-```
-
-#### 15. Photo Overlay
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Capture%20Every%20Moment%20That%20Matters&website=PHOTOGRAPHY&design=overlay
+### **🖼️ General Preview**
 ```
-
-#### 16. Aesthetic Style
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Wellness%20Journey%20Starts%20With%20Self%20Love&website=WELLNESS&design=aesthetic
-```
-
-#### 17. Monochrome Minimal
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Less%20Is%20More%20In%20Every%20Aspect&website=MINIMALIST&design=monochrome
-```
-
-#### 18. Vintage Retro
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Good%20Old%20Days%20Were%20Actually%20Good&website=RETRO%20VIBES&design=vintage
-```
-
-#### 19. Luxury Premium
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Excellence%20Is%20Never%20An%20Accident&website=LUXURY%20BRAND&design=luxury
-```
-
-#### 20. Cinematic Drama
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Plot%20Twist%20Nobody%20Saw%20Coming&website=CINEMA&design=cinematic
-```
-
-#### 21. Neon Tech
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Artificial%20Intelligence%20Revolution%20Begins&website=TECH%20NEWS&design=neon
-```
-
-#### 22. Inspirational
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Believe%20You%20Can%20And%20You%20Are%20Halfway%20There&website=INSPIRATION&design=inspire
-```
-
-#### 23. Cute Aesthetic
+http://localhost:3000/preview
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Small%20Steps%20Lead%20To%20Big%20Changes&website=POSITIVITY&design=cute
-```
+General purpose preview page with error handling for testing any design configuration.
 
-#### 24. Warm Brown Elegance
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Premium%20Coffee%20Experience%20Awaits&website=COFFEE%20CULTURE&design=warmbrown
-```
+## 🎯 Available Design Themes
 
-#### 25. Pokémon Electric
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Gotta%20Catch%20Em%20All%20Adventure%20Begins&website=POKEMON%20TRAINER&design=pokemon
-```
+All designs support custom text, colors, and font families. Use the `design` parameter to select a theme.
 
-### **⚡ 30 New High-Engagement Design Presets:**
+### **Core News & Media Designs**
 
-#### 26. Modern Minimal
+#### 1. `default` - Breaking News Boldness
+Navy blue gradient with golden accents. Bold Bebas Neue font for maximum impact.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Clean%20Modern%20Design%20For%20Professional%20Content&website=MODERN%20BRAND&design=modern
+/api/bundled-font-overlay.jpg?title=Breaking%20News%20Alert&website=NEWS&design=default
 ```
 
-#### 27. Bold Blue Impact
+#### 2. `tech` - Professional Editorial
+Steel blue gradient with clean typography. Perfect for tech and business content.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Bold%20Statement%20With%20Maximum%20Impact&website=BLUE%20IMPACT&design=boldblue
+/api/bundled-font-overlay.jpg?title=Tech%20Innovation&website=TECH&design=tech
 ```
 
-#### 28. Sunrise Energy
+#### 3. `entertainment` - Viral & Loud
+Burnt orange gradient with massive 70pt titles. High-impact Anton font for viral content.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Energy%20And%20Motivation%20Start%20Here&website=SUNRISE%20VIBES&design=sunrise
+/api/bundled-font-overlay.jpg?title=VIRAL%20ENTERTAINMENT&website=GAMING&design=entertainment
 ```
 
-#### 29. Gradient Gold
+#### 4. `sports` - Impact Headlines
+Teal gradient with bold Impact font. Dynamic style for sports news.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Luxury%20Content%20With%20Golden%20Touch&website=GOLD%20STANDARD&design=gradientgold
+/api/bundled-font-overlay.jpg?title=Sports%20Victory&website=ESPN&design=sports
 ```
 
-#### 30. Minimal White
+#### 5. `anime` - Friendly & Trustworthy
+Amber gradient with Poppins font. Approachable style for anime and gaming.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Clean%20Minimalist%20Approach%20To%20Content&website=MINIMAL%20DESIGN&design=minimalwhite
+/api/bundled-font-overlay.jpg?title=Anime%20Release&website=OTAKU&design=anime
 ```
 
-#### 31. Midnight Dark
+#### 6. `eco` - Smart & Minimal
+Teal gradient with League Spartan font. Clean design for environmental content.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Dark%20Theme%20For%20Serious%20Content&website=MIDNIGHT%20MOOD&design=midnight
+/api/bundled-font-overlay.jpg?title=Eco%20Friendly&website=GREEN&design=eco
 ```
 
-#### 32. Energetic Fire
+#### 7. `news` - Breaking News Crimson
+Dark red gradient with classic Bebas Neue. Traditional news aesthetic.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=High%20Energy%20Viral%20Content%20Design&website=FIRE%20ENERGY&design=energetic
+/api/bundled-font-overlay.jpg?title=Breaking%20Story&website=NEWS&design=news
 ```
 
-#### 33. Cyberpunk Neon
+#### 8. `minimal` - Editorial Prestige
+Pure black gradient with Playfair Display. Elegant and sophisticated.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Future%20Tech%20Cyberpunk%20Aesthetic&website=CYBER%20PUNK&design=cyberpunk
+/api/bundled-font-overlay.jpg?title=Editorial%20Content&website=MAGAZINE&design=minimal
 ```
 
-#### 34. Moody Atmosphere
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Atmospheric%20Content%20With%20Mood&website=MOODY%20VIBES&design=moody
-```
+### **Modern Social Media Designs**
 
-#### 35. Forest Deep
+#### 9. `modern` - Modern Authority
+Royal blue gradient with Montserrat ExtraBold. Contemporary and professional.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Nature%20And%20Environmental%20Content&website=FOREST%20GREEN&design=forest
+/api/bundled-font-overlay.jpg?title=Modern%20Business&website=BRAND&design=modern
 ```
 
-#### 36. Pop Art Style
+#### 10. `bold` - Stylish Credibility
+Espresso brown gradient with massive Raleway Heavy font (85pt). Maximum presence.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Retro%20Pop%20Art%20Viral%20Content&website=POP%20ART&design=popart
+/api/bundled-font-overlay.jpg?title=BOLD%20STATEMENT&website=IMPACT&design=bold
 ```
 
-#### 37. Dark Gold Luxury
+#### 11. `viral` - Versatile & Balanced
+Graphite gradient with Roboto Condensed. Perfect for viral social content.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Premium%20Luxury%20Brand%20Content&website=DARK%20GOLD&design=darkgold
+/api/bundled-font-overlay.jpg?title=Viral%20Content&website=SOCIAL&design=viral
 ```
 
-#### 38. Aqua Fresh
+#### 12. `breaking` - Breaking News Alert
+Dark red gradient with urgent Bebas Neue styling. Immediate attention-grabber.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Fresh%20Clean%20Water%20Theme%20Design&website=AQUA%20FRESH&design=aqua
+/api/bundled-font-overlay.jpg?title=BREAKING%20NOW&website=ALERT&design=breaking
 ```
 
-#### 39. Fire Intensity
+#### 13. `thoughtful` - Thoughtful Deep Purple
+Deep purple gradient with Montserrat. Reflective and engaging.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Intense%20High%20Impact%20Content&website=FIRE%20POWER&design=fire
+/api/bundled-font-overlay.jpg?title=Thoughtful%20Insight&website=WISDOM&design=thoughtful
 ```
 
-#### 40. Chill Vibes
+#### 14. `colorful` - Colorful Amber
+Vibrant amber gradient with Anton font. Eye-catching and energetic.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Relaxed%20Chill%20Content%20Vibes&website=CHILL%20MODE&design=chill
+/api/bundled-font-overlay.jpg?title=Colorful%20Content&website=VIBRANT&design=colorful
 ```
 
-#### 41. Royal Elegance
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Royal%20Premium%20Elegant%20Design&website=ROYAL%20CLASS&design=royal
-```
+### **Aesthetic & Style Designs**
 
-#### 42. Cinematic Drama
+#### 15. `overlay` - Photo Overlay Dark Gray
+Dark gray gradient perfect for photo overlays. Roboto Condensed for readability.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Hollywood%20Movie%20Style%20Content&website=CINEMATIC&design=cinematic
+/api/bundled-font-overlay.jpg?title=Photo%20Overlay&website=IMAGE&design=overlay
 ```
 
-#### 43. Retro Nostalgia
+#### 16. `aesthetic` - Aesthetic Sea Green
+Sea green gradient with Poppins. Calm and wellness-focused aesthetic.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Vintage%20Retro%20Nostalgic%20Content&website=RETRO%20STYLE&design=retro
+/api/bundled-font-overlay.jpg?title=Aesthetic%20Vibes&website=WELLNESS&design=aesthetic
 ```
 
-#### 44. Purple Dream
+#### 17. `monochrome` - Monochrome Graphite
+Graphite gradient with Impact font. Classic black and white style.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Dreamy%20Purple%20Aesthetic%20Content&website=PURPLE%20DREAM&design=purpledream
+/api/bundled-font-overlay.jpg?title=Monochrome%20Style&website=CLASSIC&design=monochrome
 ```
 
-#### 45. Grunge Style
+#### 18. `vintage` - Vintage Copper
+Copper gradient with Playfair Display. Nostalgic and elegant.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Raw%20Grunge%20Urban%20Style%20Content&website=GRUNGE%20STYLE&design=grunge
+/api/bundled-font-overlay.jpg?title=Vintage%20Style&website=RETRO&design=vintage
 ```
 
-#### 46. Matrix Code
+#### 19. `luxury` - Luxury Burgundy
+Burgundy gradient with golden accents. Premium Playfair Display font.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Digital%20Matrix%20Tech%20Content&website=MATRIX%20CODE&design=matrix
+/api/bundled-font-overlay.jpg?title=Luxury%20Brand&website=PREMIUM&design=luxury
 ```
 
-#### 47. Street Urban
+#### 20. `cinematic` - Cinematic Steel Blue
+Steel blue gradient with massive Anton font (70pt). Hollywood drama style.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Urban%20Street%20Culture%20Content&website=STREET%20STYLE&design=street
+/api/bundled-font-overlay.jpg?title=Cinematic%20Drama&website=CINEMA&design=cinematic
 ```
 
-#### 48. Cloud Sky
+#### 21. `neon` - Neon Indigo
+Indigo gradient with Bebas Neue. Futuristic neon aesthetic.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Sky%20High%20Inspirational%20Content&website=CLOUD%20NINE&design=cloud
+/api/bundled-font-overlay.jpg?title=Neon%20Lights&website=FUTURE&design=neon
 ```
 
-#### 49. Metallic Steel
+#### 22. `inspire` - Inspirational Olive
+Olive gradient with League Spartan. Uplifting and motivational.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Industrial%20Metallic%20Steel%20Design&website=STEEL%20POWER&design=metallic
+/api/bundled-font-overlay.jpg?title=Inspiration&website=MOTIVATE&design=inspire
 ```
 
-#### 50. Chocolate Brown
+#### 23. `cute` - Cute Royal Violet
+Royal violet gradient with Poppins. Friendly and approachable.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Warm%20Chocolate%20Comfort%20Content&website=CHOCOLATE&design=chocolate
+/api/bundled-font-overlay.jpg?title=Cute%20Content&website=KAWAII&design=cute
 ```
 
-#### 51. Future Tech
+#### 24. `warmbrown` - Warm Espresso
+Espresso brown gradient with Montserrat. Cozy and comfortable.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Advanced%20Future%20Technology%20Content&website=FUTURE%20TECH&design=future
+/api/bundled-font-overlay.jpg?title=Warm%20Vibes&website=COFFEE&design=warmbrown
 ```
 
-#### 52. Lime Pop
+#### 25. `pokemon` - Pokémon Wine
+Wine purple gradient with Impact font (73pt). Electric gaming energy.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Bright%20Lime%20Pop%20Energy%20Content&website=LIME%20POP&design=limepop
+/api/bundled-font-overlay.jpg?title=Pokemon%20Battle&website=TRAINER&design=pokemon
 ```
 
-#### 53. Royal Red
-```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Royal%20Red%20Premium%20Content&website=ROYAL%20RED&design=royalred
-```
+### **Quote & Special Designs**
 
-#### 54. Viral Impact
+#### 26. `quote1` - Bold Quote Overlay
+Pure black background with Anton font (64pt). Bold inspirational quotes.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Maximum%20Viral%20Impact%20Content&website=VIRAL%20HIT&design=viral
+/api/bundled-font-overlay.jpg?title=Your%20Inspirational%20Quote%20Here&website=QUOTES&design=quote1
 ```
 
-#### 55. Transparent Text Only (Blank)
+#### 27. `quote2` - Elegant Quote Overlay
+Dark charcoal background with Playfair Display (58pt). Elegant wisdom quotes.
 ```
-http://localhost:3000/api/bundled-font-overlay.jpg?title=Transparent%20Text%20Overlay&website=NO%20BACKGROUND&design=blank
+/api/bundled-font-overlay.jpg?title=Elegant%20Quote%20Here&website=WISDOM&design=quote2
 ```
-**Note**: Returns PNG with transparent background - perfect for compositing over other images!
 
-### 🖼️ Format Variations
-
-#### PNG Format (with transparency support)
-```javascript
-fetch('https://your-domain.com/api/direct-image?image=https://picsum.photos/800/600&title=PNG%20Banner&format=png&design=design2')
-```
-
-#### Custom Dimensions
-```javascript
-fetch('https://your-domain.com/api/direct-image?image=https://picsum.photos/800/600&title=Custom%20Size&w=1920&h=1080&design=design1')
+#### 28. `quote3` - Impact Quote Overlay
+Black to dark gray gradient with Impact font (68pt). High-impact motivational quotes.
 ```
-
-### 📱 Interactive Preview Mode
-```javascript
-// Open in browser for interactive preview with download options
-window.open('https://your-domain.com/?image=https://picsum.photos/800/600&title=Preview%20Banner&website=Demo.com&preview=true&design=design3')
+/api/bundled-font-overlay.jpg?title=Motivational%20Quote&website=INSPIRE&design=quote3
 ```
 
-### 📊 JSON Metadata Response
-```javascript
-// Get pure JSON metadata (no HTML wrapper)
-fetch('https://your-domain.com/api/image?image=https://picsum.photos/800/600&title=Metadata%20Only')
-  .then(response => response.json())
-  .then(data => console.log(data));
+#### 29. `blank` - Transparent Blank
+**Completely transparent background** with white Anton text (60pt). Returns PNG format.
 ```
-
-#### JSON Response Example:
-```json
-[
-  {
-    "statusCode": 200,
-    "headers": [
-      {
-        "name": "content-type",
-        "value": "image/jpeg"
-      },
-      {
-        "name": "content-length", 
-        "value": "370962"
-      }
-    ],
-    "cookieHeaders": [],
-    "data": "IMTBuffer(370962, binary, ffd8ffe000104a46...): /9j/4AAQSkZJRgABAQAAAQ...",
-    "fileSize": 370962,
-    "fileName": "file.jpeg",
-    "contentType": "image/jpeg",
-    "url": "https://picsum.photos/800/600",
-    "title": "Metadata Only",
-    "timestamp": "2025-11-02T12:00:00.000Z"
-  }
-]
+/api/bundled-font-overlay.jpg?title=Transparent%20Text&website=OVERLAY&design=blank
 ```
-
-## 🎨 Design Variants Guide
-
-| Design | Style | Best For | Color Scheme |
-|--------|-------|----------|--------------|
-| `default` | Modern gradient | General use | Blue gradient |
-| `design1` | 🚨 Red Alert | Breaking news | Red gradient |
-| `design2` | ⚡ Blue Pulse | Tech news | Electric blue |
-| `design3` | � Yellow Flash | Viral content | Yellow accent |
-| `design4` | 🟥 Gradient Burst | YouTube style | Red-orange |
-| `design5` | 📰 White Noise | Professional | Clean white |
-| `design6` | 🧨 Cyber Alert | Futuristic | Neon effects |
-| `design7` | 🔥 Red Flash | Urgent alerts | Impact red |
-| `design8` | ⚡ Electric Cyan | Fresh tech | Cyan pop |
-| `design9` | 🖤 Black + Red | Energetic | Black/red |
-| `design10` | 🟠 Amber Alert | Authority | Amber warning |
-| `design11` | 🔵 Blue Ribbon | Corporate | Professional blue |
-| `design12` | 🔴 Metallic Red | Modern polish | Metallic red |
-
-## 🎨 Enhanced Font Design Variants (Bundled System)
-
-### Original 8 Designs
-
-| Design | Style | Best For | Color Scheme | Special Features |
-|--------|-------|----------|--------------|------------------|
-| `default` | Classic Dark | General use | White/Gold | Elegant gradient |
-| `tech` | 🔵 Tech Blue | AI/Tech content | White/Cyan | Solid black bg + Glow effects |
-| `entertainment` | 🟣 Entertainment Purple | Movies/TV shows | Gold/Purple | Rich gradients |
-| `sports` | ⚡ Sports Dynamic | Sports content | White/Green | Dynamic spacing |
-| `anime` | 🌟 Anime Dark | Gaming/Anime | Gold/Orange | Accent lines |
-| `eco` | 🌱 Eco Green | Environmental | White/Lime | Earth tones |
-| `news` | 📰 News Professional | News/Media | White/Red | Separator bars |
-| `minimal` | 🤍 Minimal Clean | Minimalist | Dark Gray | Clean/Light |
-
-### Universal Design Collection (47 Total Styles)
-
-| Design | Style | Best For | Font Size | Special Features |
-|--------|-------|----------|-----------|------------------|
-| `modern` | 🎨 Modern Lifestyle | General quotes, lifestyle | 75px | Clean centered layout |
-| `bold` | ⚡ Bold Impact | Memes, viral content | 85px | High contrast dark red background |
-| `viral` | 💬 Viral Entertainment | Pop culture, humor | 85px | Yellow-orange viral gradient |
-| `breaking` | 📰 Breaking News | News, politics | 57px | Red "BREAKING" tag |
-| `thoughtful` | 🧠 Thoughtful Quotes | Motivational content | 53px | Thin divider line |
-| `colorful` | 🌈 Colorful Youth | Lifestyle, youth content | 63px | Bright cyan-orange gradient |
-| `overlay` | 📸 Photo Overlay | Image captions | 60px | Bottom gradient overlay |
-| `aesthetic` | 🎨 Aesthetic Style | Fashion, wellness | 57px | Soft pastel palette |
-| `monochrome` | 🖤 Monochrome Minimal | Brand posts | 60px | Pure black/white |
-| `vintage` | 🧩 Vintage Retro | Nostalgia content | 78px | Cream/brown retro colors |
-| `luxury` | 💎 Luxury Premium | Business, success | 63px | Gold on navy gradient |
-| `cinematic` | 🎥 Cinematic Drama | Movie content | 85px | Black letterbox bars |
-| `neon` | ⚙️ Neon Tech | Tech, coding | 60px | Neon glow effects |
-| `inspire` | ☀️ Inspirational | Positive quotes | 63px | Blue-yellow gradient |
-| `cute` | 🧁 Cute Aesthetic | Feel-good content | 67px | Pink rounded style |
-| `warmbrown` | ☕ Warm Brown Elegance | Professional, coffee shops | 67px | Soft shadow + vignette |
-| `pokemon` | ⚡ Pokémon Electric | Gaming, anime, fun content | 73px | Text outline + radial burst |
-| `boldblue` | 🔵 Bold Blue Impact | Corporate, tech announcements | 80px | Deep blue professional gradient |
-| `sunrise` | 🌅 Sunrise Energy | Motivational, morning content | 78px | Orange-pink energy gradient |
-| `gradientgold` | 👑 Gradient Gold | Luxury, premium brands | 75px | Gold gradient on dark background |
-| `minimalwhite` | ⚪ Minimal White | Clean, professional content | 80px | Pure white minimalist design |
-| `midnight` | 🌙 Midnight Dark | Night themes, serious content | 80px | Deep navy to black gradient |
-| `energetic` | 🔥 Energetic Fire | High-energy, sports content | 85px | Red-orange fire gradient |
-| `cyberpunk` | 🤖 Cyberpunk Neon | Futuristic, gaming content | 78px | Pink-cyan cyberpunk aesthetic |
-| `moody` | 🍂 Moody Atmosphere | Artistic, emotional content | 75px | Brown-gray atmospheric tones |
-| `forest` | 🌲 Forest Deep | Environmental, nature content | 78px | Deep green forest gradient |
-| `popart` | 🎨 Pop Art Style | Retro, fun viral content | 85px | Bright red-yellow pop colors |
-| `darkgold` | 🏆 Dark Gold Luxury | Premium, exclusive content | 75px | Gold on black luxury theme |
-| `aqua` | 💧 Aqua Fresh | Health, wellness, fresh content | 80px | Teal-blue water gradient |
-| `fire` | 🔥 Fire Intensity | Intense, urgent content | 85px | Yellow on black with red accent |
-| `chill` | 😌 Chill Vibes | Relaxed, lifestyle content | 80px | Cool blue calming gradient |
-| `royal` | 👑 Royal Elegance | Premium, luxury brands | 75px | Royal blue to gold gradient |
-| `grunge` | 🎸 Grunge Style | Alternative, urban content | 78px | Dark gray grunge texture |
-| `matrix` | 💚 Matrix Code | Tech, programming content | 80px | Green matrix code aesthetic |
-| `street` | 🏙️ Street Urban | Urban culture, street style | 80px | Gray urban concrete theme |
-| `cloud` | ☁️ Cloud Sky | Inspirational, sky themes | 78px | Light blue sky gradient |
-| `metallic` | ⚙️ Metallic Steel | Industrial, tech content | 80px | Silver-steel metallic gradient |
-| `chocolate` | 🍫 Chocolate Brown | Comfort, food content | 78px | Warm brown chocolate tones |
-| `future` | 🚀 Future Tech | Sci-fi, technology content | 80px | Cyan on black futuristic |
-| `limepop` | 🍃 Lime Pop | Fresh, energetic content | 80px | Bright lime-green gradient |
-| `royalred` | 🏴 Royal Red | Premium, luxury red theme | 78px | Deep red to gold gradient |
-| `purpledream` | 💜 Purple Dream | Creative, artistic content | 80px | Purple-magenta dream gradient |
-| `retro` | 📼 Retro Nostalgia | Vintage, nostalgic content | 78px | Orange-brown retro palette |
-| `blank` | ⚪ Transparent Text Only | Text overlays, compositing | 60px | No background - transparent PNG |
+**Note**: Perfect for compositing text over other images! Always returns PNG with alpha channel.
 
 ## 🔧 Advanced Usage
 
 ### Embedding in HTML
 ```html
-<!-- Standard Design System -->
-<img src="https://your-domain.com/api/direct-image?image=https://picsum.photos/800/600&title=Embedded%20Banner&design=design1" alt="News Banner" />
-
 <!-- Enhanced Font System -->
 <img src="https://your-domain.com/api/bundled-font-overlay.jpg?image=https://picsum.photos/800/600&title=Enhanced%20Banner&website=YourSite.com&design=tech" alt="Tech News Banner" />
 ```
 
 ### Social Media Integration
 ```javascript
-// Standard Design System
-const standardBanner = 'https://your-domain.com/api/direct-image?' + 
-  'image=https://images.unsplash.com/photo-1506905925346-21bda4d32df4' +
-  '&title=Social%20Media%20Post' +
-  '&website=YourBrand.com' +
-  '&design=design3' +
-  '&format=png';
-
-// Enhanced Font System (Better Unicode Support)
+// Enhanced Font System with all 29 designs
 const enhancedBanner = 'https://your-domain.com/api/bundled-font-overlay.jpg?' + 
   'image=https://images.unsplash.com/photo-1506905925346-21bda4d32df4' +
   '&title=Social%20Media%20Post' +
@@ -623,27 +406,21 @@ const enhancedBanner = 'https://your-domain.com/api/bundled-font-overlay.jpg?' +
 
 ### Batch Processing
 ```javascript
-// Standard Design System
-const standardDesigns = ['design1', 'design2', 'design3'];
-const standardUrl = 'https://your-domain.com/api/direct-image?image=https://picsum.photos/800/600&title=Batch%20Test';
+// All available designs
+const allDesigns = [
+  'default', 'tech', 'entertainment', 'sports', 'anime', 'eco', 'news', 'minimal',
+  'modern', 'bold', 'viral', 'breaking', 'thoughtful', 'colorful', 'overlay', 
+  'aesthetic', 'monochrome', 'vintage', 'luxury', 'cinematic', 'neon', 'inspire',
+  'cute', 'warmbrown', 'pokemon', 'quote1', 'quote2', 'quote3', 'blank'
+];
 
-standardDesigns.forEach(design => {
-  fetch(`${standardUrl}&design=${design}`)
+const baseUrl = 'https://your-domain.com/api/bundled-font-overlay.jpg?image=https://picsum.photos/800/600&title=Batch%20Test&website=TestSite.com';
+
+allDesigns.forEach(design => {
+  fetch(`${baseUrl}&design=${design}`)
     .then(response => response.blob())
     .then(blob => {
       console.log(`Generated ${design} variant`);
-    });
-});
-
-// Enhanced Font System
-const enhancedDesigns = ['tech', 'entertainment', 'sports', 'anime', 'eco', 'news', 'minimal'];
-const enhancedUrl = 'https://your-domain.com/api/bundled-font-overlay.jpg?image=https://picsum.photos/800/600&title=Batch%20Test&website=TestSite.com';
-
-enhancedDesigns.forEach(design => {
-  fetch(`${enhancedUrl}&design=${design}`)
-    .then(response => response.blob())
-    .then(blob => {
-      console.log(`Generated ${design} enhanced variant`);
     });
 });
 ```
@@ -652,9 +429,8 @@ enhancedDesigns.forEach(design => {
 
 The API supports multiple response types:
 
-- **Direct Image**: Binary image data (default for `/api/direct-image`)
-- **JSON Metadata**: Complete image information with base64 data
-- **Interactive Preview**: HTML interface with download options
+- **Direct Image**: Binary image data (JPEG or PNG depending on design)
+- **Interactive Preview**: HTML interface with download options via `/preview` page
 
 ## 🛠 Development
 
@@ -670,45 +446,25 @@ npm run dev
 
 3. Test the API:
 ```bash
-# Test standard design system
-curl "http://localhost:3001/api/direct-image?image=https://picsum.photos/800/600&title=Test%20Banner&design=design1" --output test-banner.jpg
+# Test bundled font overlay system
+curl "http://localhost:3000/api/bundled-font-overlay.jpg?image=https://picsum.photos/800/600&title=Enhanced%20Test&website=TestSite.com&design=tech" --output test-enhanced.jpg
 
-# Test enhanced font system
-curl "http://localhost:3001/api/bundled-font-overlay.jpg?image=https://picsum.photos/800/600&title=Enhanced%20Test&website=TestSite.com&design=tech" --output test-enhanced.jpg
+# Test with binary data parameter
+curl "http://localhost:3000/api/bundled-font-overlay.jpg?imageData=<base64-encoded-image>&title=Binary%20Test&design=aesthetic" --output test-binary.jpg
 
-# Test JSON metadata (pure JSON API)
-curl "http://localhost:3001/api/image?image=https://picsum.photos/800/600&title=Test%20Metadata"
+# Test transparent overlay (PNG output)
+curl "http://localhost:3000/api/bundled-font-overlay.jpg?title=Transparent%20Text&website=OVERLAY&design=blank" --output test-transparent.png
 
-# Test preview mode
-open "http://localhost:3001/?image=https://picsum.photos/800/600&title=Test%20Preview&preview=true&design=design2"
+# Open design gallery
+open "http://localhost:3000/designs"
 
-# Test design gallery
-open "http://localhost:3001/designs"
+# Open quote tester
+open "http://localhost:3000/quote-test"
 ```
 
 4. Build for production:
 ```bash
 npm run build
-```
-
-## � Security & Access
-
-### Public Homepage
-- Default homepage shows a clean, professional interface
-- No API details exposed to public visitors
-- Perfect for public deployment
-
-### Technical Documentation
-- Access with `?admin=docs` parameter
-- Complete API documentation and examples
-- For developers and technical users
-
-```bash
-# Public homepage (safe for public)
-https://your-domain.com/
-
-# Technical docs (for developers)
-https://your-domain.com/?admin=docs
 ```
 
 ## 🚀 Deployment
@@ -750,6 +506,7 @@ MIT License - feel free to use in personal and commercial projects.
 
 ## 🔗 Links
 
-- **Live Demo**: [Try the API](https://your-domain.com/api/direct-image?image=https://picsum.photos/800/600&title=Demo%20Banner&design=design1)
-- **Preview Mode**: [Interactive Preview](https://your-domain.com/?image=https://picsum.photos/800/600&title=Demo&preview=true&design=design2)
-- **Documentation**: [Technical Docs](https://your-domain.com/?admin=docs)
+- **Live Demo**: [Try the API](https://your-domain.com/api/bundled-font-overlay.jpg?image=https://picsum.photos/800/600&title=Demo%20Banner&design=tech)
+- **Design Gallery**: [Browse All Designs](https://your-domain.com/designs)
+- **Interactive Testing**: [Binary Data Tester](https://your-domain.com/binary-test)
+- **Quote Designs**: [Quote Tester](https://your-domain.com/quote-test)
