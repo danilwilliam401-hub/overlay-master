@@ -4,6 +4,7 @@ export default function QuoteTest() {
   const [design, setDesign] = useState('quote1');
   const [title, setTitle] = useState('The only way to do great work is to love what you do');
   const [website, setWebsite] = useState('Steve Jobs');
+  const [refreshKey, setRefreshKey] = useState(Date.now()); // Add refresh key for cache busting
 
   const quoteDesigns = {
     'quote1': 'Bold Quote Overlay (Anton) - Pure black background',
@@ -46,18 +47,20 @@ export default function QuoteTest() {
     "Aral ng Buhay", "Pangarap"
   ];
 
-  const apiUrl = `/api/bundled-font-overlay?image=https://picsum.photos/800/600&title=${encodeURIComponent(title)}&website=${encodeURIComponent(website)}&design=${design}&w=1080&h=1350`;
+  const apiUrl = `/api/bundled-font-overlay?image=https://picsum.photos/800/600&title=${encodeURIComponent(title)}&website=${encodeURIComponent(website)}&design=${design}&w=1080&h=1350&_t=${refreshKey}`;
 
   const loadRandomQuote = () => {
     const randomIndex = Math.floor(Math.random() * inspirationalQuotes.length);
     setTitle(inspirationalQuotes[randomIndex]);
     setWebsite(authors[randomIndex]);
+    setRefreshKey(Date.now()); // Update refresh key to bust cache
   };
 
   const loadRandomTagalogQuote = () => {
     const randomIndex = Math.floor(Math.random() * tagalogQuotes.length);
     setTitle(tagalogQuotes[randomIndex]);
     setWebsite(tagalogAuthors[randomIndex]);
+    setRefreshKey(Date.now()); // Update refresh key to bust cache
   };
 
   return (

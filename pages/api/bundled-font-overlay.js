@@ -1171,7 +1171,16 @@ export default async function handler(req, res) {
     res.setHeader('Content-Type', contentType);
     res.setHeader('Content-Disposition', `inline; filename="${design}-overlay.${fileExtension}"`);
     res.setHeader('Content-Length', String(finalImage.length));
-    res.setHeader('Cache-Control', 'public, max-age=300');
+    
+    // Disable caching for random quote generation to ensure fresh content on every refresh
+    if (val === 'InspirationTagalog') {
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
+    } else {
+      res.setHeader('Cache-Control', 'public, max-age=300');
+    }
+    
     res.setHeader('X-Font-System', 'bundled-fonts');
     res.setHeader('X-Design-Theme', selectedDesign.name);
     
