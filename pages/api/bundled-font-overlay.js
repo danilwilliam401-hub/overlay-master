@@ -333,7 +333,7 @@ const DESIGN_THEMES = {
     titleColor: '#FFFFFF',
     websiteColor: '#B0C4DE',
     gradientColors: ['rgba(38,50,56,0.95)', 'rgba(38,50,56,0.98)'], // Steel Blue
-    titleSize: 70,
+    titleSize: 56,
     websiteSize: 30,
     fontWeight: '900',
     fontFamily: 'Anton'
@@ -1014,7 +1014,7 @@ export default async function handler(req, res) {
     console.log('  Processed website:', websiteText);
     
     // Create SVG with proper UTF-8 encoding and font references
-    const padding = 80; // Increased left and right padding to prevent edge contact
+    const padding = design === 'cinematic' ? 30 : 80; // Less padding for cinematic design to reach closer to edges
     const contentWidth = targetWidth - (padding * 2); // Available width for text
     
     // Function to wrap text into multiple lines - NO ELLIPSIS, accept all text
