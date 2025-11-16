@@ -1063,7 +1063,7 @@ export default async function handler(req, res) {
     const websiteTextSize = website ? selectedDesign.websiteSize : 0; // No size if no website
     
     // Calculate title start position (ensure integers)
-    let titleStartY, websiteY, svgHeight;
+    let titleStartY, websiteY, svgHeight, titleEndY;
     
     if (design === 'quote1' || design === 'quote2' || design === 'quote3') {
       // Center the text vertically in the middle of the image for quote overlay
@@ -1071,13 +1071,14 @@ export default async function handler(req, res) {
       const centerY = Math.round(targetHeight / 2);
       titleStartY = Math.round(centerY - (totalContentHeight / 2) + (lineHeight * 0.8));
       websiteY = website ? Math.round(titleStartY + totalTitleHeight + gapBetweenTitleAndWebsite) : 0;
+      titleEndY = Math.round(titleStartY + totalTitleHeight);
       svgHeight = targetHeight; // Use full image height for quote overlay
     } else {
       // Default positioning - text at bottom
       titleStartY = Math.round(topMargin + (lineHeight * 0.8)); // Start from top with margin
       
       // Calculate website position based on where title ends (ensure integers)
-      const titleEndY = Math.round(titleStartY + totalTitleHeight);
+      titleEndY = Math.round(titleStartY + totalTitleHeight);
       
       // Adjust website positioning for designs with accent elements
       if (website) {
