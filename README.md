@@ -1,6 +1,6 @@
 # 🖼️ Banner Generator API
 
-A powerful Next.js application that creates professional image banners with custom text overlays. Features 30 design themes with superior font support and comprehensive image processing capabilities.
+A powerful Next.js application that creates professional image banners with custom text overlays. Features 31 design themes with superior font support and comprehensive image processing capabilities.
 
 ## 🎉 Recent Updates (November 2025)
 
@@ -22,7 +22,7 @@ A powerful Next.js application that creates professional image banners with cust
 
 ### Enhanced Font System
 - **🔤 Superior Unicode Support**: Bundled 14 professional fonts with fontconfig
-- **� 30 Design Themes**: From breaking news to aesthetic quotes, covering all content types
+- **� 31 Design Themes**: From breaking news to aesthetic quotes, covering all content types
 - **📏 Dynamic Text Layout**: Intelligent wrapping and positioning prevents overlap
 - **⚡ Special Effects**: Glow effects, gradients, transparency support
 - **� Professional Typography**: Bebas Neue, Anton, Impact, Oswald, Montserrat, League Spartan, Raleway, Roboto Condensed, Poppins, Playfair Display, and more
@@ -45,7 +45,7 @@ A powerful Next.js application that creates professional image banners with cust
 - `website` → Brand/website name (optional)
 
 ### Design Options
-- `design` → Design theme: `default`, `tech`, `entertainment`, `antonBlack`, `sports`, `anime`, `eco`, `news`, `minimal`, `modern`, `bold`, `viral`, `breaking`, `thoughtful`, `colorful`, `overlay`, `aesthetic`, `monochrome`, `vintage`, `luxury`, `cinematic`, `neon`, `inspire`, `cute`, `warmbrown`, `pokemon`, `quote1`, `quote2`, `quote3`, `blank`
+- `design` → Design theme: `default`, `tech`, `entertainment`, `antonBlack`, `antonTransparent`, `sports`, `anime`, `eco`, `news`, `minimal`, `modern`, `bold`, `viral`, `breaking`, `thoughtful`, `colorful`, `overlay`, `aesthetic`, `monochrome`, `vintage`, `luxury`, `cinematic`, `neon`, `inspire`, `cute`, `warmbrown`, `pokemon`, `quote1`, `quote2`, `quote3`, `blank`
 
 ### 🇵🇭 Auto-Generated Tagalog Quotes (UPDATED!)
 - `val` → Quote generation mode for quote designs:
@@ -268,11 +268,18 @@ Burnt orange gradient with massive 78pt titles. High-impact Anton font for viral
 /api/bundled-font-overlay.jpg?title=VIRAL%20ENTERTAINMENT&website=GAMING&design=entertainment
 ```
 
-#### 3b. `antonBlack` - Anton Black (NEW!)
+#### 3b. `antonBlack` - Anton Black
 Pure black gradient with massive 78pt white titles. Same bold Anton font as entertainment but with dramatic black background. Minimal 15px padding for edge-to-edge impact. Perfect for dramatic headlines and high-contrast content.
 ```
 /api/bundled-font-overlay.jpg?title=DRAMATIC%20HEADLINE&website=NEWS&design=antonBlack
 ```
+
+#### 3c. `antonTransparent` - Anton Transparent (NEW!)
+**Fully transparent background** with massive 78pt white titles and golden yellow website text. Bold Anton font with dramatic black shadow (7px offsetX, 6px offsetY, 14px blur). Returns PNG format with alpha channel. Minimal 15px padding for edge-to-edge impact. Perfect for overlay compositing and transparent text effects!
+```
+/api/bundled-font-overlay.jpg?title=TRANSPARENT%20OVERLAY&website=DESIGN&design=antonTransparent
+```
+**Note**: Always returns PNG with transparency. Ideal for layering text over custom backgrounds!
 
 #### 4. `sports` - Impact Headlines
 Teal gradient with bold Impact font. Dynamic style for sports news.
@@ -479,7 +486,7 @@ const enhancedBanner = 'https://your-domain.com/api/bundled-font-overlay.jpg?' +
 ```javascript
 // All available designs
 const allDesigns = [
-  'default', 'tech', 'entertainment', 'antonBlack', 'sports', 'anime', 'eco', 'news', 'minimal',
+  'default', 'tech', 'entertainment', 'antonBlack', 'antonTransparent', 'sports', 'anime', 'eco', 'news', 'minimal',
   'modern', 'bold', 'viral', 'breaking', 'thoughtful', 'colorful', 'overlay', 
   'aesthetic', 'monochrome', 'vintage', 'luxury', 'cinematic', 'neon', 'inspire',
   'cute', 'warmbrown', 'pokemon', 'quote1', 'quote2', 'quote3', 'blank'

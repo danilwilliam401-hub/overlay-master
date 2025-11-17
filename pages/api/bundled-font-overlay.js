@@ -177,6 +177,17 @@ const DESIGN_THEMES = {
     fontWeight: '900',
     fontFamily: 'Anton'
   },
+  'antonTransparent': {
+    name: 'Anton Transparent',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFD700', // Golden Yellow
+    gradientColors: ['rgba(0,0,0,0)', 'rgba(0,0,0,0)'], // Fully Transparent
+    titleSize: 78,
+    websiteSize: 32,
+    fontWeight: '900',
+    fontFamily: 'Anton',
+    transparent: true // Flag to output PNG with alpha channel
+  },
   'sports': {
     name: 'Impact Headlines',
     titleColor: '#FFFFFF',
@@ -904,9 +915,9 @@ export default async function handler(req, res) {
     let imageBuffer;
     let useBlankBackground = false;
     
-    // Special handling for blank design - always create transparent background
-    if (design === 'blank') {
-      console.log('🎨 Creating transparent background for blank design (text-only overlay)');
+    // Special handling for blank and antonTransparent designs - always create transparent background
+    if (design === 'blank' || design === 'antonTransparent') {
+      console.log('🎨 Creating transparent background for transparent design (text-only overlay)');
       useBlankBackground = true;
       imageBuffer = await sharp({
         create: {
@@ -1024,7 +1035,7 @@ export default async function handler(req, res) {
     console.log('  Processed website:', websiteText);
     
     // Create SVG with proper UTF-8 encoding and font references
-    const padding = (design === 'entertainment' || design === 'antonBlack') ? 15 : (design === 'cinematic' || design === 'vintage') ? 30 : 80; // Minimal padding for entertainment and antonBlack to maximize text spread
+    const padding = (design === 'entertainment' || design === 'antonBlack' || design === 'antonTransparent') ? 15 : (design === 'cinematic' || design === 'vintage') ? 30 : 80; // Minimal padding for entertainment, antonBlack, and antonTransparent to maximize text spread
     const contentWidth = targetWidth - (padding * 2); // Available width for text
     
     // Function to wrap text into multiple lines - NO ELLIPSIS, accept all text
@@ -1034,8 +1045,8 @@ export default async function handler(req, res) {
       let currentLine = '';
       
       // More accurate character width estimation for Noto Sans
-      // For entertainment and antonBlack designs, use narrower char width for better spreading
-      const avgCharWidth = (design === 'entertainment' || design === 'antonBlack') ? fontSize * 0.45 : fontSize * 0.55;
+      // For entertainment, antonBlack, and antonTransparent designs, use narrower char width for better spreading
+      const avgCharWidth = (design === 'entertainment' || design === 'antonBlack' || design === 'antonTransparent') ? fontSize * 0.45 : fontSize * 0.55;
       const maxCharsPerLine = Math.floor(maxWidth / avgCharWidth);
       
       // NO maximum lines limit - accept all text
@@ -1342,6 +1353,10 @@ export default async function handler(req, res) {
           .vignette-overlay {
             fill: url(#warmVignette);
           }` : ''}
+          ${design === 'antonTransparent' ? `
+          .anton-transparent-shadow {
+            filter: drop-shadow(7px 6px 14px rgba(0,0,0,1));
+          }` : ''}
           ${design === 'pokemon' ? `
           .pokemon-title {
             stroke: #2A75BB;
@@ -1409,6 +1424,7 @@ export default async function handler(req, res) {
             'title-text',
             design === 'neon' ? 'neon-glow' : '',
             design === 'warmbrown' ? 'warm-shadow' : '',
+            design === 'antonTransparent' ? 'anton-transparent-shadow' : '',
             design === 'pokemon' ? 'pokemon-title' : '',
             design === 'bold' ? 'bold-title' : '',
             design === 'boldblue' ? 'boldblue-title' : '',
@@ -1456,10 +1472,10 @@ export default async function handler(req, res) {
     
     console.log('⚡ Compositing with Sharp...');
     
-    // For blank design, create transparent PNG instead of compositing on image
+    // For blank and antonTransparent designs, create transparent PNG instead of compositing on image
     let finalImage;
-    if (design === 'blank') {
-      console.log('🎨 Creating transparent PNG for blank design...');
+    if (design === 'blank' || design === 'antonTransparent') {
+      console.log('🎨 Creating transparent PNG for transparent design...');
       // Create just the SVG as transparent PNG (no background image)
       finalImage = await sharp(svgBuffer)
         .png()
@@ -1482,8 +1498,8 @@ export default async function handler(req, res) {
     }
     
     // Set response headers with proper filename and content length
-    const contentType = design === 'blank' ? 'image/png' : 'image/jpeg';
-    const fileExtension = design === 'blank' ? 'png' : 'jpg';
+    const contentType = (design === 'blank' || design === 'antonTransparent') ? 'image/png' : 'image/jpeg';
+    const fileExtension = (design === 'blank' || design === 'antonTransparent') ? 'png' : 'jpg';
     res.setHeader('Content-Type', contentType);
     res.setHeader('Content-Disposition', `inline; filename="${design}-overlay.${fileExtension}"`);
     res.setHeader('Content-Length', String(finalImage.length));
