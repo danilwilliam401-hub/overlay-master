@@ -188,6 +188,16 @@ const DESIGN_THEMES = {
     fontFamily: 'Anton',
     transparent: true // Flag to output PNG with alpha channel
   },
+  'antonTransparent2': {
+    name: 'Anton White Background',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFB347', // Same as entertainment
+    gradientColors: ['rgba(255,255,255,0.95)', 'rgba(255,255,255,0.98)'], // White
+    titleSize: 78,
+    websiteSize: 32,
+    fontWeight: '900',
+    fontFamily: 'Anton'
+  },
   'sports': {
     name: 'Impact Headlines',
     titleColor: '#FFFFFF',
@@ -1035,7 +1045,7 @@ export default async function handler(req, res) {
     console.log('  Processed website:', websiteText);
     
     // Create SVG with proper UTF-8 encoding and font references
-    const padding = (design === 'entertainment' || design === 'antonBlack' || design === 'antonTransparent') ? 15 : (design === 'cinematic' || design === 'vintage') ? 30 : 80; // Minimal padding for entertainment, antonBlack, and antonTransparent to maximize text spread
+    const padding = (design === 'entertainment' || design === 'antonBlack' || design === 'antonTransparent' || design === 'antonTransparent2') ? 15 : (design === 'cinematic' || design === 'vintage') ? 30 : 80; // Minimal padding for entertainment, antonBlack, antonTransparent, and antonTransparent2 to maximize text spread
     const contentWidth = targetWidth - (padding * 2); // Available width for text
     
     // Function to wrap text into multiple lines - NO ELLIPSIS, accept all text
@@ -1045,8 +1055,8 @@ export default async function handler(req, res) {
       let currentLine = '';
       
       // More accurate character width estimation for Noto Sans
-      // For entertainment, antonBlack, and antonTransparent designs, use narrower char width for better spreading
-      const avgCharWidth = (design === 'entertainment' || design === 'antonBlack' || design === 'antonTransparent') ? fontSize * 0.45 : fontSize * 0.55;
+      // For entertainment, antonBlack, antonTransparent, and antonTransparent2 designs, use narrower char width for better spreading
+      const avgCharWidth = (design === 'entertainment' || design === 'antonBlack' || design === 'antonTransparent' || design === 'antonTransparent2') ? fontSize * 0.45 : fontSize * 0.55;
       const maxCharsPerLine = Math.floor(maxWidth / avgCharWidth);
       
       // NO maximum lines limit - accept all text
@@ -1359,6 +1369,10 @@ export default async function handler(req, res) {
           .anton-transparent-shadow {
             filter: drop-shadow(7px 6px 14px rgba(0,0,0,1));
           }` : ''}
+          ${design === 'antonTransparent2' ? `
+          .anton-transparent2-shadow {
+            filter: drop-shadow(7px 6px 14px rgba(0,0,0,1));
+          }` : ''}
           ${design === 'pokemon' ? `
           .pokemon-title {
             stroke: #2A75BB;
@@ -1428,6 +1442,7 @@ export default async function handler(req, res) {
             design === 'neon' ? 'neon-glow' : '',
             design === 'warmbrown' ? 'warm-shadow' : '',
             design === 'antonTransparent' ? 'anton-transparent-shadow' : '',
+            design === 'antonTransparent2' ? 'anton-transparent2-shadow' : '',
             design === 'pokemon' ? 'pokemon-title' : '',
             design === 'bold' ? 'bold-title' : '',
             design === 'boldblue' ? 'boldblue-title' : '',
