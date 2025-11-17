@@ -45,7 +45,7 @@ A powerful Next.js application that creates professional image banners with cust
 - `website` → Brand/website name (optional)
 
 ### Design Options
-- `design` → Design theme: `default`, `tech`, `entertainment`, `antonBlack`, `antonTransparent`, `antonTransparent2`, `sports`, `anime`, `eco`, `news`, `minimal`, `modern`, `bold`, `viral`, `breaking`, `thoughtful`, `colorful`, `overlay`, `aesthetic`, `monochrome`, `vintage`, `luxury`, `cinematic`, `neon`, `inspire`, `cute`, `warmbrown`, `pokemon`, `quote1`, `quote2`, `quote3`, `blank`
+- `design` → Design theme: `default`, `tech`, `entertainment`, `antonBlack`, `antonTransparent`, `antonTransparent2`, `antonWhite`, `sports`, `anime`, `eco`, `news`, `minimal`, `modern`, `bold`, `viral`, `breaking`, `thoughtful`, `colorful`, `overlay`, `aesthetic`, `monochrome`, `vintage`, `luxury`, `cinematic`, `neon`, `inspire`, `cute`, `warmbrown`, `pokemon`, `quote1`, `quote2`, `quote3`, `blank`
 
 ### 🇵🇭 Auto-Generated Tagalog Quotes (UPDATED!)
 - `val` → Quote generation mode for quote designs:
@@ -288,6 +288,13 @@ Pure black gradient with massive 78pt white titles. Same bold Anton font as ente
 ```
 **Note**: Perfect for clean, high-contrast designs with bold text on white background!
 
+#### 3e. `antonWhite` - Anton White with Black Text (NEW!)
+**White background** with massive 78pt **black titles** and **black website text**. Bold Anton font with dramatic **black shadow (offsetX: 7px, offsetY: 6px, blur: 14px)**. Same styling as antonTransparent2 but with black text for maximum contrast. Minimal 15px padding for edge-to-edge impact.
+```
+/api/bundled-font-overlay.jpg?title=BLACK%20TEXT&website=DESIGN&design=antonWhite
+```
+**Note**: Perfect for minimalist designs with strong black text on white background!
+
 #### 4. `sports` - Impact Headlines
 Teal gradient with bold Impact font. Dynamic style for sports news.
 ```
@@ -493,7 +500,7 @@ const enhancedBanner = 'https://your-domain.com/api/bundled-font-overlay.jpg?' +
 ```javascript
 // All available designs
 const allDesigns = [
-  'default', 'tech', 'entertainment', 'antonBlack', 'antonTransparent', 'antonTransparent2', 'sports', 'anime', 'eco', 'news', 'minimal',
+  'default', 'tech', 'entertainment', 'antonBlack', 'antonTransparent', 'antonTransparent2', 'antonWhite', 'sports', 'anime', 'eco', 'news', 'minimal',
   'modern', 'bold', 'viral', 'breaking', 'thoughtful', 'colorful', 'overlay', 
   'aesthetic', 'monochrome', 'vintage', 'luxury', 'cinematic', 'neon', 'inspire',
   'cute', 'warmbrown', 'pokemon', 'quote1', 'quote2', 'quote3', 'blank'
