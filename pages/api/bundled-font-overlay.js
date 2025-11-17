@@ -167,6 +167,16 @@ const DESIGN_THEMES = {
     fontWeight: '900',
     fontFamily: 'Anton'
   },
+  'antonBlack': {
+    name: 'Anton Black',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFFFFF',
+    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(0,0,0,0.98)'], // Pure Black
+    titleSize: 78,
+    websiteSize: 32,
+    fontWeight: '900',
+    fontFamily: 'Anton'
+  },
   'sports': {
     name: 'Impact Headlines',
     titleColor: '#FFFFFF',
@@ -1014,7 +1024,7 @@ export default async function handler(req, res) {
     console.log('  Processed website:', websiteText);
     
     // Create SVG with proper UTF-8 encoding and font references
-    const padding = design === 'entertainment' ? 15 : (design === 'cinematic' || design === 'vintage') ? 30 : 80; // Minimal padding for entertainment to maximize text spread
+    const padding = (design === 'entertainment' || design === 'antonBlack') ? 15 : (design === 'cinematic' || design === 'vintage') ? 30 : 80; // Minimal padding for entertainment and antonBlack to maximize text spread
     const contentWidth = targetWidth - (padding * 2); // Available width for text
     
     // Function to wrap text into multiple lines - NO ELLIPSIS, accept all text
@@ -1024,8 +1034,8 @@ export default async function handler(req, res) {
       let currentLine = '';
       
       // More accurate character width estimation for Noto Sans
-      // For entertainment design, use narrower char width for better spreading
-      const avgCharWidth = design === 'entertainment' ? fontSize * 0.45 : fontSize * 0.55;
+      // For entertainment and antonBlack designs, use narrower char width for better spreading
+      const avgCharWidth = (design === 'entertainment' || design === 'antonBlack') ? fontSize * 0.45 : fontSize * 0.55;
       const maxCharsPerLine = Math.floor(maxWidth / avgCharWidth);
       
       // NO maximum lines limit - accept all text
