@@ -289,11 +289,11 @@ Pure black gradient with massive 78pt white titles. Same bold Anton font as ente
 **Note**: Perfect for clean, high-contrast designs with bold text on white background!
 
 #### 3e. `antonWhite` - Anton White with Black Text (NEW!)
-**White background** with massive 78pt **black titles** and **black website text**. Bold Anton font with dramatic **black shadow (offsetX: 7px, offsetY: 6px, blur: 14px)**. Same styling as antonTransparent2 but with black text for maximum contrast. Minimal 15px padding for edge-to-edge impact.
+**White background** with massive 78pt **black titles** and **black website text**. Bold Anton font with **no shadow** for clean, minimalist look. Same styling as antonTransparent2 but with black text and no shadow effects. Minimal 15px padding for edge-to-edge impact.
 ```
 /api/bundled-font-overlay.jpg?title=BLACK%20TEXT&website=DESIGN&design=antonWhite
 ```
-**Note**: Perfect for minimalist designs with strong black text on white background!
+**Note**: Perfect for minimalist designs with strong black text on white background - clean and simple!
 
 #### 4. `sports` - Impact Headlines
 Teal gradient with bold Impact font. Dynamic style for sports news.

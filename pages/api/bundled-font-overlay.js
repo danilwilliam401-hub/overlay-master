@@ -1383,10 +1383,6 @@ export default async function handler(req, res) {
           .anton-transparent2-shadow {
             filter: drop-shadow(7px 6px 14px rgba(0,0,0,1));
           }` : ''}
-          ${design === 'antonWhite' ? `
-          .anton-white-shadow {
-            filter: drop-shadow(7px 6px 14px rgba(0,0,0,1));
-          }` : ''}
           ${design === 'pokemon' ? `
           .pokemon-title {
             stroke: #2A75BB;
@@ -1457,7 +1453,6 @@ export default async function handler(req, res) {
             design === 'warmbrown' ? 'warm-shadow' : '',
             design === 'antonTransparent' ? 'anton-transparent-shadow' : '',
             design === 'antonTransparent2' ? 'anton-transparent2-shadow' : '',
-            design === 'antonWhite' ? 'anton-white-shadow' : '',
             design === 'pokemon' ? 'pokemon-title' : '',
             design === 'bold' ? 'bold-title' : '',
             design === 'boldblue' ? 'boldblue-title' : '',
