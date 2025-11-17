@@ -162,7 +162,7 @@ const DESIGN_THEMES = {
     titleColor: '#FFFFFF',
     websiteColor: '#FFB347',
     gradientColors: ['rgba(230,81,0,0.95)', 'rgba(230,81,0,0.98)'], // Burnt Orange
-    titleSize: 70,
+    titleSize: 78,
     websiteSize: 32,
     fontWeight: '900',
     fontFamily: 'Anton'
@@ -1014,7 +1014,7 @@ export default async function handler(req, res) {
     console.log('  Processed website:', websiteText);
     
     // Create SVG with proper UTF-8 encoding and font references
-    const padding = (design === 'cinematic' || design === 'vintage') ? 30 : 80; // Less padding for cinematic and vintage designs to reach closer to edges
+    const padding = (design === 'cinematic' || design === 'vintage' || design === 'entertainment') ? 30 : 80; // Less padding for cinematic, vintage, and entertainment designs to reach closer to edges
     const contentWidth = targetWidth - (padding * 2); // Available width for text
     
     // Function to wrap text into multiple lines - NO ELLIPSIS, accept all text
