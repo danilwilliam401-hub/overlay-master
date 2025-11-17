@@ -275,11 +275,11 @@ Pure black gradient with massive 78pt white titles. Same bold Anton font as ente
 ```
 
 #### 3c. `antonTransparent` - Anton Transparent (NEW!)
-**Fully transparent background** with massive 78pt white titles and golden yellow website text. Bold Anton font with dramatic black shadow (7px offsetX, 6px offsetY, 14px blur). Returns PNG format with alpha channel. Minimal 15px padding for edge-to-edge impact. Perfect for overlay compositing and transparent text effects!
+**Fully transparent background** with massive 78pt white titles and **golden yellow website text (#FFD700)**. Bold Anton font with dramatic **black shadow (offsetX: 7px, offsetY: 6px, blur: 14px)**. Returns PNG format with alpha channel. Minimal 15px padding for edge-to-edge impact. Perfect for overlay compositing and transparent text effects!
 ```
 /api/bundled-font-overlay.jpg?title=TRANSPARENT%20OVERLAY&website=DESIGN&design=antonTransparent
 ```
-**Note**: Always returns PNG with transparency. Ideal for layering text over custom backgrounds!
+**Note**: Always returns PNG with transparency. Website text is golden yellow for contrast. Ideal for layering text over custom backgrounds!
 
 #### 4. `sports` - Impact Headlines
 Teal gradient with bold Impact font. Dynamic style for sports news.

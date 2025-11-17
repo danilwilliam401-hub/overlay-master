@@ -181,7 +181,7 @@ const DESIGN_THEMES = {
     name: 'Anton Transparent',
     titleColor: '#FFFFFF',
     websiteColor: '#FFD700', // Golden Yellow
-    gradientColors: ['rgba(0,0,0,0)', 'rgba(0,0,0,0)'], // Fully Transparent
+    gradientColors: [], // No gradient - fully transparent
     titleSize: 78,
     websiteSize: 32,
     fontWeight: '900',
@@ -1120,10 +1120,12 @@ export default async function handler(req, res) {
     }
     
     // Generate design-specific gradient stops
-    const gradientStops = selectedDesign.gradientColors.map((color, index) => {
-      const offset = index === 0 ? '0%' : '100%';
-      return `<stop offset="${offset}" style="stop-color:${color}"/>`;
-    }).join('');
+    const gradientStops = selectedDesign.gradientColors && selectedDesign.gradientColors.length > 0 
+      ? selectedDesign.gradientColors.map((color, index) => {
+          const offset = index === 0 ? '0%' : '100%';
+          return `<stop offset="${offset}" style="stop-color:${color}"/>`;
+        }).join('')
+      : ''; // Empty for transparent designs
 
     // Generate embedded font-face declarations with explicit family names for Sharp
     const fontFaceDeclarations = `
@@ -1393,9 +1395,10 @@ export default async function handler(req, res) {
         </style>
         
         <!-- Dynamic Design Gradient Background -->
-        ${(useBlankBackground && ['quote1', 'quote2', 'quote3'].includes(design)) ? 
-          (design === 'quote3' ? '<rect width="100%" height="100%" fill="url(#dynamicGradient)"/>' : '') : // quote3 gets subtle gradient even on blank, others get none
-          '<rect width="100%" height="100%" fill="url(#dynamicGradient)"/>' // Normal gradient overlay for images
+        ${design === 'antonTransparent' || design === 'blank' ? '' : 
+          (useBlankBackground && ['quote1', 'quote2', 'quote3'].includes(design)) ? 
+            (design === 'quote3' ? '<rect width="100%" height="100%" fill="url(#dynamicGradient)"/>' : '') : // quote3 gets subtle gradient even on blank, others get none
+            '<rect width="100%" height="100%" fill="url(#dynamicGradient)"/>' // Normal gradient overlay for images
         }
         
         ${design === 'breaking' ? `
