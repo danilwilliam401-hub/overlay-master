@@ -313,9 +313,9 @@ const DESIGN_THEMES = {
     titleColor: '#FFFFFF',
     websiteColor: '#F5DEB3',
     gradientColors: ['rgba(184,115,51,0.95)', 'rgba(184,115,51,0.98)'], // Copper
-    titleSize: 53,
-    websiteSize: 22,
-    fontWeight: '600',
+    titleSize: 68,
+    websiteSize: 26,
+    fontWeight: '900',
     fontFamily: 'Playfair Display'
   },
   'luxury': {
@@ -1014,7 +1014,7 @@ export default async function handler(req, res) {
     console.log('  Processed website:', websiteText);
     
     // Create SVG with proper UTF-8 encoding and font references
-    const padding = design === 'cinematic' ? 30 : 80; // Less padding for cinematic design to reach closer to edges
+    const padding = (design === 'cinematic' || design === 'vintage') ? 30 : 80; // Less padding for cinematic and vintage designs to reach closer to edges
     const contentWidth = targetWidth - (padding * 2); // Available width for text
     
     // Function to wrap text into multiple lines - NO ELLIPSIS, accept all text
