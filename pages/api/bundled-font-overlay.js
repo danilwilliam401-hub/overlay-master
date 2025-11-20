@@ -1599,13 +1599,17 @@ export default async function handler(req, res) {
     res.setHeader('Content-Disposition', `inline; filename="${design}-overlay.${fileExtension}"`);
     res.setHeader('Content-Length', String(finalImage.length));
     
-    // Disable caching for random quote generation to ensure fresh content on every refresh
+    // Cache control based on val parameter
     if (val === 'InspirationTagalog' || val === 'HugotTagalog') {
+      // Disable caching for random quote generation to ensure fresh content on every refresh
       res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
       res.setHeader('Pragma', 'no-cache');
       res.setHeader('Expires', '0');
+    } else if (val === 'igpost') {
+      // Cache for 60 seconds for Instagram posts
       res.setHeader('Cache-Control', 'public, max-age=60');
     } else {
+      // Default cache for 5 minutes
       res.setHeader('Cache-Control', 'public, max-age=300');
     }
     
