@@ -1,0 +1,284 @@
+// Prisma schema for Overlay Banner API with authentication and usage tracking
+// Supports SQLite (dev) and PostgreSQL (production)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"  // Change to "postgresql" for production
+  url      = env("DATABASE_URL")
+}
+
+// User accounts (authenticated via Google OAuth)
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  password      String?   // Hashed password for email/password authentication
+  image         String?   // Avatar URL from OAuth provider
+  emailVerified DateTime?
+  isAdmin       Boolean   @default(false)  // Admin role for accessing admin panel
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  // Relations
+  accounts      Account[]
+  sessions      Session[]
+  apiKeys       ApiKey[]
+  banners       Banner[]
+  subscriptions Subscription[]
+  payments      Payment[]
+  invoices      Invoice[]
+  
+  @@map("users")
+}
+
+// NextAuth Account model (OAuth provider data)
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+// NextAuth Session model
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("sessions")
+}
+
+// NextAuth VerificationToken model (for magic links if needed)
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// API Keys for public access to overlay API
+model ApiKey {
+  id            String    @id @default(cuid())
+  userId        String
+  keyHash       String    @unique  // bcrypt hash of the full key
+  prefix        String              // First 12 chars for display (e.g., "sk_live_abcd")
+  name          String              // User-friendly name
+  createdAt     DateTime  @default(now())
+  revokedAt     DateTime?           // If set, key is revoked
+  lastUsedAt    DateTime?
+  metadata      String?             // JSON: { limitPerMinute, allowedOrigins, etc. }
+  
+  // Relations
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  usage         ApiUsage[]
+  banners       Banner[]
+  
+  @@index([userId])
+  @@index([keyHash])
+  @@map("api_keys")
+}
+
+// API Usage logs (every request to overlay API)
+model ApiUsage {
+  id            String   @id @default(cuid())
+  apiKeyId      String
+  endpoint      String              // e.g., "/api/bundled-font-overlay"
+  method        String   @default("POST")
+  status        Int                 // HTTP status code (200, 400, 429, etc.)
+  latencyMs     Int?                // Processing time in milliseconds
+  bytesOut      Int?                // Response size in bytes
+  errorMessage  String?             // If status >= 400
+  metadata      String?             // JSON: { theme, hasImage, etc. }
+  createdAt     DateTime @default(now())
+  
+  // Relations
+  apiKey        ApiKey   @relation(fields: [apiKeyId], references: [id], onDelete: Cascade)
+  
+  @@index([apiKeyId])
+  @@index([createdAt])
+  @@map("api_usage")
+}
+
+// Generated banners (saved for user history)
+model Banner {
+  id            String   @id @default(cuid())
+  userId        String
+  apiKeyId      String?             // If created via API key
+  imagePath     String?             // Relative path to saved image (optional)
+  imageUrl      String?             // Full URL or data URL
+  theme         String              // Design theme used (e.g., "antonBlack")
+  title         String
+  caption       String?             // Website or additional text
+  metadata      String?             // JSON: { width, height, format, etc. }
+  createdAt     DateTime @default(now())
+  
+  // Relations
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  apiKey        ApiKey?  @relation(fields: [apiKeyId], references: [id], onDelete: SetNull)
+  
+  @@index([userId])
+  @@index([createdAt])
+  @@map("banners")
+}
+
+// Subscription plans and billing
+model Subscription {
+  id                String   @id @default(cuid())
+  userId            String
+  plan              String              // 'free', 'starter', 'pro', 'enterprise'
+  status            String              // 'active', 'canceled', 'past_due', 'trialing'
+  billingCycle      String   @default("monthly")  // 'monthly', 'yearly'
+  currentPeriodStart DateTime
+  currentPeriodEnd   DateTime
+  cancelAtPeriodEnd Boolean  @default(false)
+  
+  // Payment provider details
+  provider          String              // 'paymongo', 'paypal'
+  providerSubscriptionId String?  @unique  // External subscription ID
+  providerCustomerId String?            // Customer ID from payment provider
+  
+  // Pricing
+  amount            Int                 // Amount in cents/centavos
+  currency          String   @default("PHP")
+  
+  // Metadata
+  metadata          String?             // JSON: additional data
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  canceledAt        DateTime?
+  
+  // Relations
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  payments          Payment[]
+  
+  @@index([userId])
+  @@index([status])
+  @@index([providerSubscriptionId])
+  @@map("subscriptions")
+}
+
+// Payment transactions (one-time or subscription)
+model Payment {
+  id                String   @id @default(cuid())
+  userId            String
+  subscriptionId    String?             // If part of subscription
+  
+  // Payment details
+  provider          String              // 'paymongo', 'paypal'
+  providerPaymentId String   @unique   // Payment ID from provider
+  paymentMethod     String              // 'card', 'gcash', 'paymaya', 'grabpay', 'paypal'
+  
+  // Amount
+  amount            Int                 // Amount in cents/centavos
+  currency          String   @default("PHP")
+  status            String              // 'pending', 'paid', 'failed', 'refunded'
+  
+  // Description
+  description       String?
+  
+  // Metadata
+  metadata          String?             // JSON: additional data like card details, receipt
+  failureReason     String?
+  
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  paidAt            DateTime?
+  
+  // Relations
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subscription      Subscription? @relation(fields: [subscriptionId], references: [id], onDelete: SetNull)
+  invoice           Invoice?
+  
+  @@index([userId])
+  @@index([subscriptionId])
+  @@index([status])
+  @@index([providerPaymentId])
+  @@map("payments")
+}
+
+// Invoices for payments
+model Invoice {
+  id                String   @id @default(cuid())
+  userId            String
+  paymentId         String   @unique
+  
+  // Invoice details
+  invoiceNumber     String   @unique    // Human-readable invoice number
+  amount            Int                 // Amount in cents/centavos
+  currency          String   @default("PHP")
+  status            String              // 'draft', 'open', 'paid', 'void'
+  
+  // Description
+  description       String?
+  lineItems         String?             // JSON: array of line items
+  
+  // Dates
+  issuedAt          DateTime @default(now())
+  dueAt             DateTime?
+  paidAt            DateTime?
+  
+  // PDF
+  pdfUrl            String?             // URL to generated PDF
+  
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  // Relations
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  payment           Payment  @relation(fields: [paymentId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
+  @@index([status])
+  @@index([invoiceNumber])
+  @@map("invoices")
+}
+
+// MIGRATION INSTRUCTIONS:
+// 1. Install dependencies:
+//    npm install prisma @prisma/client bcryptjs next-auth
+//
+// 2. Initialize Prisma (if not done):
+//    npx prisma init
+//
+// 3. Set DATABASE_URL in .env:
+//    For SQLite (dev):
+//      DATABASE_URL="file:./dev.db"
+//    For PostgreSQL (production):
+//      DATABASE_URL="postgresql://user:password@localhost:5432/overlay_banner_db?schema=public"
+//
+// 4. Generate Prisma Client:
+//    npx prisma generate
+//
+// 5. Create migration and apply:
+//    npx prisma migrate dev --name init
+//
+// 6. (Optional) Open Prisma Studio to view data:
+//    npx prisma studio
+//
+// PRODUCTION NOTES:
+// - Use PostgreSQL for production (better concurrency, no file locks)
+// - Set up connection pooling (PgBouncer or Prisma Accelerate)
+// - Enable slow query logging
+// - Add indexes for frequently queried fields
+// - Consider sharding ApiUsage by date for large datasets

@@ -1,0 +1,440 @@
+/* Checkout Page Styles - Matching Landing Page Theme */
+
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 20px;
+}
+
+.innerContainer {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 60px;
+  color: white;
+}
+
+.title {
+  font-size: 48px;
+  font-weight: 900;
+  margin: 0 0 16px 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+  font-size: 20px;
+  opacity: 0.95;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Billing Cycle Toggle */
+.billingToggleContainer {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.billingToggle {
+  display: inline-flex;
+  background: white;
+  border-radius: 50px;
+  padding: 6px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.toggleBtn {
+  padding: 12px 32px;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: transparent;
+  color: #6b7280;
+}
+
+.toggleBtnActive {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.saveBadge {
+  display: inline-block;
+  background: #10b981;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 12px;
+  margin-left: 8px;
+  text-transform: uppercase;
+}
+
+/* Plans Grid */
+.plansGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.planCard {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 3px solid transparent;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.planCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.planCardSelected {
+  border-color: #667eea;
+  box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+  transform: translateY(-8px);
+}
+
+.planCardFeatured {
+  border: 3px solid #667eea;
+  transform: scale(1.05);
+}
+
+.planCardFeatured:hover {
+  transform: scale(1.05) translateY(-8px);
+}
+
+.popularBadge {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 8px 24px;
+  border-radius: 25px;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.checkmark {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s;
+}
+
+.planCardSelected .checkmark {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.planName {
+  font-size: 28px;
+  font-weight: 800;
+  margin: 0 0 20px 0;
+  color: #1a1a1a;
+}
+
+.planPrice {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.currency {
+  font-size: 24px;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.amount {
+  font-size: 52px;
+  font-weight: 900;
+  color: #1a1a1a;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.period {
+  font-size: 18px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.planDescription {
+  color: #6b7280;
+  font-size: 15px;
+  margin: 0 0 30px 0;
+  line-height: 1.6;
+}
+
+.featuresList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.featureItem {
+  padding: 14px 0;
+  color: #374151;
+  font-size: 15px;
+  border-bottom: 1px solid #f3f4f6;
+  position: relative;
+  padding-left: 32px;
+  line-height: 1.6;
+}
+
+.featureItem:last-child {
+  border-bottom: none;
+}
+
+.featureItem::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #10b981;
+  font-weight: 900;
+  font-size: 18px;
+}
+
+/* Payment Methods Section */
+.paymentSection {
+  background: white;
+  border-radius: 20px;
+  padding: 50px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.paymentTitle {
+  font-size: 32px;
+  font-weight: 800;
+  margin: 0 0 16px 0;
+  color: #1a1a1a;
+}
+
+.paymentSubtitle {
+  color: #6b7280;
+  font-size: 16px;
+  margin: 0 0 40px 0;
+}
+
+.paymentButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 500px;
+  margin: 0 auto 30px auto;
+}
+
+.paymentBtn {
+  padding: 18px 40px;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.paymentBtn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.paymentBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.paymongoBtn {
+  background: #5B6DF5;
+  color: white;
+}
+
+.paypalBtn {
+  background: #0070BA;
+  color: white;
+}
+
+.paymentIcon {
+  font-size: 24px;
+}
+
+.paymentInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.8;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.infoRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.infoIcon {
+  color: #667eea;
+}
+
+/* Loading State */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Security Badge */
+.securityBadge {
+  margin-top: 30px;
+  padding: 20px;
+  background: #f9fafb;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.securityIcon {
+  color: #10b981;
+  font-size: 20px;
+}
+
+/* Back Link */
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  margin-bottom: 30px;
+  transition: all 0.3s;
+  font-size: 16px;
+}
+
+.backLink:hover {
+  transform: translateX(-5px);
+  opacity: 0.9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .title {
+    font-size: 36px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+
+  .plansGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .planCardFeatured {
+    transform: scale(1);
+  }
+
+  .planCardFeatured:hover {
+    transform: translateY(-8px);
+  }
+
+  .paymentSection {
+    padding: 30px 20px;
+  }
+
+  .paymentTitle {
+    font-size: 24px;
+  }
+
+  .toggleBtn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .amount {
+    font-size: 42px;
+  }
+
+  .paymentButtons {
+    gap: 15px;
+  }
+
+  .paymentBtn {
+    padding: 16px 30px;
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .plansGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1025px) {
+  .plansGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

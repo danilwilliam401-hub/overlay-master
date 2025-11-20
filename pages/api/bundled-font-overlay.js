@@ -3,6 +3,8 @@ import https from 'https';
 import http from 'http';
 import path from 'path';
 import fs from 'fs';
+import { protectApiRoute } from '../../lib/apiKeyAuth';
+import { logUsage } from './usage/log';
 
 // Force Node.js runtime (crucial for Sharp + fontconfig)
 export const runtime = 'nodejs';
@@ -472,11 +474,76 @@ const DESIGN_THEMES = {
 };
 
 export default async function handler(req, res) {
+  const startTime = Date.now();
+  
   console.log('\n🎨 === MULTI-DESIGN FONT OVERLAY GENERATOR ===');
   console.log('Method:', req.method);
   console.log('Query:', req.query);
   console.log('Body:', req.body);
   console.log('Full URL:', req.url);
+  
+  // ============================================================================
+  // API KEY AUTHENTICATION & RATE LIMITING (TEMPORARILY DISABLED)
+  // ============================================================================
+  // NOTE: Authentication is currently disabled for backwards compatibility
+  // Uncomment the code below to re-enable API key authentication
+  
+  /*
+  const { valid, key, error, rateLimit } = await protectApiRoute(req, {
+    requireKey: true,  // Set to false to allow anonymous access
+    defaultLimit: 60   // Default: 60 requests per minute
+  });
+  
+  // Handle authentication error
+  if (!valid) {
+    console.log(`❌ Auth failed: ${error}`);
+    return res.status(401).json({ 
+      status: 'error',
+      error: error || 'Invalid API key',
+      message: 'Provide a valid API key via Authorization: Bearer <key> or x-api-key header'
+    });
+  }
+  
+  // Handle rate limit exceeded
+  if (!rateLimit.allowed) {
+    console.log(`⚠️ Rate limit exceeded for key ${key.prefix}...`);
+    
+    await logUsage({
+      apiKeyId: key.id,
+      endpoint: '/api/bundled-font-overlay',
+      method: req.method,
+      status: 429,
+      latencyMs: Date.now() - startTime,
+      errorMessage: 'Rate limit exceeded'
+    });
+    
+    return res.status(429)
+      .setHeader('X-RateLimit-Limit', rateLimit.limit)
+      .setHeader('X-RateLimit-Remaining', 0)
+      .setHeader('X-RateLimit-Reset', rateLimit.resetAt)
+      .json({ 
+        status: 'error',
+        error: 'Rate limit exceeded',
+        limit: rateLimit.limit,
+        remaining: 0,
+        resetAt: new Date(rateLimit.resetAt).toISOString(),
+        message: `You have exceeded the rate limit of ${rateLimit.limit} requests per minute`
+      });
+  }
+  
+  // Add rate limit headers to all responses
+  res.setHeader('X-RateLimit-Limit', rateLimit.limit);
+  res.setHeader('X-RateLimit-Remaining', rateLimit.remaining);
+  res.setHeader('X-RateLimit-Reset', rateLimit.resetAt);
+  
+  console.log(`✅ Authenticated: ${key.user.email} (${key.name}) - ${rateLimit.remaining}/${rateLimit.limit} remaining`);
+  */
+  
+  console.log('⚠️ Running in PUBLIC mode (no authentication required)');
+  
+  // ============================================================================
+  // END AUTHENTICATION
+  // ============================================================================
   
   try {
     // Support both GET and POST methods for long text handling
@@ -1537,6 +1604,7 @@ export default async function handler(req, res) {
       res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
       res.setHeader('Pragma', 'no-cache');
       res.setHeader('Expires', '0');
+      res.setHeader('Cache-Control', 'public, max-age=60');
     } else {
       res.setHeader('Cache-Control', 'public, max-age=300');
     }
@@ -1544,11 +1612,48 @@ export default async function handler(req, res) {
     res.setHeader('X-Font-System', 'bundled-fonts');
     res.setHeader('X-Design-Theme', selectedDesign.name);
     
+    // Log successful usage (disabled while authentication is off)
+    /*
+    await logUsage({
+      apiKeyId: key.id,
+      endpoint: '/api/bundled-font-overlay',
+      method: req.method,
+      status: 200,
+      latencyMs: Date.now() - startTime,
+      bytesOut: finalImage.length,
+      metadata: {
+        theme: design,
+        hasCustomImage: !!imageUrl,
+        width: w,
+        height: h,
+        outputFormat: contentType
+      }
+    });
+    */
+    
+    console.log(`✅ Request completed in ${Date.now() - startTime}ms`);
+    
     // Send the image
     res.send(finalImage);
     
   } catch (error) {
     console.error('❌ Font overlay generation failed:', error);
+    
+    // Log failed usage (disabled while authentication is off)
+    /*
+    await logUsage({
+      apiKeyId: key.id,
+      endpoint: '/api/bundled-font-overlay',
+      method: req.method,
+      status: 500,
+      latencyMs: Date.now() - startTime,
+      errorMessage: error.message,
+      metadata: {
+        theme: design || 'unknown',
+        error: error.stack?.substring(0, 500)
+      }
+    });
+    */
     
     // Provide detailed error info for debugging
     res.status(500).json({

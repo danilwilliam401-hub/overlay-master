@@ -18,6 +18,8 @@
 
 import Head from 'next/head';
 import { useState, useRef, useEffect } from 'react';
+import { signIn, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import styles from '../styles/Landing.module.css';
 
 // SEO Metadata
@@ -28,6 +30,9 @@ const SEO_META = {
 };
 
 export default function LandingPage() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  
   // State management for overlay banner upload
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -279,12 +284,62 @@ export default function LandingPage() {
               </a>
             </div>
 
-            <button 
-              onClick={() => scrollToSection('hero')}
-              className={styles.navCta}
-            >
-              Try Now
-            </button>
+            {/* Sign In / Dashboard Button */}
+            <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+              {status === "loading" ? (
+                <span style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '14px' }}>...</span>
+              ) : session ? (
+                <button
+                  onClick={() => router.push('/dashboard')}
+                  className={styles.navCta}
+                >
+                  Dashboard
+                </button>
+              ) : (
+                <>
+                  <button
+                    onClick={() => router.push('/signin')}
+                    style={{
+                      padding: '10px 20px',
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      background: 'transparent',
+                      color: 'white',
+                      border: '2px solid white',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.background = 'white';
+                      e.target.style.color = '#667eea';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.background = 'transparent';
+                      e.target.style.color = 'white';
+                    }}
+                  >
+                    Sign In
+                  </button>
+                  <button
+                    onClick={() => router.push('/signup')}
+                    style={{
+                      padding: '10px 20px',
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      background: 'white',
+                      color: '#667eea',
+                      border: '2px solid white',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                    }}
+                  >
+                    Sign Up
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         </nav>
 

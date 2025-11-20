@@ -12,12 +12,30 @@ out/
 build/
 dist/
 
-# Environment variables
+# Environment variables - CRITICAL: Never commit these!
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+.env*.local
+*.env
+!.env.example
+!.env.payment-template
+
+# Prisma
+prisma/*.db
+prisma/*.db-journal
+*.db
+*.db-journal
+
+# API Keys and Secrets (extra protection)
+*secret*
+*SECRET*
+*_key
+*_KEY
+*credentials*
+*CREDENTIALS*
 
 # Vercel
 .vercel

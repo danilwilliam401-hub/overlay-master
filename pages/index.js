@@ -1,7 +1,12 @@
 import Head from "next/head";
 import { fetchImageWithBuiltins } from "../lib/fetchUtils";
+import { signIn, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 export default function Home({ imageData, error, image, title, preview, imageBase64, website, showDocs }) {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  
   // If preview mode is enabled, show the actual image with overlay
   if (preview && imageBase64) {
     return (
@@ -592,11 +597,30 @@ export default function Home({ imageData, error, image, title, preview, imageBas
   // Default public homepage
   const containerStyle = {
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: "column",
     minHeight: "100vh",
     backgroundColor: "#0a0a0a",
-    fontFamily: "'Inter', 'Helvetica Neue', sans-serif",
+    fontFamily: "'Inter', 'Helvetica Neue', sans-serif"
+  };
+  
+  const headerStyle = {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "20px 40px",
+    backgroundColor: "rgba(26, 26, 26, 0.8)",
+    backdropFilter: "blur(10px)",
+    borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+    position: "sticky",
+    top: 0,
+    zIndex: 1000
+  };
+  
+  const mainContentStyle = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
     padding: "20px"
   };
 
@@ -620,6 +644,92 @@ export default function Home({ imageData, error, image, title, preview, imageBas
       </Head>
 
       <div style={containerStyle}>
+        {/* Header with Login Button */}
+        <header style={headerStyle}>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <span style={{ fontSize: "1.5rem" }}>🖼️</span>
+            <span style={{ 
+              fontSize: "1.2rem", 
+              fontWeight: "700",
+              background: "linear-gradient(135deg, #4CAF50, #2196F3)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text"
+            }}>
+              Banner Generator
+            </span>
+          </div>
+          
+          <div style={{ display: "flex", gap: "15px", alignItems: "center" }}>
+            {status === "loading" ? (
+              <span style={{ color: "rgba(255, 255, 255, 0.6)", fontSize: "14px" }}>Loading...</span>
+            ) : session ? (
+              <>
+                <button
+                  onClick={() => router.push('/dashboard')}
+                  style={{
+                    backgroundColor: "transparent",
+                    color: "white",
+                    padding: "10px 20px",
+                    border: "1px solid rgba(255, 255, 255, 0.3)",
+                    borderRadius: "8px",
+                    fontSize: "14px",
+                    fontWeight: "600",
+                    cursor: "pointer",
+                    transition: "all 0.2s",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px"
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+                    e.target.style.borderColor = "rgba(255, 255, 255, 0.5)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.backgroundColor = "transparent";
+                    e.target.style.borderColor = "rgba(255, 255, 255, 0.3)";
+                  }}
+                >
+                  📊 Dashboard
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
+                style={{
+                  backgroundColor: "#4CAF50",
+                  color: "white",
+                  padding: "10px 24px",
+                  border: "none",
+                  borderRadius: "8px",
+                  fontSize: "14px",
+                  fontWeight: "600",
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  boxShadow: "0 4px 12px rgba(76, 175, 80, 0.3)"
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = "#45a049";
+                  e.target.style.transform = "translateY(-2px)";
+                  e.target.style.boxShadow = "0 6px 16px rgba(76, 175, 80, 0.4)";
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = "#4CAF50";
+                  e.target.style.transform = "translateY(0)";
+                  e.target.style.boxShadow = "0 4px 12px rgba(76, 175, 80, 0.3)";
+                }}
+              >
+                🔐 Sign In with Google
+              </button>
+            )}
+          </div>
+        </header>
+
+        {/* Main Content */}
+        <div style={mainContentStyle}>
         <div style={heroStyle}>
           <h1 style={{
             fontSize: "clamp(2.5rem, 5vw, 4rem)",
@@ -729,6 +839,7 @@ export default function Home({ imageData, error, image, title, preview, imageBas
             </p>
           </div>
         </div>
+        </div>
       </div>
     </>
   );
@@ -737,6 +848,16 @@ export default function Home({ imageData, error, image, title, preview, imageBas
 // Server-side rendering to fetch image data
 export async function getServerSideProps(context) {
   const { image = "", title = "", preview = "", website = "", admin = "" } = context.query;
+  
+  // If no parameters provided, redirect to landing page
+  if (!image && !title && !preview && !website && !admin) {
+    return {
+      redirect: {
+        destination: '/landing',
+        permanent: false,
+      },
+    };
+  }
   
   // If no image parameter, show the appropriate homepage
   if (!image) {
