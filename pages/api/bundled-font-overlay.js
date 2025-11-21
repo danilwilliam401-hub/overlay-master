@@ -1595,8 +1595,14 @@ export default async function handler(req, res) {
     // Set response headers with proper filename and content length
     const contentType = (design === 'blank' || design === 'antonTransparent') ? 'image/png' : 'image/jpeg';
     const fileExtension = (design === 'blank' || design === 'antonTransparent') ? 'png' : 'jpg';
+    
+    // Generate unique filename with timestamp and random string
+    const timestamp = Date.now();
+    const randomString = Math.random().toString(36).substring(2, 8);
+    const uniqueFilename = `${design}-overlay-${timestamp}-${randomString}.${fileExtension}`;
+    
     res.setHeader('Content-Type', contentType);
-    res.setHeader('Content-Disposition', `inline; filename="${design}-overlay.${fileExtension}"`);
+    res.setHeader('Content-Disposition', `inline; filename="${uniqueFilename}"`);
     res.setHeader('Content-Length', String(finalImage.length));
     
     // Cache control based on val parameter
