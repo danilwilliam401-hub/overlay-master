@@ -298,7 +298,6 @@ export default function handler(req, res) {
   const randomIndex = Math.floor(Math.random() * hugotQuotes.length);
   const randomQuote = hugotQuotes[randomIndex];
 
-  // Return as plain text
-  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-  res.status(200).send(randomQuote);
+  // Return as JSON
+  res.status(200).json({ message: randomQuote });
 }
