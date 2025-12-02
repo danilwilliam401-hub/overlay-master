@@ -127,9 +127,340 @@ function fetchImageBuffer(imageUrl) {
   });
 }
 
-const DESIGN_THEMES = { /* identical theme definitions omitted for brevity in clone */ };
-// NOTE: For full parity, copy the entire DESIGN_THEMES object from bundled-font-overlay.js.
-// Omitted here only to keep file size manageable in this creation output.
+// Design configurations for different styles (cloned from bundled-font-overlay.js)
+const DESIGN_THEMES = {
+  'default': {
+    name: 'Breaking News Boldness',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFD700',
+    gradientColors: ['rgba(0,31,63,0.95)', 'rgba(0,31,63,0.98)'],
+    titleSize: 48,
+    websiteSize: 24,
+    fontWeight: '700',
+    fontFamily: 'Bebas Neue'
+  },
+  'tech': {
+    name: 'Professional Editorial',
+    titleColor: '#FFFFFF',
+    websiteColor: '#E0E0E0',
+    gradientColors: ['rgba(38,50,56,0.95)', 'rgba(38,50,56,0.98)'],
+    titleSize: 52,
+    websiteSize: 26,
+    fontWeight: '700',
+    fontFamily: 'Oswald'
+  },
+  'entertainment': {
+    name: 'Viral & Loud',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFB347',
+    gradientColors: ['rgba(230,81,0,0.95)', 'rgba(230,81,0,0.98)'],
+    titleSize: 78,
+    websiteSize: 32,
+    fontWeight: '900',
+    fontFamily: 'Anton'
+  },
+  'antonBlack': {
+    name: 'Anton Black',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFFFFF',
+    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(0,0,0,0.98)'],
+    titleSize: 78,
+    websiteSize: 32,
+    fontWeight: '900',
+    fontFamily: 'Anton'
+  },
+  'antonTransparent': {
+    name: 'Anton Transparent',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFD700',
+    gradientColors: [],
+    titleSize: 78,
+    websiteSize: 32,
+    fontWeight: '900',
+    fontFamily: 'Anton',
+    transparent: true
+  },
+  'antonTransparent2': {
+    name: 'Anton White Background',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFB347',
+    gradientColors: ['rgba(255,255,255,0.95)', 'rgba(255,255,255,0.98)'],
+    titleSize: 78,
+    websiteSize: 32,
+    fontWeight: '900',
+    fontFamily: 'Anton'
+  },
+  'antonWhite': {
+    name: 'Anton White with Black Text',
+    titleColor: '#000000',
+    websiteColor: '#000000',
+    gradientColors: ['rgba(255,255,255,0.95)', 'rgba(255,255,255,0.98)'],
+    titleSize: 78,
+    websiteSize: 32,
+    fontWeight: '900',
+    fontFamily: 'Anton'
+  },
+  'sports': {
+    name: 'Impact Headlines',
+    titleColor: '#FFFFFF',
+    websiteColor: '#90EE90',
+    gradientColors: ['rgba(0,77,64,0.95)', 'rgba(0,77,64,0.98)'],
+    titleSize: 50,
+    websiteSize: 25,
+    fontWeight: '900',
+    fontFamily: 'Impact'
+  },
+  'anime': {
+    name: 'Friendly & Trustworthy',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFB347',
+    gradientColors: ['rgba(255,111,0,0.95)', 'rgba(255,111,0,0.98)'],
+    titleSize: 46,
+    websiteSize: 23,
+    fontWeight: '800',
+    fontFamily: 'Poppins'
+  },
+  'eco': {
+    name: 'Smart & Minimal',
+    titleColor: '#FFFFFF',
+    websiteColor: '#90EE90',
+    gradientColors: ['rgba(0,77,77,0.95)', 'rgba(0,77,77,0.98)'],
+    titleSize: 48,
+    websiteSize: 24,
+    fontWeight: '800',
+    fontFamily: 'League Spartan'
+  },
+  'news': {
+    name: 'Breaking News Crimson',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFD700',
+    gradientColors: ['rgba(139,0,0,0.95)', 'rgba(139,0,0,0.98)'],
+    titleSize: 44,
+    websiteSize: 22,
+    fontWeight: '400',
+    fontFamily: 'Bebas Neue'
+  },
+  'minimal': {
+    name: 'Editorial Prestige',
+    titleColor: '#FFFFFF',
+    websiteColor: '#D4AF37',
+    gradientColors: ['rgba(0,0,0,0.95)', 'rgba(0,0,0,0.98)'],
+    titleSize: 42,
+    websiteSize: 20,
+    fontWeight: '900',
+    fontFamily: 'Playfair Display'
+  },
+  'modern': {
+    name: 'Modern Authority',
+    titleColor: '#FFFFFF',
+    websiteColor: '#E6E6FA',
+    gradientColors: ['rgba(0,51,153,0.95)', 'rgba(0,51,153,0.98)'],
+    titleSize: 60,
+    websiteSize: 24,
+    fontWeight: '800',
+    fontFamily: 'Montserrat'
+  },
+  'bold': {
+    name: 'Stylish Credibility',
+    titleColor: '#FFFFFF',
+    websiteColor: '#F5DEB3',
+    gradientColors: ['rgba(62,39,35,0.95)', 'rgba(62,39,35,0.98)'],
+    titleSize: 85,
+    websiteSize: 35,
+    fontWeight: '900',
+    fontFamily: 'Raleway'
+  },
+  'viral': {
+    name: 'Versatile & Balanced',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFB6C1',
+    gradientColors: ['rgba(43,43,43,0.95)', 'rgba(43,43,43,0.98)'],
+    titleSize: 67,
+    websiteSize: 28,
+    fontWeight: '700',
+    fontFamily: 'Roboto Condensed'
+  },
+  'breaking': {
+    name: 'Breaking News Alert',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFD700',
+    gradientColors: ['rgba(139,0,0,0.95)', 'rgba(139,0,0,0.98)'],
+    titleSize: 57,
+    websiteSize: 25,
+    fontWeight: '400',
+    fontFamily: 'Bebas Neue'
+  },
+  'thoughtful': {
+    name: 'Thoughtful Deep Purple',
+    titleColor: '#FFFFFF',
+    websiteColor: '#E6E6FA',
+    gradientColors: ['rgba(74,20,140,0.95)', 'rgba(74,20,140,0.98)'],
+    titleSize: 53,
+    websiteSize: 22,
+    fontWeight: '700',
+    fontFamily: 'Montserrat'
+  },
+  'colorful': {
+    name: 'Colorful Amber',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFE4B5',
+    gradientColors: ['rgba(255,111,0,0.95)', 'rgba(255,111,0,0.98)'],
+    titleSize: 63,
+    websiteSize: 26,
+    fontWeight: '900',
+    fontFamily: 'Anton'
+  },
+  'overlay': {
+    name: 'Photo Overlay Dark Gray',
+    titleColor: '#FFFFFF',
+    websiteColor: '#D3D3D3',
+    gradientColors: ['rgba(18,18,18,0.95)', 'rgba(18,18,18,0.98)'],
+    titleSize: 60,
+    websiteSize: 24,
+    fontWeight: '800',
+    fontFamily: 'Roboto Condensed'
+  },
+  'aesthetic': {
+    name: 'Aesthetic Sea Green',
+    titleColor: '#FFFFFF',
+    websiteColor: '#AFEEEE',
+    gradientColors: ['rgba(46,139,87,0.95)', 'rgba(46,139,87,0.98)'],
+    titleSize: 57,
+    websiteSize: 23,
+    fontWeight: '700',
+    fontFamily: 'Poppins'
+  },
+  'monochrome': {
+    name: 'Monochrome Graphite',
+    titleColor: '#FFFFFF',
+    websiteColor: '#D3D3D3',
+    gradientColors: ['rgba(43,43,43,0.95)', 'rgba(43,43,43,0.98)'],
+    titleSize: 60,
+    websiteSize: 24,
+    fontWeight: '700',
+    fontFamily: 'Impact'
+  },
+  'vintage': {
+    name: 'Vintage Copper',
+    titleColor: '#FFFFFF',
+    websiteColor: '#F5DEB3',
+    gradientColors: ['rgba(184,115,51,0.95)', 'rgba(184,115,51,0.98)'],
+    titleSize: 68,
+    websiteSize: 26,
+    fontWeight: '900',
+    fontFamily: 'Playfair Display'
+  },
+  'luxury': {
+    name: 'Luxury Burgundy',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFD700',
+    gradientColors: ['rgba(128,0,32,0.95)', 'rgba(128,0,32,0.98)'],
+    titleSize: 63,
+    websiteSize: 26,
+    fontWeight: '700',
+    fontFamily: 'Playfair Display'
+  },
+  'cinematic': {
+    name: 'Cinematic Steel Blue',
+    titleColor: '#FFFFFF',
+    websiteColor: '#B0C4DE',
+    gradientColors: ['rgba(38,50,56,0.95)', 'rgba(38,50,56,0.98)'],
+    titleSize: 56,
+    websiteSize: 30,
+    fontWeight: '900',
+    fontFamily: 'Anton'
+  },
+  'neon': {
+    name: 'Neon Indigo',
+    titleColor: '#FFFFFF',
+    websiteColor: '#87CEEB',
+    gradientColors: ['rgba(63,81,181,0.95)', 'rgba(63,81,181,0.98)'],
+    titleSize: 60,
+    websiteSize: 26,
+    fontWeight: '800',
+    fontFamily: 'Bebas Neue'
+  },
+  'inspire': {
+    name: 'Inspirational Olive',
+    titleColor: '#FFFFFF',
+    websiteColor: '#F0E68C',
+    gradientColors: ['rgba(61,153,112,0.95)', 'rgba(61,153,112,0.98)'],
+    titleSize: 63,
+    websiteSize: 26,
+    fontWeight: '900',
+    fontFamily: 'League Spartan'
+  },
+  'cute': {
+    name: 'Cute Royal Violet',
+    titleColor: '#FFFFFF',
+    websiteColor: '#DDA0DD',
+    gradientColors: ['rgba(94,53,177,0.95)', 'rgba(94,53,177,0.98)'],
+    titleSize: 67,
+    websiteSize: 28,
+    fontWeight: '800',
+    fontFamily: 'Poppins'
+  },
+  'warmbrown': {
+    name: 'Warm Espresso',
+    titleColor: '#FFFFFF',
+    websiteColor: '#D2B48C',
+    gradientColors: ['rgba(62,39,35,0.95)', 'rgba(62,39,35,0.98)'],
+    titleSize: 67,
+    websiteSize: 28,
+    fontWeight: '800',
+    fontFamily: 'Montserrat'
+  },
+  'pokemon': {
+    name: 'Pokémon Wine',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFD700',
+    gradientColors: ['rgba(81,45,168,0.95)', 'rgba(81,45,168,0.98)'],
+    titleSize: 73,
+    websiteSize: 30,
+    fontWeight: '900',
+    fontFamily: 'Impact'
+  },
+  'quote1': {
+    name: 'Bold Quote Overlay',
+    titleColor: '#FFFFFF',
+    websiteColor: '#CCCCCC',
+    gradientColors: ['rgba(0,0,0,1.0)', 'rgba(0,0,0,1.0)'],
+    titleSize: 64,
+    websiteSize: 28,
+    fontWeight: '900',
+    fontFamily: 'Anton'
+  },
+  'quote2': {
+    name: 'Elegant Quote Overlay',
+    titleColor: '#FFFFFF',
+    websiteColor: '#E0E0E0',
+    gradientColors: ['rgba(30,30,30,1.0)', 'rgba(30,30,30,1.0)'],
+    titleSize: 58,
+    websiteSize: 26,
+    fontWeight: '900',
+    fontFamily: 'Playfair Display'
+  },
+  'quote3': {
+    name: 'Impact Quote Overlay',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFD700',
+    gradientColors: ['rgba(0,0,0,1.0)', 'rgba(20,20,20,1.0)'],
+    titleSize: 68,
+    websiteSize: 30,
+    fontWeight: '900',
+    fontFamily: 'Impact'
+  },
+  'blank': {
+    name: 'Transparent Blank',
+    titleColor: '#FFFFFF',
+    websiteColor: '#E0E0E0',
+    gradientColors: ['rgba(0,0,0,0)', 'rgba(0,0,0,0)'],
+    titleSize: 60,
+    websiteSize: 28,
+    fontWeight: '900',
+    fontFamily: 'Anton'
+  }
+};
 
 export default async function handler(req, res) {
   const startTime = Date.now();
@@ -281,11 +612,358 @@ export default async function handler(req, res) {
       svgHeight = Math.round(Math.max(200, contentBottom));
     }
 
-    const gradientStops = selectedDesign.gradientColors && selectedDesign.gradientColors.length > 0 ? selectedDesign.gradientColors.map((color, index) => `<stop offset="${index === 0 ? '0%' : '100%'}" style="stop-color:${color}"/>`).join('') : '';
+    // Generate design-specific gradient stops
+    const gradientStops = selectedDesign.gradientColors && selectedDesign.gradientColors.length > 0 
+      ? selectedDesign.gradientColors.map((color, index) => {
+          const offset = index === 0 ? '0%' : '100%';
+          return `<stop offset="${offset}" style="stop-color:${color}"/>`;
+        }).join('')
+      : ''; // Empty for transparent designs
 
-    const fontFaceDeclarations = `\n      @font-face { font-family: 'Noto Sans'; font-weight: 400; font-style: normal; font-display: block; src: url('${fontBase64Cache.notoRegular || ''}') format('truetype'); }\n      @font-face { font-family: 'Noto Sans'; font-weight: 700; font-style: normal; font-display: block; src: url('${fontBase64Cache.notoBold || ''}') format('truetype'); }\n      @font-face { font-family: 'Inter'; font-weight: 400; font-style: normal; font-display: block; src: url('${fontBase64Cache.interRegular || ''}') format('truetype'); }\n      @font-face { font-family: 'Inter'; font-weight: 700; font-style: normal; font-display: block; src: url('${fontBase64Cache.interBold || ''}') format('truetype'); }\n      @font-face { font-family: 'Bebas Neue'; font-weight: 400; font-style: normal; font-display: block; src: url('${fontBase64Cache.bebasNeue || ''}') format('truetype'); }\n      @font-face { font-family: 'Anton'; font-weight: 400; font-style: normal; font-display: block; src: url('${fontBase64Cache.anton || ''}') format('truetype'); }\n      @font-face { font-family: 'Impact'; font-weight: 400; font-style: normal; font-display: block; src: url('${fontBase64Cache.impact || ''}') format('truetype'); }\n      @font-face { font-family: 'Oswald'; font-weight: 700; font-style: normal; font-display: block; src: url('${fontBase64Cache.oswaldBold || ''}') format('truetype'); }\n      @font-face { font-family: 'Montserrat'; font-weight: 800; font-style: normal; font-display: block; src: url('${fontBase64Cache.montserratExtraBold || ''}') format('truetype'); }\n      @font-face { font-family: 'League Spartan'; font-weight: 800; font-style: normal; font-display: block; src: url('${fontBase64Cache.leagueSpartanBold || ''}') format('truetype'); }\n      @font-face { font-family: 'Raleway'; font-weight: 900; font-style: normal; font-display: block; src: url('${fontBase64Cache.ralewayHeavy || ''}') format('truetype'); }\n      @font-face { font-family: 'Roboto Condensed'; font-weight: 700; font-style: normal; font-display: block; src: url('${fontBase64Cache.robotoCondensedBold || ''}') format('truetype'); }\n      @font-face { font-family: 'Poppins'; font-weight: 800; font-style: normal; font-display: block; src: url('${fontBase64Cache.poppinsExtraBold || ''}') format('truetype'); }\n      @font-face { font-family: 'Playfair Display'; font-weight: 900; font-style: normal; font-display: block; src: url('${fontBase64Cache.playfairDisplayBlack || ''}') format('truetype'); }\n    `;
+    // Generate embedded font-face declarations with explicit family names for Sharp
+    const fontFaceDeclarations = `
+      @font-face {
+        font-family: 'Noto Sans';
+        font-weight: 400;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.notoRegular || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Noto Sans';
+        font-weight: 700;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.notoBold || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Inter';
+        font-weight: 400;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.interRegular || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Inter';
+        font-weight: 700;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.interBold || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Bebas Neue';
+        font-weight: 400;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.bebasNeue || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Anton';
+        font-weight: 400;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.anton || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Impact';
+        font-weight: 400;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.impact || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Oswald';
+        font-weight: 700;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.oswaldBold || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Montserrat';
+        font-weight: 800;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.montserratExtraBold || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'League Spartan';
+        font-weight: 800;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.leagueSpartanBold || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Raleway';
+        font-weight: 900;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.ralewayHeavy || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Roboto Condensed';
+        font-weight: 700;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.robotoCondensedBold || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Poppins';
+        font-weight: 800;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.poppinsExtraBold || ''}') format('truetype');
+      }
+      @font-face {
+        font-family: 'Playfair Display';
+        font-weight: 900;
+        font-style: normal;
+        font-display: block;
+        src: url('${fontBase64Cache.playfairDisplayBlack || ''}') format('truetype');
+      }
+    `;
 
-    const svg = `<?xml version="1.0" encoding="UTF-8"?>\n      <svg width="${targetWidth}" height="${svgHeight}" xmlns="http://www.w3.org/2000/svg">\n        <defs>\n          <linearGradient id="dynamicGradient" x1="0%" y1="0%" x2="0%" y2="100%">${gradientStops}</linearGradient>\n        </defs>\n        <style>${fontBase64Cache.notoBold || fontBase64Cache.notoRegular ? fontFaceDeclarations : ''}.title-text{font-family:"${selectedDesign.fontFamily || 'Noto Sans'}", "Noto Sans Bold", "Inter Bold", "Noto Sans", "Inter", Arial, sans-serif;font-size:${selectedDesign.titleSize}px;font-weight:${selectedDesign.fontWeight || '700'};fill:${selectedDesign.titleColor};text-anchor:middle;dominant-baseline:middle;letter-spacing:1px;} .website-text{font-family:"${selectedDesign.fontFamily || 'Noto Sans'}", "Noto Sans Bold", "Inter Bold", "Noto Sans", "Inter", Arial, sans-serif;font-size:${selectedDesign.websiteSize}px;font-weight:${selectedDesign.fontWeight || '700'};fill:${selectedDesign.websiteColor};text-anchor:middle;dominant-baseline:middle;letter-spacing:2px;text-transform:uppercase;} </style>\n        ${(design === 'antonTransparent' || design === 'blank') ? '' : '<rect width="100%" height="100%" fill="url(#dynamicGradient)"/>'}\n        ${titleLines.map((line, i) => `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY + (i * lineHeight))}" class="title-text">${line}</text>`).join('')}\n        ${website ? `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(websiteY)}" class="website-text">${websiteText}</text>` : ''}\n      </svg>`;
+    const svg = `<?xml version="1.0" encoding="UTF-8"?>
+      <svg width="${targetWidth}" height="${svgHeight}" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="dynamicGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            ${gradientStops}
+          </linearGradient>
+          ${design === 'tech' ? `
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge> 
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>` : ''}
+          ${design === 'warmbrown' ? `
+          <radialGradient id="warmVignette" cx="50%" cy="30%" r="80%">
+            <stop offset="0%" style="stop-color:rgba(0,0,0,0); stop-opacity:0"/>
+            <stop offset="70%" style="stop-color:rgba(0,0,0,0); stop-opacity:0"/>
+            <stop offset="100%" style="stop-color:rgba(0,0,0,0.3); stop-opacity:1"/>
+          </radialGradient>` : ''}
+          ${design === 'pokemon' ? `
+          <radialGradient id="pokemonBurst" cx="50%" cy="40%" r="50%">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.3"/>
+            <stop offset="40%" stop-color="#FFCB05" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="#FFCB05" stop-opacity="0"/>
+          </radialGradient>` : ''}
+          ${design === 'bold' ? `
+          <radialGradient id="boldVignette" cx="50%" cy="50%" r="70%">
+            <stop offset="0%" style="stop-color:rgba(0,0,0,0); stop-opacity:0"/>
+            <stop offset="60%" style="stop-color:rgba(0,0,0,0); stop-opacity:0"/>
+            <stop offset="100%" style="stop-color:rgba(0,0,0,0.5); stop-opacity:1"/>
+          </radialGradient>` : ''}
+        </defs>
+        
+        <style>
+          ${fontBase64Cache.notoBold || fontBase64Cache.notoRegular ? fontFaceDeclarations : ''}
+          
+          .title-text { 
+            font-family: "${selectedDesign.fontFamily || 'Noto Sans'}", "Noto Sans Bold", "Inter Bold", "Noto Sans", "Inter", Arial, sans-serif; 
+            font-size: ${selectedDesign.titleSize}px; 
+            font-weight: ${selectedDesign.fontWeight || '700'};
+            font-style: normal;
+            fill: ${selectedDesign.titleColor}; 
+            text-anchor: middle;
+            dominant-baseline: middle;
+            word-spacing: normal;
+            letter-spacing: ${design === 'tech' ? '2px' : '1px'};
+            ${design === 'tech' ? 'filter: url(#glow);' : ''}
+          }
+          .website-text { 
+            font-family: "${selectedDesign.fontFamily || 'Noto Sans'}", "Noto Sans Bold", "Inter Bold", "Noto Sans", "Inter", Arial, sans-serif; 
+            font-size: ${selectedDesign.websiteSize}px; 
+            font-weight: ${selectedDesign.fontWeight || '700'};
+            font-style: normal;
+            fill: ${selectedDesign.websiteColor}; 
+            text-anchor: middle;
+            dominant-baseline: middle;
+            letter-spacing: ${design === 'sports' ? '3px' : '2px'};
+            text-transform: uppercase;
+          }
+          .bold-text {
+            font-family: "Noto Sans Bold", "Inter Bold", "Noto Sans", "Inter", Arial, sans-serif;
+            font-weight: 700;
+            font-style: normal;
+            stroke: rgba(0,0,0,0.3);
+            stroke-width: 1.5px;
+            paint-order: stroke fill;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+          }
+          ${design === 'boldblue' ? `
+          .boldblue-title {
+            font-family: "Noto Sans", "Inter", Arial, sans-serif;
+            font-weight: 700;
+            stroke: rgba(0,0,0,0.4);
+            stroke-width: 2px;
+            paint-order: stroke fill;
+            filter: drop-shadow(0 3px 10px rgba(0,0,0,0.6));
+            letter-spacing: 1px;
+          }
+          .boldblue-website {
+            font-family: "Noto Sans", "Inter", Arial, sans-serif;
+            font-weight: 700;
+            letter-spacing: 2px;
+            stroke: rgba(0,0,0,0.2);
+            stroke-width: 1px;
+            paint-order: stroke fill;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+          }` : ''}
+          ${design === 'anime' ? `
+          .accent-line {
+            stroke: ${selectedDesign.websiteColor};
+            stroke-width: 3;
+            fill: none;
+          }` : ''}
+          ${design === 'breaking' ? `
+          .breaking-tag {
+            font-family: "Noto Sans Bold", "Inter Bold", sans-serif;
+            font-size: 18px;
+            font-weight: 900;
+            fill: #FFFFFF;
+            text-anchor: middle;
+          }
+          .breaking-bg {
+            fill: #FF0000;
+          }` : ''}
+          ${design === 'thoughtful' ? `
+          .divider-line {
+            stroke: ${selectedDesign.websiteColor};
+            stroke-width: 1;
+            fill: none;
+          }` : ''}
+          ${design === 'cinematic' ? `
+          .letterbox {
+            fill: rgba(0,0,0,0.9);
+          }` : ''}
+          ${design === 'neon' ? `
+          .neon-glow {
+            filter: drop-shadow(0 0 10px ${selectedDesign.titleColor});
+          }` : ''}
+          ${design === 'warmbrown' ? `
+          .warm-shadow {
+            filter: drop-shadow(2px 2px 8px rgba(0,0,0,0.4));
+          }
+          .vignette-overlay {
+            fill: url(#warmVignette);
+          }` : ''}
+          ${design === 'antonTransparent' ? `
+          .anton-transparent-shadow {
+            filter: drop-shadow(7px 6px 14px rgba(0,0,0,1));
+          }` : ''}
+          ${design === 'antonTransparent2' ? `
+          .anton-transparent2-shadow {
+            filter: drop-shadow(7px 6px 14px rgba(0,0,0,1));
+          }` : ''}
+          ${design === 'pokemon' ? `
+          .pokemon-title {
+            stroke: #2A75BB;
+            stroke-width: 6;
+            paint-order: stroke fill;
+            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.3));
+          }
+          .pokemon-website {
+            letter-spacing: 3px;
+          }
+          .radial-burst {
+            fill: url(#pokemonBurst);
+            opacity: 0.6;
+          }` : ''}
+          ${design === 'bold' ? `
+          .bold-title {
+            font-family: "Noto Sans", "Inter", Arial, sans-serif;
+            font-weight: 700;
+            stroke: rgba(0,0,0,0.4);
+            stroke-width: 2px;
+            paint-order: stroke fill;
+            filter: drop-shadow(0 6px 16px rgba(0,0,0,0.6));
+            letter-spacing: 1px;
+          }
+          .bold-website {
+            font-family: "Noto Sans", "Inter", Arial, sans-serif;
+            font-weight: 700;
+            letter-spacing: 3px;
+          }
+          .bold-vignette {
+            fill: url(#boldVignette);
+            opacity: 0.4;
+          }` : ''}
+        </style>
+        
+        <!-- Dynamic Design Gradient Background -->
+        ${design === 'antonTransparent' || design === 'blank' ? '' : 
+          (useBlankBackground && ['quote1', 'quote2', 'quote3'].includes(design)) ? 
+            (design === 'quote3' ? '<rect width="100%" height="100%" fill="url(#dynamicGradient)"/>' : '') : // quote3 gets subtle gradient even on blank, others get none
+            '<rect width="100%" height="100%" fill="url(#dynamicGradient)"/>' // Normal gradient overlay for images
+        }
+        
+        ${design === 'breaking' ? `
+        <!-- Breaking News Tag (above title) -->
+        <rect x="${Math.round(targetWidth / 2 - 60)}" y="${Math.round(titleStartY - 80)}" width="120" height="30" rx="4" class="breaking-bg"/>
+        <text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY - 60)}" class="breaking-tag">BREAKING</text>
+        ` : ''}
+        
+        ${design === 'cinematic' ? `
+        <!-- Cinematic letterbox bars -->
+        <rect x="0" y="0" width="${targetWidth}" height="80" class="letterbox"/>
+        <rect x="0" y="${svgHeight - 80}" width="${targetWidth}" height="80" class="letterbox"/>
+        ` : ''}
+
+        ${design === 'pokemon' ? `
+        <!-- Pokemon radial burst behind title -->
+        <circle cx="${Math.round(targetWidth / 2)}" cy="${Math.round(titleStartY + (titleLines.length * lineHeight / 2))}" r="200" class="radial-burst"/>
+        ` : ''}
+
+        <!-- Title Text Lines - Center aligned with design-specific styling -->
+        ${titleLines.map((line, index) => {
+          // Determine classes for bold designs
+          const boldDesigns = ['boldblue', 'bold', 'energetic', 'popart', 'viral'];
+          const isBoldDesign = boldDesigns.includes(design);
+          const classes = [
+            'title-text',
+            design === 'neon' ? 'neon-glow' : '',
+            design === 'warmbrown' ? 'warm-shadow' : '',
+            design === 'antonTransparent' ? 'anton-transparent-shadow' : '',
+            design === 'antonTransparent2' ? 'anton-transparent2-shadow' : '',
+            design === 'pokemon' ? 'pokemon-title' : '',
+            design === 'bold' ? 'bold-title' : '',
+            design === 'boldblue' ? 'boldblue-title' : '',
+            isBoldDesign ? 'bold-text' : ''
+          ].filter(Boolean).join(' ');
+          
+          return `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY + (index * lineHeight))}" class="${classes}">${line}</text>`;
+        }).join('')}
+        
+        ${design === 'anime' ? `
+        <!-- Anime-style accent lines (below title) -->
+        <line x1="${padding}" y1="${Math.round(titleEndY + 15)}" x2="${targetWidth - padding}" y2="${Math.round(titleEndY + 15)}" class="accent-line"/>
+        ` : ''}
+        
+        ${design === 'thoughtful' ? `
+        <!-- Thoughtful-style thin divider -->
+        <line x1="${Math.round(targetWidth / 2 - 100)}" y1="${Math.round(titleEndY + 15)}" x2="${Math.round(targetWidth / 2 + 100)}" y2="${Math.round(titleEndY + 15)}" class="divider-line"/>
+        ` : ''}
+        
+        ${design === 'news' ? `
+        <!-- News-style separator bar -->
+        <rect x="${padding}" y="${Math.round(titleEndY + 10)}" width="${contentWidth}" height="4" fill="${selectedDesign.websiteColor}"/>
+        ` : ''}
+        
+        <!-- Website Text - Dynamically positioned with design styling -->
+        ${website ? `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(websiteY)}" class="website-text ${design === 'pokemon' ? 'pokemon-website' : ''} ${design === 'bold' ? 'bold-website' : ''} ${design === 'boldblue' ? 'boldblue-website' : ''} ${['boldblue', 'bold', 'energetic', 'popart', 'viral'].includes(design) ? 'bold-text' : ''}">${websiteText}</text>` : ''}
+        
+        ${design === 'warmbrown' ? `
+        <!-- Warm brown vignette overlay for depth -->
+        <rect width="100%" height="100%" class="vignette-overlay"/>
+        ` : ''}
+        
+        ${design === 'bold' ? `
+        <!-- Bold design vignette overlay for dramatic depth -->
+        <rect width="100%" height="100%" class="bold-vignette"/>
+        ` : ''}
+      </svg>
+    `;
 
     const svgBuffer = Buffer.from(svg, 'utf-8');
     let finalImage;
