@@ -1328,7 +1328,7 @@ export default async function handler(req, res) {
     res.setHeader('Content-Length', String(finalImage.length));
 
     if (val === 'InspirationTagalog' || val === 'HugotTagalog') {
-   //res.setHeader('Cache-Control', 'public, max-age=300');
+   res.setHeader('Cache-Control', 'public, max-age=60');
     } else if (val === 'igpost') {
       //res.setHeader('Cache-Control', 'public, max-age=60');
     } else {
