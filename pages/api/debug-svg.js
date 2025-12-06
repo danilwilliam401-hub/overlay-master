@@ -7,18 +7,26 @@ export default async function handler(req, res) {
   if (!fs.existsSync(fontPath)) return res.status(500).send('font missing');
   const fontB64 = fs.readFileSync(fontPath).toString('base64');
 
+  // Try multiple format declarations - librsvg is picky
   const svg = `
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="200">
   <defs>
     <style type="text/css">
-      @font-face { font-family: 'Bebas Neue'; src: url('data:font/ttf;base64,${fontB64}') format('truetype'); }
-      tspan { font-family: 'Bebas Neue'; font-style: normal; font-weight: 400; }
+      @font-face { 
+        font-family: 'BebasNeue'; 
+        src: url('data:application/x-font-ttf;base64,${fontB64}') format('truetype'),
+             url('data:font/ttf;base64,${fontB64}') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+      }
+      text { font-family: 'BebasNeue', 'Bebas Neue', sans-serif !important; }
+      tspan { font-family: 'BebasNeue', 'Bebas Neue', sans-serif !important; font-style: normal; font-weight: 400; }
     </style>
   </defs>
   <rect width="100%" height="100%" fill="#222"/>
-  <text x="20" y="80" font-size="64">
-    <tspan font-family="Bebas Neue" fill="#fff">Hello</tspan>
-    <tspan font-family="Bebas Neue" fill="#ff0"> World</tspan>
+  <text x="20" y="80" font-family="BebasNeue" font-size="64" fill="#fff">
+    <tspan font-family="BebasNeue" fill="#fff">Hello</tspan>
+    <tspan font-family="BebasNeue" fill="#ff0"> World</tspan>
   </text>
 </svg>`;
 
