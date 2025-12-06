@@ -2428,7 +2428,7 @@ const tagalogQuotes = [
     console.log('  Processed website:', websiteText);
     
     // Create SVG with proper UTF-8 encoding and font references
-    const padding = (design === 'entertainment' || design === 'antonBlack' || design === 'antonBlack1' || design === 'antonTransparent' || design === 'antonTransparent2' || design === 'antonWhite') ? 15 : (design === 'cinematic' || design === 'vintage') ? 30 : 80; // Minimal padding for entertainment, antonBlack, antonBlack1, antonTransparent, antonTransparent2, and antonWhite to maximize text spread
+    const padding = (design === 'entertainment' || design === 'antonBlack' || design === 'antonBlack1' || design === 'antonTransparent' || design === 'antonTransparent2' || design === 'antonWhite' || design === 'bebas') ? 15 : (design === 'cinematic' || design === 'vintage') ? 30 : 80; // Minimal padding for entertainment, antonBlack, antonBlack1, antonTransparent, antonTransparent2, antonWhite, and bebas to maximize text spread
     const contentWidth = targetWidth - (padding * 2); // Available width for text
     
     // Function to detect emphasis keywords and create highlight segments with multi-color support
@@ -2728,8 +2728,8 @@ const tagalogQuotes = [
       let currentLine = '';
       
       // More accurate character width estimation for Noto Sans
-      // For entertainment, antonBlack, antonTransparent, antonTransparent2, and antonWhite designs, use narrower char width for better spreading
-      const avgCharWidth = (design === 'entertainment' || design === 'antonBlack' || design === 'antonBlack1' || design === 'antonTransparent' || design === 'antonTransparent2' || design === 'antonWhite') ? fontSize * 0.45 : fontSize * 0.55;
+      // For entertainment, antonBlack, antonTransparent, antonTransparent2, antonWhite, and bebas designs, use narrower char width for better spreading
+      const avgCharWidth = (design === 'entertainment' || design === 'antonBlack' || design === 'antonBlack1' || design === 'antonTransparent' || design === 'antonTransparent2' || design === 'antonWhite' || design === 'bebas') ? fontSize * 0.45 : fontSize * 0.55;
       const maxCharsPerLine = Math.floor(maxWidth / avgCharWidth);
       
       // NO maximum lines limit - accept all text
