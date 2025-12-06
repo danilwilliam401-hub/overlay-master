@@ -306,7 +306,7 @@ const DESIGN_THEMES = {
     titleSize: 78,
     websiteSize: 32,
     fontWeight: '900',
-    fontFamily: 'Bebas Neue',
+    fontFamily: 'Anton',
     enableHighlight: true // Enable keyword highlighting
   },
   'antonTransparent': {
@@ -3176,10 +3176,10 @@ const tagalogQuotes = [
                 className = `highlight-${seg.colorIndex}`;
               }
               const space = seg.isLastWord ? '' : ' ';
-              // CRITICAL FIX: Add explicit font-family="Bebas Neue" to every tspan
+              // CRITICAL FIX: Add explicit font-family="Anton" to every tspan
               // This ensures Sharp/librsvg on Linux (Vercel) renders the correct embedded font
-              // The font is loaded from filesystem at runtime and embedded as base64 in @font-face
-              return `<tspan class="${className}" font-family="Bebas Neue" font-style="normal" font-weight="400">${seg.text}</tspan>${space}`;
+              // Anton font is more compatible than Bebas Neue on production environments
+              return `<tspan class="${className}" font-family="Anton" font-style="normal" font-weight="400">${seg.text}</tspan>${space}`;
             }).join('');
             return `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY + (index * lineHeight))}" class="${classes}">${tspanContent}</text>`;
           }
