@@ -179,6 +179,115 @@ const DESIGN_THEMES = {
     fontWeight: '900',
     fontFamily: 'Anton'
   },
+  'antonBlack1': {
+    name: 'Anton Black Gradient',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFFFFF',
+    gradientColors: [
+      'rgba(0,0,0,0.0)',      // 0%: Completely transparent at top
+      'rgba(0,0,0,0.0)',      // 10%: Still transparent
+
+'rgba(0,0,0,0.05)',
+  'rgba(0,0,0,0.10)',
+  'rgba(0,0,0,0.15)',
+  'rgba(0,0,0,0.20)',
+  'rgba(0,0,0,0.25)',
+  'rgba(0,0,0,0.30)',
+  'rgba(0,0,0,0.35)',
+  'rgba(0,0,0,0.40)',
+  'rgba(0,0,0,0.45)',
+  'rgba(0,0,0,0.50)',
+  'rgba(0,0,0,0.55)',
+  'rgba(0,0,0,0.60)',
+  'rgba(0,0,0,0.65)',
+  'rgba(0,0,0,0.70)',
+  'rgba(0,0,0,0.75)',
+  'rgba(0,0,0,0.80)',
+  'rgba(0,0,0,0.85)',
+  'rgba(0,0,0,0.90)',
+  'rgba(0,0,0,0.95)',
+
+
+     
+      'rgba(0,0,0,1.0)',      // 90%: Solid black - title coverage begins
+      'rgba(0,0,0,1.0)' ,      // 100%: Bottom - Rich dark black for maximum readability
+         'rgba(0,0,0,1.0)',      // 90%: Solid black - title coverage begins
+      'rgba(0,0,0,1.0)' ,      // 100%: Bottom - Rich dark black for maximum readability
+         'rgba(0,0,0,1.0)',      // 90%: Solid black - title coverage begins
+      'rgba(0,0,0,1.0)' ,      // 100%: Bottom - Rich dark black for maximum readability
+         'rgba(0,0,0,1.0)',      // 90%: Solid black - title coverage begins
+      'rgba(0,0,0,1.0)'  ,     // 100%: Bottom - Rich dark black for maximum readability
+         'rgba(0,0,0,1.0)',      // 90%: Solid black - title coverage begins
+      'rgba(0,0,0,1.0)'  ,     // 100%: Bottom - Rich dark black for maximum readability
+
+            'rgba(0,0,0,1.0)',      // 90%: Solid black - title coverage begins
+      'rgba(0,0,0,1.0)' ,      // 100%: Bottom - Rich dark black for maximum readability
+         'rgba(0,0,0,1.0)',      // 90%: Solid black - title coverage begins
+      'rgba(0,0,0,1.0)' ,      // 100%: Bottom - Rich dark black for maximum readability
+         'rgba(0,0,0,1.0)',      // 90%: Solid black - title coverage begins
+      'rgba(0,0,0,1.0)' ,      // 100%: Bottom - Rich dark black for maximum readability
+         'rgba(0,0,0,1.0)',      // 90%: Solid black - title coverage begins
+      'rgba(0,0,0,1.0)'  ,     // 100%: Bottom - Rich dark black for maximum readability
+         'rgba(0,0,0,1.0)',      // 90%: Solid black - title coverage begins
+      'rgba(0,0,0,1.0)'       // 100%: Bottom - Rich dark black for maximum readability
+    ], // Cinematic gradient with precise 10% increments from transparent top to solid dark bottom
+    titleSize: 78,
+    websiteSize: 32,
+    fontWeight: '900',
+    fontFamily: 'Anton'
+  },
+  'bebas': {
+    name: 'Bebas Black Gradient',
+    titleColor: '#FFFFFF',
+    websiteColor: '#FFFFFF',
+    highlightColor: '#2FB8FF', // Default fallback (not used with multi-color)
+    gradientColors: [
+      'rgba(0,0,0,0.0)',      // 0%: Completely transparent at top
+      'rgba(0,0,0,0.0)',      // 10%: Still transparent
+      'rgba(0,0,0,0.05)',
+      'rgba(0,0,0,0.10)',
+      'rgba(0,0,0,0.15)',
+      'rgba(0,0,0,0.20)',
+      'rgba(0,0,0,0.25)',
+      'rgba(0,0,0,0.30)',
+      'rgba(0,0,0,0.35)',
+      'rgba(0,0,0,0.40)',
+      'rgba(0,0,0,0.45)',
+      'rgba(0,0,0,0.50)',
+      'rgba(0,0,0,0.55)',
+      'rgba(0,0,0,0.60)',
+      'rgba(0,0,0,0.65)',
+      'rgba(0,0,0,0.70)',
+      'rgba(0,0,0,0.75)',
+      'rgba(0,0,0,0.80)',
+      'rgba(0,0,0,0.85)',
+      'rgba(0,0,0,0.90)',
+      'rgba(0,0,0,0.95)',
+      'rgba(0,0,0,1.0)',      // Solid black - title coverage begins
+      'rgba(0,0,0,1.0)',
+      'rgba(0,0,0,1.0)',
+      'rgba(0,0,0,1.0)',
+      'rgba(0,0,0,1.0)',
+      'rgba(0,0,0,1.0)',
+      'rgba(0,0,0,1.0)',
+      'rgba(0,0,0,1.0)',
+      'rgba(0,0,0,1.0)',
+      'rgba(0,0,0,1.0)',
+      'rgba(0,0,0,1.0)',
+      'rgba(0,0,0,1.0)',
+      'rgba(0,0,0,1.0)',
+      'rgba(0,0,0,1.0)',
+      'rgba(0,0,0,1.0)',
+      'rgba(0,0,0,1.0)',
+      'rgba(0,0,0,1.0)',
+      'rgba(0,0,0,1.0)'       // 100%: Bottom - Rich dark black for maximum readability
+    ], // Cinematic gradient with precise increments from transparent top to solid dark bottom
+    titleSize: 78,
+    websiteSize: 32,
+    fontWeight: '900',
+    fontFamily: 'Bebas Neue',
+    enableHighlight: true // Enable keyword highlighting
+  },
   'antonTransparent': {
     name: 'Anton Transparent',
     titleColor: '#FFFFFF',
@@ -569,18 +678,1100 @@ export default async function handler(req, res) {
     let h = '1350';
     
     // Tagalog quotes for random generation (Babae/Hugot theme)
-    const tagalogQuotes = [
-      `Sick leave. Dahil nasaktan ako nung iniwan mo ko.`,
-      `Lahat ba ng Math major laging hinahanap si X?`,
-      `Huwag kang umasa na babalik pa siya, kung nasa piling na siya ng iba.`,
-      `Para kang exam, hindi ko na maunawaan.`,
-      `Sana may traffic lights din sa love, para alam natin kung kailang maghahanda, di-direstso, o hihinto.`,
-      `Ang jowa minsan parang sinaing rin iyan, kailangang bantayan.`,
-      `Mabuti pa yung kape, mainit man o malamig, hinahanap-hanap pa rin.`,
-      `Sa love, 'di maiiwasan na may U-Turn. Yung akala mong dire-diretso na, may babalikan pa pala.`,
-      `Walang masama magmahal basta alam mong Saan ka liliko o didiretso para wala kang nasasagasaang tao`,
-      `Mahal. Minsan bilihin, kadalasan ikaw.`
-    ];
+const tagalogQuotes = [
+  "Ang pagmamahal ay parang laro lang yan, Kung di ka marunong maglaro, Uuwi kang luhaan.",
+  "Sa pag-ibig, walang bulag, walang pipi, walang bingi… pero tanga madami.",
+  "Aanhin mo pa ang bahay nyo kung nakatira ka na sa puso ko.",
+  "Alam mo ba ang salitang “pagmamahal”? Hindi ko yan pinagaralan pero sayo ko yan natutunan.",
+  "Aanhin pa ang tiwala kung bawat hinala ay laging tumatama.",
+  "Hindi naman masamang maging selfish. May mga bagay lang talaga na hindi pwedeng may kahati.",
+  "Di ko man maisigaw sa buong mundo kung sino ang mahal ko, sapat nang alam natin pareho na ikaw ang tinutukoy ko.",
+  "Hindi ka makakahanap ng totoong magmamahal sayo kung pati sarili mo niloloko mo.",
+  "Sa love, ‘di maiiwasan na may U-Turn. Yung akala mong dire-diretso na, may babalikan pa pala.",
+  "Magmahal ka ng tapat na pulitiko, yung tumutupad sa pangako.",
+  "Ang jowa minsan parang sinaing rin iyan, kailangang bantayan.",
+  "Ang buhay ng tao parang kuryente rin yan, ‘di natin alam kung kailan may interruption para mas lumiwanag.",
+  "Mabuti pa yung kape, mainit man o malamig, hinahanap-hanap pa rin.",
+  "Bago mo habulin ang kung sinuman, habulin mo muna grades mo.",
+  "Sana may traffic lights din sa love, para alam natin kung kailang maghahanda, di-direstso, o hihinto.",
+  "Para kang exam, hindi ko na maunawaan.",
+  "Lahat ba ng Math major laging hinahanap si X?",
+  "Minsan ang buhay parang yang roller coaster, dadalhin ka sa pinakamasasaya at pinakanakakatakot na parte.",
+  "Hindi totoong pinaka masakit pakinggan ang rap songs, try mong umuwi ng madaling araw nang hindi nagpapaalam.",
+  "Ang love minsan parang pagbabayad lang ‘yan sa cashier, binigay mo na lahat, hihingan ka pa ng sukli.",
+  "Minsan ang love ‘di yan tulad ng phone na pag na lowbat, pwedeng e-recharge.",
+  "Sa love, ‘di maiiwasan na may U-Turn. Yung akala mong dire-diretso na, may babalikan pa pala.",
+  "Sabi nila “love is blind” kaya pwede bang pumikit ka na lang baka sakaling mahalin mo rin ako.",
+  "Ang dami ng girlfriend ‘di dapat yan tulad ng kape na 3-in-1.",
+  "Mahal. Minsan bilihin, kadalasan ikaw.",
+  "Iwan mo lahat huwag lang ang call center agent, yung gabi kaya niyang gawing araw mahanap ka lang.",
+  "Bago mo habulin ang kung sinuman, habulin mo muna grades mo.",
+  "Sa love, ‘di maiiwasan na may U-Turn. Yung akala mong dire-diretso na, may babalikan pa pala.",
+  "Ang pamilya parang buwan lang yan, hindi mo man minsan nakikita, pero alam mong nandyan lang iyan.",
+  "I choose you na nga, pero you wanna catch them all.",
+  "Love parang barya lang po sa umaga. Alam mo naman na di ka masusuklian nagbigay kapa ng buo.",
+  "Maganda kasi yung daan kaya kumaliwa.",
+  "Taken na nga, for granted naman hahaha",
+  "May nag propose, bigla kang nag react",
+  "Binitawan kaya hanggang tingin na lang.",
+  "Sa pag-ibig, walang bulag pipi at bingi, pero tanga madami.",
+  "Isa lang ang way para maka move on Pakabusog ka.",
+  "Malabo. minsan  mata, minsan ikaw.",
+  "Walang isda sa baybayin, saka never kang makakahuli. Choosy ka kasi.",
+  "Na-catch mo na lahat pati na Feelings ko.",
+  "Travel tayo, tapos libre mo ulit ako. Love you.",
+  "Gusto mo ng magandang tanawin, tumitig ka sa sa akin.",
+  "Marami na ang namatay sa maling akala.",
+  "Ang crush ay parang isang Math problem, kung hindi mo makuha titigan mo nalang.",
+  "Wag mo na ipagsiksikan ang sarili mo kung ayaw nya sayo.",
+  "Wag nang ipilit masasaktan ka lang.",
+  "Pagmamahal mo parang sweldo ko, di ko man lang naramdaman.",
+  "Sayang ang plano, kung di naman magkakatuluyan.",
+  "Wag basta magtiwala sa di ukulele.",
+  "Minsan ang tao parang lugar, hindi na dapat balikan.",
+  "Friends lang tayo, walang Malaysia",
+  "Taga Baguio ka ba? Because you're so cold.",
+  "Ingat ka, marami nang pa-fall ngayon.",
+  "Sa limatik ka na nga lapitin, pinagtabuyan mo pa (Faie)",
+  "Yung love story natin parang flight ko, akala ko delayed lang yun pala canceled na.",
+  "The journey of a thousand miles begins pag may pera ka. Kaya mag-ipon ka.",
+  "Sana piso fare pa rin. Piso fare na lang. Piso fare na lang ulet!",
+  "Ang pag-ibig parang itinerary. Madalas hindi nasusunod.",
+  "Buti pa kay manong tricycle driver, 25 pesos lang special kana (Faie)",
+  "Ingat sa Cliff diving. Delikado ang ma-fall lalo na kung walang sasalo sayo.",
+  "Kung yung weather nga pabago-bago. Feelings mo pa kaya?",
+  "Kung mahal mo ko, wag mo akong Kazakhstan.",
+  "Mabuti pa ang bundok inakyat mo, eh yung pag-akyat ng ligaw sakin kelan mo gagawin?",
+  "Buti pa yung guide, jahit agod na hindi ako iniwan. Ikaw, hindi naman kita pinagod pero bakit mo ko binitawan?",
+  "Sabi mo dollar lang ang ipagpapalit mo. Bakit pati ako?",
+  "Buti pa ang travel mo kaya mong planuhin. Ako kaya? Kelan mo paplanuhing mahalin?",
+  "Basta text kita later, male-late na KUWAIT!",
+  "Ang usapan natin “Leave no trace,” pero bakit ang sakit-sakit pa rin?",
+  "Buti pa ang bagyo, may pag-asa",
+  "Yung pag-akyat ng bundok parang tayo, nakakapagod.",
+  "Sa lahat ng napuntahan ko, ikaw lang ang gusto kong balik-balikan",
+  "Pag nagmahal ka dapat SAGADA",
+  "Kung tent tayo, ikaw ang pole. Because I can't stand without you.",
+  "Ang lamig dito sa taas. Kasing lamig ng puso mo.",
+  "Sabi mo, “Laro tayo”. Akala ko “Surfing” yun pala “Feelings”.",
+  "Hanggang miss you all nalang ba tayo sa Group Chat?",
+  "“Buti pa ang pamasahe ng tren tumaas. Sweldo ko na lang ang hindi.”",
+  "Gusto ko ng kape, yung matapang yung kaya akong ipaglaban.",
+  "Para kang sweldo ko, di mo namalayang wala na pala.",
+  "Buti pa nga files sinesave mo, yung relasyon natin?",
+  "Monitor kaba? Kai parang ang sarp mong titigan magdamag.",
+  "Keyboard kaba? Kasi type na type kita",
+  "Para kang aplikante ko, nangakong darating hindi naman.",
+  "Ballpen nga nawawala, feelings pa kaya?",
+  "Sick leave. Dahil nasaktan ako nung iniwan mo ko.",
+  "Lahat ba ng Math major laging hinahanap si X?",
+  "Huwag kang umasa na babalik pa siya, kung nasa piling na siya ng iba.",
+  "Para kang exam, hindi ko na maunawaan.",
+  "Sana may traffic lights din sa love, para alam natin kung kailang maghahanda, di-direstso, o hihinto.",
+  "Ang jowa minsan parang sinaing rin iyan, kailangang bantayan.",
+  "Mabuti pa yung kape, mainit man o malamig, hinahanap-hanap pa rin.",
+  "Lahat ba ng Math major laging hinahanap si X?",
+  "Sa love, ‘di maiiwasan na may U-Turn. Yung akala mong dire-diretso na, may babalikan pa pala.",
+  "Walang masama magmahal basta alam mong saan ka liliko o didiretso para wala kang nasasagasaang tao.",
+  "Mahal. Minsan bilihin, kadalasan ikaw.",
+  "Mabuti pa sa date nyo, lagi kang maaga. Eh sa klase, kamusta?",
+  "Sana yung pagmamahal mo parang hugasin rin sa bahay, hindi nauubos.",
+  "Kung ayaw mong masaktan, huwag kang papatol sa alam mong expert sa kalokohan.",
+  "Hindi lahat ng patama tungkol sa'yo, sadyang natatamaan ka lang kasi!",
+  "Hindi ka magiging masaya kung patuloy mong babalikan ang tapos na.",
+  "Ang daling matulog, ang hirap bumangon. Ang daling mahulog, ang hirap mag move on.",
+  "Kung nagalit man ako nang walang dahilan, pasensya na. Nasaktan kasi ako nang wala kang alam",
+  "Sa tamang panahon may isang taong magpapatunay sayo kung bakit ka para sa kanya at kung bakit hindi ka para sa iba.",
+  "Di ko man maisigaw sa buong mundo kung sino ang mahal ko, sapat nang alam natin pareho na ikaw ang tinutukoy ko.",
+  "Kung pwede lang maging excuse ang pagiging broken hearted, malamang marami ng absent sa high school at college.",
+  "Wag mong isiksik ang sarili mo sa taong hindi marunong magpahalaga sa nararamdaman mo. Masasaktan ka lang.",
+  "Mahirap kumalma lalo na kapag selos na selos ka na.",
+  "Sana isinusulat na ang feelings, para madali lang burahin.",
+  "Sana thesis na lang ako na ipaglalaban mo kahit hirap na hirap ka na.",
+  "Balang araw makakaya ko na ulit na tingnan ka ng wala na akong nararamdaman pa.",
+  "Yung feeling na may narinig kang kanta, tapos naalala mo siya.",
+  "Mahirap mag-let go. Pero mas mahirap yung kumakapit ka pa, tinutulak ka na.",
+  "May mga tao talaga na kahit napapasaya ka, kaylangan mong iwasan.",
+  "Hindi na baleng siya ang bumitaw. Ang importante alam mong lumaban ka hanggang sa wala ka ng maipaglaban.",
+  "Hindi mo kailangang mamili sa aming dalawa. Handa akong lumabas sa puso mo para lang sumaya ka sa piling niya.",
+  "Ang hirap bitawan nung taong kahit hindi kayo, siya yung nagpapasaya at kumukumpleto ng araw mo!",
+  "Pag hindi ka mahal ng mahal mo, wag ka magreklamo. Kasi may mga tao rin na di mo mahal pero mahal ka. Kaya quits lang.",
+  "Alam mo kung bakit nasasaktan ka? Kasi iniisip mo na gusto ka rin niya kahit hindi naman talaga.",
+  "Dapat ba akong ngumiti dahil magkaibigan tayo? O dapat ba kong malungkot dahil hanggang dun lang tayo?",
+  "Hindi tamang gumamit ka ng ibang tao para maka move-on ka. Ginagago mo na nga ang sarili mo, nakasakit ka pa ng iba.",
+  "Ibinigay ko na ang lahat pero hindi pa rin sapat.",
+  "Lahat tayo napapagod. Wag mong hintayin na mawala pa siya sa buhay mo bago mo siya pahalagahan.",
+  "Yung naghihintay ka sa isang bagay na imposible namang mangyari.",
+  "Ang oras ay isang mahalagang elemento sa mundo. Bumibilis kapag masaya, at bumabagal kapag wala ka.",
+  "Masakit isipin na dahil sa isang pangyayari hindi na kayo pwedeng maging tulad ng dati.",
+  "Yung akala mo minahal ka niya pero hindi pala.",
+  "Sana tinuruan mo ‘ko kung paano madaling makalimot tulad ng ginawa mong paglimot sa'kin.",
+  "Buti pa ang ngipin nabubunot kapag masakit. Sana ang puso ganun din.",
+  "Minsan kahit sabihin mong suko ka na, kapag naalala mo kung paano ka niya napasaya, bumabalik ka ulit sa pagiging tanga.",
+  "Minsan kailangan tayong masaktan bago tayo matauhan.",
+  "Minsan kung sino pa yung rason mo kung bakit ka masaya, siya din ang rason kung bakit masasaktan ka ng sobra.",
+  "Kung talagang mahal ka nyan mageefort yan kahit di ka mag-demand.",
+  "Kapag nasasaktan ka, pwede kang umiyak. Tao lang tayo hindi superhero.",
+  "Tao ka kaya hindi ka exempted masaktan.",
+  "Kaya may monthsary ay dahil hindi lahat ng relasyon ay umaabot ng anniversary.",
+  "Bago mo ko hawakan, pwede ko bang malaman kung paano mo bibitiwan?",
+  "Hindi lahat ng nagsasama ay nagmamahalan at hindi lahat ng nagmamahalan ay magkasama.",
+  "Ang salitang ‘I love you' ay hindi tanong. Pero bakit masakit pag walang sagot.",
+  "Tulungan mo ang sarili mo na makalimot. Wag mong tulungan ang sarili mong masaktan.",
+  "Dapat matuto tayong bumitaw. Dahil mas okay ang maging malungkot ng panandalian kesa magmukhang tanga ng matagalan.",
+  "Huwag kang malungkot kung iniwan ka niya ang mahalaga ay napadama mo sa kanya kung gaano mo sya kamahal.",
+  "Kapag alam mong wala nang pagmamahal, wag mo nang ipagsiksikan ang sarili mo. Sa huli ikaw rin ang talo.",
+  "Mas pipiliin kong ako na lang ang masaktan kaysa magkasama nga tayo pero sya naman ang hinahanap ng puso mo.",
+  "Ginawa ang break-up para ilayo tayo sa maling tao na akala natin ay tama.",
+  "Ang PAG-IBIG parang harutan. Minsan hindi mo maiiwasang hindi MASAKTAN.",
+  "Hindi naman masamang maging selfish. May mga bagay lang talaga na hindi pwedeng may kahati.",
+  "Kung hindi mo mahal ang isang tao, wag ka nang magpakita ng motibo para mahalin ka nya.",
+  "Huwag mong bitawan ang bagay na hindi mo kayang makitang hawakan ng iba.",
+  "Huwag mong hawakan kung alam mong bibitawan mo lang.",
+  "Huwag na huwag ka hahawak kapag alam mong may hawak ka na.",
+  "Wag magpakatanga sa PAG-IBIG. ‘Cause GOD gave you REAL EYES to REALIZE the REAL LIES.",
+  "Wag mong gawing soccer ang pag-ibig na pagkatapos mong sipain, saka mo hahabulin.",
+  "Mahal mo? Ipaglaban mo parang pangarap mo.",
+  "May mga bagay na masarap ingatan kahit hindi sayo. Parang ikaw, ang sarap mahalin kahit hindi tayo",
+  "Twitter ka ba? Bakit? Trending ka kasi sa puso ko.",
+  "Bakit ba naman kasi maglilihim kung pwede mo namang sabihin? Hindi yung kung kelan huli na ang lahat tsaka mo aaminin.",
+  "Hindi lahat ng kaya mong intindihin ay katotohanan at hindi lahat ng hindi mo kayang intindihin ay kasinungalingan",
+  "Sa panahon ngayon, joke na ang totoo at promise na ang panloloko.",
+  "Binabalewala mo siya tapos kapag nakita mo siyang masaya sa iba, masasaktanat magagalit ka. Ano ka, tanga?",
+  "Kapag pagod ka na, bitawan mo na. Hindi yung nagpapaka-tanga ka madami pa namang mas better sa kanya.",
+  "May mga feelings talaga na hanggang social media na lang.",
+  "Pinakilig ka lang akala mo mahal ka na? Sige, assume pa!",
+  "Hindi lahat ng nararamdaman ay dapat sabihin. Dahil hindi lahat ng sinasabi ay kayang maramdaman.",
+  "Isang beses lang kitang minahal. Pagkatapos nun, hindi na natapos!",
+  "Yung akala mong going strong kayao, going wrong pala kayo.",
+  "Ang puso ko parang tindahan. Simula ng nalugi, nagsara na!",
+  "Nagising ka na sa mahimbing mong pagtulog, pero sa katotohanang hindi ka niya mahal, hindi pa rin!",
+  "Wag mong ipamuka sa akin na madali akong palitan. Dahil kong isampal sayo ang MAHAL KITA pero hindi ka kawalan!",
+  "Sa likod ng ‘friends lang kami' ay may pusong bumubulong na ‘sana nga kami'.",
+  "Hindi naman karelasyon lang ang mahalaga para maging masaya. Kahit inspirasyon lang ok na.",
+  "Ang tunay na lalake nagbabago para sa babae, hindi yong pabago bago ng babae.",
+  "Sa love, ‘di maiiwasan na may U-Turn. Yung akala mong dire-diretso na, may babalikan pa pala.",
+  "Sana gawin nang herbal medicine ang MAKAHIYA, para may gamot na sa mga taong MAKAKAPAL ANG MUKHA.",
+  "Lumandi ng naaayon sa ganda. Para hindi magmukang tanga. Hindi yung over ka sa kalandian, mukha ka namang paa.",
+  "May shortage na ba talaga ng LALAKI ngayon, at kailangan mo pang MANG-AGAW para magkaroon.",
+  "Minsan kahit ilang beses pang sabihin ng utak mo na “TAMA NA” pilit parin sinasabi ng puso mong konteng tiis pa..",
+  "KARMA has no MENU but you get served for what you deserved..",
+  "Gaano kalaki ang kamay mo. Para hawakan ang mundo ko.",
+  "Mas okay na yung friendship na parang may something, kaysa sa relationship na parang nothing.",
+  "Hindi mo pa nga ako binabato, tinamaan na ako sayo.",
+  "Buti pa ang travel mo kaya mong planuhin. Ako kaya? Kelan mo paplanuhing mahalin?",
+  "Matuto kang sumuko kapag nasasaktan ka na ng sobra. Minsan kasi ginagago ka na, kinikilig ka pa.",
+  "May taong binigay ng Diyos para lang makilala mo at hindi para makasama mo.",
+  "Lahat tayo binigyan ng pagkakataong maging tanga pero hindi porket libre ay araw-arawin mo na.",
+  "Paano ko ipaglalaban ang pagmamahal ko sayo kung ako lang ang nakakaramdam nito.",
+  "Bakit kita iiyakan. Kaya naman kitang palitan.",
+  "Alam mo ba ang salitang pagmamahal? Hindi ko yan pinag-aralan. Pero sayo ko yan natutunan.",
+  "May mga taong di payag na mawala ka. Pero di naman gumagawa ng paraan para manatili ka.",
+  "Sa pag-ibig walang bulag, walang pipi, walang bingi, pero tanga madami.",
+  "Hintayin mo ang true love mo. Na-traffic lang yun sa malalanding tao.",
+  "Ang sakit malaman na ang taong mahal mo kaibigan lang ang turing sayo.",
+  "Importante naman talaga ang pinagsamahan, pero mas mahalaga ang pagsasabi ng katotohanan.",
+  "Darating yung araw kung saan masasabi mong sana hindi na lang tayo nagkakilala.",
+  "May mga tao talagang hindi para sa isa't-isa. Ang masakit pinagtagpo pa.",
+  "Yung feeling na in love ka sa kanya, pero in love naman siya sa iba.",
+  "Yung feeling na may narinig kang kanta, tapos naalala mo siya.",
+  "Minsan may mga taong iniiwasan mong pansinin pero ang puso mo gustong-gusto siyang kamustahin.",
+  "Ang hirap bitawan nung taong kahit hindi kayo, siya yung nagpapasaya at kumukumpleto ng araw mo.",
+  "Kung handa kang magmahal dapat handa ka ring masaktan.",
+  "Sa relasyon pag konti ang nakakaalam, konti lang din ang mga nakikialam.",
+  "Papayag naman akong landiin mo ang mahal ko. Basta papayag ka ring basagin ko yang pagmumukha mo",
+  "Yung pinipilit mo na lang ngumiti at tumawa para hindi nila Makita kung gaano ka ba kalungkot talaga.",
+  "Oo napasagot mo siya, e yung exam mo nasagot mo ba?",
+  "Mabuti pa sa date nyo, lagi kang maaga. Eh sa klase, kamusta?",
+  "Pag nakikita kita, parang gusto ko mag-sorry sa mga mata ko.",
+  "Diba pag pangit ka dapat nice ka?",
+  "Alam mo,walang ginawang panget ang Diyos eh. Eh ikaw? Sure ka ba na DIYOS ang gumawa sayo??",
+  "Aanhin mo ang ang Ganda Kung retoke lang pala.",
+  "Aanhin mo ang gwapo Kung ang gusto lang naman ay hubarin ang panty mo",
+  "Aanhin pa ang kagandahan Kung ginagamit lang naman sa kalandian",
+  "Aanhin mo ang pag-ibig na wagas Kung wala kayong pambili ng bigas",
+  "Aanhin mo ang asawa Kung iba naman ang nagpapaligaya",
+  "Aanhin mo naman ang ka-sweetan Kung hanggang kaibigan lang naman",
+  "Aanhin mo ang marriage contract Kung sa iba naman Siya Kumocontact",
+  "Aanhin mo ang sexy Kung ang mukha naman ay Scary",
+  "Aanhin mo pa ang alak Kung sa akin pa lang tinatamaan ka na",
+  "Aanhin mo ang magandang dress Kung mukha ka namang stressed",
+  "Aanhin mo pa ang Spelling Kung 'Jejemon' ka naman",
+  "Aanhin ang langit Kung nauna na ang pangit",
+  "Aanhin ang palasyo Kung wala naman internet connection dito",
+  "Aanhin pa ang gabi Kung pangit naman ang katabi",
+  "Never say die, tomorrow is another guy.",
+  "Eh ano naman sa inyo kung malandi ako, bakit, kayo ba nilalandi ko?",
+  "Ay Insecure ka...Mas malakas ba ang karisma ng malandi sa maganda",
+  "Sige, maglaro tayo, agawan ng yaman..... Next level na agawan ng asawa",
+  "Huwag kang umasa na babalik pa siya, kung nasa piling na siya ng iba.",
+  "Ang babaeng maganda, talo ng ma-appeal",
+  "Ang babaeng ma-appeal, talo ng sexy",
+  "Pag mahal mo, mahalin mo nang totoo para hindi na kayo umabot kay Tulfo.",
+  "Pagsinabi niyang pangit ka, sapakin mo aga! Kita na nga, sasabihin pa.",
+  "Ang kagandahan parang password, ikaw lang nakakaalam.",
+  "Ang kutis mo parang barbie. Barbie-Q",
+  "Di ba sabi nila ang tao gawa  sa putik..Bakit ikaw gawa ka sa plastic!",
+  "ARTISTA KA BA?? PLASTIC KA KASI!!",
+  "At least ngaun alam ko na...dba ?? hinde ka LATA.. PLASTIC ka lng.",
+  "hay naku kung pwede lang itapon lahat ng mga kaibigan sa dagat. di sana matagal ko ng ginawa para lumutang kung sino tlga ang mga plastic.",
+  "SOBRA INIT D2 SA PINAS..INGAT Ka ha wag ka LALABAS BKA MALUSAW ka. Plastic ka kasi!!",
+  "TANDAAN mo NA ANG 'INSECURITY' at 'PLASTIC' AY MAG KAPATID..",
+  "Kapag PLASTIC , basura na agad ? hindi ba pwdeng IKAW muna ?",
+  "Ang tao raw ay hinulma gamit ang putik. Eh naubusan ng putik. Ayan tuloy, ang iba gawa sa Plastik!",
+  "Alam mo para kang BARBIE - MAGANDA, PLASTIK at WALANG UTAK",
+  "STRAW kAbA?? kasi SIPSIP kana PLASTIC kapa!!!!!",
+  "Kung legal lang ang magsunog ng PLASTIC na tao, For sure, ABO ka na",
+  "Hindi lang mga BAMPIRA ang takot sa ARAW. Nandyan din ang mga PLASTIC na takot MATUNAW",
+  "Plastic na, Ma-Papel pa...galing Dual purpose ka pala.",
+  "Feeling Gwapo? Mukha namang Kwago",
+  "Pogi ka? helllllleeeer! Chura neto!",
+  "Kung Pogi ka na, ano tawag mo sa amin? Artista?!",
+  "SO Feeling MO pogi KA?! Kapal Naman NG Libag at Gilagid MO UY!",
+  "Feeling pogi ka! Kamukha mo naman si Vice Ganda",
+  "Feeling gwapo. Mukha namang basag na pugo",
+  "Pogi ka? Mas pogi ka kung wala kang ulo",
+  "O magkape ka muna baka nanaginip ka lang",
+  "gwapo ka? ang sarap mong hampasin ng flourescent light para maliwanagan ka",
+  "HOY IKAW! di'PORKET PAREHAS TAYONG BALBAS SARADO, FEELING MO GWAPO KA NA RIN ?",
+  "Kung Pogi ka......wala ng panget sa mundo!",
+  "Feeling Gwapo, mukha namang Impakto!",
+  "Feeling gwapo mukha namang aso.",
+  "Letche ka, feeling pogi, as if namang hahabulin kita",
+  "Ang kutis mo parang barbie. Barbie-Q",
+  "Di ba sabi nila ang tao gawa  sa putik..Bakit ikaw gawa ka sa plastic!",
+  "ARTISTA KA BA?? PLASTIC KA KASI!!",
+  "At least ngaun alam ko na...dba ?? hinde ka LATA.. PLASTIC ka lng.",
+  "hay naku kung pwede lang itapon lahat ng mga kaibigan sa dagat. di sana matagal ko ng ginawa para lumutang kung sino tlga ang mga plastic.",
+  "SOBRA INIT D2 SA PINAS..INGAT Ka ha wag ka LALABAS BKA MALUSAW ka. Plastic ka kasi!!",
+  "TANDAAN mo NA ANG 'INSECURITY' at 'PLASTIC' AY MAG KAPATID..",
+  "Kapag PLASTIC , basura na agad ? hindi ba pwdeng IKAW muna ?",
+  "Ang tao raw ay hinulma gamit ang putik. Eh naubusan ng putik. Ayan tuloy, ang iba gawa sa Plastik!",
+  "Alam mo para kang BARBIE - MAGANDA, PLASTIK at WALANG UTAK",
+  "STRAW kAbA?? kasi SIPSIP kana PLASTIC kapa!!!!!",
+  "Kung legal lang ang magsunog ng PLASTIC na tao, For sure, ABO ka na",
+  "Hindi lang mga BAMPIRA ang takot sa ARAW. Nandyan din ang mga PLASTIC na takot MATUNAW",
+  "Plastic na, Ma-Papel pa...galing Dual purpose ka pala.",
+  "Feeling Gwapo? Mukha namang Kwago",
+  "Pogi ka? helllllleeeer! Chura neto!",
+  "Kung Pogi ka na, ano tawag mo sa amin? Artista?!",
+  "SO Feeling MO pogi KA?! Kapal Naman NG Libag at Gilagid MO UY!",
+  "Feeling pogi ka! Kamukha mo naman si Vice Ganda",
+  "Feeling gwapo. Mukha namang basag na pugo",
+  "Pogi ka? Mas pogi ka kung wala kang ulo",
+  "O magkape ka muna baka nanaginip ka lang",
+  "gwapo ka? ang sarap mong hampasin ng flourescent light para maliwanagan ka",
+  "HOY IKAW! di'PORKET PAREHAS TAYONG BALBAS SARADO, FEELING MO GWAPO KA NA RIN ?",
+  "Kung Pogi ka......wala ng panget sa mundo!",
+  "Feeling Gwapo, mukha namang Impakto!",
+  "Feeling gwapo mukha namang aso.",
+  "Letche ka, feeling pogi, as if namang hahabulin kita",
+  "Hoy! Iba ang Friendly sa Malandi",
+  "Hinay-hinay lang sa paglalalandi,Baka yan ang ikamatay mo",
+  "Galit ka sa malandi?! Wag ganun love yourself",
+  "Ang taong malandi, sa Higad pinaglihi!",
+  "If flirting is a sport, Aba Varsity ka na teh!!",
+  "Hindi Nakukuntento ang Malalanding tao, Makati eh",
+  "Landi here, landi there, Landi everywhere",
+  "Sumalangit nawa, Ang malandi mong kaluluwa",
+  "Ballpen nga nawawala, feelings pa kaya?",
+  "Sick leave. Dahil nasaktan ako nung iniwan mo ko.",
+  "Lahat ba ng Math major laging hinahanap si X?",
+  "Huwag kang umasa na babalik pa siya, kung nasa piling na siya ng iba.",
+  "Para kang exam, hindi ko na maunawaan.",
+  "Sana may traffic lights din sa love, para alam natin kung kailang maghahanda, di-direstso, o hihinto.",
+  "Ang jowa minsan parang sinaing rin iyan, kailangang bantayan.",
+  "Mabuti pa yung kape, mainit man o malamig, hinahanap-hanap pa rin.",
+  "Lahat ba ng Math major laging hinahanap si X?",
+  "Sa love, ‘di maiiwasan na may U-Turn. Yung akala mong dire-diretso na, may babalikan pa pala.",
+  "Walang masama magmahal basta alam mong saan ka liliko o didiretso para wala kang nasasagasaang tao.",
+  "Mahal. Minsan bilihin, kadalasan ikaw.",
+  "Mabuti pa sa date nyo, lagi kang maaga. Eh sa klase, kamusta?",
+  "Sana yung pagmamahal mo parang hugasin rin sa bahay, hindi nauubos.",
+  "Kung ayaw mong masaktan, huwag kang papatol sa alam mong expert sa kalokohan.",
+  "Hindi lahat ng patama tungkol sa'yo, sadyang natatamaan ka lang kasi!",
+  "Hindi ka magiging masaya kung patuloy mong babalikan ang tapos na.",
+  "Ang daling matulog, ang hirap bumangon. Ang daling mahulog, ang hirap mag move on.",
+  "Kung nagalit man ako nang walang dahilan, pasensya na. Nasaktan kasi ako nang wala kang alam",
+  "Sa tamang panahon may isang taong magpapatunay sayo kung bakit ka para sa kanya at kung bakit hindi ka para sa iba.",
+  "Di ko man maisigaw sa buong mundo kung sino ang mahal ko, sapat nang alam natin pareho na ikaw ang tinutukoy ko.",
+  "Kung pwede lang maging excuse ang pagiging broken hearted, malamang marami ng absent sa high school at college.",
+  "Wag mong isiksik ang sarili mo sa taong hindi marunong magpahalaga sa nararamdaman mo. Masasaktan ka lang.",
+  "Mahirap kumalma lalo na kapag selos na selos ka na.",
+  "Sana isinusulat na ang feelings, para madali lang burahin.",
+  "Sana thesis na lang ako na ipaglalaban mo kahit hirap na hirap ka na.",
+  "Balang araw makakaya ko na ulit na tingnan ka ng wala na akong nararamdaman pa.",
+  "Yung feeling na may narinig kang kanta, tapos naalala mo siya.",
+  "Mahirap mag-let go. Pero mas mahirap yung kumakapit ka pa, tinutulak ka na.",
+  "May mga tao talaga na kahit napapasaya ka, kaylangan mong iwasan.",
+  "Hindi na baleng siya ang bumitaw. Ang importante alam mong lumaban ka hanggang sa wala ka ng maipaglaban.",
+  "Hindi mo kailangang mamili sa aming dalawa. Handa akong lumabas sa puso mo para lang sumaya ka sa piling niya.",
+  "Ang hirap bitawan nung taong kahit hindi kayo, siya yung nagpapasaya at kumukumpleto ng araw mo!",
+  "Pag hindi ka mahal ng mahal mo, wag ka magreklamo. Kasi may mga tao rin na di mo mahal pero mahal ka. Kaya quits lang.",
+  "Alam mo kung bakit nasasaktan ka? Kasi iniisip mo na gusto ka rin niya kahit hindi naman talaga.",
+  "Dapat ba akong ngumiti dahil magkaibigan tayo? O dapat ba kong malungkot dahil hanggang dun lang tayo?",
+  "Hindi tamang gumamit ka ng ibang tao para maka move-on ka. Ginagago mo na nga ang sarili mo, nakasakit ka pa ng iba.",
+  "Ibinigay ko na ang lahat pero hindi pa rin sapat.",
+  "Lahat tayo napapagod. Wag mong hintayin na mawala pa siya sa buhay mo bago mo siya pahalagahan.",
+  "Yung naghihintay ka sa isang bagay na imposible namang mangyari.",
+  "Ang oras ay isang mahalagang elemento sa mundo. Bumibilis kapag masaya, at bumabagal kapag wala ka.",
+  "Masakit isipin na dahil sa isang pangyayari hindi na kayo pwedeng maging tulad ng dati.",
+  "Yung akala mo minahal ka niya pero hindi pala.",
+  "Sana tinuruan mo ‘ko kung paano madaling makalimot tulad ng ginawa mong paglimot sa'kin.",
+  "Buti pa ang ngipin nabubunot kapag masakit. Sana ang puso ganun din.",
+  "Minsan kahit sabihin mong suko ka na, kapag naalala mo kung paano ka niya napasaya, bumabalik ka ulit sa pagiging tanga.",
+  "Minsan kailangan tayong masaktan bago tayo matauhan.",
+  "Minsan kung sino pa yung rason mo kung bakit ka masaya, siya din ang rason kung bakit masasaktan ka ng sobra.",
+  "Kung talagang mahal ka nyan mageefort yan kahit di ka mag-demand.",
+  "Kapag nasasaktan ka, pwede kang umiyak. Tao lang tayo hindi superhero.",
+  "Tao ka kaya hindi ka exempted masaktan.",
+  "Kaya may monthsary ay dahil hindi lahat ng relasyon ay umaabot ng anniversary.",
+  "Bago mo ko hawakan, pwede ko bang malaman kung paano mo bibitiwan?",
+  "Hindi lahat ng nagsasama ay nagmamahalan at hindi lahat ng nagmamahalan ay magkasama.",
+  "Ang salitang ‘I love you' ay hindi tanong. Pero bakit masakit pag walang sagot.",
+  "Tulungan mo ang sarili mo na makalimot. Wag mong tulungan ang sarili mong masaktan.",
+  "Dapat matuto tayong bumitaw. Dahil mas okay ang maging malungkot ng panandalian kesa magmukhang tanga ng matagalan.",
+  "Huwag kang malungkot kung iniwan ka niya ang mahalaga ay napadama mo sa kanya kung gaano mo sya kamahal.",
+  "Kapag alam mong wala nang pagmamahal, wag mo nang ipagsiksikan ang sarili mo. Sa huli ikaw rin ang talo.",
+  "Mas pipiliin kong ako na lang ang masaktan kaysa magkasama nga tayo pero sya naman ang hinahanap ng puso mo.",
+  "Ginawa ang break-up para ilayo tayo sa maling tao na akala natin ay tama.",
+  "Ang PAG-IBIG parang harutan. Minsan hindi mo maiiwasang hindi MASAKTAN.",
+  "Hindi naman masamang maging selfish. May mga bagay lang talaga na hindi pwedeng may kahati.",
+  "Kung hindi mo mahal ang isang tao, wag ka nang magpakita ng motibo para mahalin ka nya.",
+  "Huwag mong bitawan ang bagay na hindi mo kayang makitang hawakan ng iba.",
+  "Sana sinaing ka nalang, Para kapag nakalimutan kita, Sunog kang hayop ka.",
+  "Bakit laging yung mga 'PAASA' ang sinisisi kapag may nasasaktan? Eh, paano yung ipinanganak na 'ASSUMING?'",
+  "Pwede mo ba akong samahan Sa sementeryo? Bibisitahin ko yung puso kong Patay na patay sayo.",
+  "Kung ako namatay wag kang pumunta sa libingan ko, Kasi baka tumibok ulit ang puso ko.",
+  "Buti pa ang mga bilihin nagmahalan, Ako hindi pa.",
+  "Sa mga estudyante: Hanggang crush lang muna, Wag agad mag-relasyon, Para hindi ka agad-agad nasasaktan.",
+  "Ang pag- ibig parang bagyo, Mahirap ipredict kahit May PAG-ASA.",
+  "Malamig lang ang panahon, JOWA agad hanap mo? Try mo lugaw, May Itlog din yon.",
+  "Ang puso parang paminta, Buo talaga Pilit lang dinudurog ng iba.",
+  "Pag-iniwan ka ng mahal mo, Never Say Die, Tommorow is another guy.",
+  "Ang crush ay parang Math Problem, Pag di makuha, Titigan nalang.",
+  "MALABO: Minsan Mata, Minsan Ikaw",
+  "Bumabalik ka nanaman? Pakiusap. Ayaw ko na mating tanga ulit.",
+  "Minsan natatawa ako ng walang dahilan, Pero madalas nasasaktan ako na walang nakakaalam.",
+  "Hindi bale na kahit height mo ay bitin, Abot langit naman",
+  "Huwag kang mag-alala kung mataba ang girlfriend mo, Kaya nga may sabihang 'True Love Weights.'",
+  "Ano naman kung mataba siya? Mamahalin mo lang naman siya hindi kakargahin.",
+  "Kayo advanced mag-isip, Ako ikaw lang iniisip",
+  "Pangiti-ngiti lang ako pero nahuhulog na ako sayo",
+  "Wag kang malungkot kung palpak ang love life mo. Sadyang malakas lang talagang manalangin ang taong pumapangarap sayo.",
+  "Ang manhid parang bato yan di nasasaktan at walang nararamdaman.",
+  "Hanapin mo yung taong para sayo hindi yung  para iba tapos AAGAWIN mo.",
+  "Wag mong panghinayangan ang taong ikaw mismo ang sinayang.",
+  "Pag ibig parang hangin di mo ito nakikita pero nararamdaman mo.",
+  "KAsama talaga ang masaktan  sa pag mamahal , masasaktan ka ba KUNG DI MO SYA MAHAL",
+  "Mahal mo sha mahal din nya yung isa..anong klaseng puso yan dual SIM?.",
+  "Minsan mas maganda pang malungkot ng panandalian kesa magdusa habang buhay.",
+  "Di ako mayaman para bilhin ang kahapon pero handa akong utangin ang ngayon makasama kalang habang panahon.",
+  "Sipag naman mag mahal ng mga tao pati mahal ko mahal din nila.",
+  "Pwede kalang mahalin pero di ka pwedeng angkinin.",
+  "Yung feeling na ang bilis bilis ng oras pag kasama mo siya.",
+  "Mahirap daw mag mahal ng taong iba ang gusto. Pero alam ba nila MAS MAHIRAP mag mahal ng taong akala mo ikaw ang gusto?",
+  "Wag kang gumawa ng paraan para sumuko ako dahil sa oras na ipinaramdam mo sa aking BALEWALA ako. Kahit sobrang mahal kita, BIBITAW ako.",
+  "Yung ikaw sukong-suko na pero sya lumalaban pa. Kaya ikaw pilit na lang na lumalaban para hindi na siya masaktan pa.",
+  "madaling mag patawad pero mahirap makalimot.",
+  "WAG MONG SABIHING PINAASA KA NYA BAKIT SINANBE BA NYA SAYO NA UMASA KA!!",
+  "Ang sorry ay ginagamit sa mga bagay na hindi sinasadya di sa mga bagay na paulit-ulit na ginagawa.",
+  "Ang pag kakaalam ko ang tao hinulma sa putik pero bat ganun ang daming taong plastic.",
+  "Ang ex nang kaibigan dapat di pinapatulan niluwa nanya kinain mo pa patay gutom ka talaga",
+  "Kung may alak may balak",
+  "Dika karapat dapat na tawaging kaibigan dahil plastik ka",
+  "Minsan kase dapat matuto tayong bumitaw lalo na pag nasasaktan na di yung ginagago kana kinikilig kapa.",
+  "Kung sinabe mo sakin na sasaktan molang naman ako. dapat  inaya mo nalang ako ng sapakan .",
+  "Alam mo ba na ang pinaka masarap na kape ay ang 'KAPE'leng ka .",
+  "Sa dinami-dami ng BOOK sa mundo, isa lang talaga ang hindi ko maintindihan...... Ang tiniti-BOOK ng puso ko, para sayo!",
+  "Wag mong pag selosan ang mga tao sa paligid ko dahil alam nila na ikaw ang mahal ko.",
+  "Ang sarap mahulog lalo kung alam mong may sasalo sayo.",
+  "Di lahat nang nagpapakilig sayo ibig sabihin mahal ka may mga tao lang talagang gawa sa asukal na nakalagay sa plastic.",
+  "Sabi nila mahirap mag mahal ng taong iba ang gusto pero diba nila na isip na mas mahirap magmahal ng taong akala mo ikw ang gusto.",
+  "akala ko ba mahal mo bakit hinayaan mong mapunta sa iba? -kase pinili kong maging masaya siya kahit hindi na ako ang dahilan.",
+  "Baril kaba? Bakit? Kasi lakas ng putok mo!! Boom 🎆",
+  "Pustiso kaba? Kasi i cant smile without you",
+  "Ang kapal naman ng mukha mo!! di pa nga tayo magkakilala pumapasok kana agad sa puso ko",
+  "Sa isang relasiyon Hindi naman dapat sexy,hot o maganda ka kasi love story ang gagawin niyo Hindi sex video.",
+  "Ang pagiging close ng babae at lalaki as a friend ay parang camera CLICK today DEVELOP someday .",
+  "Kung sa pag Ibig iibigin kita, Kung sa pagmamahalan mamahalin kita..Kung sa kamatayan mauna ka..Hindi ako TANGA para samahan ka pa.",
+  "Ang PUSO ay isang maliit na parte lang ng katawan pero kapag itoy nasaktan buong pag ka tao ang naaapektuhan.",
+  "'Ang hirap magtiwala sa taong paulit-ulit ka nang sinaktan.'",
+  "'Bakit ba kailangan pa nilang manloko, kung mahal mo naman sila nang sobra?'",
+  "'Minsan, kailangan mong maging matapang at i-let go na ang taong hindi na naman magbabago.'",
+  "'Ang pag-ibig ay hindi dapat pilitin, dahil kung para sa'yo, darating at darating 'yan.'",
+  "'Hindi lahat ng sakit, kayang gamutin ng mga lalaki.'",
+  "'Kapag minahal mo nang sobra ang isang tao, mahirap na itong kalimutan.'",
+  "'Kung magmamahal ka, dapat handa ka rin sa posibilidad na masaktan ka.'",
+  "'Hindi dapat masanay sa kahit anong pagpapabalewala ng lalaki.'",
+  "'Kapag mahal mo ang isang tao, dapat kayang magpakatanga pero hindi kayang magpaka-tanga.'",
+  "'Ang hirap pag ipinagkatiwala mo na lahat, pero hindi pa rin sapat para sa kanya.'",
+  "'Kung hindi ka mahal ng taong mahal mo, wag mo na lang siyang pilitin.'",
+  "Masakit isipin na ang taong pinakamamahal mo ay hindi naman pala para sa'yo.",
+  "Hindi porke't single ka, wala ka nang karapatang magmahal at magpakamahal.",
+  "Masakit kapag hindi ka na naaalala ng taong minsan mong pinakamahal.",
+  "Pano mapipigilan ang global warming kung pati tao plastick na rin",
+  "Facebook ko ito at wapakels kung ano ipopost ko kung ayaw mo sa mga post ko pakitadyakan ang sarili mo palabas ng friend list ko",
+  "Sa paglipas ng panahon isa lang ang natutunan ko.... Pahalagahan ang nandiyan at kalimutan ang nang iwan",
+  "Ayoko ng ikinukumpara ako sa iba dahil kahit kailan ay hindi ako naging sila.",
+  "Minsan kailangan mong tanggapin na kahit mahal ka nang  isang tao , kaya niyang lokohin kahit kailan nya gusto",
+  "Ang TSISMIS ay ginagawa ng taong GALIT sayo..kinakalat ng taong LOKO-",
+  "Masakit kapag ang taong mahal mo, ay masaya sa piling ng iba pero kailangan mong ipakita na masaya ka, kahit sa loob mo.. 'Sana ako nalang siya.",
+  "Ang hirap tumawa kung hindi ka naman masaya Kahit ngumiti ka pa halata pa rin ang lungkot ng nadarama.",
+  "Ang love parang Clash of Clans, Kailangan mong mag effort na palakasin ang pundasyon mo para maiwasan ang pagkasira nito.",
+  "Hindi tanga yung taong sobrang magmahal. Mas tanga yung taong minahal ng sobra pero naghanap pa ng iba.",
+  "Papayag naman akong landiin ang mahal ko. Basta payag kang basagin ang pag mumukha mo.",
+  "Sana tsinelas nalang tayong dalawa.Para kung mawala ang isa,di na pedeng ipares sa iba dahil di na bagay.",
+  "Ang pag-ibig parang imburnal, Nakakatakot mahulog at kapag nahulog ka,it's either by accident or talagang tanga ka.",
+  "May mga taong mabilis mahulog ang loob mo,pero bigla ka na lang iiwan At kung saan nakalimot ka na,tsaka magpaparamdam.",
+  "Naka ngiti ako dahil masaya ako, Ngumiti talaga ako para patunayan sayo na, Nandiyan ka man o wala itutuloy ko buhay ko.",
+  "Nandiyan ka man o wala itutuloy ko buhay ko. naiintindihan HINDI KA PA RIN IIWAN.",
+  "Nagmahal ka na nga ng Dyosa pinagpalit mo pa sa isang Aswang.",
+  "May mga taong ayaw mawala ka. Pero di naman gumagawa para bumalik ka.",
+  "Wag ka magpapa apekto sa sinasabi ng iba. Mas kilala mo ang sarili mo kesa sa kanila.",
+  "Minsan lahat ng naiiwan hindi na pwede pang balikan.",
+  "Sabi mo laro tayo. Akala ko tagu taguan yun pala feelings.",
+  "Wag ka maghanap ng taong nakakaintindi sayo.Hanapin mo yung taong kahit hindi naiintindihan di ka pa rin iiwan.",
+  "Minsan kung sino pa yung HINDI KA LUBOS KILALA sila pa ang MANGHUHUSGA.At itsi tsimis ka pa nila.",
+  "Hindi mahirap gawin ang mag MOVE-ON. Nahihirapan ka lang dahil iniisip mo ikaw yung nawalan.",
+  "Magkaiba ang GALIT at TAMPO. Ang galit pwede kanino at ang tampo makakaramdam mo lang sa taong ayaw mong mawala sa'yo.",
+  "Wag kang magpakatanga sa taong binabalewala ka",
+  "Masaya ako kahit wala ka. Sumosobra ang pag andiyan ka.",
+  "Ang SECOND CHANCE ay binibigay sa taong marunong tanggapin ang kanyang kamalian.",
+  "Hindi naman talaga ako nawala. Natabunan lang ako nung may dumatinng na bago sa buhay mo.",
+  "Sa likod ng 'FRIENDS KAMI May pusong umaasa na ' SANA NGA KAMI",
+  "Ang pagboto ay parang pag-ibig PRICELESS",
+  "Wag mong I-Lang ang pagigigng Fangirl, Fangirl isn't an easy job.",
+  "That 'BAGAY TAYO' pero di tayo 'MEANT TO BE'",
+  "Minsan ang mga PLASTIK  ay wala sa basurahan.MInsan nasa harap mo lang.",
+  "Maraming magkasintahan na ang naghiwalay dahil sa walang kakwenta-kwentang away.",
+  "Nakakawalang gana kung lagi ka na lang nasasaktan.",
+  "May mga taong hindi mo talaga alam kung mahal ka o sweet lang talaga sayo.",
+  "Di ako naniniwala sa MU .Naniniwala ako sa Me and You.",
+  "The journey of a thousand miles begins pag may pera ka. Kaya mag-ipon ka.",
+  "Sana piso fare pa rin. Piso fare na lang. Piso fare na lang ulet!",
+  "Ang pag-ibig parang itinerary. Madalas hindi nasusunod.",
+  "Buti pa kay manong tricycle driver, 25 pesos lang special kana (Faie)",
+  "Ingat sa Cliff diving. Delikado ang ma-fall lalo na kung walang sasalo sayo.",
+  "Kung yung weather nga pabago-bago. Feelings mo pa kaya?",
+  "Kung mahal mo ko, wag mo akong Kazakhstan.",
+  "Mabuti pa ang bundok inakyat mo, eh yung pag-akyat ng ligaw sakin kelan mo gagawin?",
+  "Buti pa yung guide, jahit agod na hindi ako iniwan. Ikaw, hindi naman kita pinagod pero bakit mo ko binitawan?",
+  "Sabi mo dollar lang ang ipagpapalit mo. Bakit pati ako?",
+  "Buti pa ang travel mo kaya mong planuhin. Ako kaya? Kelan mo paplanuhing mahalin?",
+  "Basta text kita later, male-late na KUWAIT!",
+  "Ang usapan natin “Leave no trace,” pero bakit ang sakit-sakit pa rin?",
+  "Buti pa ang bagyo, may pag-asa",
+  "Yung pag-akyat ng bundok parang tayo, nakakapagod.",
+  "Sa lahat ng napuntahan ko, ikaw lang ang gusto kong balik-balikan",
+  "Pag nagmahal ka dapat SAGADA",
+  "Kung tent tayo, ikaw ang pole. Because I can't stand without you.",
+  "Ang lamig dito sa taas. Kasing lamig ng puso mo.",
+  "Sabi mo, “Laro tayo”. Akala ko “Surfing” yun pala “Feelings”.",
+  "Hanggang miss you all nalang ba tayo sa Group Chat?",
+  "“Buti pa ang pamasahe ng tren tumaas. Sweldo ko na lang ang hindi.”",
+  "Gusto ko ng kape, yung matapang yung kaya akong ipaglaban.",
+  "Para kang sweldo ko, di mo namalayang wala na pala.",
+  "Buti pa nga files sinesave mo, yung relasyon natin?",
+  "Monitor kaba? Kai parang ang sarp mong titigan magdamag.",
+  "Keyboard kaba? Kasi type na type kita",
+  "Para kang aplikante ko, nangakong darating hindi naman.",
+  "Ballpen nga nawawala, feelings pa kaya?",
+  "Sick leave. Dahil nasaktan ako nung iniwan mo ko.",
+  "Lahat ba ng Math major laging hinahanap si X?",
+  "Huwag kang umasa na babalik pa siya, kung nasa piling na siya ng iba.",
+  "Para kang exam, hindi ko na maunawaan.",
+  "Sana may traffic lights din sa love, para alam natin kung kailang maghahanda, di-direstso, o hihinto.",
+  "Ang jowa minsan parang sinaing rin iyan, kailangang bantayan.",
+  "Mabuti pa yung kape, mainit man o malamig, hinahanap-hanap pa rin.",
+  "Lahat ba ng Math major laging hinahanap si X?",
+  "Sa love, ‘di maiiwasan na may U-Turn. Yung akala mong dire-diretso na, may babalikan pa pala.",
+  "Walang masama magmahal basta alam mong saan ka liliko o didiretso para wala kang nasasagasaang tao.",
+  "Mahal. Minsan bilihin, kadalasan ikaw.",
+  "Mabuti pa sa date nyo, lagi kang maaga. Eh sa klase, kamusta?",
+  "Sana yung pagmamahal mo parang hugasin rin sa bahay, hindi nauubos.",
+  "Kung ayaw mong masaktan, huwag kang papatol sa alam mong expert sa kalokohan.",
+  "Hindi lahat ng patama tungkol sa'yo, sadyang natatamaan ka lang kasi!",
+  "Hindi ka magiging masaya kung patuloy mong babalikan ang tapos na.",
+  "Ang daling matulog, ang hirap bumangon. Ang daling mahulog, ang hirap mag move on.",
+  "Kung nagalit man ako nang walang dahilan, pasensya na. Nasaktan kasi ako nang wala kang alam",
+  "Sa tamang panahon may isang taong magpapatunay sayo kung bakit ka para sa kanya at kung bakit hindi ka para sa iba.",
+  "Di ko man maisigaw sa buong mundo kung sino ang mahal ko, sapat nang alam natin pareho na ikaw ang tinutukoy ko.",
+  "Kung pwede lang maging excuse ang pagiging broken hearted, malamang marami ng absent sa high school at college.",
+  "Wag mong isiksik ang sarili mo sa taong hindi marunong magpahalaga sa nararamdaman mo. Masasaktan ka lang.",
+  "Mahirap kumalma lalo na kapag selos na selos ka na.",
+  "Sana isinusulat na ang feelings, para madali lang burahin.",
+  "Sana thesis na lang ako na ipaglalaban mo kahit hirap na hirap ka na.",
+  "Balang araw makakaya ko na ulit na tingnan ka ng wala na akong nararamdaman pa.",
+  "Yung feeling na may narinig kang kanta, tapos naalala mo siya.",
+  "Mahirap mag-let go. Pero mas mahirap yung kumakapit ka pa, tinutulak ka na.",
+  "May mga tao talaga na kahit napapasaya ka, kaylangan mong iwasan.",
+  "Hindi na baleng siya ang bumitaw. Ang importante alam mong lumaban ka hanggang sa wala ka ng maipaglaban.",
+  "Hindi mo kailangang mamili sa aming dalawa. Handa akong lumabas sa puso mo para lang sumaya ka sa piling niya.",
+  "Lagot ka, walang filter sa f2f",
+  "Pag hindi ka mahal ng mahal mo, wag ka magreklamo. Kasi may mga tao rin na di mo mahal pero mahal ka. Kaya quits lang.",
+  "Alam mo kung bakit nasasaktan ka? Kasi iniisip mo na gusto ka rin niya kahit hindi naman talaga.",
+  "Dapat ba akong ngumiti dahil magkaibigan tayo? O dapat ba kong malungkot dahil hanggang dun lang tayo?",
+  "Hindi tamang gumamit ka ng ibang tao para maka move-on ka. Ginagago mo na nga ang sarili mo, nakasakit ka pa ng iba.",
+  "Ibinigay ko na ang lahat pero hindi pa rin sapat.",
+  "Lahat tayo napapagod. Wag mong hintayin na mawala pa siya sa buhay mo bago mo siya pahalagahan.",
+  "Yung naghihintay ka sa isang bagay na imposible namang mangyari.",
+  "Ang oras ay isang mahalagang elemento sa mundo. Bumibilis kapag masaya, at bumabagal kapag wala ka.",
+  "Natatakot ako mag workout baka kasi sumarap ako lalo",
+  "Yung akala mo minahal ka niya pero hindi pala.",
+  "Sana tinuruan mo ‘ko kung paano madaling makalimot tulad ng ginawa mong paglimot sa'kin.",
+  "Buti pa ang ngipin nabubunot kapag masakit. Sana ang puso ganun din.",
+  "Minsan kahit sabihin mong suko ka na, kapag naalala mo kung paano ka niya napasaya, bumabalik ka ulit sa pagiging tanga.",
+  "Minsan kailangan tayong masaktan bago tayo matauhan.",
+  "Minsan kung sino pa yung rason mo kung bakit ka masaya, siya din ang rason kung bakit masasaktan ka ng sobra.",
+  "Kung talagang mahal ka nyan mageefort yan kahit di ka mag-demand.",
+  "Kapag nasasaktan ka, pwede kang umiyak. Tao lang tayo hindi superhero.",
+  "Tao ka kaya hindi ka exempted masaktan.",
+  "Kaya may monthsary ay dahil hindi lahat ng relasyon ay umaabot ng anniversary.",
+  "Bago mo ko hawakan, pwede ko bang malaman kung paano mo bibitiwan?",
+  "Hindi lahat ng nagsasama ay nagmamahalan at hindi lahat ng nagmamahalan ay magkasama.",
+  "Ang salitang ‘I love you' ay hindi tanong. Pero bakit masakit pag walang sagot.",
+  "Tulungan mo ang sarili mo na makalimot. Wag mong tulungan ang sarili mong masaktan.",
+  "Dapat matuto tayong bumitaw. Dahil mas okay ang maging malungkot ng panandalian kesa magmukhang tanga ng matagalan.",
+  "Huwag kang malungkot kung iniwan ka niya ang mahalaga ay napadama mo sa kanya kung gaano mo sya kamahal.",
+  "Kapag alam mong wala nang pagmamahal, wag mo nang ipagsiksikan ang sarili mo. Sa huli ikaw rin ang talo.",
+  "Mas pipiliin kong ako na lang ang masaktan kaysa magkasama nga tayo pero sya naman ang hinahanap ng puso mo.",
+  "Ginawa ang break-up para ilayo tayo sa maling tao na akala natin ay tama.",
+  "Ang PAG-IBIG parang harutan. Minsan hindi mo maiiwasang hindi MASAKTAN.",
+  "Hindi naman masamang maging selfish. May mga bagay lang talaga na hindi pwedeng may kahati.",
+  "Kung hindi mo mahal ang isang tao, wag ka nang magpakita ng motibo para mahalin ka nya.",
+  "Huwag mong bitawan ang bagay na hindi mo kayang makitang hawakan ng iba.",
+  "Huwag mong hawakan kung alam mong bibitawan mo lang.",
+  "Huwag na huwag ka hahawak kapag alam mong may hawak ka na.",
+  "Wag magpakatanga sa PAG-IBIG. ‘Cause GOD gave you REAL EYES to REALIZE the REAL LIES.",
+  "Wag mong gawing soccer ang pag-ibig na pagkatapos mong sipain, saka mo hahabulin.",
+  "Mahal mo? Ipaglaban mo parang pangarap mo.",
+  "May mga bagay na masarap ingatan kahit hindi sayo. Parang ikaw, ang sarap mahalin kahit hindi tayo",
+  "Twitter ka ba? Bakit? Trending ka kasi sa puso ko.",
+  "Bakit ba naman kasi maglilihim kung pwede mo namang sabihin? Hindi yung kung kelan huli na ang lahat tsaka mo aaminin.",
+  "Hindi lahat ng kaya mong intindihin ay katotohanan at hindi lahat ng hindi mo kayang intindihin ay kasinungalingan",
+  "Sa panahon ngayon, joke na ang totoo at promise na ang panloloko.",
+  "Binabalewala mo siya tapos kapag nakita mo siyang masaya sa iba, masasaktanat magagalit ka. Ano ka, tanga?",
+  "Kapag pagod ka na, bitawan mo na. Hindi yung nagpapaka-tanga ka madami pa namang mas better sa kanya.",
+  "May mga feelings talaga na hanggang social media na lang.",
+  "Pinakilig ka lang akala mo mahal ka na? Sige, assume pa!",
+  "Hindi lahat ng nararamdaman ay dapat sabihin. Dahil hindi lahat ng sinasabi ay kayang maramdaman.",
+  "Isang beses lang kitang minahal. Pagkatapos nun, hindi na natapos!",
+  "Yung akala mong going strong kayao, going wrong pala kayo.",
+  "Ang puso ko parang tindahan. Simula ng nalugi, nagsara na!",
+  "Nagising ka na sa mahimbing mong pagtulog, pero sa katotohanang hindi ka niya mahal, hindi pa rin!",
+  "Wag mong ipamuka sa akin na madali akong palitan. Dahil kong isampal sayo ang MAHAL KITA pero hindi ka kawalan!",
+  "Sa likod ng ‘friends lang kami' ay may pusong bumubulong na ‘sana nga kami'.",
+  "Hindi naman karelasyon lang ang mahalaga para maging masaya. Kahit inspirasyon lang ok na.",
+  "Ang tunay na lalake nagbabago para sa babae, hindi yong pabago bago ng babae.",
+  "Sa love, ‘di maiiwasan na may U-Turn. Yung akala mong dire-diretso na, may babalikan pa pala.",
+  "Sana gawin nang herbal medicine ang MAKAHIYA, para may gamot na sa mga taong MAKAKAPAL ANG MUKHA.",
+  "Lumandi ng naaayon sa ganda. Para hindi magmukang tanga. Hindi yung over ka sa kalandian, mukha ka namang paa.",
+  "May shortage na ba talaga ng LALAKI ngayon, at kailangan mo pang MANG-AGAW para magkaroon.",
+  "Minsan kahit ilang beses pang sabihin ng utak mo na “TAMA NA” pilit parin sinasabi ng puso mong konteng tiis pa..",
+  "KARMA has no MENU but you get served for what you deserved..",
+  "Gaano kalaki ang kamay mo. Para hawakan ang mundo ko.",
+  "Mas okay na yung friendship na parang may something, kaysa sa relationship na parang nothing.",
+  "Hindi mo pa nga ako binabato, tinamaan na ako sayo.",
+  "Buti pa ang travel mo kaya mong planuhin. Ako kaya? Kelan mo paplanuhing mahalin?",
+  "Matuto kang sumuko kapag nasasaktan ka na ng sobra. Minsan kasi ginagago ka na, kinikilig ka pa.",
+  "May taong binigay ng Diyos para lang makilala mo at hindi para makasama mo.",
+  "Lahat tayo binigyan ng pagkakataong maging tanga pero hindi porket libre ay araw-arawin mo na.",
+  "Paano ko ipaglalaban ang pagmamahal ko sayo kung ako lang ang nakakaramdam nito.",
+  "Bakit kita iiyakan. Kaya naman kitang palitan.",
+  "Alam mo ba ang salitang pagmamahal? Hindi ko yan pinag-aralan. Pero sayo ko yan natutunan.",
+  "May mga taong di payag na mawala ka. Pero di naman gumagawa ng paraan para manatili ka.",
+  "Sa pag-ibig walang bulag, walang pipi, walang bingi, pero tanga madami.",
+  "Hintayin mo ang true love mo. Na-traffic lang yun sa malalanding tao.",
+  "Ang sakit malaman na ang taong mahal mo kaibigan lang ang turing sayo.",
+  "Importante naman talaga ang pinagsamahan, pero mas mahalaga ang pagsasabi ng katotohanan.",
+  "Darating yung araw kung saan masasabi mong sana hindi na lang tayo nagkakilala.",
+  "May mga tao talagang hindi para sa isa't-isa. Ang masakit pinagtagpo pa.",
+  "Yung feeling na in love ka sa kanya, pero in love naman siya sa iba.",
+  "Yung feeling na may narinig kang kanta, tapos naalala mo siya.",
+  "Minsan may mga taong iniiwasan mong pansinin pero ang puso mo gustong-gusto siyang kamustahin.",
+  "Ang hirap bitawan nung taong kahit hindi kayo, siya yung nagpapasaya at kumukumpleto ng araw mo.",
+  "Kung handa kang magmahal dapat handa ka ring masaktan.",
+  "Sa relasyon pag konti ang nakakaalam, konti lang din ang mga nakikialam.",
+  "Papayag naman akong landiin mo ang mahal ko. Basta papayag ka ring basagin ko yang pagmumukha mo",
+  "Yung pinipilit mo na lang ngumiti at tumawa para hindi nila Makita kung gaano ka ba kalungkot talaga.",
+  "Oo napasagot mo siya, e yung exam mo nasagot mo ba?",
+  "Mabuti pa sa date nyo, lagi kang maaga. Eh sa klase, kamusta?",
+  "Pag nakikita kita, parang gusto ko mag-sorry sa mga mata ko.",
+  "Diba pag pangit ka dapat nice ka?",
+  "Alam mo,walang ginawang panget ang Diyos eh. Eh ikaw? Sure ka ba na DIYOS ang gumawa sayo??",
+  "Aanhin mo ang ang Ganda Kung retoke lang pala.",
+  "Aanhin mo ang gwapo Kung ang gusto lang naman ay hubarin ang panty mo",
+  "Aanhin pa ang kagandahan Kung ginagamit lang naman sa kalandian",
+  "Aanhin mo ang pag-ibig na wagas Kung wala kayong pambili ng bigas",
+  "Aanhin mo ang asawa Kung iba naman ang nagpapaligaya",
+  "Aanhin mo naman ang ka-sweetan Kung hanggang kaibigan lang naman",
+  "Aanhin mo ang marriage contract Kung sa iba naman Siya Kumocontact",
+  "Aanhin mo ang sexy Kung ang mukha naman ay Scary",
+  "Aanhin mo pa ang alak Kung sa akin pa lang tinatamaan ka na",
+  "Aanhin mo ang magandang dress Kung mukha ka namang stressed",
+  "Aanhin mo pa ang Spelling Kung 'Jejemon' ka naman",
+  "Aanhin ang langit Kung nauna na ang pangit",
+  "Aanhin ang palasyo Kung wala naman internet connection dito",
+  "Aanhin pa ang gabi Kung pangit naman ang katabi",
+  "Never say die, tomorrow is another guy.",
+  "Eh ano naman sa inyo kung malandi ako, bakit, kayo ba nilalandi ko?",
+  "Ay Insecure ka...Mas malakas ba ang karisma ng malandi sa maganda",
+  "Sige, maglaro tayo, agawan ng yaman..... Next level na agawan ng asawa",
+  "Huwag kang umasa na babalik pa siya, kung nasa piling na siya ng iba.",
+  "Ang babaeng maganda, talo ng ma-appeal",
+  "Ang babaeng ma-appeal, talo ng sexy",
+  "Para ka yung sout kong damit, simple lng pero bagay sakin.",
+  "Minsan sumigaw ako ng ayoko ko nang magmahal, pero nang makita kita napasigaw ulit ako nang joke lang yun.",
+  "Okay lang sana kahit Quarantine, basta may Quarta rin.",
+  "Pag mahal mo, mahalin mo nang totoo para hindi na kayo umabot kay Tulfo.",
+  "Pagsinabi niyang pangit ka, sapakin mo aga! Kita na nga, sasabihin pa.",
+  "Ang kagandahan parang password, ikaw lang nakakaalam.",
+  "Ang kutis mo parang barbie. Barbie-Q",
+  "Di ba sabi nila ang tao gawa  sa putik..Bakit ikaw gawa ka sa plastic!",
+  "ARTISTA KA BA?? PLASTIC KA KASI!!",
+  "At least ngaun alam ko na...dba ?? hinde ka LATA.. PLASTIC ka lng.",
+  "hay naku kung pwede lang itapon lahat ng mga kaibigan sa dagat. di sana matagal ko ng ginawa para lumutang kung sino tlga ang mga plastic.",
+  "SOBRA INIT D2 SA PINAS..INGAT Ka ha wag ka LALABAS BKA MALUSAW ka. Plastic ka kasi!!",
+  "TANDAAN mo NA ANG 'INSECURITY' at 'PLASTIC' AY MAG KAPATID..",
+  "Kapag PLASTIC , basura na agad ? hindi ba pwdeng IKAW muna ?",
+  "Ang tao raw ay hinulma gamit ang putik. Eh naubusan ng putik. Ayan tuloy, ang iba gawa sa Plastik!",
+  "Alam mo para kang BARBIE - MAGANDA, PLASTIK at WALANG UTAK",
+  "STRAW kAbA?? kasi SIPSIP kana PLASTIC kapa!!!!!",
+  "Kung legal lang ang magsunog ng PLASTIC na tao, For sure, ABO ka na",
+  "Hindi lang mga BAMPIRA ang takot sa ARAW. Nandyan din ang mga PLASTIC na takot MATUNAW",
+  "Plastic na, Ma-Papel pa...galing Dual purpose ka pala.",
+  "Feeling Gwapo? Mukha namang Kwago",
+  "Pogi ka? helllllleeeer! Chura neto!",
+  "Kung Pogi ka na, ano tawag mo sa amin? Artista?!",
+  "SO Feeling MO pogi KA?! Kapal Naman NG Libag at Gilagid MO UY!",
+  "Feeling pogi ka! Kamukha mo naman si Vice Ganda",
+  "Feeling gwapo. Mukha namang basag na pugo",
+  "Pogi ka? Mas pogi ka kung wala kang ulo",
+  "O magkape ka muna baka nanaginip ka lang",
+  "gwapo ka? ang sarap mong hampasin ng flourescent light para maliwanagan ka",
+  "HOY IKAW! di'PORKET PAREHAS TAYONG BALBAS SARADO, FEELING MO GWAPO KA NA RIN ?",
+  "Kung Pogi ka......wala ng panget sa mundo!",
+  "Feeling Gwapo, mukha namang Impakto!",
+  "Feeling gwapo mukha namang aso.",
+  "Letche ka, feeling pogi, as if namang hahabulin kita",
+  "Hoy! Iba ang Friendly sa Malandi",
+  "Hinay-hinay lang sa paglalalandi,Baka yan ang ikamatay mo",
+  "Galit ka sa malandi?! Wag ganun love yourself",
+  "Ang taong malandi, sa Higad pinaglihi!",
+  "If flirting is a sport, Aba Varsity ka na teh!!",
+  "Hindi Nakukuntento ang Malalanding tao, Makati eh",
+  "Landi here, landi there, Landi everywhere",
+  "Sumalangit nawa, Ang malandi mong kaluluwa",
+  "Hindi ako ‘to! Pero ginagawa ko to para sa iyo.",
+  "Mahal mo ba ako dahil kailangan mo ako? O kailangan mo ako kaya mahal mo ako?",
+  "She had me at my worst. You had at me at my best. At binalewala mo lang lahat iyon.",
+  "Hindi lahat ng nagpapasaya sa atin ay tama.",
+  "Diyan ka naman magaling e! Magaling ka magpaasa.",
+  "Sabihin mo sa akin—may dahilan pa ba ako para hindi umalis?",
+  "May nararamdaman ka pa ba sakin? Meron. Sama ng loob.",
+  "Dati syota ko siya. Ngayon wala, shuta na lang siya.",
+  "Akala ko love. Sana sinabi mo na laro-laro lang pala ‘to, edi sana nag-PE uniform ako",
+  "My favorite part of my daily routine is haroutine ka.",
+  "Bakit wala kang jowa?  Kasi wala ka pa sakin.",
+  "Happy Teacher's Day sa lahat ng mga guro, pati na rin sa crush ko na tinuruan ako magmahal.",
+  "Your LOVE is not weak because your LOVE is weak. Your LOVE is weak because the KABIT is strong",
+  "Tama si Jessa Zaragosa. Parang ‘di ko nga yata kaya.",
+  "Mamatay na lang ako sa virus… kesa makita kang masaya sa iba.",
+  "Oo, naka-face shield at mask ako. Nag-dodoble ingat ako kasi baka mahulog ulit ako sa maling tao.",
+  "Hindi ako ‘to! Pero ginagawa ko to para sa iyo.",
+  "Mahal mo ba ako dahil kailangan mo ako? O kailangan mo ako kaya mahal mo ako?",
+  "She had me at my worst. You had at me at my best. At binalewala mo lang lahat iyon.",
+  "Hindi lahat ng nagpapasaya sa atin ay tama.",
+  "Diyan ka naman magaling e! Magaling ka magpaasa.",
+  "Sabihin mo sa akin—may dahilan pa ba ako para hindi umalis?",
+  "May nararamdaman ka pa ba sakin? Meron. Sama ng loob.",
+  "Dati syota ko siya. Ngayon wala, shuta na lang siya.",
+  "Akala ko love. Sana sinabi mo na laro-laro lang pala ‘to, edi sana nag-PE uniform ako",
+  "My favorite part of my daily routine is haroutine ka.",
+  "Bakit wala kang jowa?  Kasi wala ka pa sakin.",
+  "Happy Teacher's Day sa lahat ng mga guro, pati na rin sa crush ko na tinuruan ako magmahal.",
+  "Hindi tayo pinalaki ng Sexbomb Girls para bumawi.",
+  "Tama si Jessa Zaragosa. Parang ‘di ko nga yata kaya.",
+  "Mamatay na lang ako sa virus… kesa makita kang masaya sa iba.",
+  "Oo, naka-face shield at mask ako. Nag-dodoble ingat ako kasi baka mahulog ulit ako sa maling tao.",
+  "Mahal kita, Mahal mo siya, Oh Diba ang saya , Muka kang tanga",
+  "Hindi mo matatawag na past and nakaraan kung lagi mo itong binabalikan tandaan mo you can never finish a game kung lagi kang bumabalik sa level 1",
+  "Aanhin mo ang ganda,kung puti lang naman and nagdadala diyan sa muka mong retukada..mas okay pa ang morena at least nasa muka ang ebidensiya.",
+  "Kung tatabi ako sayo..gusto KO sa kanan mo para masabi nila na ......I'm the right person for you and I will never be like the other person who left you.",
+  "Hindi ko gustong maging akin ka para lang ipagyabang sa iba .Gusto kong imaging akin dahil sayo ako magiging masaya.",
+  "Ang RELASIYON ay Parang INUMAN gaano man Ito kasaya sa umpisa.. matatapos padin I to sa salitang 'di KO na kaya'.",
+  "Sa isang relasiyon Hindi naman dapat sexy,hot o maganda ka kasi love story ang gagawin niyo Hindi sex video.",
+  "Ang pagiging close ng babae at lalaki as a friend ay parang camera CLICK today DEVELOP someday .",
+  "Ang PUSO ay isang maliit na parte lang ng katawan pero kapag itoy nasaktan buong pag ka tao ang naaapektuhan.",
+  "Ang LOVE parang SIGARILYO bakit pa naimbento kung sakit din lang naman ang epekto.",
+  "Ang tunay na estudyante maingay pag DISCUSSION, Tahimik pag RECITATION.",
+  "Ang crush ay parang kalabasa Nagpapalinaw ng Mata,kaya kahit malayo pa kitang kita mo na.",
+  "Dahil ba mahal kita noon..Mahal pa rin kita ngayon?.. Hindi ba pwedeng..nasiraan lang noon at natauhan na ngayon.",
+  "Huwag kang mangako kung hindi mo kayang panindigan..mas mabuti nang sabihing susubukan kaysa mag paasa ng lubusan.",
+  "And qoutes parang ligaw na bala kahit Hindi para sayo natatamaan ka",
+  "Sabi nila true love can be measure by spark yung tipo na kapag nagkiss kayo mararamdaman mo yung kuryenteng dumadaloy sa buong katawan mo kaya try mo halikan yung wire ng meralco kapag nakuryente ka true love yun Kinikilig kana nag gimie gimie ka pa ayos diba👍",
+  "Sumama ka sa mga kaibigan mong MATATAG Hindi sa mga kaibigan mong NANLALAGLAG",
+  "Pwede ka namang maging masaya kahit wala ka sa isang relasiyon....dahil pwede ka naman sumaya sa simpleng inspirasiyon.",
+  "Ang PANLOLOKO ay Hindi isang NEGOSIYO kaya wag mung ulit ulitin kasi Hindi ka AASENSO.",
+  "Ang PAGIBIG ay parang sipon why do you keep pulling it back when its better to let go",
+  "Hindi mo kailangan mag pakatanga para mahalin ka nang taong mahal mo pero may mahal ding iba.",
+  "Wag mong isiping natalo mo ako,dahil sa tinanggap ko lahat ng sinabi mo.maniwala ka,Hindi lang isang daang beses kitang pinatay sa utak ko inilibing pa kita habang pinagmamalaki mo kung gaano ka kabobo.",
+  "SELOS Hindi Ito karapatan ito ay emosiyong kailan man ay di mo mapipigilan",
+  "Sana una palang sinabi mo na sasaktan mo lang ako para inaya kita at nag sapakan nalang tayo.",
+  "Pag isipan man AKO ng masama dahil sa mga taong NANINIRA wala akong magawa kundi ang TUMAWA sa mga TANGANG naniniwala",
+  "Kung minahal mo lang ako ng totoo at tama. Hindi sana ako mawawala at mag sasawa.",
+  "Minsan isipin mo muna kung may masasaktan ka sa gagawin mo. Dahil ang sorry ay nagbubura lang ng galit at hindi nagtatama ng “MALI”.",
+  "Kung pwede lang maging excuse ang pagiging “BROKEN HEARTED,” malamang marami ng absent sa High School at College.",
+  "Hindi tamang gumamit ka ng ibang tao para maka move-on ginago mo na nga ang sarili mo, nakakasakit ka pa ng “IBA”.",
+  "Wala naman masama pag-magmahal ka ng sobra-sobra basta ba, wag lang sosobra ng “ISA”.",
+  "Bakit kapag may boyfriend ka ang unang tinatanong lagi ay kung gwapo ba? bakit di nila unang itanong kung matino ba? “BAKIT”.",
+  "Bakit alak ang sagot sa mga taong nasasaktan? Simple lang dahil sanay tayong alcohol ang gamot pag tayo ay “NASUSUGATAN”.",
+  "Hindi naman masama maging single ka, ang masama In Relationship ka nga, “KABET” ka naman pala.",
+  "Wag na wag kang maiinlove sa taong walang pakialam dahil para ka lang  nagwawalis habang nakabukas ang electric fan lahat ng effort “NASASAYANG”.",
+  "Wag na wag mo akong pakawalan kung ayaw mo akong makitang “PINAG-AAGAWAN”.",
+  "Pag tinawag kang Plastik tawagin mo siyang Papel bakit? Kasi hindi ka naman makikipag Plastikan kung walang “PUMAPAPEL”.",
+  "Sana maisip mo na yung mga panahong wala kang matawag na “kaibigan” ako yung nandito.",
+  "Mahirap mawalan ng kaibigang katulad mo. Kaya kahit ano pa ang mangyari sana magkaibigan pa rin tayo. Wag na wag mo akong iiwan kasi alam kong di ko kaya.",
+  "Aminin mo, may mga kaibigan kang sobrang kulet pero pag nawala… sila pa yong mas nakakamis.",
+  "Sabi nila kapag mahal mo ang kaibigan mo friends lang daw kayo. Paano kung sa kanya umikot ang mundo mo? Kaibigan pa rin ba ang turing mo sa kanya?",
+  "Di ba pag friend kayo… Madalas mag biruan ng “I love you”.. Minsan tinatawag mo pang “loves” o “hon”. Paano mo sasabihing seryoso ka na.. Kung para sa kanya biro pa?",
+  "Bakit masakit magmahal ng kaibigan? Kasi kahit kasama mo sya, nakakausap, nakaka tawanan. Di parin maiiwasan na kung love na ang pinag… bang pangalan na ang binabanngit nya…",
+  "Mahirap makipaghiwalay sa taong mahal mo sabay sabing “FRIEND” na lang tayo. Pero ang mas mahirap magquit sa isang pagkakaibigan at sabihing “Friend” in love ako sayo.",
+  "It's hard to keep your feeling to the one you love. Lalo na kung friend mo sya. But it hurts more if your friend loves you too but can't express it. Kasi kala nya hanggang friends lang kayo.",
+  "Natatakot akong mahalin ka dahil kaibigan kita…Kailangan kong mamili sa dalawa… Sasaya ba ako kung pipiliin kong kaibigan lang kita O habang buhay kong pagsisisihan dahil Hindi ko nasabing mahal kita?",
+  "Miss, Google ka ba? Kasi, nasa iyo ang lahat ng hinahanap ko.",
+  "Miss, album ka ba? Kasi, single ako, eh.",
+  "Para kang traffic sa EDSA! ‘Coz I just can't move on!",
+  "Apoy ka ba? Kasi ‘alab' you.",
+  "Tatakbo ka ba sa eleksyon? Kasi, botong-boto sa yo ang parents ko.",
+  "Para kang tindera ng sigarilyo. You give me ‘hope' and ‘more'…",
+  "Calculator ka ba? Kasi, sa ‘yo pa lang, solved na ko.",
+  "Pustiso ka ba? ‘Coz I can't smile without you.",
+  "Kung posporo ka at posporo ako, eh di, match tayo!",
+  "Di mo pa nga ako binabato, tinatamaan na ‘ko sa yo.",
+  "Pulis ba tatay mo? Kasi, nahuli mo ang puso ko.",
+  "Matalino ka ba talaga? Sige nga, sagutin mo ‘ko!",
+  "Di ka naman camera, pero tuwing nakikita kita, napapangiti ako.",
+  "Dalawang beses lang naman kita gusto makasama… ‘now' and ‘forever.'",
+  "Hindi lahat ng buhay ay buhay. Tingnan mo ‘ko – buhay nga pero patay na patay naman sa ‘yo!",
+  "Kodigo ka ba? Kasi, ikaw ang sagot sa lahat ng tanong ko, eh.",
+  "Kakapagod kasing umupo, eh. Pwede bang tayo na lang?",
+  "Hindi ka ba nalulungkot, babe? Nag-iisa ka lang kase sa puso ko eh.",
+  "Top view, side view, bottom view, kahit anong view, I love view.",
+  "Tulisan ba tatay mo? Kasi nabihag mo puso ko.",
+  "Bugtong ka ba, ang hirap mo intindihin.",
+  "Magaling ka ba sa algebra? Can you substitute my 'x'?",
+  "Masasabi mo bang bobo ako, kung ikaw lamang ang laman ng utak ko?",
+  "Amo ba kita? Bakit inaalila mo ang puso ko?",
+  "Centrum ka ba? Kasi, you make my life complete!",
+  "Kahit ilang beses pa akong masaktan dahil sayo, di kita iiwan, di ako susuko. Dahil kung may 100 dahilan para iwan ka, hahanap pa rin ako ng isang dahilan para ipaglaban ka.",
+  "Wag kang iiyak kahit mahalata mong masaya siya sa piling ng iba. Ni ang malungkot, iwasan mo. Malay mo, hiniling din niyang maging happy ka kahit na alam niyang hindi na pwede kasi wala na siya.",
+  "Minsan ang sinasabi ng isip, iba sa nilalaman ng puso kaya pati damdamin, nalilito! Hindi malaman kung alin ang dapat sundin. Ang isip na nagsasabi ng dapat? O ang pusong nagmamahal ng tapat?",
+  "Noon minahal ka niya. Akala mo forever pero iniwan ka rin niya. Pinipilit mong ibalik ang noon pero hindi mo kaya. Sino ngayun ang manhid? Siya dahil hindi niya maramdamang mahal mo siya? O ikaw kasi hindi mo matanggap na ayaw na niya?",
+  "oo, alam ko na nagkamali ako, pero ngaun alm ko na un, lam kong iniwan kta, pero matatanggap mo ba ko? khit na sbrang sakit ang nbgay ko sau? mtatanggap mo pa b ko?",
+  "love m pa ba ako? hindi na… siryoso k b… pero bakit…? pero gusto ko lang malaman mo mahal n mahal parin kita… ….tang*na…",
+  "kaya kong tuyuin ang iyong mga luha sa bawat sakit na iyong mararamdaman ngunit kailang mo kaya mapupuna ang aking luha? pareho lang tayong nasasaktan ikaw sa kanya at ako sa yo",
+  "hbang nasau ang taong mahal mo, alagaan mo…wag mo hayaan dmatng un araw na pagcchan mo na nawala na xa, at sbhin ña sa ung,”kaw kc eh, pnabayaan mo ko…”",
+  "Lam mO hrap pag nwala ung mhal mo.. nakakalungkot, masakit,nakakamiss.. bkt ganun noh? Pgkatapos ng saya ddting din ung time na iiwan ka nia.. dun pa sa part na sobrang mahal mo na siya..",
+  "mpt p b ako sau? Kc d ka na tulad ng dati.. ung swit, thoughtful, at lagi akong naaalala.. teka.. ibahin ko nlng tanong ko.. mhl m p ba ako?",
+  "KARMA has no MENU but you get served for what you deserved",
+  "Ang tunay na lalake nagbabago para sa babae, hindi yong pabago bago ng babae.",
+  "Single siya. Single ka. Wala siyang pake sayo. Wag ka ng umasang magiging 'kayo'",
+  "Magkaiba ang nagmamahalan sa naglalandian.",
+  "Sa panahon ngayon, hindi na masyadong common ang common sense!",
+  "Post ka ng post tungkol sa kanya, eh wala naman syang pake sayo.",
+  "Minsan sarili mo lang talaga ang makakaintindi ng sitwasyon at nararamdaman mo.",
+  "Kapag kasama mo ang mga kaibigan mo at nag reklamo ka na sobrang init, hindi pwedeng walang sasagot ng 'ay, sorry ha?'",
+  "May mga tao talagang nakakairita kahit walang ginagawa sa'yo.",
+  "Hirap na hirap kang sabihin yung feelings mo, natatakot ka kasing ma'reject.",
+  "Hindi niya kelangan mamili, dahil kung talagang mahal ka niya hinding hindi ka magiging option.",
+  "Galing mag-advice pero single.",
+  "Yung parehas kayong nagmamahal, Ikaw sa kanya. Siya sa iba.",
+  "Ang pagmamahal ko ay parang Research Title, Laging na-rereject.",
+  "Sa sobrang likot mo, Natabig mo ang puso ko, Nahulog pa sayo.",
+  "Keyboard ka ba? Kasi type na type kita!",
+  "Ang relasyon parang kape, Lumalamig kapag pinapabayaan.",
+  "Buti pa ang sinaing, Binabantayan, Binabalikan, Hindi Iniiwan.",
+  "Sana sinaing ka nalang, Para kapag nakalimutan kita, Sunog kang hayop ka.",
+  "Bakit laging yung mga 'PAASA' ang sinisisi kapag may nasasaktan? Eh, paano yung ipinanganak na 'ASSUMING?'",
+  "Pwede mo ba akong samahan Sa sementeryo? Bibisitahin ko yung puso kong Patay na patay sayo.",
+  "Kung ako namatay wag kang pumunta sa libingan ko, Kasi baka tumibok ulit ang puso ko.",
+  "Buti pa ang mga bilihin nagmahalan, Ako hindi pa.",
+  "Sa mga estudyante: Hanggang crush lang muna, Wag agad mag-relasyon, Para hindi ka agad-agad nasasaktan.",
+  "Ang pag- ibig parang bagyo, Mahirap ipredict kahit May PAG-ASA.",
+  "Malamig lang ang panahon, JOWA agad hanap mo? Try mo lugaw, May Itlog din yon.",
+  "Ang puso parang paminta, Buo talaga Pilit lang dinudurog ng iba.",
+  "Pag-iniwan ka ng mahal mo, Never Say Die, Tommorow is another guy.",
+  "Ang crush ay parang Math Problem, Pag di makuha, Titigan nalang.",
+  "MALABO: Minsan Mata, Minsan Ikaw",
+  "Bumabalik ka nanaman? Pakiusap. Ayaw ko na mating tanga ulit.",
+  "Minsan natatawa ako ng walang dahilan, Pero madalas nasasaktan ako na walang nakakaalam.",
+  "Hindi bale na kahit height mo ay bitin, Abot langit naman",
+  "Huwag kang mag-alala kung mataba ang girlfriend mo, Kaya nga may sabihang 'True Love Weights.'",
+  "Ano naman kung mataba siya? Mamahalin mo lang naman siya hindi kakargahin.",
+  "Kayo advanced mag-isip, Ako ikaw lang iniisip",
+  "Pangiti-ngiti lang ako pero nahuhulog na ako sayo",
+  "Wag kang malungkot kung palpak ang love life mo. Sadyang malakas lang talagang manalangin ang taong pumapangarap sayo.",
+  "Ang manhid parang bato yan di nasasaktan at walang nararamdaman.",
+  "Hanapin mo yung taong para sayo hindi yung  para iba tapos AAGAWIN mo.",
+  "Wag mong panghinayangan ang taong ikaw mismo ang sinayang.",
+  "Pag ibig parang hangin di mo ito nakikita pero nararamdaman mo.",
+  "KAsama talaga ang masaktan  sa pag mamahal , masasaktan ka ba KUNG DI MO SYA MAHAL",
+  "Mahal mo sha mahal din nya yung isa..anong klaseng puso yan dual SIM?.",
+  "Minsan mas maganda pang malungkot ng panandalian kesa magdusa habang buhay.",
+  "Di ako mayaman para bilhin ang kahapon pero handa akong utangin ang ngayon makasama kalang habang panahon.",
+  "Sipag naman mag mahal ng mga tao pati mahal ko mahal din nila.",
+  "Pwede kalang mahalin pero di ka pwedeng angkinin.",
+  "Yung feeling na ang bilis bilis ng oras pag kasama mo siya.",
+  "Mahirap daw mag mahal ng taong iba ang gusto. Pero alam ba nila MAS MAHIRAP mag mahal ng taong akala mo ikaw ang gusto?",
+  "Wag kang gumawa ng paraan para sumuko ako dahil sa oras na ipinaramdam mo sa aking BALEWALA ako. Kahit sobrang mahal kita, BIBITAW ako.",
+  "Yung ikaw sukong-suko na pero sya lumalaban pa. Kaya ikaw pilit na lang na lumalaban para hindi na siya masaktan pa.",
+  "madaling mag patawad pero mahirap makalimot.",
+  "WAG MONG SABIHING PINAASA KA NYA BAKIT SINANBE BA NYA SAYO NA UMASA KA!!",
+  "Ang sorry ay ginagamit sa mga bagay na hindi sinasadya di sa mga bagay na paulit-ulit na ginagawa.",
+  "Ang pag kakaalam ko ang tao hinulma sa putik pero bat ganun ang daming taong plastic.",
+  "Ang ex nang kaibigan dapat di pinapatulan niluwa nanya kinain mo pa patay gutom ka talaga",
+  "Kung may alak may balak",
+  "Dika karapat dapat na tawaging kaibigan dahil plastik ka",
+  "Minsan kase dapat matuto tayong bumitaw lalo na pag nasasaktan na di yung ginagago kana kinikilig kapa.",
+  "Kung sinabe mo sakin na sasaktan molang naman ako. dapat  inaya mo nalang ako ng sapakan .",
+  "Alam mo ba na ang pinaka masarap na kape ay ang 'KAPE'leng ka .",
+  "Sa dinami-dami ng BOOK sa mundo, isa lang talaga ang hindi ko maintindihan...... Ang tiniti-BOOK ng puso ko, para sayo!",
+  "Wag mong pag selosan ang mga tao sa paligid ko dahil alam nila na ikaw ang mahal ko.",
+  "Ang sarap mahulog lalo kung alam mong may sasalo sayo.",
+  "Di lahat nang nagpapakilig sayo ibig sabihin mahal ka may mga tao lang talagang gawa sa asukal na nakalagay sa plastic.",
+  "Sabi nila mahirap mag mahal ng taong iba ang gusto pero diba nila na isip na mas mahirap magmahal ng taong akala mo ikw ang gusto.",
+  "akala ko ba mahal mo bakit hinayaan mong mapunta sa iba? -kase pinili kong maging masaya siya kahit hindi na ako ang dahilan.",
+  "Baril kaba? Bakit? Kasi lakas ng putok mo!! Boom 🎆",
+  "Pustiso kaba? Kasi i cant smile without you",
+  "Ang kapal naman ng mukha mo!! di pa nga tayo magkakilala pumapasok kana agad sa puso ko",
+  "Sa isang relasiyon Hindi naman dapat sexy,hot o maganda ka kasi love story ang gagawin niyo Hindi sex video.",
+  "Ang pagiging close ng babae at lalaki as a friend ay parang camera CLICK today DEVELOP someday .",
+  "Kung sa pag Ibig iibigin kita, Kung sa pagmamahalan mamahalin kita..Kung sa kamatayan mauna ka..Hindi ako TANGA para samahan ka pa.",
+  "Ang PUSO ay isang maliit na parte lang ng katawan pero kapag itoy nasaktan buong pag ka tao ang naaapektuhan.",
+  "Ang hirap magtiwala sa taong paulit-ulit ka nang sinaktan.",
+  "Bakit ba kailangan pa nilang manloko, kung mahal mo naman sila nang sobra?",
+  "Minsan, kailangan mong maging matapang at i-let go na ang taong hindi na naman magbabago.",
+  "Ang pag-ibig ay hindi dapat pilitin, dahil kung para sa'yo, darating at darating 'yan.",
+  "Hindi lahat ng sakit, kayang gamutin ng mga lalaki.",
+  "Kapag minahal mo nang sobra ang isang tao, mahirap na itong kalimutan.",
+  "Kung magmamahal ka, dapat handa ka rin sa posibilidad na masaktan ka.",
+  "Hindi dapat masanay sa kahit anong pagpapabalewala ng lalaki.",
+  "Kapag mahal mo ang isang tao, dapat kayang magpakatanga pero hindi kayang magpaka-tanga.",
+  "Ang hirap pag ipinagkatiwala mo na lahat, pero hindi pa rin sapat para sa kanya.",
+  "Kung hindi ka mahal ng taong mahal mo, wag mo na lang siyang pilitin.",
+  "Masakit isipin na ang taong pinakamamahal mo ay hindi naman pala para sa'yo.",
+  "Hindi porke't single ka, wala ka nang karapatang magmahal at magpakamahal.",
+  "Masakit kapag hindi ka na naaalala ng taong minsan mong pinakamahal.",
+  "Pano mapipigilan ang global warming kung pati tao plastick na rin",
+  "Facebook ko ito at wapakels kung ano ipopost ko kung ayaw mo sa mga post ko pakitadyakan ang sarili mo palabas ng friend list ko",
+  "Sa paglipas ng panahon isa lang ang natutunan ko.... Pahalagahan ang nandiyan at kalimutan ang nang iwan",
+  "Ayoko ng ikinukumpara ako sa iba dahil kahit kailan ay hindi ako naging sila.",
+  "Minsan kailangan mong tanggapin na kahit mahal ka nang  isang tao , kaya niyang lokohin kahit kailan nya gusto",
+  "Ang TSISMIS ay ginagawa ng taong GALIT sayo..kinakalat ng taong LOKO-",
+  "Masakit kapag ang taong mahal mo, ay masaya sa piling ng iba pero kailangan mong ipakita na masaya ka, kahit sa loob mo.. 'Sana ako nalang siya.'",
+  "Ang hirap tumawa kung hindi ka naman masaya Kahit ngumiti ka pa halata pa rin ang lungkot ng nadarama.",
+  "Ang love parang Clash of Clans, Kailangan mong mag effort na palakasin ang pundasyon mo para maiwasan ang pagkasira nito.",
+  "Hindi tanga yung taong sobrang magmahal. Mas tanga yung taong minahal ng sobra pero naghanap pa ng iba.",
+  "Papayag naman akong landiin ang mahal ko. Basta payag kang basagin ang pag mumukha mo.",
+  "Sana tsinelas nalang tayong dalawa.Para kung mawala ang isa,di na pedeng ipares sa iba dahil di na bagay.",
+  "Ang pag-ibig parang imburnal, Nakakatakot mahulog at kapag nahulog ka,it's either by accident or talagang tanga ka.",
+  "May mga taong mabilis mahulog ang loob mo,pero bigla ka na lang iiwan At kung saan nakalimot ka na,tsaka magpaparamdam.",
+  "Naka ngiti ako dahil masaya ako, Ngumiti talaga ako para patunayan sayo na, Nandiyan ka man o wala itutuloy ko buhay ko.",
+  "Nandiyan ka man o wala itutuloy ko buhay ko. naiintindihan HINDI KA PA RIN IIWAN.",
+  "Nagmahal ka na nga ng Dyosa pinagpalit mo pa sa isang Aswang.",
+  "May mga taong ayaw mawala ka. Pero di naman gumagawa para bumalik ka.",
+  "Wag ka magpapa apekto sa sinasabi ng iba. Mas kilala mo ang sarili mo kesa sa kanila.",
+  "Minsan lahat ng naiiwan hindi na pwede pang balikan.",
+  "Sabi mo laro tayo. Akala ko tagu taguan yun pala feelings.",
+  "Wag ka maghanap ng taong nakakaintindi sayo.Hanapin mo yung taong kahit hindi naiintindihan di ka pa rin iiwan.",
+  "Minsan kung sino pa yung HINDI KA LUBOS KILALA sila pa ang MANGHUHUSGA.At itsi tsimis ka pa nila.",
+  "Hindi mahirap gawin ang mag MOVE-ON. Nahihirapan ka lang dahil iniisip mo ikaw yung nawalan.",
+  "Magkaiba ang GALIT at TAMPO. Ang galit pwede kanino at ang tampo makakaramdam mo lang sa taong ayaw mong mawala sa'yo.",
+  "Wag kang magpakatanga sa taong binabalewala ka",
+  "Masaya ako kahit wala ka. Sumosobra ang pag andiyan ka.",
+  "Ang SECOND CHANCE ay binibigay sa taong marunong tanggapin ang kanyang kamalian.",
+  "Hindi naman talaga ako nawala. Natabunan lang ako nung may dumatinng na bago sa buhay mo.",
+  "Sa likod ng 'FRIENDS KAMI May pusong umaasa na ' SANA NGA KAMI",
+  "Ang pagboto ay parang pag-ibig PRICELESS",
+  "Wag mong I-Lang ang pagigigng Fangirl, Fangirl isn't an easy job.",
+  "That 'BAGAY TAYO' pero di tayo 'MEANT TO BE'",
+  "Minsan ang mga PLASTIK  ay wala sa basurahan.MInsan nasa harap mo lang.",
+  "Maraming magkasintahan na ang naghiwalay dahil sa walang kakwenta-kwentang away.",
+  "Nakakawalang gana kung lagi ka na lang nasasaktan.",
+  "May mga taong hindi mo talaga alam kung mahal ka o sweet lang talaga sayo.",
+  "Di ako naniniwala sa MU .Naniniwala ako sa Me and You.",
+  "Lahat ng bahay pwede ipaglaban.Pero hindi lahat pwede ipagpilitan.",
+  "Walang lalakeng masasabihang Paasa kung wala namang babaeng Assumera",
+  "Tahimik lang ako pero ilang beses na kita pinatay sa isip ko.",
+  "Gusto mong lumaban pero binibigyan ka niya ng dahilan para sumuko ka na.",
+  "Minahal ka daw niya,pinahalagan ka daw niya ang tanong? Naramdaman mo ba?",
+  "Kahit Anong Libang Mo Sa Sarili Mo, Hangga't May Namimiss Ang Puso Mo Hindi Magiging Kampante Ang Utak Mo",
+  "Dahan-dahan sa pagpili ng mamahalin, baka malagpasan mo ko!",
+  "Hindi ginawa ang break up para masaktan at lumuha. Ginawa ito para ilayo ka sa maling tao na akala mo ay tama",
+  "Hindi ko kailangan ng taong mamahalin ako ng sobra. Ang kailangan ko ay ang taong hindi ako iiwan kahit nakakaubos na ako ng pasensiya",
+  "Hindi ko naman ginustong mahalin ka, kaso anong magagawa ko, kung ikaw talaga ang target ng puso ko!",
+  "Paki CHECK nga yung ORAS ng PHONE mo, Baka kasi ORAS na, para MAALALA MO naman AKO! :(",
+  "Yung tipo na LAHAT ng TINIDOR sa bahay ninyo, inihulog mo na! Wala pa rin lalaking dumarating sa buhay mo! >.<",
+  "Hindi Ka Pwedeng Magselos Kasi Wala Kang Karapatan, Pero Di Mo Mapigilan Kasi Meron Kang Nararamdaman </3",
+  "Hindi Lahat Ng Tao Sinasaktan Ka, Kaya Nga Ako Nandito Para Mahalin Ka",
+  "May Mga Tao Na Puro Kwento, Puro Salita! Pero WaLang Gawa. Mas Mabuti Nang Puro Gawa Kaysa Salita Lang Ng Salita!",
+  "ANO ORAS NA? Timer ka diba?",
+  "Siguro Kailangan Ko Nang Itigil Itong Bisyo Ko, Ang Araw Araw Na Pagbisita Sa Profile Mo Para Lang Saktan Ang Sarili Ko. </3",
+  "Mawala Na Ang ReLasyon Natin, Huwag Lang Ang Wifi Ng Kapitbahay Namin.",
+  "Minsan kapag masyado kang palaban, hindi ka na nagmumukang matapang. Nagmumuka ka ng walang pinag-aralan",
+  "Wag mong ipilit ang sarili mo sa taong napipilitan lang na mahalin ka. Isda lang ang sumisiksik sa lata! SARDINAS ka ba?",
+  "Minsan may mga taong nasasaktan na, pero pinapakita nila na parang walang problema :3",
+  "May mga tao talagang sweet lang sa umpisa, pero kapag nagtagal hindi ka na pahahalagahan T_T",
+  "Darating din ang Tamang Panahon na ipapakilala sa iyo ni Lord, yung tamang tao na dapat mong mahalin :)",
+  "Hindi lahat ng tao, pwede mong balikan. Kaya bago ka mang-iwan siguraduhin mo munang kaya mo itong PANINDIGAN :P",
+  "Huwag mong ipakita sa akin na MADALI AKONG PALITAN, dahil kaya kong isampal sayo ang salitang ' LANG KITA PERO DI KA KAWALAN' -_-",
+  "Walang busy sa taong nagmamahal ng tunay, pwera na lang kung mas mahal niya yung dahilan ng pagiging busy niya :P",
+  "Masaya Kapag May Minamahal Ka , Pero Mas Masaya Kung Mahal Ka Rin Niya XD",
+  "SELOS, nararamdaman yan kahit wala kayong relasyon basta nasanay ka na laging nasa iyo ang atensyon niya :)",
+  "Huwag kang gumawa ng paraan para sumuko ako dahil sa oras na ipinaramdam mo sa aking BALEWALA ako? Kahit sobrang mahal kita, BIBITAW ako.",
+  "Hindi ko hiniling na dumating yung matalinong tao sa buhay ko, ang tanging gusto ko lang ay yung taong BOBO pagdating sa Panloloko!",
+  "Kahit na ilang beses nilang ulit-ulitin na 'marami pa dyan.' Paulit-ulit ko din ipapaintindi sa kanila na IKAW LANG ang katumas ng lahat ng yan.",
+  "Nagmahal ako at nasakatan. Pero kahit ganoon, hindi pa rin ako magsasawang magmahal dahil sa likod ng nadama kong sakit at pagkabigo ay natuto ako at masasabi kong NAGMAHAL AKO NG TOTOO.",
+  "Umayaw ako hindi dahil ayoko na. Umayaw ako para maging masaya ka. . .",
+  "Kung hindi mo kayang Panindigan Sa una pa lang wag mo ng umpisahan para Wala kang masaktan.",
+  "Kapag ba malungkot Broken hearted na agad? Hindi ba pwedeng WALANG PERA?",
+  "Twitter ka ba? Bakit? Trending ka kasi sa puso ko.",
+  "Handa akong takbuhin ang buong mundo. . . . Basta ang Finish line ay sa puso mo. . . .",
+  "Ang PAG IBIG parang Malinaw na tubig.Lumalabo kapag Maraming nakikisawsaw",
+  "Wag mong ipilit Sa akin ang sarili mo Kasi hindi kita FEEL",
+  "Minsan kailangan mong Magpaka busy para makalimot",
+  "Ang pag-ibig ay hindi hadlang para maging matagumpay sa buhay.",
+  "Kapag mahal mo ang isang tao, dapat kayang magbigay pero hindi kayang magpakatanga.",
+  "Hindi lahat ng tao ay worth it para sa'yo, kaya huwag mong sayangin ang oras mo sa kanila.",
+  "Kapag hindi na kayo nag-uusap, wag mong ipilit na kayo pa rin.",
+  "Hindi lahat ng umiiwas ay galit, minsan nagmamahal lang ng sobra.",
+  "Kapag nagmahal ka, wag mo nang hanapin pa ang iba pa, dahil siya na lang ang nakikita mong tama.",
+  "Hindi lahat ng tao ay maaasahan, kaya mahalin mo rin ang sarili mo.",
+  "Ang hirap magmahal ng taong hindi ka naman kayang mahalin.",
+  "Kapag mahal mo, dapat kayang magtiis pero hindi kayang magpaka-bobo.",
+  "Hindi lahat ng pagkakamali ay dapat pinaparusahan, lalo na kung ang pagkakamali mo ay magmahal ng sobra.",
+  "Kapag nagmahal ka, dapat handa ka rin sa sakit na pwedeng idulot nito.",
+  "Huwag mong hanapin sa iba ang kahalagahan na dapat ay nakikita mo sa sarili mo.",
+  "Mahal kita, pero hindi sapat ang pagmamahal ko para sa dalawang tao.",
+  "Masakit kapag ikaw na lang lagi ang nagmamahal, at hindi ka na mahal ng taong mahal mo.",
+  "Bakit kailangan pa ng ibang babae kung ako naman ang magmamahal sa'yo ng totoo?",
+  "Hindi ako madaling magpakatanga, pero para sa'yo, handa akong gawin ang lahat.",
+  "Sana ay nagbago ka na, kasi ang hirap umasa sa taong hindi nagbabago.",
+  "Hindi ako nagtatanong kung may iba ka nang mahal, kasi alam ko na.",
+  "Ang hirap magmahal ng taong nagmamahal na ng iba.",
+  "Bakit kailangan pang magpakipot kung alam mo namang mahal mo na ako?",
+  "Mahal kita kahit alam kong hindi mo ako kayang mahalin pabalik.",
+  "Alam kong hindi ako perpekto, pero sana ay nakikita mo pa rin ang halaga ko bilang tao.",
+  "Hindi lahat ng tao ay para sa'yo, kaya kailangan mo munang masaktan bago makahanap ng tamang tao para sa'yo.",
+  "Mahirap magmahal ng taong hindi ka mahal, pero mas mahirap magmahal ng taong hindi marunong magmahal.",
+  "Masakit maghintay sa taong mahal mo, pero mas masakit ang mawalan ng taong hindi mo na mahal.",
+  "Sa tuwing nagtatampo ka sa akin, alam kong mahal mo pa rin ako dahil kung hindi, wala kang pakialam.",
+  "Sana ay nakikita mo ang puso ko na nagmamahal sa'yo, kahit hindi ko masabi sa'yo nang direkta.",
+  "Hindi lahat ng tao ay may puso, kaya kung nakahanap ka ng taong may puso, alagaan mo na.",
+  "Hindi mo alam kung gaano ako kasaya kapag kasama kita, kaya sana ay hindi mo na ako iiwan.",
+  "Hindi ko alam kung paano i-explain, pero kapag kasama kita, parang nawawala lahat ng problema ko.",
+  "Sana ay magkaalaman na tayo, kung mahal mo pa ba ako o hindi na.",
+  "Kahit anong gawin ko, hindi ko maalis sa isip ko na mahal kita.",
+  "Mahal kita, pero hindi ako desperado na magpakatanga sa'yo.",
+  "Masakit man tanggapin, pero hindi ako sapat para sa'yo.",
+  "Sana ay nag-iisa ka rin at nagmamahal sa akin ng totoo.",
+  "Hindi ka man nagmamahal sa akin ngayon, alam kong darating ang panahon na magbabago ang lahat.",
+  "Masakit isipin na may ibang mahal ang taong mahal mo, pero mas masakit kapag alam mong hindi mo na mahal ang taong mahal mo.",
+  "Ang hirap magmahal nang sobra, kasi kapag iniwan ka, sobrang sakit din.",
+  "Masakit man sa una, pero kailangan mong tanggapin na hindi lahat ng tao ay para sa'yo.",
+  "Hindi lahat ng lalaki ay manloloko, pero kailangan mong maging maingat pa rin.",
+  "Bakit ba kailangang magpakatanga sa pag-ibig, kung alam mong hindi ka naman mahal?",
+  "Kapag nasaktan ka na ng sobra, mahirap nang bumalik sa dating ikaw.",
+  "Hindi naman kailangan na laging may ka-partner, mas masaya pa nga minsan mag-isa.",
+  "Masakit man na hindi ka mahal ng taong mahal mo, mas masakit kung magpakatanga ka pa rin.",
+  "Hindi mo kailangan ng taong nagpapakatanga sa'yo, kailangan mo ng taong magpapahalaga sa'yo.",
+  "Bakit ba ang pag-ibig, kapag masarap, kinakain mo na parang candy, pero kapag masakit, iiyak mo na lang?",
+  "Ang pag-ibig ay parang lottery, kapag hindi swerte, hindi ka mananalo.",
+  "Hindi lahat ng mahal natin ay makakatagal sa atin, pero kailangan natin silang pakawalan kung kailangan na.",
+  "Hindi naman kailangang magmukmok dahil sa isang lalaki, marami pang ibang pwedeng magpakilig sa'yo.",
+  "Masakit man sa una, pero kapag naghiwalay kayo, mas magiging malaya ka.",
+  "Ang pag-ibig ay hindi lang puro saya, mayroon ding lungkot at sakit.",
+  "Hindi mo kailangan ng taong maraming pera, kailangan mo ng taong may puso.",
+  "Bakit ba kailangang magpakatanga sa taong hindi ka naman mahal, kung mayroon namang ibang nagmamahal sa'yo?",
+  "Hindi naman lahat ng magagandang bagay ay para sa'yo, kailangan mong tanggapin na mayroong mga bagay na hindi meant to be.",
+  "Hindi ka magiging malungkot kung mag-iingat ka sa mga taong pwede kang saktan.",
+  "Hindi lahat ng lalaki ay para sa'yo, kailangan mong hanapin yung tamang tao para sa'yo.",
+  "Masakit man na hindi ka mahal ng taong mahal mo, mas masakit kung patuloy kang magpapakatanga.",
+  "Hindi naman kailangan na laging may ka-date, mas masaya pa nga minsan na mag-stay sa bahay.",
+  "Kapag may gusto ka sa isang lalaki, huwag ka nang magpakatanga kung hindi ka rin naman mahal.",
+  "Hindi naman lahat ng maganda ay magaling, kailangan mong hanapin yung totoo at may puso.",
+  "Hindi naman kailangan na magmukmok dahil sa isang lalaki, kailangan mong bumangon",
+  "Masakit magmahal ng taong hindi ka naman kayang mahalin.",
+  "Kapag sinaktan mo ang isang babae, hindi mo na siya mababalikan.",
+  "Hindi lahat ng babae ay manhid, mayroon ding marunong magpakatanga.",
+  "Masarap magmahal, pero mas masarap magmahal ng taong nagmamahal din sa'yo.",
+  "Hindi porket hindi ka nakatagpo ng 'the one' ay hindi ka na magmamahal ulit.",
+  "Hindi ka naman talaga nila mahal kung ang gusto nila ay yung nakikita kang masaya sa iba.",
+  "Hindi ka dapat magmahal para sa iba, dapat para sa sarili mo.",
+  "Mahirap mag-move on, pero mas mahirap mag-stay sa isang relationship na walang pag-asa.",
+  "Ang love life mo ay hindi base sa kung ilang beses ka na nasaktan o niloko, kundi kung ilang beses ka na nagmahal.",
+  "Hindi porke't single ka ay hindi ka na masaya.",
+  "Hindi porke't single ka ay maghihintay ka na lang, kailangan mo rin mag-effort para sa sarili mo.",
+  "Hindi lahat ng nagpapakita ng interes ay nagmamahal, kadalasan curiosity lang yan.",
+  "Hindi mo kailangang magpakatanga para lang magpakita ng pagmamahal.",
+  "Hindi porket may nagmamahal sa'yo ay hindi mo na kailangang mag-improve sa sarili mo.",
+  "Ang pag-ibig ay hindi lang sa maganda o mayaman, pwede rin sa pangit at mahirap.",
+  "Ang love life ay hindi lang sa social media, kundi sa totoong buhay.",
+  "Kung mahal mo talaga, maghihintay ka at mag-e-effort.",
+  "Masakit kapag nasaktan ka ng taong mahal mo, pero mas masakit kapag nasaktan ka ng taong hindi mo naman mahal.",
+  "Hindi porket sinabi niyang mahal ka, ay tunay na mahal ka na niya.",
+  "Kung hindi ka na mahal, wag ka nang magpakatanga.",
+  "Hindi ka dapat magpakatanga para lang sa pag-ibig, dapat para sa sarili mo.",
+  "Hindi porke't maganda ka ay hindi ka na nasasaktan.",
+  "Hindi mo kailangang magpaka-bitter para lang maging masaya.",
+  "Kung hindi ka mahal ng taong mahal mo, wag kang magpakatanga.",
+  "Hindi mo kailangang magpakatanga para lang mapansin ng taong mahal mo.",
+  "Hindi ka dapat magtiwala agad, dahil ang tiwala ay pinaghihirapan.",
+  "Paano ko ipaglalaban ang pagmamahal ko sayo kung ako lang ang nakakaramdam nito.",
+  "Bakit kita iiyakan. Kaya naman kitang palitan.",
+  "Alam mo ba ang salitang pagmamahal? Hindi ko yan pinag-aralan. Pero sayo ko yan natutunan.",
+  "May mga taong di payag na mawala ka. Pero di naman gumagawa ng paraan para manatili ka.",
+  "Sa pag-ibig walang bulag, walang pipi, walang bingi, pero tanga madami.",
+  "Hintayin mo ang true love mo. Na-traffic lang yun sa malalanding tao.",
+  "Hindi porke't iniwan ka, hindi na siya mahal.",
+  "Kung mahal mo talaga, hindi ka magpapakatanga.",
+  "Kung hindi mo naman mahal, wag ka na lang makipaglaro ng puso.",
+  "Kung maghihintay ka, dapat may dahilan.",
+  "Hindi porke't hindi ka maganda ay hindi ka na mahalaga.",
+  "Hindi mo kailangang magpaka-biktima para lang makalimot.",
+  "Bakit ba ang hirap mag-move on? Kasi masarap ang alaala.",
+  "Kung alam ko lang na magiging ganito, hindi ko na sana pinili.",
+  "Hindi ako nagmamahal para lang magpakatanga. Pero bakit kailangan kong magpakatanga para sa kanya?",
+  "Masakit maghintay, pero mas masakit mag-antay sa wala.",
+  "Ayoko na sa mga lalaki na manloloko at nang-iiwan ng mga babae.",
+  "Hindi lahat ng nagmamahal ay masaya. Minsan, ang pagmamahal ay may sakit na kasama.",
+  "Masakit maging pangalawa sa puso ng taong mahal mo.",
+  "Ang hirap magtiwala sa taong paulit-ulit ka nang nasaktan.",
+  "Kung mahal mo talaga, hahayaan mo siyang lumayo kahit masakit.",
+  "Masakit isipin na mahal mo siya, pero hindi ka niya kayang mahalin pabalik.",
+  "Alam mo yung pakiramdam na mahal mo siya pero hindi mo alam kung mahal ka rin niya?",
+  "Kapag nagmahal ka, hindi lang yung kasiyahan ang kasama. Kasama rin ang sakit at pighati.",
+  "Hindi ako bitter, nagtatanong lang. Bakit hindi ako ang napili?",
+  "Masakit magpaka-tanga para lang magmahal.",
+  "Bakit ba ang hirap mag-let go, lalo na kapag mahal mo pa rin siya?",
+  "Ang hirap maging mabait sa taong wala kang kasiguraduhan kung mamahalin ka rin niya.",
+  "Sa love, walang perfect. May mga pagkakamali pero kailangan natin itong tanggapin.",
+  "Mahal mo siya pero alam mo sa sarili mo na hindi ikaw ang para sa kanya.",
+  "Kung may magbabago sa relasyon natin, sana hindi ikaw ang magbago.",
+  "Alam ko na mahal mo siya, pero sana mahalin mo rin ang sarili mo.",
+  "Ang hirap magtiwala sa taong may maraming tinatago.",
+  "Kapag hindi ka masaya, kailangan mong magdesisyon para sa sarili mo.",
+  "Hindi mo na kailangang magpaka-bitter kung tapos na ang lahat. Move on na.",
+  "Kapag naiwan ka ng mahal mo, hindi ka nag-iisa. Marami pa ring taong handang magmahal sa'yo.",
+  "Hindi porke't mahal mo, bibigyan mo na ng lahat. Kailangan mo rin ng respeto at pagpapahalaga sa sarili mo.",
+  "Masakit magtiis sa taong hindi naman talaga mahal ka.",
+  "Minsan, kailangan nating mag-let go ng taong mahal natin para lang sa kaligayahan nila.",
+  "Hindi ko kailangan ng lalaki para maging masaya.",
+  "Hindi ka naman talaga mahal kung kailangan mong magpakatanga para sa kanya."
+];
+
     
     const tagalogAuthors = [
       "Karunungang Pilipino", "Kasabihan", "Inspirasyon", "Karunungan",
@@ -657,9 +1848,9 @@ export default async function handler(req, res) {
   "May taong binigay ng Diyos para lang makilala mo at hindi para makasama mo.",
   "Lahat tayo binigyan ng pagkakataong maging tanga pero hindi porket libre ay araw-arawin mo na.",
   "Ang tunay na lalake nagbabago para sa babae, hindi yong pabago-bago ng babae.",
-  "Sa love, ‘di maiiwasan na may U-Turn. Yung akala mong dire-diretso na, may babalikan pa pala.",
+  "Sa love, 'di maiiwasan na may U-Turn. Yung akala mong dire-diretso na, may babalikan pa pala.",
   "Hintayin mo ang true love mo. Na-traffic lang yun sa malalanding tao.",
-  "Hindi lahat ng patama tungkol sa’yo, sadyang natatamaan ka lang kasi!",
+  "Hindi lahat ng patama tungkol sa'yo, sadyang natatamaan ka lang kasi!",
   "Ang daling matulog, ang hirap bumangon. Ang daling mahulog, ang hirap mag move on.",
 
   // Newly merged quotes (latest batch you added)
@@ -765,13 +1956,13 @@ export default async function handler(req, res) {
   "Yung naghihintay ka sa isang bagay na imposible namang mangyari.",
   "Masakit isipin na dahil sa isang pangyayari hindi na kayo pwedeng maging tulad ng dati.",
   "Yung akala mo minahal ka niya pero hindi pala.",
-  "Sana tinuruan mo ‘ko kung paano madaling makalimot tulad ng ginawa mong paglimot sa’kin.",
-  "Buti pa ang ngipin nabubunot kapag masakit. Sa ang puso ganun din.",
+  "Sana tinuruan mo 'ko kung paano madaling makalimot tulad ng ginawa mong paglimot sa'kin.",
+  "Buti pa ang ngipin nabubunot kapag masakit. Sana ang puso ganun din.",
   "Umiiyak ka na naman? I-break mo na kasi!",
   "Ayaw ko nang magmahal masasaktan lang ulet ako.",
   "Di magatatagal yan! Lahat kaya may hangganan.",
   "Di naman siya mahal niyan. Assuming lang talaga yan!",
-  "Ba’t naman sinagot mo? Lolokohin ka lang niyan!",
+  "Ba't naman sinagot mo? Lolokohin ka lang niyan!",
   "Naku po hindi ka nyan mahal! Piniperahan ka lang niyan!",
   "Niloloko ka na ang saya mo pa? Binobola ka na lang nyan nagpapaloko ka naman! Tsk!",
   "Sus! Walang poreber uy! Maghihiwalay lang din kayo. (Advance ako mag-isip eh!)",
@@ -805,7 +1996,7 @@ export default async function handler(req, res) {
   "Hindi ako nagbago. Natututo lang ako. Hindi kasi pwedeng habambuhay tanga tayo.",
   "Hindi mo kailangang magpakita ng pusod at hindi mo kailangang naka-todo make up. Dahil ang tunay na maganda, ngiti palang, pamatay na.",
   "Hindi mo kailangan makipagsabayan sa iba para masabing gwapo ka. Dahil ang tunay na gwapo, ugali muna ang inaayos bago ang itsura.",
-  "Wag kang mag-alala kung sa tingin mo maraming naninira sa’yo. Isipin mo na lang na sadyang inggit sila sa kung anong narating mo.",
+  "Wag kang mag-alala kung sa tingin mo maraming naninira sa'yo. Isipin mo na lang na sadyang inggit sila sa kung anong narating mo.",
   "Hindi lahat ng tahimik ay nasa loob ang kulo. Sila kasi yung tipo ng tao na marunong mag-isip bago muna kumibo.",
   "Kung normal kang tao dapat aware ka sa nararamdaman ng iba. Kapag alam mong nakakasakit ka na, titigil ka na.",
   "Ang tunay na kaibigan, magalit man hindi nangbubunyag ng sekreto yan.",
@@ -820,7 +2011,7 @@ export default async function handler(req, res) {
   "Ang tunay na kaibigan ay alam na alam kung paano ka sisirain pero hinding-hindi niya gagawin.",
   "Lahat naman tayo dumadaan sa problema. Pero dapat dumaan ka lang, wag kang tumambay.",
   "Wag mo hayaang sumasabay ka lang sa agos ng dagat, minsan, dapat ikaw mismo ang kokontrol ng direksyon nito.",
-  "Kung lahat ng makakaya mo ay iyong ibinibigay, tagumpay mo’y walang kapantay.",
+  "Kung lahat ng makakaya mo ay iyong ibinibigay, tagumpay mo'y walang kapantay.",
   "Hindi mahalaga kung gaano ka katagal nabuhay, ang mahalaga ay kung paano ka nabuhay.",
   "Ang negatibong tao ay nakakakita ng problema sa bawat pagkakataon. Ang positibong tao ay nakikita ang pagkakataon sa bawat problema.",
   "Wag kang matakot na maging ikaw. Tandaan mo: ang pagiging orig ay mas maganda kaysa sa fake.",
@@ -850,7 +2041,7 @@ export default async function handler(req, res) {
   "Pagod at hirap na kaming magtrabaho dito sa abroad! Ang pamilya pa ang nagtatanong bakit wala ka naipon?",
   "Kapag nasa abroad akala nila ang dami mong pera. Ang di nila alam resibo na lang ang nasa iyo tapos yung kamay mo pa puro kalyo.",
   "Hindi lahat ng OFW mayaman. Yung iba kasi inuuna yung yabang at nagmamayaman lang.",
-  "Kapag umuwi ang OFW wag ka agad mag-expect ng pasalubong. Bakit nung umalis ba sila may hiningi sila sa’yo?",
+  "Kapag umuwi ang OFW wag ka agad mag-expect ng pasalubong. Bakit nung umalis ba sila may hiningi sila sa'yo?",
   "Hindi ATM o money transfer ang OFW na lalapitan mo lang pag may kailangan ka.",
   "Walang salitang PAGOD NA AKO sa isang magulang na OFW. Basta para sa kinabukasan nang ANAK lahat kinakaya gaano man kahirap.",
   "Babuti pa ang salary buwan-buwan umuwi sa pamilya. Samantalang ang nagtattabaho aboad minsanan lang umuwi.",
@@ -864,7 +2055,7 @@ export default async function handler(req, res) {
   "Sinabihan ka lang ng maganda, naniwala ka naman? Mangungutang lang yan!",
   "Yung ugali, hindi required iterno sa mukha. Kung panget mukha mo, pwede bang gandahan mo naman ugali mo?",
   "Pag nagka amnesia ang bakla, makakalimutan ba niyang bading siya?",
-  "Na-Columbia Kala mo sa’yo yun pala hindi.",
+  "Na-Columbia Kala mo sa'yo yun pala hindi.",
   "Mahirap magpaalam sa taong mahal mo, pero mas mahirap magpaalam pag galit ang nanay mo.",
   "Kamote. Minsan halaman, minsan ikaw!",
   "Simple lang naman ang paraan para hindi ka na mahirapan sa job interview: Wag kang mag apply! Diyan ka na lang sa bahay at maging palamunin ni nanay.",
@@ -878,8 +2069,7 @@ export default async function handler(req, res) {
 ];
 
     const hugotAuthors = [
-      "Hugot", "Pag-ibig", "Broken", "Heartbreak", "Hugot Lines",
-      "Pinoy Hugot", "Love Quotes", "Sad Quotes", "Tagalog Quotes", "Bitter"
+      "Lalake Po Ako"
     ];
     
     // Parse the raw URL to reconstruct image URL with its query parameters
@@ -940,10 +2130,27 @@ export default async function handler(req, res) {
     
     // Fallback to standard query parsing for other parameters if not already extracted
     if (title === 'Sample Title') {
-      title = decodeURIComponent(rawParams.title || 'Sample Title');
+      try {
+        title = decodeURIComponent(rawParams.title || 'Sample Title');
+      } catch (e) {
+        // If decodeURIComponent fails, try double decode or use as-is
+        try {
+          title = decodeURIComponent(decodeURIComponent(rawParams.title || 'Sample Title'));
+        } catch (e2) {
+          title = rawParams.title || 'Sample Title';
+        }
+      }
     }
     if (website === '') {
-      website = decodeURIComponent(rawParams.website || '');
+      try {
+        website = decodeURIComponent(rawParams.website || '');
+      } catch (e) {
+        try {
+          website = decodeURIComponent(decodeURIComponent(rawParams.website || ''));
+        } catch (e2) {
+          website = rawParams.website || '';
+        }
+      }
     }
     if (design === 'default') {
       design = rawParams.design || 'default';
@@ -953,6 +2160,37 @@ export default async function handler(req, res) {
     }
     if (val === '') {
       val = rawParams.val || '';
+    }
+    // Support both 'image' and 'imgurl' parameters
+    if (imageUrl === 'https://picsum.photos/800/600') {
+      imageUrl = rawParams.image || rawParams.imgurl || imageUrl;
+    }
+    
+    // Parse highlight colors parameter (comma-separated hex colors or color names)
+    const hlParam = rawParams.hl || '';
+    let highlightColors = [];
+    if (hlParam) {
+      highlightColors = hlParam.split(',').map(c => c.trim());
+    }
+    
+    // Parse website color parameter (single color name or hex)
+    const wcParam = rawParams.wc || '';
+    let websiteColorOverride = '';
+    if (wcParam) {
+      // Color name mapping
+      const colorMap = {
+        'gold': '#FFD700',
+        'orange': '#FF8C00',
+        'cyan': '#00FFFF',
+        'electricblue': '#1E90FF',
+        'electric-blue': '#1E90FF',
+        'softyellow': '#F4E04D',
+        'soft-yellow': '#F4E04D',
+        'lavender': '#C084FC'
+      };
+      
+      const normalizedColor = wcParam.toLowerCase().replace(/\s+/g, '');
+      websiteColorOverride = colorMap[normalizedColor] || wcParam.trim();
     }
     
     // Check if we should use quote designs and generate random quotes
@@ -978,12 +2216,21 @@ export default async function handler(req, res) {
     console.log('🔗 Reconstructed image URL:', imageUrl);
     console.log('📦 Image Data parameter length:', imageData ? imageData.length : 0);
     console.log('📝 Parameters:', { title, website, design, val, w, h });
+    console.log('🎨 Highlight colors:', highlightColors.length > 0 ? highlightColors : 'Using default palette');
+    console.log('🎨 Website color override:', websiteColorOverride || 'Using design default');
     
     const image = imageData ? null : (imageUrl.startsWith('http') ? imageUrl : decodeURIComponent(imageUrl));
 
     // Get design theme configuration
     const selectedDesign = DESIGN_THEMES[design] || DESIGN_THEMES['default'];
-    console.log('🎨 Selected Design Theme:', selectedDesign.name);
+    
+    // Apply website color override if provided
+    if (websiteColorOverride) {
+      selectedDesign.websiteColor = websiteColorOverride;
+      console.log('🎨 Selected Design Theme:', selectedDesign.name, '(with custom website color:', websiteColorOverride + ')');
+    } else {
+      console.log('🎨 Selected Design Theme:', selectedDesign.name);
+    }
 
     // Debug UTF-8 decoding
     console.log('🔤 UTF-8 Parameter Decoding:');
@@ -1092,6 +2339,19 @@ export default async function handler(req, res) {
       }
     }
 
+    // Debug: Check imageBuffer before processing
+    console.log('🔍 Debug imageBuffer:', {
+      isDefined: imageBuffer !== undefined,
+      isNull: imageBuffer === null,
+      type: typeof imageBuffer,
+      isBuffer: Buffer.isBuffer(imageBuffer),
+      length: imageBuffer ? imageBuffer.length : 0
+    });
+
+    if (!imageBuffer) {
+      throw new Error('Image buffer is undefined or null. Image URL: ' + image + ', imageData: ' + (imageData ? 'present' : 'not present'));
+    }
+
     // Process base image
     const processedImage = sharp(imageBuffer)
       .resize(targetWidth, targetHeight, {
@@ -1122,8 +2382,298 @@ export default async function handler(req, res) {
     console.log('  Processed website:', websiteText);
     
     // Create SVG with proper UTF-8 encoding and font references
-    const padding = (design === 'entertainment' || design === 'antonBlack' || design === 'antonTransparent' || design === 'antonTransparent2' || design === 'antonWhite') ? 15 : (design === 'cinematic' || design === 'vintage') ? 30 : 80; // Minimal padding for entertainment, antonBlack, antonTransparent, antonTransparent2, and antonWhite to maximize text spread
+    const padding = (design === 'entertainment' || design === 'antonBlack' || design === 'antonBlack1' || design === 'antonTransparent' || design === 'antonTransparent2' || design === 'antonWhite') ? 15 : (design === 'cinematic' || design === 'vintage') ? 30 : 80; // Minimal padding for entertainment, antonBlack, antonBlack1, antonTransparent, antonTransparent2, and antonWhite to maximize text spread
     const contentWidth = targetWidth - (padding * 2); // Available width for text
+    
+    // Function to detect emphasis keywords and create highlight segments with multi-color support
+    function parseHighlights(text, maxHighlights = 3) {
+      // Common emphasis keywords to automatically highlight (fallback list)
+      const emphasisKeywords = [
+        'NEW', 'FREE', 'NOW', 'EXCLUSIVE', 'BREAKING', 'ALERT', 'LIMITED',
+        'SALE', 'HOT', 'TRENDING', 'VIRAL', 'LIVE', 'TODAY', 'URGENT',
+        'SPECIAL', 'BONUS', 'WIN', 'BEST', 'TOP', 'AMAZING', 'INCREDIBLE'
+      ];
+      
+      // Stopwords to ignore
+      const stopwords = new Set([
+        'THE', 'A', 'AN', 'AND', 'OR', 'BUT', 'IN', 'ON', 'AT', 'TO', 'FOR',
+        'OF', 'WITH', 'BY', 'FROM', 'AS', 'IS', 'WAS', 'ARE', 'BEEN', 'BE',
+        'HAVE', 'HAS', 'HAD', 'DO', 'DOES', 'DID', 'WILL', 'WOULD', 'COULD',
+        'SHOULD', 'MAY', 'MIGHT', 'CAN', 'THIS', 'THAT', 'THESE', 'THOSE'
+      ]);
+      
+      // High-impact words with semantic weight scores
+      const impactWords = {
+        // Power words (weight: 10)
+        'LIMITLESS': 10, 'UNLIMITED': 10, 'REVOLUTIONARY': 10, 'BREAKTHROUGH': 10,
+        'EXCLUSIVE': 10, 'PREMIUM': 10, 'ULTIMATE': 10, 'GUARANTEED': 10,
+        
+        // Tech/Modern (weight: 9)
+        'AI': 9, 'SMART': 9, 'INSTANT': 9, 'SECURE': 9, 'ADVANCED': 9,
+        'INNOVATIVE': 9, 'CUTTING-EDGE': 9, 'NEXT-GEN': 9, 'AUTOMATED': 9,
+        
+        // Urgency (weight: 8)
+        'NOW': 8, 'TODAY': 8, 'URGENT': 8, 'BREAKING': 8, 'ALERT': 8,
+        'LIVE': 8, 'IMMEDIATE': 8, 'FLASH': 8, 'LIMITED': 8,
+        
+        // Value (weight: 8)
+        'FREE': 8, 'SAVE': 8, 'BONUS': 8, 'SPECIAL': 8, 'DEAL': 8,
+        'DISCOUNT': 8, 'OFFER': 8, 'PROMO': 8, 'SALE': 8,
+        
+        // Quality (weight: 7)
+        'BEST': 7, 'TOP': 7, 'PREMIER': 7, 'ELITE': 7, 'PRO': 7,
+        'PROFESSIONAL': 7, 'CERTIFIED': 7, 'VERIFIED': 7, 'TRUSTED': 7,
+        
+        // Emotion/Impact (weight: 7)
+        'AMAZING': 7, 'INCREDIBLE': 7, 'STUNNING': 7, 'POWERFUL': 7,
+        'EPIC': 7, 'LEGENDARY': 7, 'VIRAL': 7, 'TRENDING': 7,
+        
+        // Scale (weight: 6)
+        'MASSIVE': 6, 'HUGE': 6, 'MEGA': 6, 'SUPER': 6, 'EXTREME': 6,
+        'MAXIMUM': 6, 'TOTAL': 6, 'COMPLETE': 6, 'FULL': 6,
+        
+        // Achievement (weight: 6)
+        'WIN': 6, 'WINNER': 6, 'SUCCESS': 6, 'ACHIEVE': 6, 'MASTER': 6,
+        'EXPERT': 6, 'CHAMPION': 6, 'LEADER': 6,
+        
+        // Experience (weight: 5)
+        'EXPERIENCE': 5, 'DISCOVER': 5, 'EXPLORE': 5, 'UNLOCK': 5,
+        'TRANSFORM': 5, 'UPGRADE': 5, 'ENHANCE': 5, 'OPTIMIZE': 5
+      };
+      
+      // Function to score a phrase
+      function scorePhrase(phrase) {
+        const words = phrase.split(' ').filter(w => w.length > 0);
+        let score = 0;
+        let hasImpact = false;
+        let maxWordScore = 0;
+        
+        for (const word of words) {
+          const upper = word.toUpperCase();
+          
+          // Skip stopwords
+          if (stopwords.has(upper)) continue;
+          
+          let wordScore = 0;
+          
+          // Add impact word score
+          if (impactWords[upper]) {
+            wordScore = impactWords[upper];
+            hasImpact = true;
+          } else if (emphasisKeywords.includes(upper)) {
+            wordScore = 5;
+            hasImpact = true;
+          } else {
+            // Base score for non-stopwords
+            wordScore = 2;
+          }
+          
+          // Track highest individual word score
+          maxWordScore = Math.max(maxWordScore, wordScore);
+          
+          // Bonus for longer meaningful words
+          if (word.length >= 6) wordScore += 1;
+          if (word.length >= 8) wordScore += 1;
+          
+          score += wordScore;
+        }
+        
+        // CRITICAL: For single words with high impact (8+), boost score significantly
+        // This ensures "LIMITLESS" alone beats "LIMITLESS POTENTIAL TODAY"
+        if (words.length === 1 && maxWordScore >= 8) {
+          score = score * 2.0; // Moderate boost for single high-impact words
+        }
+        
+        // For 2-word phrases, check if they form a semantic unit
+        if (words.length === 2) {
+          const phrase2 = phrase.toUpperCase();
+          // Semantic pairs that work better together
+          const semanticPairs = [
+            'SECURE PAYMENT', 'PAYMENT SYSTEM', 'BEST DEALS', 'SALE PRICE',
+            'FREE SHIPPING', 'LIMITED TIME', 'BREAKING NEWS', 'FLASH SALE',
+            'TOP RATED', 'PREMIUM QUALITY', 'EXCLUSIVE OFFER', 'SPECIAL DISCOUNT'
+          ];
+          
+          if (semanticPairs.includes(phrase2)) {
+            score = score * 2.2; // Very strong boost for semantic pairs (beats single words)
+          } else {
+            // Penalty for non-semantic pairs
+            score = score * 0.7;
+          }
+        }
+        
+        // Penalty for 3+ words (usually too long)
+        if (words.length >= 3) {
+          score = score * 0.5; // Heavy penalty for long phrases
+        }
+        
+        // Penalty for too long character-wise
+        if (phrase.length > 18) score -= 3;
+        
+        return hasImpact ? score : 0;
+      }
+      
+      // Clean text for processing (remove special chars but keep structure)
+      const cleanText = text.replace(/[%$#@!]/g, '').trim();
+      
+      // Split by colon or dash to prioritize right segment
+      let textSegments = [cleanText];
+      if (cleanText.includes(':')) {
+        textSegments = cleanText.split(':').map(s => s.trim());
+      } else if (cleanText.includes(' - ')) {
+        textSegments = cleanText.split(' - ').map(s => s.trim());
+      } else if (cleanText.includes(' – ')) {
+        textSegments = cleanText.split(' – ').map(s => s.trim());
+      }
+      
+      // Prioritize right-hand segment if split (e.g., "Amazing Sale: Save Up to 50" -> prioritize "Save Up to 50")
+      if (textSegments.length > 1) {
+        textSegments = [textSegments[textSegments.length - 1], ...textSegments.slice(0, -1)];
+      }
+      
+      // Find top N phrases across all segments
+      const phraseCandidates = [];
+      
+      for (const segment of textSegments) {
+        const words = segment.split(' ').filter(w => w.length > 0);
+        
+        // Try 1-word, 2-word, and 3-word phrases (prioritize shorter)
+        for (let len = 1; len <= Math.min(3, words.length); len++) {
+          for (let i = 0; i <= words.length - len; i++) {
+            const phrase = words.slice(i, i + len).join(' ');
+            const score = scorePhrase(phrase);
+            
+            if (score >= 5) { // Only consider phrases with meaningful impact
+              phraseCandidates.push({
+                phrase: phrase,
+                score: score,
+                startIndex: cleanText.indexOf(phrase),
+                length: len
+              });
+            }
+          }
+        }
+      }
+      
+      // Sort by score (descending) and remove overlapping phrases
+      phraseCandidates.sort((a, b) => b.score - a.score);
+      
+      // Convert text to words array for proper word-based indexing
+      const allWords = cleanText.split(' ').filter(w => w.length > 0);
+      
+      const selectedPhrases = [];
+      const usedWordIndices = new Set();
+      
+      for (const candidate of phraseCandidates) {
+        // Check if this phrase overlaps with already selected phrases
+        const phraseWords = candidate.phrase.split(' ').filter(w => w.length > 0);
+        
+        // Find word index position of this phrase in the text
+        let phraseWordIndex = -1;
+        for (let i = 0; i <= allWords.length - phraseWords.length; i++) {
+          const potentialMatch = allWords.slice(i, i + phraseWords.length).join(' ').toUpperCase();
+          if (potentialMatch === candidate.phrase.toUpperCase()) {
+            phraseWordIndex = i;
+            break;
+          }
+        }
+        
+        if (phraseWordIndex === -1) continue;
+        
+        // Check if any word in this phrase is already used
+        let overlaps = false;
+        for (let i = 0; i < phraseWords.length; i++) {
+          if (usedWordIndices.has(phraseWordIndex + i)) {
+            overlaps = true;
+            break;
+          }
+        }
+        
+        if (!overlaps) {
+          selectedPhrases.push({
+            ...candidate,
+            wordIndex: phraseWordIndex
+          });
+          
+          // Mark all words in this phrase as used
+          for (let i = 0; i < phraseWords.length; i++) {
+            usedWordIndices.add(phraseWordIndex + i);
+          }
+          
+          if (selectedPhrases.length >= maxHighlights) break;
+        }
+      }
+      
+      // Fallback: if no phrases found, get single best
+      const bestPhrase = selectedPhrases.length > 0 ? selectedPhrases[0].phrase : null;
+      const bestScore = selectedPhrases.length > 0 ? selectedPhrases[0].score : 0;
+      
+      // If no good phrase found (score < 5), fallback to old keyword-based
+      if (bestScore < 5) {
+        const words = text.split(' ').filter(w => w.length > 0);
+        const fallbackSegments = [];
+        
+        words.forEach((word, index) => {
+          const isEmphasis = emphasisKeywords.includes(word.toUpperCase().replace(/[%$#@!]/g, ''));
+          fallbackSegments.push({
+            text: word,
+            highlight: isEmphasis,
+            isLastWord: index === words.length - 1
+          });
+        });
+        
+        return fallbackSegments;
+      }
+      
+      // Build segments with multiple phrases highlighted, each with its own color index
+      // Use original text for display, but clean for comparison
+      const words = text.split(' ').filter(w => w.length > 0);
+      const resultSegments = [];
+      
+      let i = 0;
+      while (i < words.length) {
+        let matched = false;
+        
+        // Check each selected phrase for a match at this position
+        for (let phraseIdx = 0; phraseIdx < selectedPhrases.length; phraseIdx++) {
+          const phrase = selectedPhrases[phraseIdx].phrase;
+          const phraseWords = phrase.split(' ').filter(w => w.length > 0);
+          
+          // Clean current words for comparison (remove special chars, case-insensitive)
+          const currentSlice = words.slice(i, i + phraseWords.length);
+          const cleanedSlice = currentSlice.map(w => w.replace(/[%$#@!]/g, '').toUpperCase()).join(' ');
+          const cleanedPhrase = phrase.toUpperCase();
+          
+          if (cleanedSlice === cleanedPhrase && currentSlice.length === phraseWords.length) {
+            // Highlight the entire phrase with its color index (using original words with special chars)
+            for (let j = 0; j < currentSlice.length; j++) {
+              resultSegments.push({
+                text: words[i + j],
+                highlight: true,
+                colorIndex: phraseIdx, // Assign color based on phrase ranking
+                isLastWord: (i + j) === words.length - 1
+              });
+            }
+            i += phraseWords.length;
+            matched = true;
+            break;
+          }
+        }
+        
+        if (!matched) {
+          // Regular word
+          resultSegments.push({
+            text: words[i],
+            highlight: false,
+            colorIndex: -1,
+            isLastWord: i === words.length - 1
+          });
+          i++;
+        }
+      }
+      
+      return resultSegments;
+    }
     
     // Function to wrap text into multiple lines - NO ELLIPSIS, accept all text
     function wrapText(text, maxWidth, fontSize) {
@@ -1133,7 +2683,7 @@ export default async function handler(req, res) {
       
       // More accurate character width estimation for Noto Sans
       // For entertainment, antonBlack, antonTransparent, antonTransparent2, and antonWhite designs, use narrower char width for better spreading
-      const avgCharWidth = (design === 'entertainment' || design === 'antonBlack' || design === 'antonTransparent' || design === 'antonTransparent2' || design === 'antonWhite') ? fontSize * 0.45 : fontSize * 0.55;
+      const avgCharWidth = (design === 'entertainment' || design === 'antonBlack' || design === 'antonBlack1' || design === 'antonTransparent' || design === 'antonTransparent2' || design === 'antonWhite') ? fontSize * 0.45 : fontSize * 0.55;
       const maxCharsPerLine = Math.floor(maxWidth / avgCharWidth);
       
       // NO maximum lines limit - accept all text
@@ -1209,7 +2759,10 @@ export default async function handler(req, res) {
     // Generate design-specific gradient stops
     const gradientStops = selectedDesign.gradientColors && selectedDesign.gradientColors.length > 0 
       ? selectedDesign.gradientColors.map((color, index) => {
-          const offset = index === 0 ? '0%' : '100%';
+          // Distribute gradient stops evenly from 0% to 100%
+          const offset = selectedDesign.gradientColors.length === 1 
+            ? '100%' 
+            : `${Math.round((index / (selectedDesign.gradientColors.length - 1)) * 100)}%`;
           return `<stop offset="${offset}" style="stop-color:${color}"/>`;
         }).join('')
       : ''; // Empty for transparent designs
@@ -1365,6 +2918,30 @@ export default async function handler(req, res) {
             letter-spacing: ${design === 'tech' ? '2px' : '1px'};
             ${design === 'tech' ? 'filter: url(#glow);' : ''}
           }
+          
+          /* Generate dynamic highlight color classes from URL parameter or use defaults */
+          ${(() => {
+            const defaultColors = ['#FFD700', '#FF8C00', '#00FFFF', '#1E90FF', '#F4E04D', '#C084FC'];
+            const colors = highlightColors.length > 0 ? highlightColors : defaultColors;
+            return colors.slice(0, 6).map((color, idx) => {
+              // Extract RGB for glow effect
+              const hexToRgb = (hex) => {
+                const result = /^#?([a-f\\d]{2})([a-f\\d]{2})([a-f\\d]{2})$/i.exec(hex);
+                return result ? {
+                  r: parseInt(result[1], 16),
+                  g: parseInt(result[2], 16),
+                  b: parseInt(result[3], 16)
+                } : { r: 255, g: 215, b: 0 };
+              };
+              const rgb = hexToRgb(color);
+              return `
+          .highlight-${idx} {
+            fill: ${color};
+            filter: drop-shadow(0 0 8px rgba(${rgb.r},${rgb.g},${rgb.b},0.6));
+          }`;
+            }).join('');
+          })()}
+          
           .website-text { 
             font-family: "${selectedDesign.fontFamily || 'Noto Sans'}", "Noto Sans Bold", "Inter Bold", "Noto Sans", "Inter", Arial, sans-serif; 
             font-size: ${selectedDesign.websiteSize}px; 
@@ -1525,6 +3102,25 @@ export default async function handler(req, res) {
             design === 'boldblue' ? 'boldblue-title' : '',
             isBoldDesign ? 'bold-text' : ''
           ].filter(Boolean).join(' ');
+          
+          // For bebas design with highlights enabled, parse and render with tspan
+          if (design === 'bebas' && selectedDesign.enableHighlight) {
+            // Default color palette (Gold, Orange, Cyan, Electric Blue, Soft Yellow, Lavender)
+            const defaultColors = ['#FFD700', '#FF8C00', '#00FFFF', '#1E90FF', '#F4E04D', '#C084FC'];
+            const colors = highlightColors.length > 0 ? highlightColors : defaultColors;
+            const maxHighlights = Math.min(colors.length, 6); // Limit to 6 highlights
+            
+            const segments = parseHighlights(line, maxHighlights);
+            const tspanContent = segments.map(seg => {
+              let className = '';
+              if (seg.highlight && seg.colorIndex >= 0 && seg.colorIndex < maxHighlights) {
+                className = `highlight-${seg.colorIndex}`;
+              }
+              const space = seg.isLastWord ? '' : ' ';
+              return `<tspan class="${className}">${seg.text}</tspan>${space}`;
+            }).join('');
+            return `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY + (index * lineHeight))}" class="${classes}">${tspanContent}</text>`;
+          }
           
           return `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY + (index * lineHeight))}" class="${classes}">${line}</text>`;
         }).join('')}
