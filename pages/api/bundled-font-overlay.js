@@ -3062,6 +3062,13 @@ const tagalogQuotes = [
             fill: url(#boldVignette);
             opacity: 0.4;
           }` : ''}
+          
+          /* Critical: Force font-family on tspan elements for Sharp/librsvg compatibility on Linux */
+          tspan {
+            font-family: "${selectedDesign.fontFamily || 'Bebas Neue'}", "Bebas Neue", "Anton", Arial, sans-serif;
+            font-style: normal;
+            font-weight: ${selectedDesign.fontWeight || '400'};
+          }
         </style>
         
         <!-- Dynamic Design Gradient Background -->
@@ -3112,6 +3119,10 @@ const tagalogQuotes = [
             const colors = highlightColors.length > 0 ? highlightColors : defaultColors;
             const maxHighlights = Math.min(colors.length, 6); // Limit to 6 highlights
             
+            // Get font attributes from design config for explicit tspan attributes
+            const fontFamily = selectedDesign.fontFamily || 'Bebas Neue';
+            const fontWeight = selectedDesign.fontWeight || '400';
+            
             const segments = parseHighlights(line, maxHighlights);
             const tspanContent = segments.map(seg => {
               let className = '';
@@ -3119,7 +3130,10 @@ const tagalogQuotes = [
                 className = `highlight-${seg.colorIndex}`;
               }
               const space = seg.isLastWord ? '' : ' ';
-              return `<tspan class="${className}">${seg.text}</tspan>${space}`;
+              // CRITICAL FIX: Add explicit font-family, font-style, and font-weight to tspan
+              // This ensures Sharp/librsvg on Linux (Vercel) renders the correct font
+              // Do NOT rely on CSS inheritance - it fails on production Linux environments
+              return `<tspan class="${className}" font-family="${fontFamily}" font-style="normal" font-weight="${fontWeight}">${seg.text}</tspan>${space}`;
             }).join('');
             return `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY + (index * lineHeight))}" class="${classes}">${tspanContent}</text>`;
           }
