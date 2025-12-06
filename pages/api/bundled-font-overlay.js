@@ -9,6 +9,11 @@ import { logUsage } from './usage/log';
 // Force Node.js runtime (crucial for Sharp + fontconfig)
 export const runtime = 'nodejs';
 
+// Log Sharp versions for debugging Vercel compatibility
+console.log('🔍 Sharp versions:', sharp.versions);
+console.log('🔍 Platform:', process.platform, '/', process.arch);
+console.log('🔍 Node version:', process.version);
+
 // Set up fontconfig paths at module load time
 const fontConfigPath = path.join(process.cwd(), 'fontconfig');
 const fontConfigFile = path.join(fontConfigPath, 'fonts.conf');
@@ -46,17 +51,33 @@ let fontBase64Cache = {};
 // Function to load font as base64
 function loadFontAsBase64(fontPath, fontName) {
   try {
+    console.log(`🔍 Checking font: ${fontPath}`);
+    console.log(`🔍 File exists: ${fs.existsSync(fontPath)}`);
+    
     if (fs.existsSync(fontPath)) {
       const fontBuffer = fs.readFileSync(fontPath);
       const base64Font = fontBuffer.toString('base64');
+      const dataUrl = `data:font/truetype;charset=utf-8;base64,${base64Font}`;
+      
       console.log(`✅ Loaded ${fontName}: ${Math.round(base64Font.length / 1024)}KB`);
-      return `data:font/truetype;charset=utf-8;base64,${base64Font}`;
+      console.log(`🔍 Base64 length: ${base64Font.length} chars`);
+      console.log(`🔍 Data URL length: ${dataUrl.length} chars`);
+      console.log(`🔍 First 100 chars: ${dataUrl.substring(0, 100)}...`);
+      
+      return dataUrl;
     } else {
       console.log(`❌ Font not found: ${fontPath}`);
+      console.log(`🔍 Current working directory: ${process.cwd()}`);
+      console.log(`🔍 Fonts directory: ${fontsDir}`);
+      console.log(`🔍 Fonts dir exists: ${fs.existsSync(fontsDir)}`);
+      if (fs.existsSync(fontsDir)) {
+        console.log(`🔍 Files in fonts dir:`, fs.readdirSync(fontsDir));
+      }
       return null;
     }
   } catch (error) {
     console.log(`❌ Error loading ${fontName}:`, error.message);
+    console.log(`🔍 Error stack:`, error.stack);
     return null;
   }
 }
@@ -2219,6 +2240,31 @@ const tagalogQuotes = [
     console.log('🎨 Highlight colors:', highlightColors.length > 0 ? highlightColors : 'Using default palette');
     console.log('🎨 Website color override:', websiteColorOverride || 'Using design default');
     
+    // CRITICAL DIAGNOSTIC: Verify font cache at request time
+    // CRITICAL FIX: Read Bebas Neue font directly from filesystem for Vercel compatibility
+    const bebasNeueFontPath = path.join(process.cwd(), 'public', 'fonts', 'BebasNeue-Regular.ttf');
+    console.log('🔍 Bebas Neue font path:', bebasNeueFontPath);
+    console.log('🔍 Bebas Neue font exists:', fs.existsSync(bebasNeueFontPath));
+    
+    let bebasNeueBase64 = fontBase64Cache.bebasNeue;
+    if (fs.existsSync(bebasNeueFontPath)) {
+      bebasNeueBase64 = `data:font/ttf;base64,${fs.readFileSync(bebasNeueFontPath).toString('base64')}`;
+      console.log('✅ Bebas Neue loaded from filesystem, base64 length:', bebasNeueBase64.length);
+    } else {
+      console.log('⚠️ Bebas Neue file not found, using cache');
+    }
+    
+    console.log('🔍 Font cache status at request time:');
+    console.log('  - bebasNeue cached:', !!fontBase64Cache.bebasNeue);
+    console.log('  - bebasNeue runtime:', !!bebasNeueBase64);
+    console.log('  - anton cached:', !!fontBase64Cache.anton);
+    if (bebasNeueBase64) {
+      console.log('  - bebasNeue length:', bebasNeueBase64.length, 'chars');
+      console.log('  - bebasNeue starts with:', bebasNeueBase64.substring(0, 50));
+    } else {
+      console.log('  ❌ WARNING: bebasNeue font NOT loaded!');
+    }
+    
     const image = imageData ? null : (imageUrl.startsWith('http') ? imageUrl : decodeURIComponent(imageUrl));
 
     // Get design theme configuration
@@ -2802,7 +2848,7 @@ const tagalogQuotes = [
         font-weight: 400;
         font-style: normal;
         font-display: block;
-        src: url('${fontBase64Cache.bebasNeue || ''}') format('truetype');
+        src: url('${bebasNeueBase64 || fontBase64Cache.bebasNeue || ''}') format('truetype');
       }
       @font-face {
         font-family: 'Anton';
@@ -3130,10 +3176,10 @@ const tagalogQuotes = [
                 className = `highlight-${seg.colorIndex}`;
               }
               const space = seg.isLastWord ? '' : ' ';
-              // CRITICAL FIX: Add explicit font-family, font-style, and font-weight to tspan
-              // This ensures Sharp/librsvg on Linux (Vercel) renders the correct font
-              // Do NOT rely on CSS inheritance - it fails on production Linux environments
-              return `<tspan class="${className}" font-family="${fontFamily}" font-style="normal" font-weight="${fontWeight}">${seg.text}</tspan>${space}`;
+              // CRITICAL FIX: Add explicit font-family="Bebas Neue" to every tspan
+              // This ensures Sharp/librsvg on Linux (Vercel) renders the correct embedded font
+              // The font is loaded from filesystem at runtime and embedded as base64 in @font-face
+              return `<tspan class="${className}" font-family="Bebas Neue" font-style="normal" font-weight="400">${seg.text}</tspan>${space}`;
             }).join('');
             return `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(titleStartY + (index * lineHeight))}" class="${classes}">${tspanContent}</text>`;
           }
@@ -3173,9 +3219,35 @@ const tagalogQuotes = [
     
     console.log('🔤 SVG created with font references');
     console.log('📊 SVG preview (first 200 chars):', svg.substring(0, 200));
+    console.log('🔍 SVG total length:', svg.length, 'chars');
+    
+    // CRITICAL DIAGNOSTIC: Check if base64 fonts are in SVG
+    const fontDataIndex = svg.indexOf('data:font');
+    console.log('🔍 Font data position in SVG:', fontDataIndex);
+    if (fontDataIndex > -1) {
+      console.log('🔍 Font data sample:', svg.substring(fontDataIndex, fontDataIndex + 150));
+    } else {
+      console.log('❌ WARNING: No base64 font data found in SVG!');
+    }
+    
+    // Check for Bebas Neue specifically
+    const bebasIndex = svg.indexOf('Bebas Neue');
+    console.log('🔍 "Bebas Neue" occurrences in SVG:', (svg.match(/Bebas Neue/g) || []).length);
+    console.log('🔍 First "Bebas Neue" at position:', bebasIndex);
+    
+    // Log tspan structure for bebas design
+    if (design === 'bebas') {
+      const tspanMatches = svg.match(/<tspan[^>]*>/g);
+      console.log('🔍 Number of tspan elements:', tspanMatches ? tspanMatches.length : 0);
+      if (tspanMatches && tspanMatches.length > 0) {
+        console.log('🔍 First tspan:', tspanMatches[0]);
+        console.log('🔍 Last tspan:', tspanMatches[tspanMatches.length - 1]);
+      }
+    }
     
     // Convert SVG to buffer
     const svgBuffer = Buffer.from(svg, 'utf-8');
+    console.log('🔍 SVG buffer size:', svgBuffer.length, 'bytes');
     
     console.log('⚡ Compositing with Sharp...');
     
