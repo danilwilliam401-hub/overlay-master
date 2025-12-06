@@ -2907,7 +2907,7 @@ const tagalogQuotes = [
           ${fontBase64Cache.notoBold || fontBase64Cache.notoRegular ? fontFaceDeclarations : ''}
           
           .title-text { 
-            font-family: "${selectedDesign.fontFamily || 'Noto Sans'}", "Noto Sans Bold", "Inter Bold", "Noto Sans", "Inter", Arial, sans-serif; 
+            font-family: "${selectedDesign.fontFamily || 'Noto Sans'}", "Bebas Neue", "Anton", "Noto Sans Bold", "Inter Bold", "Noto Sans", "Inter", Arial, sans-serif; 
             font-size: ${selectedDesign.titleSize}px; 
             font-weight: ${selectedDesign.fontWeight || '700'};
             font-style: normal;
@@ -2936,6 +2936,8 @@ const tagalogQuotes = [
               const rgb = hexToRgb(color);
               return `
           .highlight-${idx} {
+            font-family: "${selectedDesign.fontFamily || 'Bebas Neue'}", "Bebas Neue", "Anton", "Noto Sans Bold", "Inter Bold", Arial, sans-serif;
+            font-weight: ${selectedDesign.fontWeight || '900'};
             fill: ${color};
             filter: drop-shadow(0 0 8px rgba(${rgb.r},${rgb.g},${rgb.b},0.6));
           }`;
@@ -2943,7 +2945,7 @@ const tagalogQuotes = [
           })()}
           
           .website-text { 
-            font-family: "${selectedDesign.fontFamily || 'Noto Sans'}", "Noto Sans Bold", "Inter Bold", "Noto Sans", "Inter", Arial, sans-serif; 
+            font-family: "${selectedDesign.fontFamily || 'Noto Sans'}", "Bebas Neue", "Anton", "Noto Sans Bold", "Inter Bold", "Noto Sans", "Inter", Arial, sans-serif; 
             font-size: ${selectedDesign.websiteSize}px; 
             font-weight: ${selectedDesign.fontWeight || '700'};
             font-style: normal;
