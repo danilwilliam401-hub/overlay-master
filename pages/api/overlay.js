@@ -2435,7 +2435,7 @@ const tagalogQuotes = [
     function parseHighlights(text, maxHighlights = 3) {
       // Common emphasis keywords to automatically highlight (fallback list)
       const emphasisKeywords = [
-        'NEW', 'FREE', 'NOW','HEALTH','HOLIDAY', 'EXCLUSIVE', 'BREAKING', 'ALERT', 'LIMITED',
+        'NEW', 'FREE', 'NOW', 'EXCLUSIVE', 'BREAKING', 'ALERT', 'LIMITED',
         'SALE', 'HOT', 'TRENDING', 'VIRAL', 'LIVE', 'TODAY', 'URGENT',
         'SPECIAL', 'BONUS', 'WIN', 'BEST', 'TOP', 'AMAZING', 'INCREDIBLE'
       ];

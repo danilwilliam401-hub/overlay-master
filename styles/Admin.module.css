@@ -204,6 +204,37 @@
   font-weight: 600;
 }
 
+/* Actions */
+.actionsCell {
+  text-align: center;
+}
+
+.verifyButton {
+  padding: 0.5rem 1rem;
+  background: #48bb78;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.verifyButton:hover:not(:disabled) {
+  background: #38a169;
+  transform: translateY(-1px);
+}
+
+.verifyButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.verifyButton:disabled {
+  background: #cbd5e0;
+  cursor: not-allowed;
+}
+
 /* Empty State */
 .emptyState {
   padding: 3rem;

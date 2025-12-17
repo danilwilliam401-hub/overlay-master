@@ -58,6 +58,25 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'API key name must be 100 characters or less' });
     }
 
+    // Check if user already has an active API key (limit to 1 per user)
+    const existingKey = await prisma.apiKey.findFirst({
+      where: {
+        userId: session.user.id,
+        revokedAt: null
+      }
+    });
+
+    if (existingKey) {
+      return res.status(400).json({ 
+        error: 'You already have an active API key. Please revoke it first or use the reset option.',
+        existingKey: {
+          name: existingKey.name,
+          prefix: existingKey.prefix,
+          createdAt: existingKey.createdAt
+        }
+      });
+    }
+
     if (limitPerMinute && (typeof limitPerMinute !== 'number' || limitPerMinute < 1 || limitPerMinute > 1000)) {
       return res.status(400).json({ error: 'limitPerMinute must be between 1 and 1000' });
     }

@@ -3,8 +3,8 @@ import https from 'https';
 import http from 'http';
 import path from 'path';
 import fs from 'fs';
-import { protectApiRoute } from '../../lib/apiKeyAuth';
-import { logUsage } from './usage/log';
+//import { protectApiRoute } from '../../lib/apiKeyAuth';
+//import { logUsage } from './usage/log';
 
 // Force Node.js runtime (crucial for Sharp + fontconfig)
 export const runtime = 'nodejs';
@@ -2207,11 +2207,61 @@ const tagalogQuotes = [
         'electric-blue': '#1E90FF',
         'softyellow': '#F4E04D',
         'soft-yellow': '#F4E04D',
-        'lavender': '#C084FC'
+        'lavender': '#C084FC',
+        'limegreen': '#00FF4C',
+        'lime-green': '#00FF4C',
+        'lime': '#00FF4C',
+        'red': '#FF0000',
+        'royalblue': '#003CFF',
+        'royal-blue': '#003CFF',
+        'magenta': '#FF00C8',
+        'vibrantyellow': '#FFEA00',
+        'vibrant-yellow': '#FFEA00',
+        'gray': '#E0E0E0',
+        'grey': '#E0E0E0',
+        'lightgray': '#D3D3D3',
+        'lightgrey': '#D3D3D3',
+        'silver': '#C0C0C0',
+        'white': '#FFFFFF'
       };
       
       const normalizedColor = wcParam.toLowerCase().replace(/\s+/g, '');
       websiteColorOverride = colorMap[normalizedColor] || wcParam.trim();
+    }
+    
+    // Parse border color parameter (bc) for image border
+    const bcParam = rawParams.bc || '';
+    let borderColor = '#FFD700'; // Default to gold/yellow
+    if (bcParam) {
+      // Use same color mapping as website color
+      const colorMap = {
+        'gold': '#FFD700',
+        'orange': '#FF8C00',
+        'cyan': '#00FFFF',
+        'electricblue': '#1E90FF',
+        'electric-blue': '#1E90FF',
+        'softyellow': '#F4E04D',
+        'soft-yellow': '#F4E04D',
+        'lavender': '#C084FC',
+        'limegreen': '#00FF4C',
+        'lime-green': '#00FF4C',
+        'lime': '#00FF4C',
+        'red': '#FF0000',
+        'royalblue': '#003CFF',
+        'royal-blue': '#003CFF',
+        'magenta': '#FF00C8',
+        'vibrantyellow': '#FFEA00',
+        'vibrant-yellow': '#FFEA00',
+        'gray': '#E0E0E0',
+        'grey': '#E0E0E0',
+        'lightgray': '#D3D3D3',
+        'lightgrey': '#D3D3D3',
+        'silver': '#C0C0C0',
+        'white': '#FFFFFF'
+      };
+      
+      const normalizedColor = bcParam.toLowerCase().replace(/\s+/g, '');
+      borderColor = colorMap[normalizedColor] || bcParam.trim();
     }
     
     // Check if we should use quote designs and generate random quotes
@@ -2434,11 +2484,88 @@ const tagalogQuotes = [
     // Function to detect emphasis keywords and create highlight segments with multi-color support
     function parseHighlights(text, maxHighlights = 3) {
       // Common emphasis keywords to automatically highlight (fallback list)
-      const emphasisKeywords = [
-        'NEW', 'FREE', 'NOW','HEALTH','HOLIDAY', 'EXCLUSIVE', 'BREAKING', 'ALERT', 'LIMITED',
-        'SALE', 'HOT', 'TRENDING', 'VIRAL', 'LIVE', 'TODAY', 'URGENT',
-        'SPECIAL', 'BONUS', 'WIN', 'BEST', 'TOP', 'AMAZING', 'INCREDIBLE'
-      ];
+   const emphasisKeywords = [
+  '120HZ', '144HZ', '5G READY', 'ADVANCED', 'AI CAMERA', 'AI ENHANCED', 'AI FEATURES',
+  'AI POWERED', 'AI SMART MODE', 'AI-READY', 'AI-GENERATED', 'COPYRIGHTED', 'COPYRIGHT', 'PROBE', 'PROBES', 'ALERT', 'AMAZING', 'AMOLED', 'ANTUTU SCORE',
+  'BATTERY BOOST', 'BATTERY DRAIN TEST', 'BATTERY TEST', 'BENCHMARK', 'BETA', 'BEST',
+  'BEZEL-LESS DISPLAY', 'BIG UPDATE', 'BLUETOOTH 5.4', 'BONUS', 'BOOSTED', 'BREAKING',
+  'BREAKING TECH', 'BREAKTHROUGH', 'BUDGET KING', 'CAMERA SAMPLES', 'CAMERA TEST',
+  'CAMERA UPGRADE', 'CERTIFICATION SPOTTED', 'CHARGING TEST', 'CHIPSET UPGRADE',
+  'CHROMEBOOK', 'COMING SOON', 'CONFIRMED', 'CRITICAL UPDATE', 'CURVED DISPLAY',
+  'CLOUD POWERED', 'CPU BOOST', 'DEVICE', 'DISPLAY TECH', 'DOLBY ATMOS', 'DONT MISS',
+  'DURABILITY', 'EARLY ACCESS', 'ECO TECH', 'ENHANCED', 'ESPORTS READY', 'EXCLUSIVE',
+  'FAST CHARGING', 'FEATURED', 'FCC LISTING', 'FIRMWARE', 'FIRST IMPRESSIONS',
+  'FIRST LOOK', 'FIRST SALE', 'FIRST IN PH', 'FLASH DEAL', 'FOLDABLE TECH', 'FREE',
+  'FULL REVIEW', 'GADGET', 'GAMING MODE', 'GAMING RIG', 'GAMING TEST', 'GAME CHANGER',
+  'GEEKBENCH SCORE', 'GEN', 'GLOBAL LAUNCH', 'GRAPHICS POWER', 'GREEN TECH',
+  'HANDS-ON', 'HANDS-ON REVIEW', 'HDR10+', 'HIGHLIGHT', 'HI-RES AUDIO', 'HOT', 
+  'HOT DEAL', 'HOT UPDATE', 'INCREDIBLE', 'INNOVATION', 'INSANE', 'IP68 WATERPROOF',
+  'IP54 DUSTPROOF', 'IR BLASTER', 'JUST IN', 'LAUNCH', 'LAUNCH EVENT', 'LEAKED',
+  'LEAKED PHOTOS', 'LEAKED RENDERS', 'LATEST TECH', 'LATEST UPDATE', 'LAPTOP',
+  'LIMITED', 'LIMITED STOCK', 'LIVE', 'MAJOR UPGRADE', 'MAX', 'MEGA SALE', 'MEDIATEK',
+  'MODEL APPROVED', 'MUST SEE', 'NFC', 'NEW', 'NEW FEATURE', 'NEW MODEL APPROVED',
+  'NEW UPDATE', 'NEXT GEN', 'NIGHT MODE BOOST', 'NOW', 'OFFICIAL', 'OFFICIAL IMAGES',
+  'ON-DEVICE AI', 'OPTIMIZED', 'PATCH', 'PATCH NOTES', 'PC-LEVEL POWER',
+  'PERFORMANCE', 'PERFORMANCE MODE', 'PERISCOPE CAMERA', 'PH LAUNCH', 'PLUS',
+  'PREORDER', 'PRICE DROP', 'PRO', 'RAY TRACING', 'REAL-WORLD TEST', 'REVEALED',
+  'REVOLUTIONARY', 'ROLLING OUT', 'RTX POWERED', 'SALE', 'SATELLITE CONNECTIVITY',
+  'SATELLITE SOS', 'SECURITY PATCH', 'SLIM BEZELS', 'SMARTPHONE', 'SMARTWATCH',
+  'SNAPDRAGON', 'SOFTWARE UPDATE', 'SPECS', 'SPECIAL', 'SPOTLIGHT', 'STABLE',
+  'STARTS NOW', 'STEAL PRICE', 'STEREO SPEAKERS', 'SUPERCHARGE', 'SUPERCHARGED',
+  'SUSTAINABLE TECH', 'SYSTEM UPDATE', 'TABLET', 'TECH', 'TECH ALERT',
+  'TEARDOWN', 'TENAA LISTING', 'THERMAL BOOST', 'THERMAL TEST', 'TOP', 'TRENDING',
+  'TRENDING TECH', 'TURBO CHARGE', 'TURBO MODE', 'TYPE-C', 'UFS 4.0', 'ULTRA',
+  'ULTRA CLEAR', 'ULTRA WIDE', 'ULTIMATE', 'UNBELIEVABLE', 'UNBOXING', 'UPDATE',
+  'URGENT', 'USB-C', 'VIRAL', 'WATERPROOF', 'WEARABLE', 'WIFI 7', 'WIN', 
+  
+  
+   'APPLE', 'SAMSUNG', 'HUAWEI', 'OPPO', 'VIVO', 'XIAOMI', 'ONEPLUS', 'REALME', 'LENOVO', 'ASUS', 'DELL', 'HP', 'MICROSOFT', 'GOOGLE', 'SONY', 'LG', 'ACER', 'NOKIA', 'MOTOROLA', 'AMAZON', 'META', 'TESLA', 'INTEL', 'AMD', 'NVIDIA', 'ROG', 'RAZER', 'PULSAR', 'ALCATEL', 'BLACKBERRY',
+   'BROADCOM', 'HTC', 'ZTE', 'SIEGE', 'HONOR', 'VODAFONE', 'TCL', 'FUJITSU', 'PANASONIC', 'SHARP', 'SPECK', 'LOGITECH', 'KINGSTON', 'SANDISK', 'SEAGATE', 'WD', 'CRUCIAL', 'TP-LINK', 'NETGEAR',
+   'TRUMP','ORACLE','SHELL','EXXON','CHEVRON','BP','TOTALENERGIES','SAUDIARAMCO','IBM','SAP','SIEMENS','BOEING','LOCKHEEDMARTIN','RAYTHEON','NORTHROPCORP','GENERALDYNAMICS','BAE','BAIDU','ALIBABA','JD.COM','TENCENT','NETEASE',
+   'CRYPTO', 'BITCOIN', 'ETHEREUM', 'BLOCKCHAIN', 'NFT', 'METAVERSE', 'DEFI', 'WEB3',
+   'DOORDASH', 'UBER', 'LYFT', 'SPOTIFY', 'NETFLIX', 'DISNEY+', 'HULU', 'AMAZON PRIME', 'HBO MAX', 'PEACOCK',
+   'TESLA', 'SPACE-X', 'NEURALINK', 'THE BORING COMPANY',
+   'RIVIAN', 'LUCID', 'NIRO', 'FISKER', 'BYD', 'XPENG', 'NIO',
+   'CHATGPT', 'DALLE', 'MIDJOURNEY', 'STABLEDIFFUSION', 'OPENAI',
+   'DISNEY', 'PIXAR', 'MARVEL', 'STAR WARS', 'LUCASFILM',
+   'ADOBE', 'PHOTOSHOP', 'ILLUSTRATOR', 'PREMIERE PRO', 'AFTER EFFECTS',
+   'LIGHTROOM', 'INDESIGN', 'XD', 'ACROBAT',
+   'GOOGLE MAPS', 'YOUTUBE', 'GMAIL', 'GOOGLE DRIVE', 'GOOGLE DOCS',
+   'MICROSOFT OFFICE', 'WORD', 'EXCEL', 'POWERPOINT', 'OUTLOOK',
+   'CISCO', 'VMWARE', 'REDHAT', 'UBUNTU', 'DEBIAN',
+   'KUBERNETES', 'DOCKER', 'JENKINS', 'GITHUB', 'GITLAB',
+   'AWS', 'AZURE', 'GOOGLE CLOUD', 'CLOUDFLARE',
+   '4K', '8K', 'HDR', 'OLED', 'QLED', 'MINILED',
+   '5NM', '3NM', 'NANOMETER', 'FINFET', 'GAAFET',
+   'LITHIUM-ION', 'SOLID-STATE', 'GRAPHENE BATTERY',
+   'HOME CREDIT', 'NUBIA', 'INFINIX', 'TECNO', 'ITEL',
+
+    'AI-RELATED', 'AI-DRIVEN', 'AI-POWERED', 'AI-ENHANCED', 'AI-ASSISTED',
+    'MACHINE LEARNING', 'DEEP LEARNING', 'NEURAL NETWORKS', 'NATURAL LANGUAGE PROCESSING',
+    'COMPUTER VISION', 'GENERATIVE AI', 'AI MODELS', 'AI ALGORITHMS',
+    'ETHICAL AI', 'EXPLAINABLE AI', 'AI SAFETY', 'AI GOVERNANCE',
+
+    'BITGO', 'COINBASE', 'BINANCE', 'KRAKEN', 'FTX', 'BLOCKFI', 'CELSIUS',
+    'CRYPTO.COM', 'LEDGER', 'TREZOR',
+
+    'WHITE HOUSE', 'CONGRESS', 'SENATE', 'HOUSE OF REPRESENTATIVES', 'SUPREME COURT',
+    'UNITED NATIONS', 'NATO', 'WORLD BANK', 'IMF',
+
+    'WEALTHFRONT', 'ROBINHOOD', 'ETRADE', 'SCHWAB', 'Fidelity', 'VANGUARD',
+    'CHEGG', 'COURSE HERO', 'UDACITY', 'COURSERA', 'EDX',
+
+    'GERMANY', 'FRANCE', 'ITALY', 'SPAIN', 'PORTUGAL', 'NETHERLANDS', 'BELGIUM',
+    'SWITZERLAND', 'AUSTRIA', 'SWEDEN', 'NORWAY', 'DENMARK', 'FINLAND', 'POLAND',
+    'CZECHIA', 'HUNGARY', 'GREECE', 'TURKEY', 'RUSSIA', 'UKRAINE',
+
+    'GCASH', 'PAYMAYA', 'GRABPAY', 'LAZADA PAY', 'SHOPEE PAY',
+    'NFTS', 'METAVERSES', 'DEFI PLATFORMS', 'WEB3 APPLICATIONS',
+
+    'MAYA', 'GCASH', 'PAYMAYA', 'LAZADA PAY', 'SHOPEE PAY',
+    'K-DRAMA', 'K-POP', 'WEBTOONS', 'MANHWA', 'MANHUA',
+
+   'WOW'
+];
       
       // Stopwords to ignore
       const stopwords = new Set([
@@ -2967,9 +3094,9 @@ const tagalogQuotes = [
           
           /* Generate dynamic highlight color classes from URL parameter or use defaults */
           ${(() => {
-            const defaultColors = ['#FFD700', '#FF8C00', '#00FFFF', '#1E90FF', '#F4E04D', '#C084FC'];
+            const defaultColors = ['#FFD700', '#FF8C00', '#00FFFF', '#1E90FF', '#F4E04D', '#C084FC', '#00FF4C', '#FF0000', '#003CFF', '#FF00C8', '#FFEA00'];
             const colors = highlightColors.length > 0 ? highlightColors : defaultColors;
-            return colors.slice(0, 6).map((color, idx) => {
+            return colors.slice(0, 11).map((color, idx) => {
               // Extract RGB for glow effect
               const hexToRgb = (hex) => {
                 const result = /^#?([a-f\\d]{2})([a-f\\d]{2})([a-f\\d]{2})$/i.exec(hex);
@@ -3160,10 +3287,11 @@ const tagalogQuotes = [
           
           // For bebas design with highlights enabled, parse and render with tspan
           if (design === 'bebas' && selectedDesign.enableHighlight) {
-            // Default color palette (Gold, Orange, Cyan, Electric Blue, Soft Yellow, Lavender)
-            const defaultColors = ['#FFD700', '#FF8C00', '#00FFFF', '#1E90FF', '#F4E04D', '#C084FC'];
+            // Extended color palette with more vibrant emphasis colors
+            // Gold, Orange, Cyan, Electric Blue, Soft Yellow, Lavender, Lime Green, Red, Royal Blue, Magenta, Vibrant Yellow
+            const defaultColors = ['#FFD700', '#FF8C00', '#00FFFF', '#1E90FF', '#F4E04D', '#C084FC', '#00FF4C', '#FF0000', '#003CFF', '#FF00C8', '#FFEA00'];
             const colors = highlightColors.length > 0 ? highlightColors : defaultColors;
-            const maxHighlights = Math.min(colors.length, 6); // Limit to 6 highlights
+            const maxHighlights = Math.min(colors.length, 11); // Increased to support more highlights
             
             // Get font attributes from design config for explicit tspan attributes
             const fontFamily = selectedDesign.fontFamily || 'Bebas Neue';
@@ -3202,8 +3330,10 @@ const tagalogQuotes = [
         <rect x="${padding}" y="${Math.round(titleEndY + 10)}" width="${contentWidth}" height="4" fill="${selectedDesign.websiteColor}"/>
         ` : ''}
         
-        <!-- Website Text - Dynamically positioned with design styling -->
-        ${website ? `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(websiteY)}" class="website-text ${design === 'pokemon' ? 'pokemon-website' : ''} ${design === 'bold' ? 'bold-website' : ''} ${design === 'boldblue' ? 'boldblue-website' : ''} ${['boldblue', 'bold', 'energetic', 'popart', 'viral'].includes(design) ? 'bold-text' : ''}">${websiteText}</text>` : ''}
+        <!-- Website Text - Centered without icons -->
+        ${website ? `
+        <text x="${Math.round(targetWidth / 2)}" y="${Math.round(websiteY)}" class="website-text ${design === 'pokemon' ? 'pokemon-website' : ''} ${design === 'bold' ? 'bold-website' : ''} ${design === 'boldblue' ? 'boldblue-website' : ''} ${['boldblue', 'bold', 'energetic', 'popart', 'viral'].includes(design) ? 'bold-text' : ''}" text-anchor="middle">${websiteText}</text>
+        ` : ''}
         
         ${design === 'warmbrown' ? `
         <!-- Warm brown vignette overlay for depth -->
@@ -3263,13 +3393,28 @@ const tagalogQuotes = [
     } else {
       // Composite the SVG onto the image (ensure integer positioning)
       const compositeTop = (design === 'quote1' || design === 'quote2' || design === 'quote3') ? 0 : Math.round(targetHeight - svgHeight);
+      
+      // Create border SVG that covers the entire image
+      const borderSvg = `<svg width="${targetWidth}" height="${targetHeight}" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="10" width="${targetWidth - 20}" height="${targetHeight - 20}" fill="none" stroke="${borderColor}" stroke-width="2" rx="0"/>
+      </svg>`;
+      const borderBuffer = Buffer.from(borderSvg, 'utf-8');
+      
       finalImage = await processedImage
-        .composite([{
-          input: svgBuffer,
-          left: 0,
-          top: compositeTop,
-          blend: 'over'
-        }])
+        .composite([
+          {
+            input: svgBuffer,
+            left: 0,
+            top: compositeTop,
+            blend: 'over'
+          },
+          {
+            input: borderBuffer,
+            left: 0,
+            top: 0,
+            blend: 'over'
+          }
+        ])
         .jpeg({ quality: 90 })
         .toBuffer();
         

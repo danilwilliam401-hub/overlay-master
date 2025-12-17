@@ -28,10 +28,17 @@ export default function Dashboard({ user, apiKeys, usageStats, recentBanners }) 
   const [loading, setLoading] = useState(false);
   const [keys, setKeys] = useState(apiKeys);
   const [baseUrl, setBaseUrl] = useState('https://yourdomain.com');
+  const [storedApiKey, setStoredApiKey] = useState(null);
+  const [resettingKeyId, setResettingKeyId] = useState(null);
   
   // Set base URL after component mounts (client-side only)
   useEffect(() => {
     setBaseUrl(`${window.location.protocol}//${window.location.host}`);
+    // Load stored API key from localStorage if available
+    const stored = localStorage.getItem('apiKey');
+    if (stored) {
+      setStoredApiKey(stored);
+    }
   }, []);
 
   // Copy to clipboard helper
@@ -64,6 +71,9 @@ export default function Dashboard({ user, apiKeys, usageStats, recentBanners }) 
 
       if (data.status === 'success') {
         setCreatedKey(data);
+        // Store the full API key in localStorage
+        localStorage.setItem('apiKey', data.apiKey);
+        setStoredApiKey(data.apiKey);
         setNewKeyName('');
         setNewKeyLimit(60);
         // Refresh key list
@@ -98,6 +108,9 @@ export default function Dashboard({ user, apiKeys, usageStats, recentBanners }) 
       const data = await res.json();
 
       if (data.status === 'success') {
+        // Clear stored API key if this key was stored
+        localStorage.removeItem('apiKey');
+        setStoredApiKey(null);
         // Refresh key list
         const listRes = await fetch('/api/keys/list');
         const listData = await listRes.json();
@@ -109,6 +122,45 @@ export default function Dashboard({ user, apiKeys, usageStats, recentBanners }) 
       }
     } catch (error) {
       alert('Failed to revoke API key');
+    }
+  };
+
+  // Reset API key
+  const handleResetKey = async (keyId, keyName) => {
+    if (!confirm(`Are you sure you want to reset "${keyName}"? The old key will no longer work and you'll receive a new one.`)) {
+      return;
+    }
+
+    setResettingKeyId(keyId);
+
+    try {
+      const res = await fetch('/api/keys/reset', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ keyId })
+      });
+
+      const data = await res.json();
+
+      if (data.status === 'success') {
+        // Store the new API key
+        localStorage.setItem('apiKey', data.apiKey);
+        setStoredApiKey(data.apiKey);
+        setCreatedKey(data);
+        // Refresh key list
+        const listRes = await fetch('/api/keys/list');
+        const listData = await listRes.json();
+        if (listData.status === 'success') {
+          setKeys(listData.keys);
+        }
+        alert('✅ API key has been reset! Your new key is displayed below. Make sure to copy it.');
+      } else {
+        alert('Error: ' + data.error);
+      }
+    } catch (error) {
+      alert('Failed to reset API key');
+    } finally {
+      setResettingKeyId(null);
     }
   };
 
@@ -254,14 +306,16 @@ export default function Dashboard({ user, apiKeys, usageStats, recentBanners }) 
 
             {/* API Keys */}
             <section className={styles.section}>
-              <div className={styles.sectionHeader}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                 <h2 className={styles.sectionTitle}>🔑 API Keys</h2>
-                <button 
-                  onClick={() => setShowCreateKeyModal(true)}
-                  className={styles.primaryBtn}
-                >
-                  + Create New Key
-                </button>
+                {keys.filter(k => k.isActive).length === 0 && (
+                  <button 
+                    onClick={() => setShowCreateKeyModal(true)}
+                    className={styles.primaryBtn}
+                  >
+                    + Create New Key
+                  </button>
+                )}
               </div>
 
               <div className={styles.keysList}>
@@ -275,7 +329,21 @@ export default function Dashboard({ user, apiKeys, usageStats, recentBanners }) 
                       <div className={styles.keyHeader}>
                         <div>
                           <h3 className={styles.keyName}>{key.name}</h3>
-                          <code className={styles.keyPrefix}>{key.prefix}...</code>
+                          {/* Show full API key if stored, otherwise show prefix */}
+                          {storedApiKey && key.isActive ? (
+                            <div className={styles.fullKeyDisplay}>
+                              <code className={styles.keyFull}>{storedApiKey}</code>
+                              <button
+                                onClick={() => copyToClipboard(storedApiKey, `fullkey-${key.id}`)}
+                                className={styles.copyKeyBtn}
+                                title="Copy full API key"
+                              >
+                                {copiedText === `fullkey-${key.id}` ? '✓' : '📋'}
+                              </button>
+                            </div>
+                          ) : (
+                            <code className={styles.keyPrefix}>{key.prefix}...</code>
+                          )}
                         </div>
                         {key.isActive ? (
                           <span className={styles.badge}>Active</span>
@@ -302,11 +370,20 @@ export default function Dashboard({ user, apiKeys, usageStats, recentBanners }) 
 
                       {key.isActive && (
                         <div className={styles.keyActions}>
+                          {storedApiKey && (
+                            <button
+                              onClick={() => copyToClipboard(storedApiKey, `copykey-${key.id}`)}
+                              className={styles.secondaryBtn}
+                            >
+                              {copiedText === `copykey-${key.id}` ? '✓ Copied' : 'Copy Full Key'}
+                            </button>
+                          )}
                           <button
-                            onClick={() => copyToClipboard(key.prefix, `key-${key.id}`)}
+                            onClick={() => handleResetKey(key.id, key.name)}
                             className={styles.secondaryBtn}
+                            disabled={resettingKeyId === key.id}
                           >
-                            {copiedText === `key-${key.id}` ? '✓ Copied' : 'Copy Prefix'}
+                            {resettingKeyId === key.id ? 'Resetting...' : 'Reset Key'}
                           </button>
                           <button
                             onClick={() => handleRevokeKey(key.id, key.name)}

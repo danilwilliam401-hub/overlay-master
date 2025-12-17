@@ -147,10 +147,20 @@ export const authOptions = {
       // Auto-verify email for Google OAuth users
       if (account?.provider === 'google') {
         try {
-          await prisma.user.update({
+          // Use upsert to handle both new and existing users
+          await prisma.user.upsert({
             where: { email: user.email.toLowerCase() },
-            data: { emailVerified: new Date() }
+            update: { 
+              emailVerified: new Date() 
+            },
+            create: {
+              email: user.email.toLowerCase(),
+              name: user.name,
+              image: user.image,
+              emailVerified: new Date()
+            }
           });
+          console.log(`✅ Auto-verified email for Google user: ${user.email}`);
         } catch (error) {
           console.error('Failed to auto-verify Google user email:', error);
         }

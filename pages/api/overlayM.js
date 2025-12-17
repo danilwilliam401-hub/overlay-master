@@ -3,8 +3,8 @@ import https from 'https';
 import http from 'http';
 import path from 'path';
 import fs from 'fs';
-import { protectApiRoute } from '../../lib/apiKeyAuth';
-import { logUsage } from './usage/log';
+//import { protectApiRoute } from '../../lib/apiKeyAuth';
+//import { logUsage } from './usage/log';
 
 // Force Node.js runtime (crucial for Sharp + fontconfig)
 export const runtime = 'nodejs';
@@ -2207,11 +2207,61 @@ const tagalogQuotes = [
         'electric-blue': '#1E90FF',
         'softyellow': '#F4E04D',
         'soft-yellow': '#F4E04D',
-        'lavender': '#C084FC'
+        'lavender': '#C084FC',
+        'limegreen': '#00FF4C',
+        'lime-green': '#00FF4C',
+        'lime': '#00FF4C',
+        'red': '#FF0000',
+        'royalblue': '#003CFF',
+        'royal-blue': '#003CFF',
+        'magenta': '#FF00C8',
+        'vibrantyellow': '#FFEA00',
+        'vibrant-yellow': '#FFEA00',
+        'gray': '#E0E0E0',
+        'grey': '#E0E0E0',
+        'lightgray': '#D3D3D3',
+        'lightgrey': '#D3D3D3',
+        'silver': '#C0C0C0',
+        'white': '#FFFFFF'
       };
       
       const normalizedColor = wcParam.toLowerCase().replace(/\s+/g, '');
       websiteColorOverride = colorMap[normalizedColor] || wcParam.trim();
+    }
+    
+    // Parse line color parameter (lc) for horizontal lines around website text
+    const lcParam = rawParams.lc || '';
+    let lineColor = '#FF8C00'; // Default to orange
+    if (lcParam) {
+      // Use same color mapping as website color
+      const colorMap = {
+        'gold': '#FFD700',
+        'orange': '#FF8C00',
+        'cyan': '#00FFFF',
+        'electricblue': '#1E90FF',
+        'electric-blue': '#1E90FF',
+        'softyellow': '#F4E04D',
+        'soft-yellow': '#F4E04D',
+        'lavender': '#C084FC',
+        'limegreen': '#00FF4C',
+        'lime-green': '#00FF4C',
+        'lime': '#00FF4C',
+        'red': '#FF0000',
+        'royalblue': '#003CFF',
+        'royal-blue': '#003CFF',
+        'magenta': '#FF00C8',
+        'vibrantyellow': '#FFEA00',
+        'vibrant-yellow': '#FFEA00',
+        'gray': '#E0E0E0',
+        'grey': '#E0E0E0',
+        'lightgray': '#D3D3D3',
+        'lightgrey': '#D3D3D3',
+        'silver': '#C0C0C0',
+        'white': '#FFFFFF'
+      };
+      
+      const normalizedColor = lcParam.toLowerCase().replace(/\s+/g, '');
+      lineColor = colorMap[normalizedColor] || lcParam.trim();
     }
     
     // Check if we should use quote designs and generate random quotes
@@ -2434,11 +2484,48 @@ const tagalogQuotes = [
     // Function to detect emphasis keywords and create highlight segments with multi-color support
     function parseHighlights(text, maxHighlights = 3) {
       // Common emphasis keywords to automatically highlight (fallback list)
-      const emphasisKeywords = [
-        'NEW', 'FREE', 'NOW','HEALTH','HOLIDAY', 'EXCLUSIVE', 'BREAKING', 'ALERT', 'LIMITED',
-        'SALE', 'HOT', 'TRENDING', 'VIRAL', 'LIVE', 'TODAY', 'URGENT',
-        'SPECIAL', 'BONUS', 'WIN', 'BEST', 'TOP', 'AMAZING', 'INCREDIBLE'
-      ];
+   const emphasisKeywords = [
+  '120HZ', '144HZ', '5G READY', 'ADVANCED', 'AI CAMERA', 'AI ENHANCED', 'AI FEATURES',
+  'AI POWERED', 'AI SMART MODE', 'AI-READY', 'AI-GENERATED', 'COPYRIGHTED', 'COPYRIGHT', 'PROBE', 'PROBES', 'ALERT', 'AMAZING', 'AMOLED', 'ANTUTU SCORE',
+  'BATTERY BOOST', 'BATTERY DRAIN TEST', 'BATTERY TEST', 'BENCHMARK', 'BETA', 'BEST',
+  'BEZEL-LESS DISPLAY', 'BIG UPDATE', 'BLUETOOTH 5.4', 'BONUS', 'BOOSTED', 'BREAKING',
+  'BREAKING TECH', 'BREAKTHROUGH', 'BUDGET KING', 'CAMERA SAMPLES', 'CAMERA TEST',
+  'CAMERA UPGRADE', 'CERTIFICATION SPOTTED', 'CHARGING TEST', 'CHIPSET UPGRADE',
+  'CHROMEBOOK', 'COMING SOON', 'CONFIRMED', 'CRITICAL UPDATE', 'CURVED DISPLAY',
+  'CLOUD POWERED', 'CPU BOOST', 'DEVICE', 'DISPLAY TECH', 'DOLBY ATMOS', 'DONT MISS',
+  'DURABILITY', 'EARLY ACCESS', 'ECO TECH', 'ENHANCED', 'ESPORTS READY', 'EXCLUSIVE',
+  'FAST CHARGING', 'FEATURED', 'FCC LISTING', 'FIRMWARE', 'FIRST IMPRESSIONS',
+  'FIRST LOOK', 'FIRST SALE', 'FIRST IN PH', 'FLASH DEAL', 'FOLDABLE TECH', 'FREE',
+  'FULL REVIEW', 'GADGET', 'GAMING MODE', 'GAMING RIG', 'GAMING TEST', 'GAME CHANGER',
+  'GEEKBENCH SCORE', 'GEN', 'GLOBAL LAUNCH', 'GRAPHICS POWER', 'GREEN TECH',
+  'HANDS-ON', 'HANDS-ON REVIEW', 'HDR10+', 'HIGHLIGHT', 'HI-RES AUDIO', 'HOT', 
+  'HOT DEAL', 'HOT UPDATE', 'INCREDIBLE', 'INNOVATION', 'INSANE', 'IP68 WATERPROOF',
+  'IP54 DUSTPROOF', 'IR BLASTER', 'JUST IN', 'LAUNCH', 'LAUNCH EVENT', 'LEAKED',
+  'LEAKED PHOTOS', 'LEAKED RENDERS', 'LATEST TECH', 'LATEST UPDATE', 'LAPTOP',
+  'LIMITED', 'LIMITED STOCK', 'LIVE', 'MAJOR UPGRADE', 'MAX', 'MEGA SALE', 'MEDIATEK',
+  'MODEL APPROVED', 'MUST SEE', 'NFC', 'NEW', 'NEW FEATURE', 'NEW MODEL APPROVED',
+  'NEW UPDATE', 'NEXT GEN', 'NIGHT MODE BOOST', 'NOW', 'OFFICIAL', 'OFFICIAL IMAGES',
+  'ON-DEVICE AI', 'OPTIMIZED', 'PATCH', 'PATCH NOTES', 'PC-LEVEL POWER',
+  'PERFORMANCE', 'PERFORMANCE MODE', 'PERISCOPE CAMERA', 'PH LAUNCH', 'PLUS',
+  'PREORDER', 'PRICE DROP', 'PRO', 'RAY TRACING', 'REAL-WORLD TEST', 'REVEALED',
+  'REVOLUTIONARY', 'ROLLING OUT', 'RTX POWERED', 'SALE', 'SATELLITE CONNECTIVITY',
+  'SATELLITE SOS', 'SECURITY PATCH', 'SLIM BEZELS', 'SMARTPHONE', 'SMARTWATCH',
+  'SNAPDRAGON', 'SOFTWARE UPDATE', 'SPECS', 'SPECIAL', 'SPOTLIGHT', 'STABLE',
+  'STARTS NOW', 'STEAL PRICE', 'STEREO SPEAKERS', 'SUPERCHARGE', 'SUPERCHARGED',
+  'SUSTAINABLE TECH', 'SYSTEM UPDATE', 'TABLET', 'TECH', 'TECH ALERT',
+  'TEARDOWN', 'TENAA LISTING', 'THERMAL BOOST', 'THERMAL TEST', 'TOP', 'TRENDING',
+  'TRENDING TECH', 'TURBO CHARGE', 'TURBO MODE', 'TYPE-C', 'UFS 4.0', 'ULTRA',
+  'ULTRA CLEAR', 'ULTRA WIDE', 'ULTIMATE', 'UNBELIEVABLE', 'UNBOXING', 'UPDATE',
+  'URGENT', 'USB-C', 'VIRAL', 'WATERPROOF', 'WEARABLE', 'WIFI 7', 'WIN', 
+  
+    // Breaking/Attention-Grabbing Keywords
+  'BREAKING', 'SHOCKING', 'ALERT', 'MUST SEE', 'UNBELIEVABLE', 'VIRAL', 'OMG', 'CAN’T MISS', 'TRENDING NOW', 'EXCLUSIVE', 'HOT NEWS', 'LATEST', 'NEWSFLASH', 'SENSATIONAL', 'WOW', 'UPDATE', 'INSANE', 'EPIC', 'BREAKTHROUGH',
+    'US', 'SHOCKER', 'REVEALED', 'SECRET', 'TOP SECRET', 'LEAKED', 'EXPOSED', 'MIND-BLOWING', 'GAME-CHANGER',
+  'CHINA', 'JAPAN', 'KOREA', 'EUROPE', 'INDIA', 'RUSSIA', 'BRAZIL', 'CANADA', 'AUSTRALIA', 'UK', 'GERMANY', 'FRANCE', 'ITALY', 'SPAIN', 'MEXICO', 'SINGAPORE', 'MALAYSIA', 'THAILAND', 'VIETNAM',
+  'PHILIPPINES', 'INDONESIA', 'SAUDI ARABIA', 'UAE', 'SOUTH AFRICA',
+   
+  'WOW'
+];
       
       // Stopwords to ignore
       const stopwords = new Set([
@@ -2967,9 +3054,9 @@ const tagalogQuotes = [
           
           /* Generate dynamic highlight color classes from URL parameter or use defaults */
           ${(() => {
-            const defaultColors = ['#FFD700', '#FF8C00', '#00FFFF', '#1E90FF', '#F4E04D', '#C084FC'];
+            const defaultColors = ['#FFD700', '#FF8C00', '#00FFFF', '#1E90FF', '#F4E04D', '#C084FC', '#00FF4C', '#FF0000', '#003CFF', '#FF00C8', '#FFEA00'];
             const colors = highlightColors.length > 0 ? highlightColors : defaultColors;
-            return colors.slice(0, 6).map((color, idx) => {
+            return colors.slice(0, 11).map((color, idx) => {
               // Extract RGB for glow effect
               const hexToRgb = (hex) => {
                 const result = /^#?([a-f\\d]{2})([a-f\\d]{2})([a-f\\d]{2})$/i.exec(hex);
@@ -3160,10 +3247,11 @@ const tagalogQuotes = [
           
           // For bebas design with highlights enabled, parse and render with tspan
           if (design === 'bebas' && selectedDesign.enableHighlight) {
-            // Default color palette (Gold, Orange, Cyan, Electric Blue, Soft Yellow, Lavender)
-            const defaultColors = ['#FFD700', '#FF8C00', '#00FFFF', '#1E90FF', '#F4E04D', '#C084FC'];
+            // Extended color palette with more vibrant emphasis colors
+            // Gold, Orange, Cyan, Electric Blue, Soft Yellow, Lavender, Lime Green, Red, Royal Blue, Magenta, Vibrant Yellow
+            const defaultColors = ['#FFD700', '#FF8C00', '#00FFFF', '#1E90FF', '#F4E04D', '#C084FC', '#00FF4C', '#FF0000', '#003CFF', '#FF00C8', '#FFEA00'];
             const colors = highlightColors.length > 0 ? highlightColors : defaultColors;
-            const maxHighlights = Math.min(colors.length, 6); // Limit to 6 highlights
+            const maxHighlights = Math.min(colors.length, 11); // Increased to support more highlights
             
             // Get font attributes from design config for explicit tspan attributes
             const fontFamily = selectedDesign.fontFamily || 'Bebas Neue';
@@ -3202,8 +3290,30 @@ const tagalogQuotes = [
         <rect x="${padding}" y="${Math.round(titleEndY + 10)}" width="${contentWidth}" height="4" fill="${selectedDesign.websiteColor}"/>
         ` : ''}
         
-        <!-- Website Text - Dynamically positioned with design styling -->
-        ${website ? `<text x="${Math.round(targetWidth / 2)}" y="${Math.round(websiteY)}" class="website-text ${design === 'pokemon' ? 'pokemon-website' : ''} ${design === 'bold' ? 'bold-website' : ''} ${design === 'boldblue' ? 'boldblue-website' : ''} ${['boldblue', 'bold', 'energetic', 'popart', 'viral'].includes(design) ? 'bold-text' : ''}">${websiteText}</text>` : ''}
+        <!-- Website Text with Horizontal Lines - Centered with decorative lines -->
+        ${website ? (() => {
+          // Calculate text width estimation for centering
+          const estimatedTextWidth = websiteText.length * selectedDesign.websiteSize * 0.6;
+          const lineLength = Math.min(200, (targetWidth - estimatedTextWidth - 100) / 2); // Length of each line
+          const lineY = Math.round(websiteY);
+          const lineThickness = 3; // Thickness of the lines
+          const gapFromText = 20; // Gap between line and text
+          
+          // Calculate positions
+          const textX = Math.round(targetWidth / 2);
+          const leftLineEnd = Math.round(textX - estimatedTextWidth / 2 - gapFromText);
+          const leftLineStart = Math.round(leftLineEnd - lineLength);
+          const rightLineStart = Math.round(textX + estimatedTextWidth / 2 + gapFromText);
+          const rightLineEnd = Math.round(rightLineStart + lineLength);
+
+          return `
+        <!-- Decorative lines around website text -->
+        <line x1="${leftLineStart}" y1="${lineY}" x2="${leftLineEnd}" y2="${lineY}" stroke="${lineColor}" stroke-width="${lineThickness}" stroke-linecap="round"/>
+        <line x1="${rightLineStart}" y1="${lineY}" x2="${rightLineEnd}" y2="${lineY}" stroke="${lineColor}" stroke-width="${lineThickness}" stroke-linecap="round"/>
+        
+        <text x="${textX}" y="${Math.round(websiteY)}" class="website-text ${design === 'pokemon' ? 'pokemon-website' : ''} ${design === 'bold' ? 'bold-website' : ''} ${design === 'boldblue' ? 'boldblue-website' : ''} ${['boldblue', 'bold', 'energetic', 'popart', 'viral'].includes(design) ? 'bold-text' : ''}" text-anchor="middle">${websiteText}</text>
+        `;
+        })() : ''}
         
         ${design === 'warmbrown' ? `
         <!-- Warm brown vignette overlay for depth -->

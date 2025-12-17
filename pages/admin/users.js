@@ -10,9 +10,50 @@ export default function AdminUsers({ users, stats }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('createdAt');
   const [sortOrder, setSortOrder] = useState('desc');
+  const [userList, setUserList] = useState(users);
+  const [verifyingUserId, setVerifyingUserId] = useState(null);
+
+  const handleVerifyEmail = async (userId) => {
+    if (!confirm('Are you sure you want to verify this user\'s email?')) {
+      return;
+    }
+
+    setVerifyingUserId(userId);
+    
+    try {
+      const response = await fetch('/api/admin/verify-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Update the user list
+        setUserList(prevUsers =>
+          prevUsers.map(user =>
+            user.id === userId
+              ? { ...user, emailVerified: true }
+              : user
+          )
+        );
+        alert('Email verified successfully!');
+      } else {
+        alert(`Error: ${data.error}`);
+      }
+    } catch (error) {
+      console.error('Error verifying email:', error);
+      alert('Failed to verify email');
+    } finally {
+      setVerifyingUserId(null);
+    }
+  };
 
   // Filter and sort users
-  const filteredUsers = users
+  const filteredUsers = userList
     .filter(user => 
       user.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.name?.toLowerCase().includes(searchTerm.toLowerCase())
@@ -87,7 +128,6 @@ export default function AdminUsers({ users, stats }) {
           </div>
         </div>
       </div>
-
       {/* Search and Filters */}
       <div className={styles.controls}>
         <input
@@ -98,7 +138,7 @@ export default function AdminUsers({ users, stats }) {
           className={styles.searchInput}
         />
         <div className={styles.resultCount}>
-          Showing {filteredUsers.length} of {users.length} users
+          Showing {filteredUsers.length} of {userList.length} users
         </div>
       </div>
 
@@ -126,6 +166,7 @@ export default function AdminUsers({ users, stats }) {
                 Banners {sortBy === 'bannersCount' && (sortOrder === 'asc' ? '↑' : '↓')}
               </th>
               <th>Last Activity</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -152,6 +193,18 @@ export default function AdminUsers({ users, stats }) {
                 </td>
                 <td className={styles.dateCell}>
                   {user.lastActivity ? formatDate(user.lastActivity) : '-'}
+                </td>
+                <td className={styles.actionsCell}>
+                  {!user.emailVerified && (
+                    <button
+                      onClick={() => handleVerifyEmail(user.id)}
+                      disabled={verifyingUserId === user.id}
+                      className={styles.verifyButton}
+                      title="Verify email"
+                    >
+                      {verifyingUserId === user.id ? '⏳' : '✓ Verify'}
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
