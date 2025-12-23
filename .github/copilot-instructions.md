@@ -66,10 +66,11 @@ openssl rand -base64 32
 
 ### Database Schema (Prisma)
 - **Provider**: SQLite dev, PostgreSQL prod (change `provider` in `prisma/schema.prisma`)
-- **Core Models**: `User`, `ApiKey`, `Banner`, `Subscription`, `Payment`, `Invoice`, `ApiUsage`
-- **Relations**: User → ApiKeys → Banners, User → Subscriptions → Payments
+- **Core Models**: `User`, `ApiKey`, `Banner`, `Subscription`, `Payment`, `Invoice`, `ApiUsage`, `Template`
+- **Relations**: User → ApiKeys → Banners, User → Subscriptions → Payments, User → Templates
 - **Migrations**: Run `npx prisma migrate dev --name <name>` ONLY when dev server stopped (lock conflict)
 - **Admin Role**: `User.isAdmin` field - check before accessing `/pages/admin/*`
+- **Template Model**: Stores reusable banner designs with `uniqueUrl` (8-char hex) for API access via `/api/templates/{uniqueUrl}`
 
 ### Payment System
 - **PayMongo** (Philippines): `/api/payments/paymongo/*` - GCash, GrabPay, cards
@@ -94,6 +95,14 @@ npx prisma studio     # View/edit database
 npm run check-secrets # Pre-commit security scan (MUST run before commits)
 ```
 
+### Testing Features
+- **Preview Pages**: `/quote-test`, `/font-test`, `/long-text-test`, `/binary-test` for interactive testing
+- **Template Generator**: `/banner-template` - authenticated page to create/save reusable banner designs
+- **Direct API**: `/api/bundled-font-overlay?image=URL&title=Text&design=tech&w=1080&h=1350`
+- **Quote Modes**: Add `&val=babaeTagalog` to quote designs for auto-generated Tagalog quotes
+- **Binary Upload**: POST with `imageData` (base64) in JSON body
+- **Template API**: Access saved templates via `/api/templates/{uniqueUrl}` (no auth required once created)
+
 ### Database Operations
 ```bash
 # Stop dev server FIRST, then:
@@ -108,6 +117,7 @@ npx prisma generate   # After schema changes
 - **Direct API**: `/api/bundled-font-overlay?image=URL&title=Text&design=tech&w=1080&h=1350`
 - **Quote Modes**: Add `&val=babaeTagalog` to quote designs for auto-generated Tagalog quotes
 - **Binary Upload**: POST with `imageData` (base64) in JSON body
+- **Template Testing**: Create template at `/banner-template`, access via `/api/templates/{uniqueUrl}`
 
 ### Deployment (Vercel)
 - **Config**: `vercel.json` (if exists) and `next.config.js` configure serverless
@@ -355,6 +365,41 @@ export default async function handler(req, res) {
 - **Prisma Client**: Import `@prisma/client` directly, instantiate once per module
 - **Font System**: Fonts loaded once at module startup, shared across all requests via `fontBase64Cache`
 - **Rate Limiting**: Shared `rateLimitStore` Map in `lib/apiKeyAuth.js` (stateless in serverless - needs Redis)
+- **Template System**: User-created templates saved in DB, accessible via unique 8-char URL without authentication
+
+## Template System Workflow
+
+### Creating Templates (`/banner-template`)
+1. **Authentication**: Requires NextAuth session (protected via `getServerSideProps`)
+2. **Design Parameters**: User configures all banner settings (title, design, colors, dimensions)
+3. **Preview with Watermark**: Calls `/api/v1/secure-overlay?watermark=PREVIEW` to test design
+4. **Save Template**: POST to `/api/templates/create` generates unique URL (8-char hex: `crypto.randomBytes(4).toString('hex')`)
+5. **Template Storage**: Parameters saved as JSON string in `Template.parameters` field
+6. **Public Access**: Generated URL (`/api/templates/{uniqueUrl}`) can be used without authentication
+
+### Using Templates
+```javascript
+// Template creation response
+{
+  "uniqueUrl": "a3f8c9d2",
+  "apiUrl": "/api/templates/a3f8c9d2",
+  "fullUrl": "http://localhost:3001/api/templates/a3f8c9d2"
+}
+
+// Access template endpoint (no auth required)
+GET /api/templates/a3f8c9d2
+// Returns: Generated banner image with saved parameters
+// Can override: ?image=NEW_URL to change background
+
+// Load template in editor
+/banner-template?templateId=<template-id>
+```
+
+### V1 API Endpoints
+- **`/api/v1/secure-overlay`**: Enhanced overlay endpoint with watermark support (used by template preview)
+- **Template Creation**: `/api/templates/create` (POST, requires session)
+- **Template Listing**: `/api/templates/list` (GET, requires session)
+- **Template Public Access**: `/api/templates/{uniqueUrl}` (GET, no auth)
 
 ## Common Pitfalls
 
@@ -599,3 +644,5 @@ node -e "console.log(process.env.NEXTAUTH_SECRET ? 'Set' : 'Missing')"
 - `DESIGN_OVERVIEW.md` - UI design system, color palette, responsive breakpoints
 - `COMMIT_SAFETY.md` - Pre-commit checklist, security scanning
 - `DEPLOYMENT.md` - Vercel-specific fixes, parameter encoding issues
+- `TEMPLATE_GENERATOR_GUIDE.md` - Template system setup, API endpoints, workflow
+- `QUICK_START_DESIGN.md` - Design theme quick reference

@@ -695,6 +695,7 @@ export default async function handler(req, res) {
     let website = '';
     let design = 'default';
     let val = ''; // New parameter for random quote generation
+    let watermark = ''; // Watermark text for preview images
     let w = '1080';
     let h = '1350';
     
@@ -2182,6 +2183,8 @@ const tagalogQuotes = [
     if (val === '') {
       val = rawParams.val || '';
     }
+    // Extract watermark parameter
+    watermark = rawParams.watermark || '';
     // Support both 'image' and 'imgurl' parameters
     if (imageUrl === 'https://picsum.photos/800/600') {
       imageUrl = rawParams.image || rawParams.imgurl || imageUrl;
@@ -3213,6 +3216,24 @@ const tagalogQuotes = [
         ${design === 'bold' ? `
         <!-- Bold design vignette overlay for dramatic depth -->
         <rect width="100%" height="100%" class="bold-vignette"/>
+        ` : ''}
+        
+        ${watermark ? `
+        <!-- Watermark overlay for preview images -->
+        <rect width="100%" height="100%" fill="rgba(0,0,0,0.05)"/>
+        <text 
+          x="${Math.round(targetWidth / 2)}" 
+          y="${Math.round(targetHeight / 2)}" 
+          text-anchor="middle" 
+          font-family="Arial, sans-serif" 
+          font-size="48" 
+          font-weight="700" 
+          fill="rgba(255,255,255,0.3)" 
+          stroke="rgba(0,0,0,0.3)" 
+          stroke-width="2" 
+          transform="rotate(-30 ${Math.round(targetWidth / 2)} ${Math.round(targetHeight / 2)})"
+          style="letter-spacing: 4px;"
+        >${watermark}</text>
         ` : ''}
       </svg>
     `;

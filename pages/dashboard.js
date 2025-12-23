@@ -19,7 +19,7 @@ const prisma = new PrismaClient();
  * - Code snippets for API usage
  */
 
-export default function Dashboard({ user, apiKeys, usageStats, recentBanners }) {
+export default function Dashboard({ user, apiKeys, usageStats, templates, recentBanners }) {
   const [showCreateKeyModal, setShowCreateKeyModal] = useState(false);
   const [newKeyName, setNewKeyName] = useState('');
   const [newKeyLimit, setNewKeyLimit] = useState(60);
@@ -399,6 +399,100 @@ export default function Dashboard({ user, apiKeys, usageStats, recentBanners }) 
               </div>
             </section>
 
+            {/* Banner Templates */}
+            <section className={styles.section}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                <h2 className={styles.sectionTitle}>🎨 Banner Templates</h2>
+                <a 
+                  href="/banner-template"
+                  className={styles.primaryBtn}
+                  style={{ textDecoration: 'none', display: 'inline-block' }}
+                >
+                  + Create New Template
+                </a>
+              </div>
+
+              <div className={styles.keysList}>
+                {!templates || templates.length === 0 ? (
+                  <div className={styles.emptyState}>
+                    <p>No templates yet. Create your first template to get started!</p>
+                    <a href="/banner-template" style={{ marginTop: '10px', display: 'inline-block', padding: '10px 20px', backgroundColor: '#0070f3', color: 'white', borderRadius: '6px', textDecoration: 'none' }}>
+                      Create First Template
+                    </a>
+                  </div>
+                ) : (
+                  templates.map(template => (
+                    <div key={template.id} className={styles.keyCard}>
+                      <div className={styles.keyHeader}>
+                        <div>
+                          <h3 className={styles.keyName}>{template.name}</h3>
+                          <div style={{ display: 'flex', gap: '10px', marginTop: '8px' }}>
+                            <span style={{ fontSize: '13px', color: '#666' }}>Design: <strong>{template.design}</strong></span>
+                            <span style={{ fontSize: '13px', color: '#666' }}>•</span>
+                            <code className={styles.keyPrefix} style={{ fontSize: '12px', padding: '2px 8px' }}>{template.uniqueUrl}</code>
+                          </div>
+                        </div>
+                        <span className={styles.badge}>Active</span>
+                      </div>
+
+                      <div className={styles.keyStats}>
+                        <span>Created: {new Date(template.createdAt).toLocaleDateString()}</span>
+                        <span>•</span>
+                        <span>Updated: {new Date(template.updatedAt).toLocaleDateString()}</span>
+                      </div>
+
+                      <div style={{ marginTop: '12px', padding: '10px', backgroundColor: '#f9fafb', borderRadius: '6px' }}>
+                        <div style={{ fontSize: '11px', color: '#666', marginBottom: '4px' }}>API Endpoint:</div>
+                        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                          <code style={{ flex: 1, fontSize: '12px', fontFamily: 'monospace', color: '#374151', wordBreak: 'break-all' }}>
+                            {template.apiUrl}
+                          </code>
+                          <button
+                            onClick={() => {
+                              const fullUrl = `${window.location.origin}${template.apiUrl}`;
+                              copyToClipboard(fullUrl, `template-url-${template.id}`);
+                            }}
+                            className={styles.secondaryBtn}
+                            style={{ padding: '6px 12px', fontSize: '12px' }}
+                          >
+                            {copiedText === `template-url-${template.id}` ? '✓' : '📋'}
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className={styles.keyActions}>
+                        <a
+                          href={`/banner-template?templateId=${template.id}`}
+                          className={styles.secondaryBtn}
+                          style={{ textDecoration: 'none', display: 'inline-block', textAlign: 'center' }}
+                        >
+                          ✏️ Edit Template
+                        </a>
+                        <a
+                          href={template.apiUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.secondaryBtn}
+                          style={{ textDecoration: 'none', display: 'inline-block', textAlign: 'center' }}
+                        >
+                          🖼️ Preview
+                        </a>
+                        <button
+                          onClick={() => {
+                            const fullUrl = `${window.location.origin}${template.apiUrl}`;
+                            copyToClipboard(fullUrl, `template-copy-${template.id}`);
+                          }}
+                          className={styles.secondaryBtn}
+                        >
+                          {copiedText === `template-copy-${template.id}` ? '✓ Copied' : 'Copy URL'}
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            </section>
+
             {/* Code Examples */}
             <section className={styles.section}>
               <h2 className={styles.sectionTitle}>💻 How to Use Your API Key</h2>
@@ -695,6 +789,29 @@ export async function getServerSideProps(context) {
       })
     );
 
+    // Fetch user's templates
+    const templates = await prisma.template.findMany({
+      where: { userId: session.user.id },
+      select: {
+        id: true,
+        name: true,
+        design: true,
+        uniqueUrl: true,
+        createdAt: true,
+        updatedAt: true
+      },
+      orderBy: { createdAt: 'desc' },
+      take: 10
+    });
+
+    const templatesWithUrls = templates.map(t => ({
+      ...t,
+      createdAt: t.createdAt.toISOString(),
+      updatedAt: t.updatedAt.toISOString(),
+      apiUrl: `/api/templates/${t.uniqueUrl}`,
+      editUrl: `/banner-template?templateId=${t.id}`
+    }));
+
     // Get usage stats for last 7 days
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
@@ -764,6 +881,7 @@ export async function getServerSideProps(context) {
         },
         apiKeys: keysWithStats,
         usageStats,
+        templates: templatesWithUrls,
         recentBanners: [] // TODO: Add banner history if needed
       }
     };
